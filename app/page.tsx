@@ -229,7 +229,8 @@ export default function HomePage() {
             <div className="card accent">
               <div className="tag">{showSanitized ? "Version envoyée à ChatGPT" : "Version brute"}</div>
               <div className="demo-text">
-                <p>{showSanitized ? heroPreview.after : heroPreview.before}</p>
+                <p className={`demo-copy ${showSanitized ? "visible" : "hidden"}`}>{heroPreview.after}</p>
+                <p className={`demo-copy ${showSanitized ? "hidden" : "visible"}`}>{heroPreview.before}</p>
               </div>
               <div className="chips">
                 <span className="chip">{showSanitized ? "[Prénom]" : "Jean"}</span>

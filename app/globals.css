@@ -556,14 +556,24 @@ form .btn {
 }
 
 .demo-text {
-  min-height: 140px;
-  display: flex;
-  align-items: center;
+  position: relative;
+  min-height: 170px;
 }
 
-.demo-text p {
+.demo-copy {
+  position: absolute;
+  inset: 0;
   margin: 0;
-  width: 100%;
+  transition: opacity 0.25s ease;
+  opacity: 0;
+}
+
+.demo-copy.visible {
+  opacity: 1;
+}
+
+.demo-copy.hidden {
+  opacity: 0;
 }
 
 .faq.compact {
