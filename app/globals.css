@@ -260,7 +260,7 @@ p {
 }
 
 .hero-card .card {
-  min-height: 260px;
+  height: clamp(280px, 34vw, 360px);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -550,7 +550,8 @@ form .btn {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
-  min-height: 40px;
+  min-height: 48px;
+  align-items: center;
 }
 
 .chip {
@@ -566,6 +567,8 @@ form .btn {
 .demo-text {
   position: relative;
   min-height: 200px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .demo-copy {
@@ -574,6 +577,8 @@ form .btn {
   margin: 0;
   transition: opacity 0.25s ease;
   opacity: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .demo-copy.visible {
