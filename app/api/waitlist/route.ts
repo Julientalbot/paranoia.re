@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { sendWaitlistEmail } from "@/app/lib/email";
 
 export const runtime = "nodejs";
 
@@ -38,6 +39,11 @@ export async function POST(request: Request) {
     console.error("Supabase insert error", error);
     return NextResponse.json({ error: "Impossible d'enregistrer cet email pour le moment." }, { status: 500 });
   }
+
+  // Envoi email de bienvenue (non bloquant)
+  sendWaitlistEmail({ to: normalized }).catch((sendError) => {
+    console.error("Resend error", sendError);
+  });
 
   return NextResponse.json({ ok: true });
 }

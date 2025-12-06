@@ -32,3 +32,7 @@ create table if not exists public.waitlist (
 ```
 
 3. L'API POST `/api/waitlist` insère l'email (gère l'unicité). En local, le front appelle cette route via `fetch`.
+
+## Resend (email de bienvenue)
+
+Ajoute la variable d'environnement `RESEND_API_KEY` côté Vercel (et `.env.local` si besoin en local). L'API `/api/waitlist` envoie un email de remerciement via Resend après insertion dans Supabase (non bloquant si l'envoi échoue).
