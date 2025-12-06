@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 type Card = {
   title: string;
@@ -110,12 +110,20 @@ export default function HomePage() {
   const heroPreview = useMemo(
     () => ({
       before:
-        "Peux-tu résumer ce contrat signé avec Acme Corp (contact : julie.dupont@acme.com, clause 4.2 sur la sortie anticipée) et comparer aux clauses de notre template interne 2024 ?",
+        "Peux-tu résumer ce contrat signé avec Acme Corp ? Client : Jean Dupont (CTO, jean.dupont@acme.com). SIRET 123 456 789 00012. Inclure la clause 4.2 sur la sortie anticipée et comparer à notre template interne 2024.",
       after:
-        "Peux-tu résumer ce contrat signé avec [Client] (clause 4.2 sur la sortie anticipée) et comparer aux clauses de notre template interne 2024 ?"
+        "Peux-tu résumer ce contrat signé avec [Client]. Client : [Prénom] [Nom] (CTO, [Email]). SIRET [SIRET]. Inclure la clause 4.2 sur la sortie anticipée et comparer à notre template interne 2024."
     }),
     []
   );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowSanitized((prev) => !prev);
+    }, 3600);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -206,26 +214,14 @@ export default function HomePage() {
           </div>
 
           <div className="hero-card">
-            <div className="badge">Avant / après — maintenir pour comparer</div>
+            <div className="badge">Avant / après — bascule auto</div>
             <div className="card accent">
               <div className="tag">{showSanitized ? "Prompt envoyé à ChatGPT" : "Prompt brut"}</div>
               <p>{showSanitized ? heroPreview.after : heroPreview.before}</p>
             </div>
             <div className="demo-controls">
-              <button
-                className="btn secondary"
-                type="button"
-                onMouseDown={() => setShowSanitized(true)}
-                onMouseUp={() => setShowSanitized(false)}
-                onMouseLeave={() => setShowSanitized(false)}
-                onTouchStart={() => setShowSanitized(true)}
-                onTouchEnd={() => setShowSanitized(false)}
-              >
-                {showSanitized ? "Relâcher pour voir le brut" : "Maintenir pour voir la version envoyée"}
-              </button>
-              <span className="muted mini">
-                Données masquées : email, nom, entreprise. C&apos;est cette version qui part vers ChatGPT.
-              </span>
+              <div className="pill">{showSanitized ? "Version envoyée (données masquées)" : "Version brute (avant Paranoia)"}</div>
+              <span className="muted mini">Bascule auto toutes les ~4s. Les placeholders remplacent les données sensibles (nom, prénom, email, SIRET).</span>
             </div>
             <div className="list" style={{ marginTop: 12 }}>
               <div className="pill">Détection PII</div>
