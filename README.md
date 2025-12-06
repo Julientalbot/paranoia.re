@@ -1,1 +1,1 @@
-# paranoia
+# paranoia.re
