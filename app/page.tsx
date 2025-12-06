@@ -224,11 +224,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hero-card">
-            <div className="badge">Avant / après</div>
+            <div className="hero-card">
+              <div className="badge">Avant / après</div>
             <div className="card accent">
               <div className="tag">{showSanitized ? "Version envoyée à ChatGPT" : "Version brute"}</div>
-              <p>{showSanitized ? heroPreview.after : heroPreview.before}</p>
+              <div className="demo-text">
+                <p>{showSanitized ? heroPreview.after : heroPreview.before}</p>
+              </div>
               <div className="chips">
                 <span className="chip">{showSanitized ? "[Prénom]" : "Jean"}</span>
                 <span className="chip">{showSanitized ? "[Nom]" : "Dupont"}</span>

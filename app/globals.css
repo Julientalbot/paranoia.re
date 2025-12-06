@@ -555,6 +555,17 @@ form .btn {
   font-size: 13px;
 }
 
+.demo-text {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+}
+
+.demo-text p {
+  margin: 0;
+  width: 100%;
+}
+
 .faq.compact {
   margin-top: 18px;
   display: grid;
