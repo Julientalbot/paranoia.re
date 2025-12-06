@@ -14,6 +14,7 @@ npm run dev
 - Copie et UI en français, focalisées sur la beta privée.
 - Formulaire email branché sur Supabase (table `waitlist`), en POST via l'API route.
 - Pas de stockage côté Paranoia : tout le contenu reste local sur le poste utilisateur (rappelé dans la page). Le waitlist est stocké dans Supabase.
+- Logo : `public/logo-paranoia.svg` (utilisé en header et comme favicon). Palette : fond bleu nuit (#0a0f1f), accents mint (#2de8da) et bleu lavande (#7b8fff).
 
 ## Supabase (waitlist)
 

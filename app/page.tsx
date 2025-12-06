@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FormEvent, useMemo, useState } from "react";
 
 type Card = {
@@ -153,7 +154,7 @@ export default function HomePage() {
       <div className="container">
         <header>
           <a className="logo" href="#">
-            <span className="logo-mark">P</span>
+            <Image src="/logo-paranoia.svg" alt="Paranoia logo" width={40} height={40} priority />
             <span>Paranoia</span>
           </a>
           <a className="header-cta" href="#cta">

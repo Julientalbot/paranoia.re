@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Paranoia logo">
+  <defs>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f1848" />
+      <stop offset="100%" stop-color="#0a0f2e" />
+    </linearGradient>
+    <linearGradient id="mark" x1="30%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#1c2d76" />
+      <stop offset="100%" stop-color="#0f173c" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#2de8da" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#0a0f2e" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="#0a0f1f" />
+  <rect width="512" height="512" fill="url(#glow)" />
+  <path
+    d="M256 32 96 92v198c0 112 82 206 160 238 78-32 160-126 160-238V92L256 32Z"
+    fill="url(#shield)"
+    stroke="#0f1848"
+    stroke-width="6"
+  />
+  <ellipse cx="256" cy="186" rx="128" ry="88" fill="#f7f8fb" />
+  <circle cx="256" cy="186" r="52" fill="#0c1545" />
+  <path
+    d="M212 248h80c50 0 76 26 76 68 0 44-30 68-78 68h-42v72h-36Z"
+    fill="url(#mark)"
+  />
+  <path
+    d="M352 332 337 356l-29 2 21 20-6 29 26-14 26 14-6-29 21-20-29-2Z"
+    fill="#2de8da"
+  />
+</svg>

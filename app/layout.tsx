@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Paranoia — ChatGPT en entreprise, sans fuite de données",
   description:
     "Paranoia détecte et protège les données sensibles dans vos prompts avant d'interroger les LLM américains. Extension + proxy + console admin, traitement local-only.",
+  icons: {
+    icon: "/logo-paranoia.svg",
+    shortcut: "/logo-paranoia.svg"
+  },
   alternates: {
     canonical: "https://paranoia.re"
   }

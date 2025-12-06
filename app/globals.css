@@ -1,13 +1,13 @@
 :root {
-  --bg: #060b16;
+  --bg: #0a0f1f;
   --card: rgba(255, 255, 255, 0.04);
   --card-strong: rgba(255, 255, 255, 0.08);
   --border: rgba(255, 255, 255, 0.08);
-  --text: #f5f7fb;
-  --muted: rgba(245, 247, 251, 0.78);
-  --accent: #6df3c2;
-  --accent-strong: #2bffe0;
-  --secondary: #76a8ff;
+  --text: #f3f6ff;
+  --muted: rgba(243, 246, 255, 0.78);
+  --accent: #2de8da;
+  --accent-strong: #5df6ed;
+  --secondary: #7b8fff;
   --danger: #f59fb2;
 }
 
@@ -17,8 +17,9 @@
 
 body {
   margin: 0;
-  background: radial-gradient(circle at 15% 20%, rgba(118, 168, 255, 0.13), transparent 32%),
-    radial-gradient(circle at 80% 0%, rgba(109, 243, 194, 0.12), transparent 28%), var(--bg);
+  background: radial-gradient(circle at 20% 15%, rgba(125, 140, 255, 0.12), transparent 32%),
+    radial-gradient(circle at 80% 10%, rgba(45, 232, 218, 0.12), transparent 28%),
+    radial-gradient(circle at 50% 90%, rgba(41, 56, 109, 0.4), transparent 50%), var(--bg);
   color: var(--text);
   font-family: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
   line-height: 1.6;
@@ -85,17 +86,11 @@ header {
   color: var(--text);
 }
 
-.logo-mark {
-  width: 36px;
-  height: 36px;
+.logo img {
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--secondary), var(--accent));
-  display: grid;
-  place-items: center;
-  color: #020710;
-  font-size: 18px;
-  font-weight: 800;
-  box-shadow: 0 10px 30px rgba(109, 243, 194, 0.35);
+  box-shadow: 0 12px 30px rgba(45, 232, 218, 0.25);
 }
 
 .header-cta {
@@ -191,6 +186,7 @@ p {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(10, 15, 31, 0.45);
 }
 
 .bullet strong {
