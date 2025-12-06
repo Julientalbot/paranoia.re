@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Sora } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const sora = Sora({
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`${sora.variable} ${manrope.variable}`}>
         <div className="app-shell">{children}</div>
+        <Analytics />
       </body>
     </html>
   );
