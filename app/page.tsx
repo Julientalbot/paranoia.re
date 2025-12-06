@@ -92,6 +92,11 @@ const faqs: FAQ[] = [
   {
     question: "Qui peut rejoindre la beta privée ?",
     answer: "Priorité aux équipes Sécurité, IT, Juridique, Produit/Data qui ont un usage actif de ChatGPT."
+  },
+  {
+    question: "Qu'est-ce que Paranoia ne fait pas ?",
+    answer:
+      "Paranoia ne copie pas vos données, ne garde pas d'historique de prompts côté cloud, et ne remplace pas les LLM américains : il sécurise leur usage."
   }
 ];
 
@@ -165,10 +170,10 @@ export default function HomePage() {
         <section className="hero">
           <div className="hero-copy">
             <span className="hero-eyebrow">Sécuriser ChatGPT en entreprise</span>
-            <h1>ChatGPT en entreprise, sans fuite.</h1>
+            <h1>Vos prompts restent en local. ChatGPT ne reçoit que le nécessaire.</h1>
             <p className="hero-sub">
-              Paranoia détecte et protège les données sensibles dans vos prompts, localement, avant de les envoyer
-              aux LLM américains. Anonymisation, pseudonymisation ou reformulation pour garder le sens intact.
+              Paranoia détecte et protège les données sensibles directement sur le poste utilisateur, avant d&apos;interroger
+              les LLM américains. Anonymisation, pseudonymisation ou reformulation pour garder le sens intact.
             </p>
             <div className="hero-bullets">
               <div className="bullet">
@@ -182,6 +187,10 @@ export default function HomePage() {
               <div className="bullet">
                 <strong>LLM-friendly</strong>
                 <span>On exploite ChatGPT, on n&apos;essaie pas de le remplacer.</span>
+              </div>
+              <div className="bullet">
+                <strong>Déjà en beta</strong>
+                <span>Tests avec des équipes Légal, Produit, Support.</span>
               </div>
             </div>
             <div className="hero-cta">
@@ -282,7 +291,7 @@ export default function HomePage() {
               <div>
                 <h2>Beta privée</h2>
                 <p className="muted">
-                  On ouvre par vagues pour accompagner les équipes. Laisse ton email, on te recontacte vite.
+                  On ouvre par vagues pour accompagner les équipes. Laisse ton email pro, on te recontacte vite.
                 </p>
               </div>
               <div className="pill">Local-only • Pas de stockage</div>
