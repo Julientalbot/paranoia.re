@@ -193,11 +193,8 @@ export default function HomePage() {
         <section className="hero">
           <div className="hero-copy">
             <span className="hero-eyebrow">Sécuriser ChatGPT en entreprise</span>
-            <h1>Vos prompts restent en local. ChatGPT ne reçoit que le nécessaire.</h1>
-            <p className="hero-sub">
-              Paranoia détecte et protège les données sensibles directement sur le poste utilisateur, avant d&apos;interroger
-              les LLM américains. Anonymisation, pseudonymisation ou reformulation pour garder le sens intact.
-            </p>
+            <h1>Vos prompts restent en local.</h1>
+            <p className="hero-sub">ChatGPT reçoit uniquement la version protégée : PII masquées, sens conservé.</p>
             <div className="hero-bullets">
               <div className="bullet">
                 <strong>Local-only</strong>
@@ -223,21 +220,30 @@ export default function HomePage() {
               <a className="btn secondary" href="#cta">
                 Être tenu informé
               </a>
-              <span className="mini">Ouverture par vagues. Réponse sous 48h.</span>
+              <span className="mini">Email pro • Pas de spam • Ouverture par vagues</span>
             </div>
           </div>
 
           <div className="hero-card">
-            <div className="badge">Avant / après — bascule auto</div>
+            <div className="badge">Avant / après</div>
             <div className="card accent">
-              <div className="tag">{showSanitized ? "Prompt envoyé à ChatGPT" : "Prompt brut"}</div>
+              <div className="tag">{showSanitized ? "Version envoyée à ChatGPT" : "Version brute"}</div>
               <p>{showSanitized ? heroPreview.after : heroPreview.before}</p>
+              <div className="chips">
+                <span className="chip">{showSanitized ? "[Prénom]" : "Jean"}</span>
+                <span className="chip">{showSanitized ? "[Nom]" : "Dupont"}</span>
+                <span className="chip">{showSanitized ? "[Email]" : "jean.dupont@acme.com"}</span>
+                <span className="chip">{showSanitized ? "[SIRET]" : "123 456 789 00012"}</span>
+              </div>
             </div>
             <div className="demo-controls">
-              <div className="pill">{showSanitized ? "Version envoyée (données masquées)" : "Version brute (avant Paranoia)"}</div>
+              <button className="btn secondary" type="button" onClick={() => setShowSanitized((prev) => !prev)}>
+                {showSanitized ? "Voir la version brute" : "Voir la version envoyée"}
+              </button>
               <div className="demo-progress" aria-label="Progression avant bascule">
                 <div className="demo-progress__bar" style={{ width: `${progress}%` }} />
               </div>
+              <span className="muted mini">Seule la version masquée est envoyée à ChatGPT.</span>
             </div>
             <div className="list" style={{ marginTop: 12 }}>
               <div className="pill">Détection PII</div>
@@ -249,16 +255,25 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-header">
-            <h2>Pourquoi Paranoia</h2>
+            <h2>Paranoia en bref</h2>
             <span className="capsule">Beta privée en cours</span>
           </div>
           <div className="grid-3">
-            {highlights.map((item) => (
-              <div className="card" key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            ))}
+            <div className="card">
+              <div className="tag">Local-only</div>
+              <h3>Aucun serveur, zéro stockage</h3>
+              <p>Analyse et masquage sur le poste. Pas de copie cloud, pas de logs côté Paranoia.</p>
+            </div>
+            <div className="card">
+              <div className="tag">Surfaces</div>
+              <h3>Extension, Proxy, Console</h3>
+              <p>Extension pour l&apos;usage individuel, proxy pour contrôler les flux, console pour piloter les politiques.</p>
+            </div>
+            <div className="card">
+              <div className="tag">Pour les équipes</div>
+              <h3>Déjà en test</h3>
+              <p>Tests en beta avec Légal, Produit et Support. On ouvre par vagues pour un onboarding guidé.</p>
+            </div>
           </div>
         </section>
 
@@ -280,26 +295,11 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-header">
-            <h2>Surfaces produit</h2>
-            <p className="muted">Extension pour l&apos;usage individuel, proxy pour les flux, console pour gouverner.</p>
-          </div>
-          <div className="grid-3">
-            {surfaces.map((surface) => (
-              <div className="card" key={surface.title}>
-                <h3>{surface.title}</h3>
-                <p>{surface.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="section-header">
             <h2>FAQ express</h2>
-            <p className="muted">Rassurer Sécurité, IT et Juridique dès la première visite.</p>
+            <p className="muted">Les 3 questions clés Sécurité / IT.</p>
           </div>
           <div className="faq">
-            {faqs.map((item) => (
+            {faqs.slice(0, 3).map((item) => (
               <div className="faq-item" key={item.question}>
                 <h3>{item.question}</h3>
                 <p>{item.answer}</p>
@@ -317,7 +317,7 @@ export default function HomePage() {
                   On ouvre par vagues pour accompagner les équipes. Laisse ton email pro, on te recontacte vite.
                 </p>
               </div>
-              <div className="pill">Local-only • Pas de stockage</div>
+              <div className="pill">Local-only • Pas de stockage cloud</div>
             </div>
             <form onSubmit={handleSubmit}>
               <input
