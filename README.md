@@ -12,5 +12,22 @@ npm run dev
 ## Notes
 
 - Copie et UI en français, focalisées sur la beta privée.
-- Formulaire email uniquement : stub front. Brancher le backend (Resend ou autre) plus tard dans `app/page.tsx`.
-- Pas de stockage côté Paranoia : tout le contenu reste local sur le poste utilisateur (rappelé dans la page).
+- Formulaire email branché sur Supabase (table `waitlist`), en POST via l'API route.
+- Pas de stockage côté Paranoia : tout le contenu reste local sur le poste utilisateur (rappelé dans la page). Le waitlist est stocké dans Supabase.
+
+## Supabase (waitlist)
+
+1. Crée une base Supabase et ajoute deux variables d'environnement côté Vercel (ou `.env.local` pour dev) :
+   - `SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY` (service role key, uniquement côté serveur)
+2. Table minimale :
+
+```sql
+create table if not exists public.waitlist (
+  id uuid primary key default gen_random_uuid(),
+  email text unique not null,
+  created_at timestamptz default now()
+);
+```
+
+3. L'API POST `/api/waitlist` insère l'email (gère l'unicité). En local, le front appelle cette route via `fetch`.
