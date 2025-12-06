@@ -105,6 +105,7 @@ export default function HomePage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sliderValue, setSliderValue] = useState(58);
 
   const heroPreview = useMemo(
     () => ({
@@ -205,16 +206,30 @@ export default function HomePage() {
           </div>
 
           <div className="hero-card">
-            <div className="badge">Avant / après Paranoia</div>
-            <div className="card-grid">
-              <div className="card accent">
-                <div className="tag">Prompt brut</div>
-                <p>{heroPreview.before}</p>
+            <div className="badge">Avant / après — glisse pour comparer</div>
+            <div className="before-after">
+              <div className="ba-window">
+                <div className="ba-pane before">
+                  <div className="tag">Prompt brut</div>
+                  <p>{heroPreview.before}</p>
+                </div>
+                <div className="ba-pane after" style={{ width: `${sliderValue}%` }}>
+                  <div className="tag">Prompt envoyé à ChatGPT</div>
+                  <p>{heroPreview.after}</p>
+                </div>
+                <div className="ba-handle" style={{ left: `${sliderValue}%` }}>
+                  <span>glisse</span>
+                </div>
               </div>
-              <div className="card accent">
-                <div className="tag">Prompt envoyé à ChatGPT</div>
-                <p>{heroPreview.after}</p>
-              </div>
+              <input
+                className="ba-range"
+                type="range"
+                min={30}
+                max={100}
+                value={sliderValue}
+                onChange={(event) => setSliderValue(Number(event.target.value))}
+                aria-label="Comparer avant/après"
+              />
             </div>
             <div className="list" style={{ marginTop: 12 }}>
               <div className="pill">Détection PII</div>
@@ -315,6 +330,9 @@ export default function HomePage() {
           </div>
         </section>
       </div>
+      <a className="floating-badge" href="#cta">
+        Local-only • Pas de stockage
+      </a>
     </main>
   );
 }

@@ -187,6 +187,17 @@ p {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   box-shadow: 0 12px 32px rgba(10, 15, 31, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.bullet::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  box-shadow: 0 0 10px rgba(45, 232, 218, 0.4);
 }
 
 .bullet strong {
@@ -255,6 +266,89 @@ p {
   background: radial-gradient(circle at 20% 20%, rgba(109, 243, 194, 0.14), transparent 30%),
     radial-gradient(circle at 80% 30%, rgba(118, 168, 255, 0.14), transparent 35%);
   pointer-events: none;
+}
+
+.before-after {
+  display: grid;
+  gap: 12px;
+}
+
+.ba-window {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  min-height: 190px;
+}
+
+.ba-pane {
+  position: absolute;
+  inset: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ba-pane.before {
+  color: var(--muted);
+}
+
+.ba-pane.after {
+  background: linear-gradient(145deg, rgba(45, 232, 218, 0.12), rgba(118, 168, 255, 0.12));
+  border-right: 1px solid rgba(45, 232, 218, 0.35);
+  backdrop-filter: blur(2px);
+  width: 58%;
+  color: var(--text);
+}
+
+.ba-handle {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--secondary));
+  box-shadow: 0 0 18px rgba(45, 232, 218, 0.35);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  padding: 0 8px;
+}
+
+.ba-handle span {
+  writing-mode: vertical-rl;
+  font-size: 11px;
+  font-weight: 700;
+  color: #020710;
+  background: var(--text);
+  padding: 6px 6px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.ba-range {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.ba-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  border: 2px solid #020710;
+  box-shadow: 0 6px 16px rgba(45, 232, 218, 0.35);
+}
+
+.ba-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  border: 2px solid #020710;
+  box-shadow: 0 6px 16px rgba(45, 232, 218, 0.35);
 }
 
 .card-title {
@@ -447,6 +541,21 @@ form .btn {
   border-color: rgba(109, 243, 194, 0.3);
 }
 
+.floating-badge {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(10, 15, 31, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  z-index: 30;
+}
+
 .stacked {
   display: flex;
   flex-direction: column;
@@ -481,5 +590,11 @@ form .btn {
 
   form {
     grid-template-columns: 1fr;
+  }
+
+  .floating-badge {
+    right: 12px;
+    left: 12px;
+    text-align: center;
   }
 }
