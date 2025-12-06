@@ -158,7 +158,7 @@ export default function HomePage() {
               </div>
               <div className="bullet">
                 <strong>LLM-friendly</strong>
-                <span>On exploite ChatGPT, on n'essaie pas de le remplacer.</span>
+                <span>On exploite ChatGPT, on n&apos;essaie pas de le remplacer.</span>
               </div>
             </div>
             <div className="hero-cta">
@@ -226,7 +226,7 @@ export default function HomePage() {
         <section className="section">
           <div className="section-header">
             <h2>Surfaces produit</h2>
-            <p className="muted">Extension pour l'usage individuel, proxy pour les flux, console pour gouverner.</p>
+            <p className="muted">Extension pour l&apos;usage individuel, proxy pour les flux, console pour gouverner.</p>
           </div>
           <div className="grid-3">
             {surfaces.map((surface) => (
