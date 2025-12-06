@@ -255,8 +255,8 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-header">
-            <h2>Paranoia en bref</h2>
-            <span className="capsule">Beta privée en cours</span>
+            <h2>Pourquoi & comment</h2>
+            <span className="capsule">Beta privée</span>
           </div>
           <div className="grid-3">
             <div className="card">
@@ -270,19 +270,12 @@ export default function HomePage() {
               <p>Extension pour l&apos;usage individuel, proxy pour contrôler les flux, console pour piloter les politiques.</p>
             </div>
             <div className="card">
-              <div className="tag">Pour les équipes</div>
-              <h3>Déjà en test</h3>
-              <p>Tests en beta avec Légal, Produit et Support. On ouvre par vagues pour un onboarding guidé.</p>
+              <div className="tag">Déjà en test</div>
+              <h3>Avec Légal, Produit, Support</h3>
+              <p>Ouverture par vagues, onboarding guidé pour vos équipes.</p>
             </div>
           </div>
-        </section>
-
-        <section className="section">
-          <div className="section-header">
-            <h2>Comment ça marche</h2>
-            <p className="muted">Détecte → protège → transmet. Le tout sur le poste, sans stockage.</p>
-          </div>
-          <div className="grid-3">
+          <div className="grid-3" style={{ marginTop: 18 }}>
             {steps.map((step) => (
               <div className="card accent" key={step.title}>
                 <div className="tag">{step.title}</div>
@@ -291,19 +284,12 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="section">
-          <div className="section-header">
-            <h2>FAQ express</h2>
-            <p className="muted">Les 3 questions clés Sécurité / IT.</p>
-          </div>
-          <div className="faq">
+          <div className="faq compact">
             {faqs.slice(0, 3).map((item) => (
-              <div className="faq-item" key={item.question}>
-                <h3>{item.question}</h3>
+              <details key={item.question} open>
+                <summary>{item.question}</summary>
                 <p>{item.answer}</p>
-              </div>
+              </details>
             ))}
           </div>
         </section>

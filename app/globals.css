@@ -537,3 +537,43 @@ form .btn {
     text-align: center;
   }
 }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.chip {
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.faq.compact {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.faq.compact details {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.faq.compact summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.faq.compact p {
+  margin-top: 8px;
+}
