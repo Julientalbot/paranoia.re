@@ -259,6 +259,13 @@ p {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
 }
 
+.hero-card .card {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .hero-card::after {
   content: "";
   position: absolute;
@@ -543,6 +550,7 @@ form .btn {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
+  min-height: 40px;
 }
 
 .chip {
@@ -557,7 +565,7 @@ form .btn {
 
 .demo-text {
   position: relative;
-  min-height: 170px;
+  min-height: 200px;
 }
 
 .demo-copy {
