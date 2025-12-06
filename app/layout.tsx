@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   description:
     "Paranoia détecte et protège les données sensibles dans vos prompts avant d'interroger les LLM américains. Extension + proxy + console admin, traitement local-only.",
   icons: {
-    icon: "/logo-paranoia.svg",
-    shortcut: "/logo-paranoia.svg"
+    icon: "/logo_paranoia.png",
+    shortcut: "/logo_paranoia.png"
   },
   alternates: {
     canonical: "https://paranoia.re"

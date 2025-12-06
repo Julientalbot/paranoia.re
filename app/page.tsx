@@ -154,7 +154,7 @@ export default function HomePage() {
       <div className="container">
         <header>
           <a className="logo" href="#">
-            <Image src="/logo-paranoia.svg" alt="Paranoia logo" width={40} height={40} priority />
+            <Image src="/logo_paranoia.png" alt="Paranoia logo" width={40} height={40} priority />
             <span>Paranoia</span>
           </a>
           <a className="header-cta" href="#cta">
