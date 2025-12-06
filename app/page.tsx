@@ -235,7 +235,6 @@ export default function HomePage() {
             </div>
             <div className="demo-controls">
               <div className="pill">{showSanitized ? "Version envoyée (données masquées)" : "Version brute (avant Paranoia)"}</div>
-              <span className="muted mini">Bascule auto toutes les ~4s. Les placeholders remplacent les données sensibles (nom, prénom, email, SIRET).</span>
               <div className="demo-progress" aria-label="Progression avant bascule">
                 <div className="demo-progress__bar" style={{ width: `${progress}%` }} />
               </div>
