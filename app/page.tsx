@@ -106,6 +106,7 @@ export default function HomePage() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSanitized, setShowSanitized] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const heroPreview = useMemo(
     () => ({
@@ -118,9 +119,22 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setShowSanitized((prev) => !prev);
-    }, 3600);
+    const TOGGLE_MS = 4000;
+    let start = Date.now();
+
+    const tick = () => {
+      const now = Date.now();
+      const delta = now - start;
+      const pct = Math.min(100, (delta / TOGGLE_MS) * 100);
+      setProgress(pct);
+      if (delta >= TOGGLE_MS) {
+        setShowSanitized((prev) => !prev);
+        start = now;
+        setProgress(0);
+      }
+    };
+
+    const interval = setInterval(tick, 120);
 
     return () => clearInterval(interval);
   }, []);
@@ -222,6 +236,9 @@ export default function HomePage() {
             <div className="demo-controls">
               <div className="pill">{showSanitized ? "Version envoyée (données masquées)" : "Version brute (avant Paranoia)"}</div>
               <span className="muted mini">Bascule auto toutes les ~4s. Les placeholders remplacent les données sensibles (nom, prénom, email, SIRET).</span>
+              <div className="demo-progress" aria-label="Progression avant bascule">
+                <div className="demo-progress__bar" style={{ width: `${progress}%` }} />
+              </div>
             </div>
             <div className="list" style={{ marginTop: 12 }}>
               <div className="pill">Détection PII</div>
