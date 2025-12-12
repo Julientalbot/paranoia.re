@@ -15,6 +15,11 @@
   box-sizing: border-box;
 }
 
+*:focus-visible {
+  outline: 2px solid rgba(45, 232, 218, 0.85);
+  outline-offset: 3px;
+}
+
 body {
   margin: 0;
   background: radial-gradient(circle at 20% 15%, rgba(125, 140, 255, 0.12), transparent 32%),
@@ -29,6 +34,18 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 main {
@@ -293,8 +310,20 @@ p {
 
 .demo-progress__bar {
   height: 100%;
+  width: 100%;
   background: linear-gradient(90deg, var(--accent), var(--secondary));
-  transition: width 0.12s linear;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: demoProgress 4s linear infinite;
+}
+
+@keyframes demoProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .card-title {
@@ -453,6 +482,17 @@ input[type="email"] {
 
 input[type="email"]::placeholder {
   color: rgba(245, 247, 251, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-progress__bar {
+    animation: none;
+    transform: none;
+  }
+
+  .demo-copy {
+    transition: none;
+  }
 }
 
 form .btn {

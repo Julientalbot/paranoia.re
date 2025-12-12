@@ -5,12 +5,7 @@ if (!process.env.RESEND_API_KEY) {
   console.warn("RESEND_API_KEY is not set. Emails will not be sent.");
 }
 
-export const resend =
-  process.env.RESEND_API_KEY &&
-  new Resend(process.env.RESEND_API_KEY, {
-    // Disable parsing to let us provide raw params
-    enableWebhookVerification: false
-  });
+export const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 type SendWaitlistEmailParams = {
   to: string;
