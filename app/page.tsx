@@ -166,6 +166,13 @@ export default function HomePage() {
               <div className="pill">Local-only • Pas de stockage cloud</div>
             </div>
             <WaitlistForm />
+            <p className="hint">
+              Transparence :{" "}
+              <a className="inline-link" href="/rapports-incidents">
+                rapports d&apos;incidents (Sentry)
+              </a>
+              .
+            </p>
           </div>
         </section>
       </div>
