@@ -65,16 +65,16 @@ export default function HomePage() {
 
   return (
     <main>
+      <header>
+        <a className="logo" href="/" aria-label="Accueil">
+          <Image src="/logo_paranoia.png" alt="Paranoia logo" width={40} height={40} priority />
+          <span>Paranoia</span>
+        </a>
+        <a className="header-cta" href="#cta">
+          Beta privée en cours →
+        </a>
+      </header>
       <div className="container">
-        <header>
-          <a className="logo" href="/" aria-label="Accueil">
-            <Image src="/logo_paranoia.png" alt="Paranoia logo" width={40} height={40} priority />
-            <span>Paranoia</span>
-          </a>
-          <a className="header-cta" href="#cta">
-            Beta privée en cours →
-          </a>
-        </header>
 
         <section className="hero">
           <div className="hero-copy">
