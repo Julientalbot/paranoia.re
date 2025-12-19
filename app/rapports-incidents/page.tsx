@@ -33,6 +33,9 @@ export default function IncidentReportsPage() {
                 Pour améliorer la stabilité de Paranoia, nous utilisons Sentry (outil de suivi d&apos;erreurs).
                 L&apos;objectif est de diagnostiquer les crashs et bugs sans collecter de données personnelles.
               </p>
+              <p className="muted">
+                Finalité : diagnostic des bugs et mesure de stabilité par version. Base : intérêt légitime à assurer la sécurité et la fiabilité du service.
+              </p>
             </div>
             <span className="capsule">Conservation 90 jours</span>
           </div>
@@ -45,8 +48,20 @@ export default function IncidentReportsPage() {
               <ul className="list">
                 <li>Message d&apos;erreur et trace (stack trace)</li>
                 <li>Version de Paranoia (extension/plugin)</li>
-                <li>Données techniques (navigateur, OS, langue)</li>
+                <li>Données techniques (ex. user agent, navigateur/OS, langue)</li>
                 <li>Horodatage et identifiant d&apos;événement</li>
+              </ul>
+              <h4>Sessions (statistiques de stabilité)</h4>
+              <p>
+                En plus des rapports d&apos;erreurs, Paranoia envoie des événements de session à Sentry pour mesurer la stabilité
+                (ex. crash-free sessions) et suivre l&apos;impact des versions. Ces événements ne contiennent pas de contenu (prompts,
+                textes, pages consultées) ni d&apos;URL. Ils incluent uniquement :
+              </p>
+              <ul className="list">
+                <li>Un identifiant de session aléatoire (SID)</li>
+                <li>Un horodatage</li>
+                <li>Version (release) et environnement</li>
+                <li>Informations techniques de base (user agent / navigateur)</li>
               </ul>
             </div>
 
@@ -94,8 +109,10 @@ export default function IncidentReportsPage() {
             <details>
               <summary>Est-ce que mes prompts ou contenus sont envoyés ?</summary>
               <p>
-                Par défaut, non : Paranoia est conçu pour fonctionner en local. Dans un signalement manuel, le contenu que vous saisissez
-                volontairement peut être transmis ; pensez à retirer toute donnée sensible.
+                Par défaut, non : Paranoia est conçu pour fonctionner en local. Les envois automatiques concernent uniquement
+                des rapports techniques (erreurs) et des événements de session pour des statistiques de stabilité. Aucun contenu
+                (prompts, texte, pages/URL) n&apos;est transmis automatiquement. Dans un signalement manuel, le contenu que vous
+                saisissez volontairement peut être transmis ; pensez à retirer toute donnée sensible.
               </p>
             </details>
             <details>
@@ -126,4 +143,3 @@ export default function IncidentReportsPage() {
     </main>
   );
 }
-
