@@ -107,11 +107,15 @@ export default function HeroDemo({ before, after }: HeroDemoProps) {
 
         if (shouldScramble) {
           result += MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)];
-          setScrambleIndices(prev => new Set([...prev, i]));
+          setScrambleIndices(prev => {
+            const next = new Set(Array.from(prev));
+            next.add(i);
+            return next;
+          });
         } else {
           result += progress > 0.5 ? toChar : fromChar;
           setScrambleIndices(prev => {
-            const next = new Set(prev);
+            const next = new Set(Array.from(prev));
             next.delete(i);
             return next;
           });
