@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const sora = Sora({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sora",
-  weight: ["500", "600", "700"]
+  variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"]
 });
 
-const manrope = Manrope({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-mono",
   weight: ["400", "500", "600", "700"]
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "500", "600"]
 });
 
 export const metadata: Metadata = {
@@ -35,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${sora.variable} ${manrope.variable}`}>
+      <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable}`}>
         <div className="app-shell">{children}</div>
         <Analytics />
       </body>
