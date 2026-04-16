@@ -1,0 +1,22 @@
+name: Supabase Keepalive
+
+on:
+  schedule:
+    # Tous les 5 jours à 8h UTC (avant la limite de 7 jours d'inactivité du free tier)
+    - cron: "0 8 */5 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase via /api/ping
+        run: |
+          response=$(curl -sL -w "\n%{http_code}" https://paranoia.re/api/ping)
+          body=$(echo "$response" | head -n -1)
+          status=$(echo "$response" | tail -n 1)
+          echo "Status: $status"
+          echo "Body: $body"
+          if [ "$status" != "200" ]; then
+            exit 1
+          fi
