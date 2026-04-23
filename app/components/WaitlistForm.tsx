@@ -9,6 +9,7 @@ export default function WaitlistForm() {
 
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isDuplicate, setIsDuplicate] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -16,6 +17,7 @@ export default function WaitlistForm() {
     event.preventDefault();
     setError("");
     setSubmitted(false);
+    setIsDuplicate(false);
     setIsSubmitting(true);
 
     const normalized = email.trim();
@@ -34,12 +36,14 @@ export default function WaitlistForm() {
         body: JSON.stringify({ email: normalized })
       });
 
+      const payload = (await response.json().catch(() => ({}))) as { error?: string; duplicate?: boolean };
+
       if (!response.ok) {
-        const payload = (await response.json().catch(() => ({}))) as { error?: string };
         setError(payload.error || "Impossible d'enregistrer cet email pour le moment.");
         return;
       }
 
+      setIsDuplicate(Boolean(payload.duplicate));
       setSubmitted(true);
       setEmail("");
     } catch (submitError) {
@@ -78,7 +82,13 @@ export default function WaitlistForm() {
       </p>
       <div id={statusId}>
         {error && <div className="status error">{error}</div>}
-        {submitted && !error && <div className="status success">Merci ! On revient vers toi très vite.</div>}
+        {submitted && !error && (
+          <div className="status success">
+            {isDuplicate
+              ? "Cet email est déjà inscrit — on revient vers toi très vite."
+              : "Merci ! On revient vers toi très vite."}
+          </div>
+        )}
       </div>
     </>
   );

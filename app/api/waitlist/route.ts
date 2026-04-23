@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   if (error) {
     // 23505 => violation de contrainte unique (email déjà enregistré)
     if (error.code === "23505") {
-      return NextResponse.json({ ok: true, message: "Déjà inscrit" });
+      return NextResponse.json({ ok: true, duplicate: true });
     }
     console.error("Supabase insert error", error);
     return NextResponse.json({ error: "Impossible d'enregistrer cet email pour le moment." }, { status: 500 });
