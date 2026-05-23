@@ -65,16 +65,34 @@
         const payload = await response.json().catch(() => ({}));
 
         if (!response.ok) {
+          window.dispatchEvent(new CustomEvent('site:event', {
+            detail: {
+              name: 'waitlist_submit_error',
+              props: { status: response.status },
+            },
+          }));
           setStatus(payload.error || "Impossible d'enregistrer cet email pour le moment.", 'error');
           setFormState('error');
           return;
         }
 
         input.value = '';
+        window.dispatchEvent(new CustomEvent('site:event', {
+          detail: {
+            name: 'waitlist_submit_success',
+            props: { status: response.status },
+          },
+        }));
         setStatus('Merci ! On revient vers toi très vite.', 'success');
         setFormState('success');
       } catch (error) {
         console.error(error);
+        window.dispatchEvent(new CustomEvent('site:event', {
+          detail: {
+            name: 'waitlist_submit_error',
+            props: { status: 'network' },
+          },
+        }));
         setStatus("Impossible d'enregistrer cet email pour le moment.", 'error');
         setFormState('error');
       } finally {

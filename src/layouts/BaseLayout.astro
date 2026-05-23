@@ -2,6 +2,7 @@
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/jetbrains-mono';
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 import '../styles/x-operational-system.css';
 import { PARANOIA_CONTACT_EMAIL } from '../lib/contact';
@@ -67,7 +68,7 @@ const imageUrl = new URL(image, 'https://paranoia.re').toString();
           <nav aria-label="Trust">
             <h3>Trust</h3>
             <a href="/rapports-incidents">Rapports d'incidents</a>
-            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`}>Support beta</a>
+            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Support beta</a>
           </nav>
           <nav aria-label="Démarrage">
             <h3>Démarrage</h3>
@@ -83,5 +84,25 @@ const imageUrl = new URL(image, 'https://paranoia.re').toString();
       </footer>
     </div>
     <Analytics />
+    <SpeedInsights />
+    <script is:inline>
+      window.trackSiteEvent = (name, props = {}) => {
+        if (!name) return;
+        if (typeof window.va === 'function') window.va('event', name, props);
+      };
+
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target.closest('[data-event]') : null;
+        if (!target) return;
+        window.trackSiteEvent(target.dataset.event, {
+          href: target.getAttribute('href') || undefined,
+          label: target.textContent?.trim() || undefined,
+        });
+      });
+
+      window.addEventListener('site:event', (event) => {
+        window.trackSiteEvent(event.detail?.name, event.detail?.props || {});
+      });
+    </script>
   </body>
 </html>

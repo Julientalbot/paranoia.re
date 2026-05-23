@@ -87,8 +87,8 @@ const limits = [
           Il réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
         </p>
         <div class="xo-actions" style="margin-top: var(--eco-space-6)">
-          <a class="xo-button xo-button--primary" href="#cta">Rejoindre la beta</a>
-          <a class="xo-button" href="/rapports-incidents">Lire les incidents</a>
+          <a class="xo-button xo-button--primary" href="#cta" data-event="primary_cta_click">Rejoindre la beta</a>
+          <a class="xo-button" href="/rapports-incidents" data-event="incident_reports_click">Lire les incidents</a>
         </div>
       </div>
 
@@ -194,10 +194,10 @@ const limits = [
           <WaitlistForm />
           <p class="hint">
             Question directe ou pilote déjà identifié ?
-            <a href={PARANOIA_CONTACT_HREF}>Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
+            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
           </p>
         </div>
-        <a class="xo-start-card" href="/rapports-incidents">
+        <a class="xo-start-card" href="/rapports-incidents" data-event="incident_reports_click">
           <div>
             <p class="xo-label">Transparence</p>
             <h2>Lire les rapports d’incidents.</h2>
