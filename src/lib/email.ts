@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { PARANOIA_CONTACT_EMAIL } from './contact';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY?.trim();
+const PARANOIA_WAITLIST_FROM_EMAIL = 'waitlist@send.paranoia.re';
 
 export const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
@@ -52,8 +53,9 @@ export async function sendWaitlistNotification({
   `;
 
   await resend.emails.send({
-    from: `Paranoia <${PARANOIA_CONTACT_EMAIL}>`,
+    from: `Paranoia <${PARANOIA_WAITLIST_FROM_EMAIL}>`,
     to,
+    replyTo: email,
     subject,
     html,
   });
@@ -75,8 +77,9 @@ export async function sendWaitlistEmail({ to }: SendWaitlistEmailParams) {
   `;
 
   await resend.emails.send({
-    from: `Paranoia <${PARANOIA_CONTACT_EMAIL}>`,
+    from: `Paranoia <${PARANOIA_WAITLIST_FROM_EMAIL}>`,
     to,
+    replyTo: PARANOIA_CONTACT_EMAIL,
     subject,
     html,
   });

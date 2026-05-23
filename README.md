@@ -40,11 +40,11 @@ Réponses :
 Variables d'environnement serveur :
 
 - `RESEND_API_KEY`
-- `WAITLIST_NOTIFY_TO` (optionnel, défaut : `beta@paranoia.re`)
+- `WAITLIST_NOTIFY_TO` (optionnel, défaut : `contact@paranoia.re`)
 
 ## Backend waitlist
 
-La waitlist ne dépend pas d'une base de données en production. L'email est envoyé au destinataire opérateur configuré, puis un email de confirmation est envoyé au prospect en best-effort.
+La waitlist ne dépend pas d'une base de données en production. L'email est envoyé au destinataire opérateur configuré depuis `waitlist@send.paranoia.re`, puis un email de confirmation est envoyé au prospect en best-effort avec `contact@paranoia.re` en reply-to.
 
 ## Claims
 

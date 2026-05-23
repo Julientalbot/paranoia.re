@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { WAITLIST_NOTIFY_TO, isEmailConfigured } from '../../lib/email';
+import { isEmailConfigured } from '../../lib/email';
 
 export const prerender = false;
 
@@ -16,5 +16,5 @@ export const GET: APIRoute = async () => {
     return json({ ok: false, error: 'Configuration email manquante' }, 500);
   }
 
-  return json({ ok: true, backend: 'email', notifyTo: WAITLIST_NOTIFY_TO, ts: new Date().toJSON() });
+  return json({ ok: true, backend: 'email' });
 };
