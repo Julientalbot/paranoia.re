@@ -29,10 +29,17 @@
     status.innerHTML = message ? `<div class="status ${type}">${message}</div>` : '';
   };
 
+  const setFormState = (state) => {
+    if (form instanceof HTMLFormElement) {
+      form.dataset.state = state;
+    }
+  };
+
   if (form instanceof HTMLFormElement && input instanceof HTMLInputElement) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       setStatus('', '');
+      setFormState('idle');
 
       const email = input.value.trim();
       if (!/\S+@\S+\.\S+/.test(email)) {
@@ -46,6 +53,7 @@
         submit.disabled = true;
         submit.textContent = 'Envoi...';
       }
+      setFormState('loading');
 
       try {
         const response = await fetch('/api/waitlist', {
@@ -62,13 +70,18 @@
 
         input.value = '';
         setStatus('Merci ! On revient vers toi très vite.', 'success');
+        setFormState('success');
       } catch (error) {
         console.error(error);
         setStatus("Impossible d'enregistrer cet email pour le moment.", 'error');
+        setFormState('error');
       } finally {
         if (submit instanceof HTMLButtonElement) {
           submit.disabled = false;
           submit.textContent = 'Rejoindre la beta';
+        }
+        if (form.dataset.state === 'loading') {
+          setFormState('idle');
         }
       }
     });

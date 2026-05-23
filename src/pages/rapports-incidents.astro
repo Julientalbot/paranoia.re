@@ -12,20 +12,37 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
   <main class="xo-page xo-page--product">
     <Header ctaHref="/#cta" ctaLabel="Beta privée en cours" />
 
-    <section class="xo-shell xo-hero" aria-labelledby="incidents-title">
-      <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Transparence</p>
-          <h1 id="incidents-title" class="xo-title xo-title--wide">Rapports d'incidents Sentry.</h1>
-        </div>
-        <div>
-          <p>
-            Pour améliorer la stabilité de Paranoia, Sentry peut recevoir des rapports techniques d'erreur.
-            L'objectif est de diagnostiquer les crashs et bugs sans collecter les contenus de prompts.
-          </p>
-          <p>Finalité : diagnostic des bugs et mesure de stabilité par version. Conservation : 90 jours maximum.</p>
+    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="incidents-title">
+      <div>
+        <p class="xo-kicker">Transparence</p>
+        <h1 id="incidents-title" class="xo-title xo-title--wide">Rapports d'incidents Sentry.</h1>
+        <p class="xo-subtitle">
+          Pour améliorer la stabilité de Paranoia, Sentry peut recevoir des rapports techniques d'erreur.
+          L'objectif est de diagnostiquer les crashs et bugs sans collecter les contenus de prompts.
+        </p>
+        <div class="xo-actions" style="margin-top: var(--eco-space-6)">
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Contacter le support</a>
+          <a class="xo-button" href="/#cta">Rejoindre la beta</a>
         </div>
       </div>
+
+      <aside class="paranoia-trust-artifact" aria-label="Ledger des rapports d'incidents">
+        <div class="xo-console-top">
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <strong>trust/incidents</strong>
+        </div>
+        <div class="paranoia-trust-ledger">
+          <div><span>finalité</span><strong>diagnostic bugs + stabilité</strong></div>
+          <div><span>contenu prompt</span><strong>non collecté par défaut</strong></div>
+          <div><span>conservation</span><strong>90 jours maximum</strong></div>
+          <div><span>signalement</span><strong>manuel, contexte choisi</strong></div>
+        </div>
+        <p>
+          La confiance est traitée comme une surface lisible : données envoyées, protections, sessions, support et limites.
+        </p>
+      </aside>
     </section>
 
     <section class="xo-shell" aria-label="Périmètre des rapports">

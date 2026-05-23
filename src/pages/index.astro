@@ -30,6 +30,24 @@ const capabilities = [
   },
 ];
 
+const proofClaims = [
+  {
+    label: 'claim',
+    title: 'Réduire l’exposition avant l’assistant.',
+    body: 'Paranoia traite le prompt comme une surface à inspecter, pas comme un champ texte neutre.',
+  },
+  {
+    label: 'policy',
+    title: 'Montrer la règle appliquée.',
+    body: 'Détection, masquage et relecture doivent rester visibles avant tout envoi.',
+  },
+  {
+    label: 'limit',
+    title: 'Documenter ce que le produit ne fait pas.',
+    body: 'La confiance vient aussi des incidents, des limites et du support accessibles.',
+  },
+];
+
 const before =
   'Peux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example. Dossier fournisseur K-47B. Inclure la clause 4.2.';
 const after =
@@ -102,6 +120,16 @@ const after =
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="xo-shell xo-proof-claim-grid" aria-label="Grammaire de preuve Paranoia">
+      {proofClaims.map((item) => (
+        <article>
+          <span>{item.label}</span>
+          <strong>{item.title}</strong>
+          <p>{item.body}</p>
+        </article>
+      ))}
     </section>
 
     <section class="xo-shell" aria-label="Capacités Paranoia">
