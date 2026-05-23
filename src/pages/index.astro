@@ -30,9 +30,9 @@ const capabilities = [
 ];
 
 const before =
-  'Peux-tu résumer ce contrat signé avec Acme Corp ? Client : Jean Dupont (CTO, jean.dupont@acme.com). SIRET 123 456 789 00012. Inclure la clause 4.2.';
+  'Peux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example. Dossier fournisseur K-47B. Inclure la clause 4.2.';
 const after =
-  'Peux-tu résumer ce contrat signé avec [Client] ? Client : [Prénom] [Nom] (CTO, [Email]). SIRET [SIRET]. Inclure la clause 4.2.';
+  'Peux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email]. Dossier fournisseur [Identifiant]. Inclure la clause 4.2.';
 ---
 
 <BaseLayout title="Paranoia — réduire les données sensibles envoyées aux assistants IA">
@@ -68,17 +68,35 @@ const after =
         </div>
       </div>
 
-      <div class="xo-console" aria-label="Avant après prompt">
+      <div class="xo-console paranoia-review-artifact" aria-label="Avant après prompt">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
           <strong>prompt/review</strong>
         </div>
-        <div class="xo-console-body">
+        <div class="xo-console-body paranoia-review-body">
+          <div class="paranoia-exposure">
+            <div>
+              <span>exposure</span>
+              <strong>5 champs sensibles détectés</strong>
+            </div>
+            <div class="paranoia-exposure-bar" aria-hidden="true"><i></i></div>
+          </div>
+          <div class="paranoia-token-grid" aria-label="Types de données détectées">
+            <span>person</span>
+            <span>email</span>
+            <span>org</span>
+            <span>role</span>
+            <span>id</span>
+          </div>
           <div class="xo-console-line"><span>raw</span><span>{before}</span></div>
           <div class="xo-console-line"><span>mask</span><strong>{after}</strong></div>
-          <div class="xo-console-line"><span>◆</span><span class="xo-console-accent">review required before send</span></div>
+          <div class="paranoia-policy-stack" aria-label="Contrôles avant envoi">
+            <div><span>policy</span><strong>mask before send</strong></div>
+            <div><span>state</span><strong>review required</strong></div>
+            <div><span>limit</span><strong>not a DLP replacement</strong></div>
+          </div>
         </div>
       </div>
     </section>

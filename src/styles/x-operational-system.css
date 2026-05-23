@@ -505,6 +505,100 @@
   color: var(--xo-accent);
 }
 
+.paranoia-review-artifact {
+  align-self: stretch;
+}
+
+.paranoia-review-body {
+  gap: 1px;
+  background: var(--eco-color-line-inverse-soft);
+  padding: 0;
+}
+
+.paranoia-review-body > * {
+  background: color-mix(in srgb, var(--eco-color-black) 92%, var(--xo-accent) 8%);
+}
+
+.paranoia-exposure {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+}
+
+.paranoia-exposure > div:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--eco-space-4);
+}
+
+.paranoia-exposure span,
+.paranoia-token-grid span,
+.paranoia-policy-stack span {
+  color: var(--eco-color-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.68rem;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.paranoia-exposure strong,
+.paranoia-policy-stack strong {
+  color: var(--xo-accent);
+  font-size: 0.78rem;
+}
+
+.paranoia-exposure-bar {
+  overflow: hidden;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.paranoia-exposure-bar i {
+  display: block;
+  width: 74%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--xo-danger), var(--xo-accent));
+  transform-origin: left;
+  animation: paranoiaExposurePulse 4.8s var(--eco-ease-snap) infinite;
+}
+
+.paranoia-token-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--eco-color-line-inverse-soft);
+}
+
+.paranoia-token-grid span {
+  display: grid;
+  min-height: 2.8rem;
+  place-items: center;
+  background: color-mix(in srgb, var(--eco-color-black) 88%, var(--xo-danger) 12%);
+}
+
+.paranoia-review-body > .xo-console-line {
+  padding: 0.9rem 1rem;
+}
+
+.paranoia-policy-stack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--eco-color-line-inverse-soft);
+}
+
+.paranoia-policy-stack > div {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 4.4rem;
+  align-content: center;
+  background: color-mix(in srgb, var(--eco-color-black) 92%, var(--xo-accent) 8%);
+  padding: 0.8rem;
+}
+
 .xo-metric-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -958,6 +1052,16 @@
   color: var(--xo-danger);
 }
 
+@keyframes paranoiaExposurePulse {
+  0%,
+  100% {
+    transform: scaleX(0.88);
+  }
+  48% {
+    transform: scaleX(1);
+  }
+}
+
 .xo-card p,
 .xo-start-card p {
   -webkit-text-fill-color: currentColor;
@@ -1107,5 +1211,15 @@
 
   .xo-button {
     width: 100%;
+  }
+
+  .paranoia-exposure > div:first-child,
+  .paranoia-policy-stack,
+  .paranoia-token-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paranoia-exposure > div:first-child {
+    display: grid;
   }
 }
