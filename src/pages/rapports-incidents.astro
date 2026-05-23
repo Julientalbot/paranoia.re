@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 ---
 
 <BaseLayout
@@ -87,12 +88,12 @@ import Header from '../components/Header.astro';
             techniques et les événements de stabilité, pas les contenus de prompts.
           </p>
         </article>
-        <a class="xo-start-card" href="mailto:beta@paranoia.re">
+        <a class="xo-start-card" href={PARANOIA_CONTACT_HREF}>
           <div>
             <p class="xo-label">Support</p>
             <h2>Demander une suppression ou signaler un problème.</h2>
           </div>
-          <p>Écrivez à beta@paranoia.re pour une question ou une demande de suppression anticipée d'un rapport.</p>
+          <p>Écrivez à {PARANOIA_CONTACT_EMAIL} pour une question ou une demande de suppression anticipée d'un rapport.</p>
           <span class="xo-card-arrow">Contacter →</span>
         </a>
       </div>

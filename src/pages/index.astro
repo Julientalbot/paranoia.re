@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
 const capabilities = [
   {
@@ -49,6 +50,7 @@ const after =
           <a href="#detecte">Produit</a>
           <a href="/rapports-incidents">Incidents</a>
           <a href="#cta">Beta</a>
+          <a href={PARANOIA_CONTACT_HREF}>Contact</a>
         </div>
       </nav>
     </div>
@@ -64,6 +66,7 @@ const after =
         </p>
         <div class="xo-actions" style="margin-top: var(--eco-space-6)">
           <a class="xo-button xo-button--primary" href="#cta">Rejoindre la beta</a>
+          <a class="xo-button" href={PARANOIA_CONTACT_HREF}>Parler d’un pilote</a>
           <a class="xo-button" href="/rapports-incidents">Lire les incidents</a>
         </div>
       </div>
@@ -142,6 +145,10 @@ const after =
           </div>
           <p>Assistant utilisé, types de données copiées, politique à tenir, contraintes de support et de sécurité.</p>
           <WaitlistForm />
+          <p class="hint">
+            Question directe ou pilote déjà identifié ?
+            <a href={PARANOIA_CONTACT_HREF}>Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
+          </p>
         </div>
         <a class="xo-start-card" href="/rapports-incidents">
           <div>
