@@ -44,6 +44,7 @@
       const email = input.value.trim();
       if (!/\S+@\S+\.\S+/.test(email)) {
         setStatus('Ajoute un email professionnel valide.', 'error');
+        setFormState('error');
         input.setAttribute('aria-invalid', 'true');
         return;
       }
@@ -65,6 +66,7 @@
 
         if (!response.ok) {
           setStatus(payload.error || "Impossible d'enregistrer cet email pour le moment.", 'error');
+          setFormState('error');
           return;
         }
 
