@@ -9,15 +9,18 @@ interface Props {
   title: string;
   description?: string;
   canonicalPath?: string;
+  image?: string;
 }
 
 const {
   title,
   description = "Paranoia aide les équipes à détecter, masquer et relire les données sensibles dans leurs prompts avant d'utiliser des assistants IA.",
   canonicalPath = Astro.url.pathname,
+  image = '/social-card.png',
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
+const imageUrl = new URL(image, 'https://paranoia.re').toString();
 ---
 
 <!doctype html>
@@ -30,13 +33,20 @@ const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
     <meta name="description" content={description} />
     <meta name="theme-color" content="#020206" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/logo_paranoia.png" type="image/png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content="https://paranoia.re/logo_paranoia.png" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Paranoia - Réduire l'exposition des prompts IA" />
     <meta property="og:site_name" content="Paranoia" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
   </head>
   <body class="xo-page xo-page--product">
     <div class="app-shell">

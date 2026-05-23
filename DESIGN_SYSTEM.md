@@ -1,10 +1,30 @@
-# X-Operational Design System
+# Ecosystem Operational Taste System
 
 Copie locale du design system ecosysteme. `paranoia.re` reste un repo autonome : pas de monorepo, pas de package partage en v1.
 
 ## Doctrine
 
-Le systeme copie la grammaire operationnelle de xAI, pas son identite. Une page doit montrer une capacite observable avant d'expliquer longuement sa promesse.
+Le systeme combine trois couches, dans cet ordre :
+
+1. `Ecosystem truth` : roles des marques, claims prudents, preuves assumables.
+2. `xAI proof grammar` : promesse courte, artifact visible, preuve, chemins de demarrage, footer utile.
+3. `taste layer` : composition, rythme, anti-slop, responsive strict, etats UI.
+
+Le systeme copie la grammaire operationnelle de xAI, pas son identite. Une page doit montrer une capacite observable avant d'expliquer longuement sa promesse. Le taste-skill sert de couche de qualite d'execution ; il ne peut pas override la preuve, l'accessibilite, la sobriete ou l'autonomie des repos.
+
+## EOTS Dials
+
+```text
+paranoia.re
+DESIGN_VARIANCE 5
+MOTION_INTENSITY 2
+VISUAL_DENSITY 8
+Direction : produit inspectable, console, trust, incidents, limites.
+```
+
+Taste rules retenues : pas de hero centre generique, pas de 3-card SaaS row par reflexe, pas de glow neon, pas de gradients de texte, pas de motion lourde par defaut, etats loading/empty/error quand une interface collecte ou traite une action utilisateur.
+
+Taste rules bloquees : glassmorphism decoratif, motion perpetuelle, GSAP/Three par reflexe, composants partages prematurement, effets visuels qui remplacent une preuve.
 
 ## Public Copy Boundary
 
@@ -19,11 +39,11 @@ La sequence standard est :
 5. `StartPaths` : beta et incidents.
 6. `DenseFooter` : produit, trust, legal, contact, incidents.
 
-## X-Operational V2
+## EOTS V3
 
-La V2 ajoute une exigence de preuve et de recence. Une home complete suit maintenant cette sequence : promesse courte, capacites, artifact reel, preuves recentes, chemins de demarrage, footer dense.
+La V3 ajoute une exigence de gout operationnel. Une home complete suit maintenant cette sequence : promesse courte, artifact reel, capacites, preuves recentes, chemins de demarrage, footer dense.
 
-Les primitives V2 sont `ProofWall`, `EvidenceMetrics`, `ArtifactPanel`, `NewsOrSignals` et `TrustFooter`. Paranoia les utilisera plus tard pour montrer incidents, limites, documentation, etats produit et liens trust sans certification ou garantie non prouvee.
+Les primitives V3 sont `ProofWall`, `EvidenceMetrics`, `ArtifactPanel`, `NewsOrSignals`, `StateRail` et `TrustFooter`. Paranoia les utilise pour montrer incidents, limites, documentation, etats produit et liens trust sans certification ou garantie non prouvee.
 
 ## Fichiers
 
@@ -37,7 +57,31 @@ DESIGN_SYSTEM.md
 
 `ecosystem-tokens.css` porte les tokens bruts communs.
 
-`x-operational-system.css` porte les primitives communes : `.xo-page`, `.xo-shell`, `.xo-nav`, `.xo-hero`, `.xo-capability-grid`, `.xo-card`, `.xo-console`, `.xo-metric-strip`, `.xo-start-paths`, `.xo-footer`.
+`x-operational-system.css` porte les primitives communes : `.xo-page`, `.xo-shell`, `.xo-nav`, `.xo-hero`, `.xo-capability-grid`, `.xo-card`, `.xo-console`, `.xo-metric-strip`, `.xo-start-paths`, `.xo-state-rail`, `.xo-footer`.
+
+## Assets
+
+Les assets d'identite restent locaux dans `public/` :
+
+- `logo.svg` : wordmark produit, sobre et technique.
+- `logo-mark.svg` : marque `P`, utilisee dans la navigation et les petits formats.
+- `favicon.svg` : favicon harmonise avec le mark.
+- `social-card.svg` et `social-card.png` : carte Open Graph 1200x630.
+- `logo-paranoia.svg` et `logo_paranoia.png` : aliases de compatibilite conserves pour eviter les liens casses.
+- `social/` : exports reseaux sociaux LinkedIn et X, avec sources SVG pour les covers/cards et PNG prets a publier.
+
+Regles : Paranoia doit ressembler a un produit de confidentialite inspectable, pas a un embleme cyber fictionnel. Les assets ne doivent pas suggerer une certification, une securite totale ou une rarete artificielle.
+
+Direction imagegen : les assets de flux (`social/linkedin-share.png`, `social/x-card.png`) utilisent la piste raster generee avec texte integre et details graphiques, car elle est moins generique en usage social. Les SVG equivalents restent les sources/fallbacks editables quand il faut regenerer proprement.
+
+Assets sociaux :
+
+- `social/linkedin-profile.png` : logo 400x400.
+- `social/linkedin-cover.png` : couverture LinkedIn Page 4200x700.
+- `social/linkedin-share.png` : image de partage LinkedIn 1200x627, finale imagegen.
+- `social/x-profile.png` : logo 400x400.
+- `social/x-header.png` : header X 1500x500.
+- `social/x-card.png` : card X 1200x600, finale imagegen.
 
 ## Skin Paranoia
 
@@ -57,6 +101,8 @@ Claims a eviter : certification non obtenue, conformite automatique, securite to
 - Typographie fixe par breakpoint, sans taille liee directement a la largeur viewport.
 - Les artifacts doivent montrer le produit : prompt avant/apres, policy, limites, incident, documentation.
 - Les metriques doivent etre prouvees, qualifiees, ou remplacees par des etats descriptifs.
+- Les cartes existent seulement quand elles portent une surface produit, une limite ou un chemin trust.
+- Les interactions restent CSS-first : hover, focus-visible, active, reduced-motion. Pas de runtime motion tant qu'un besoin produit ne le justifie pas.
 
 ## Extension
 

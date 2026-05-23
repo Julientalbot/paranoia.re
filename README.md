@@ -21,7 +21,7 @@ npm run preview
 
 ## Waitlist
 
-`POST /api/waitlist` garde le contrat existant :
+`POST /api/waitlist` transmet la demande par email via Resend :
 
 ```json
 { "email": "email@entreprise.com" }
@@ -34,30 +34,17 @@ Réponses :
 ```
 
 ```json
-{ "ok": true, "duplicate": true }
-```
-
-```json
 { "error": "Email invalide" }
 ```
 
 Variables d'environnement serveur :
 
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
 - `RESEND_API_KEY`
+- `WAITLIST_NOTIFY_TO` (optionnel, défaut : `beta@paranoia.re`)
 
-## Supabase
+## Backend waitlist
 
-Table minimale :
-
-```sql
-create table if not exists public.waitlist (
-  id uuid primary key default gen_random_uuid(),
-  email text unique not null,
-  created_at timestamptz default now()
-);
-```
+La waitlist ne dépend pas d'une base de données en production. L'email est envoyé au destinataire opérateur configuré, puis un email de confirmation est envoyé au prospect en best-effort.
 
 ## Claims
 

@@ -40,7 +40,9 @@ const after =
     <div class="xo-shell">
       <nav class="xo-nav" aria-label="Navigation principale">
         <a class="xo-brand" href="/" aria-label="Paranoia accueil">
-          <span class="xo-brand-mark">P</span>
+          <span class="xo-brand-mark" aria-hidden="true">
+            <img src="/logo-mark.svg" alt="" width="38" height="38" loading="eager" decoding="async" />
+          </span>
           <span>Paranoia</span>
         </a>
         <div class="xo-nav-links">
@@ -56,8 +58,9 @@ const after =
         <p class="xo-kicker">Confidentialité des prompts IA · beta privée</p>
         <h1 id="home-title" class="xo-title xo-title--wide">Réduire l’exposition des prompts IA.</h1>
         <p class="xo-subtitle">
-          Paranoia aide les équipes à détecter, masquer et relire les contenus sensibles dans leurs prompts avant l’usage
-          d’un assistant IA. Le produit réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
+          Paranoia est un produit séparé de confidentialité et d’exposition des prompts. Il aide les équipes à détecter,
+          masquer et relire les contenus sensibles avant l’usage d’un assistant IA. Il réduit une surface d’exposition ;
+          il ne remplace pas une politique de sécurité.
         </p>
         <div class="xo-actions" style="margin-top: var(--eco-space-6)">
           <a class="xo-button xo-button--primary" href="#cta">Rejoindre la beta</a>

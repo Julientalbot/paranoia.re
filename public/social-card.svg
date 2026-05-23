@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Paranoia</title>
+  <desc id="desc">Réduire l'exposition des prompts IA</desc>
+  <defs>
+    <pattern id="scan" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M33 0V34M0 33H34" stroke="#9fe8ff" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#10151c"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#050505"/>
+  <rect width="1200" height="630" fill="url(#scan)"/>
+  <rect x="72" y="70" width="1056" height="490" rx="8" fill="url(#panel)" stroke="#9fe8ff" stroke-opacity="0.18"/>
+  <rect x="112" y="108" width="76" height="76" rx="12" fill="#090b0f" stroke="#9fe8ff" stroke-opacity="0.28"/>
+  <path d="M130 126h25c14 0 22 8 22 20 0 13-8 21-23 21h-12v16h-12v-57Zm12 11v20h11c8 0 12-4 12-10s-4-10-12-10h-11Z" fill="#f7f7f2"/>
+  <path d="M167 164h10v19h-10z" fill="#9fe8ff"/>
+  <text x="212" y="142" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="22" font-weight="700">[ PARANOIA ]</text>
+  <text x="112" y="278" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="62" font-weight="790" letter-spacing="0">Réduire l'exposition</text>
+  <text x="112" y="352" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="62" font-weight="790" letter-spacing="0">des prompts IA.</text>
+  <text x="112" y="458" fill="#b8bdc4" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="27" font-weight="470">Détecter, masquer, relire. Beta privée, limites documentées.</text>
+  <text x="112" y="510" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="22" font-weight="650">paranoia.re</text>
+  <g transform="translate(830 112) scale(0.72)" opacity="0.92">
+    <rect x="62" y="0" width="312" height="208" rx="8" fill="#07090d" stroke="#9fe8ff" stroke-opacity="0.22"/>
+    <rect x="0" y="142" width="260" height="172" rx="8" fill="#090c12" stroke="#9fe8ff" stroke-opacity="0.26"/>
+    <rect x="252" y="230" width="250" height="148" rx="8" fill="#10151c" stroke="#9fe8ff" stroke-opacity="0.28"/>
+    <path d="M92 38h60M92 72h118M92 106h84M92 140h150" stroke="#9fe8ff" stroke-opacity="0.7" stroke-width="6"/>
+    <path d="M196 72h84M196 106h132M196 140h92" stroke="#ffffff" stroke-opacity="0.16" stroke-width="6"/>
+    <path d="M32 182h66M32 216h90M32 250h72" stroke="#ffffff" stroke-opacity="0.22" stroke-width="7"/>
+    <path d="M142 182h76M142 216h54M142 250h86" stroke="#9fe8ff" stroke-opacity="0.58" stroke-width="7"/>
+    <path d="M282 270h48M282 304h130M282 338h84" stroke="#ffffff" stroke-opacity="0.24" stroke-width="8"/>
+    <path d="M376 304h76M376 338h48" stroke="#9fe8ff" stroke-opacity="0.64" stroke-width="8"/>
+    <path d="M260 190C292 190 304 222 332 222H384" fill="none" stroke="#9fe8ff" stroke-opacity="0.42" stroke-width="3"/>
+    <path d="M260 232C294 232 312 260 344 260H408" fill="none" stroke="#9fe8ff" stroke-opacity="0.34" stroke-width="3"/>
+  </g>
+</svg>

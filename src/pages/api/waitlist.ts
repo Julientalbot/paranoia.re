@@ -1,6 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
 import type { APIRoute } from 'astro';
-import { sendWaitlistEmail } from '../../lib/email';
+import { sendWaitlistEmail, sendWaitlistNotification } from '../../lib/email';
 
 export const prerender = false;
 
@@ -26,25 +25,10 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ error: 'Email invalide' }, 400);
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !supabaseServiceKey) {
-    return json({ error: 'Configuration Supabase manquante' }, 500);
-  }
-
-  const supabase = createClient(supabaseUrl, supabaseServiceKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  const { error } = await supabase.from('waitlist').insert({ email: normalized });
-
-  if (error) {
-    if (error.code === '23505') {
-      return json({ ok: true, duplicate: true });
-    }
-
-    console.error('Supabase insert error', error);
+  try {
+    await sendWaitlistNotification({ email: normalized, submittedAt: new Date().toJSON() });
+  } catch (error) {
+    console.error('Waitlist notification error', error);
     return json({ error: "Impossible d'enregistrer cet email pour le moment." }, 500);
   }
 

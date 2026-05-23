@@ -1,14 +1,62 @@
 import { Resend } from 'resend';
 
-if (!process.env.RESEND_API_KEY) {
-  console.warn('RESEND_API_KEY is not set. Emails will not be sent.');
-}
+const RESEND_API_KEY = process.env.RESEND_API_KEY?.trim();
 
-export const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+export const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
+
+export const WAITLIST_NOTIFY_TO = process.env.WAITLIST_NOTIFY_TO?.trim() || 'beta@paranoia.re';
 
 type SendWaitlistEmailParams = {
   to: string;
 };
+
+type SendWaitlistNotificationParams = {
+  email: string;
+  submittedAt: string;
+  to?: string;
+};
+
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+export const isEmailConfigured = () => Boolean(resend && WAITLIST_NOTIFY_TO);
+
+export async function sendWaitlistNotification({
+  email,
+  submittedAt,
+  to = WAITLIST_NOTIFY_TO,
+}: SendWaitlistNotificationParams) {
+  if (!resend) {
+    throw new Error('RESEND_API_KEY is not configured');
+  }
+
+  if (!to) {
+    throw new Error('WAITLIST_NOTIFY_TO is not configured');
+  }
+
+  const subject = '[Paranoia] Nouvelle demande beta';
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; color: #0a0f1f; line-height: 1.5;">
+      <h2 style="margin: 0 0 12px;">Nouvelle demande beta Paranoia.</h2>
+      <p style="margin: 0 0 12px;"><strong>Email :</strong> ${escapeHtml(email)}</p>
+      <p style="margin: 0 0 12px;"><strong>Reçu le :</strong> ${escapeHtml(submittedAt)}</p>
+      <p style="margin: 0 0 12px;">Ce message sert de trace temporaire pour la demande waitlist.</p>
+    </div>
+  `;
+
+  await resend.emails.send({
+    from: 'Paranoia <beta@paranoia.re>',
+    to,
+    subject,
+    html,
+  });
+}
 
 export async function sendWaitlistEmail({ to }: SendWaitlistEmailParams) {
   if (!resend) return;

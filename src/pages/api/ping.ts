@@ -1,5 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
 import type { APIRoute } from 'astro';
+import { WAITLIST_NOTIFY_TO, isEmailConfigured } from '../../lib/email';
 
 export const prerender = false;
 
@@ -12,23 +12,9 @@ const json = (payload: unknown, status = 200) =>
   });
 
 export const GET: APIRoute = async () => {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !supabaseServiceKey) {
-    return json({ error: 'Configuration Supabase manquante' }, 500);
+  if (!isEmailConfigured()) {
+    return json({ ok: false, error: 'Configuration email manquante' }, 500);
   }
 
-  const supabase = createClient(supabaseUrl, supabaseServiceKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  const { error } = await supabase.from('waitlist').select('id', { count: 'exact', head: true });
-
-  if (error) {
-    console.error('Supabase ping error', error);
-    return json({ ok: false, error: error.message }, 500);
-  }
-
-  return json({ ok: true, ts: new Date().toJSON() });
+  return json({ ok: true, backend: 'email', notifyTo: WAITLIST_NOTIFY_TO, ts: new Date().toJSON() });
 };

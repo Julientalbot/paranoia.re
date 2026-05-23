@@ -14,7 +14,7 @@
   <button class="btn" type="submit" data-submit-label>Rejoindre la beta</button>
 </form>
 <p class="hint" id="waitlist-hint">
-  Les emails sont stockés dans Supabase (table waitlist). Réponse sous 48h.
+  Les emails sont transmis par email via Resend. Réponse sous 48h.
 </p>
 <div id="waitlist-status" aria-live="polite"></div>
 
@@ -61,12 +61,7 @@
         }
 
         input.value = '';
-        setStatus(
-          payload.duplicate
-            ? 'Cet email est déjà inscrit. On revient vers toi très vite.'
-            : 'Merci ! On revient vers toi très vite.',
-          'success'
-        );
+        setStatus('Merci ! On revient vers toi très vite.', 'success');
       } catch (error) {
         console.error(error);
         setStatus("Impossible d'enregistrer cet email pour le moment.", 'error');

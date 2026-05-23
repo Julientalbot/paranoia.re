@@ -1,9 +1,12 @@
 /*
-  X-Operational System
-  Shared xAI-like proof architecture for autonomous ecosystem sites.
+  Ecosystem Operational Taste System
+  xAI proof grammar + taste-skill execution guardrails.
 */
 
 .xo-page {
+  --xo-density: 6;
+  --xo-motion-level: 2;
+  --xo-artifact-min: 13rem;
   --xo-bg: var(--eco-color-black);
   --xo-surface: var(--eco-color-graphite);
   --xo-surface-raised: var(--eco-color-charcoal);
@@ -22,6 +25,7 @@
     var(--xo-bg);
   color: var(--xo-text);
   font-family: var(--eco-font-body);
+  text-rendering: geometricPrecision;
 }
 
 .xo-page--light {
@@ -40,9 +44,21 @@
 }
 
 .xo-page--product {
+  --xo-density: 8;
+  --xo-motion-level: 2;
   --xo-accent: var(--eco-color-cold);
   --xo-accent-soft: rgba(159, 232, 255, 0.11);
   --xo-danger: var(--eco-color-magenta);
+}
+
+.xo-page--editorial {
+  --xo-density: 7;
+  --xo-motion-level: 2;
+}
+
+.xo-page--operational {
+  --xo-density: 5;
+  --xo-motion-level: 1;
 }
 
 .xo-shell {
@@ -86,11 +102,18 @@
   height: 2.35rem;
   flex: 0 0 auto;
   place-items: center;
+  overflow: hidden;
   border: 1px solid var(--xo-line-strong);
-  border-radius: 50%;
+  border-radius: 0.7rem;
   color: var(--xo-accent);
   font-family: var(--eco-font-mono);
   font-size: 0.82rem;
+}
+
+.xo-brand-mark img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .xo-nav-links {
@@ -113,7 +136,7 @@
 
 .xo-hero {
   display: grid;
-  min-height: min(860px, calc(100vh - 4.5rem));
+  min-height: min(860px, calc(100dvh - 4.5rem));
   align-items: center;
   gap: 4rem;
   padding-block: 6.5rem 2rem;
@@ -121,6 +144,12 @@
 
 .xo-hero--split {
   grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+}
+
+@supports not (height: 100dvh) {
+  .xo-hero {
+    min-height: min(860px, calc(100vh - 4.5rem));
+  }
 }
 
 .xo-hero-proof {
@@ -221,7 +250,7 @@
 
 .xo-button {
   display: inline-flex;
-  min-height: 3rem;
+  min-height: var(--eco-control-min);
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
@@ -233,12 +262,29 @@
   font-size: 0.78rem;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.2s var(--eco-ease-out), border-color 0.2s ease, background 0.2s ease;
+  transition:
+    transform var(--eco-motion-fast) var(--eco-ease-out),
+    border-color var(--eco-motion-standard) ease,
+    background var(--eco-motion-standard) ease,
+    color var(--eco-motion-standard) ease;
 }
 
 .xo-button:hover {
   transform: translateY(-1px);
   border-color: var(--xo-text);
+}
+
+.xo-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.xo-button:focus-visible,
+.xo-card:focus-visible,
+.xo-start-card:focus-visible,
+.xo-link:focus-visible,
+.xo-nav-links a:focus-visible {
+  outline: 2px solid var(--xo-accent);
+  outline-offset: 3px;
 }
 
 .xo-button--primary {
@@ -269,7 +315,31 @@
   background: var(--xo-line);
 }
 
+@media (min-width: 981px) {
+  .xo-capability-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .xo-capability-grid > .xo-card {
+    grid-column: span 3;
+  }
+
+  .xo-capability-grid > .xo-card:nth-child(1) {
+    grid-column: span 4;
+  }
+
+  .xo-capability-grid > .xo-card:nth-child(2) {
+    grid-column: span 3;
+  }
+
+  .xo-capability-grid > .xo-card:nth-child(4) {
+    grid-column: span 2;
+  }
+}
+
 .xo-card {
+  position: relative;
+  isolation: isolate;
   display: flex;
   min-height: 22rem;
   flex-direction: column;
@@ -279,11 +349,32 @@
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s var(--eco-ease-out);
+  transition:
+    background var(--eco-motion-standard) ease,
+    transform var(--eco-motion-fast) var(--eco-ease-out);
+}
+
+.xo-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--xo-accent), transparent);
+  opacity: 0;
+  transition: opacity var(--eco-motion-standard) ease;
 }
 
 .xo-card:hover {
   background: var(--xo-surface-raised);
+}
+
+.xo-card:hover::before,
+.xo-card:focus-visible::before {
+  opacity: 0.74;
+}
+
+.xo-card:active {
+  transform: scale(0.995);
 }
 
 .xo-card h2,
@@ -309,7 +400,7 @@
 }
 
 .xo-demo {
-  min-height: 10rem;
+  min-height: var(--xo-artifact-min);
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-panel);
   background:
@@ -341,6 +432,7 @@
 }
 
 .xo-console {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-panel);
@@ -400,6 +492,12 @@
   display: flex;
   gap: 0.7rem;
   color: var(--eco-color-text-soft);
+}
+
+.xo-console-line > span:last-child,
+.xo-console-line strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .xo-console-line strong,
@@ -612,6 +710,33 @@
   background: var(--xo-line);
 }
 
+.xo-state-rail {
+  display: grid;
+  border-top: 1px solid var(--xo-line);
+}
+
+.xo-state {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
+  gap: var(--eco-space-5);
+  align-items: start;
+  border-bottom: 1px solid var(--xo-line);
+  padding-block: 1rem;
+}
+
+.xo-state strong {
+  color: var(--xo-text);
+  font-family: var(--eco-font-mono);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.xo-state p {
+  margin: 0;
+  color: var(--xo-text-soft);
+  line-height: 1.6;
+}
+
 .xo-start-card {
   display: grid;
   min-height: 18rem;
@@ -690,9 +815,20 @@
   filter: grayscale(0.15) contrast(1.05);
 }
 
-/* Paranoia V2 product adapters */
+@media (prefers-reduced-motion: reduce) {
+  .xo-page *,
+  .xo-page *::before,
+  .xo-page *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Paranoia EOTS product adapters */
 .app-shell {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: transparent;
 }
 
@@ -758,11 +894,19 @@
   padding: 0.85rem 0.95rem;
 }
 
+[data-waitlist-form] input:focus-visible,
+[data-waitlist-form] .btn:focus-visible,
+.btn:focus-visible,
+.header-cta:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--xo-accent) 72%, transparent);
+  outline-offset: 4px;
+}
+
 [data-waitlist-form] .btn,
 .btn,
 .header-cta {
   display: inline-flex;
-  min-height: 3rem;
+  min-height: var(--eco-control-min);
   align-items: center;
   justify-content: center;
   border: 1px solid var(--xo-line-strong);
@@ -774,6 +918,29 @@
   font-weight: 700;
   padding: 0.85rem 1.18rem;
   text-decoration: none;
+  transition:
+    transform var(--eco-motion-fast) var(--eco-ease-out),
+    border-color var(--eco-motion-standard) ease,
+    background var(--eco-motion-standard) ease,
+    color var(--eco-motion-standard) ease;
+}
+
+[data-waitlist-form] .btn:hover,
+.btn:hover,
+.header-cta:hover {
+  transform: translateY(-1px);
+}
+
+[data-waitlist-form] .btn:active,
+.btn:active,
+.header-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+[data-waitlist-form] .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.54;
+  transform: none;
 }
 
 .hint,
@@ -920,6 +1087,11 @@
 
   .xo-proof-wall {
     grid-template-columns: 1fr;
+  }
+
+  .xo-state {
+    grid-template-columns: 1fr;
+    gap: var(--eco-space-2);
   }
 
   .xo-signal-row {

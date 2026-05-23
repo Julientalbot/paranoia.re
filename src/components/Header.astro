@@ -10,7 +10,9 @@ const { ctaHref = '#cta', ctaLabel = 'Demander un accès beta →' } = Astro.pro
 <header class="product-header">
   <nav class="xo-shell xo-nav" aria-label="Navigation principale">
     <a class="xo-brand" href="/" aria-label="Paranoia accueil">
-      <span class="xo-brand-mark">P</span>
+      <span class="xo-brand-mark" aria-hidden="true">
+        <img src="/logo-mark.svg" alt="" width="38" height="38" loading="eager" decoding="async" />
+      </span>
       <span>Paranoia</span>
     </a>
     <div class="xo-nav-links">

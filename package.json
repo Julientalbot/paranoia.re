@@ -17,7 +17,6 @@
     "@astrojs/vercel": "^10.0.7",
     "@fontsource-variable/archivo": "^5.2.8",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
-    "@supabase/supabase-js": "^2.106.1",
     "@vercel/analytics": "^2.0.1",
     "astro": "^6.3.3",
     "resend": "^6.12.3"
