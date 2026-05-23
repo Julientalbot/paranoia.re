@@ -1,0 +1,76 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/jetbrains-mono';
+import Analytics from '@vercel/analytics/astro';
+import '../styles/global.css';
+import '../styles/x-operational-system.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title,
+  description = "Paranoia aide les équipes à détecter, masquer et relire les données sensibles dans leurs prompts avant d'utiliser des assistants IA.",
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#020206" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/logo_paranoia.png" type="image/png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://paranoia.re/logo_paranoia.png" />
+    <meta property="og:site_name" content="Paranoia" />
+  </head>
+  <body class="xo-page xo-page--product">
+    <div class="app-shell">
+      <slot />
+      <footer class="xo-trust-footer product-footer">
+        <div class="xo-shell xo-trust-grid">
+          <div>
+            <h2>Paranoia</h2>
+            <p>Produit beta pour réduire l'exposition de données sensibles dans les prompts IA. Les limites et incidents restent documentés publiquement.</p>
+          </div>
+          <nav aria-label="Produit">
+            <h3>Produit</h3>
+            <a href="/#detecte">Détection</a>
+            <a href="/#protege">Protection</a>
+            <a href="/#review">Relecture</a>
+          </nav>
+          <nav aria-label="Trust">
+            <h3>Trust</h3>
+            <a href="/rapports-incidents">Rapports d'incidents</a>
+            <a href="mailto:beta@paranoia.re">Support beta</a>
+          </nav>
+          <nav aria-label="Démarrage">
+            <h3>Démarrage</h3>
+            <a href="/#cta">Rejoindre la beta</a>
+            <a href="https://ergonomia.re/">Ergonomia</a>
+          </nav>
+          <nav aria-label="Écosystème">
+            <h3>Écosystème</h3>
+            <a href="https://julientalbot.com/">Julien Talbot</a>
+            <a href="https://julientalbot.com/contact/">Contact</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+    <Analytics />
+  </body>
+</html>

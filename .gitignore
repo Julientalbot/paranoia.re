@@ -1,10 +1,13 @@
 # Dependencies
 node_modules
-package-lock.json
 
 # Builds
 .next
 out
+dist
+.astro
+.vercel
+*.tsbuildinfo
 
 # Env
 .env.local
@@ -23,3 +26,7 @@ pnpm-debug.log*
 .idea
 *.swp
 .vscode
+
+# local agent artifacts
+.claude/settings.local.json
+.claude/worktrees/

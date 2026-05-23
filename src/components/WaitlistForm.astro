@@ -1,0 +1,81 @@
+<form data-waitlist-form aria-describedby="waitlist-hint waitlist-status">
+  <div class="field">
+    <label for="waitlist-email" class="sr-only">Email professionnel</label>
+    <input
+      id="waitlist-email"
+      type="email"
+      name="email"
+      placeholder="email@entreprise.com"
+      autocomplete="email"
+      inputmode="email"
+      required
+    />
+  </div>
+  <button class="btn" type="submit" data-submit-label>Rejoindre la beta</button>
+</form>
+<p class="hint" id="waitlist-hint">
+  Les emails sont stockés dans Supabase (table waitlist). Réponse sous 48h.
+</p>
+<div id="waitlist-status" aria-live="polite"></div>
+
+<script>
+  const form = document.querySelector('[data-waitlist-form]');
+  const status = document.querySelector('#waitlist-status');
+  const submit = document.querySelector('[data-submit-label]');
+  const input = document.querySelector('#waitlist-email');
+
+  const setStatus = (message, type) => {
+    if (!status) return;
+    status.innerHTML = message ? `<div class="status ${type}">${message}</div>` : '';
+  };
+
+  if (form instanceof HTMLFormElement && input instanceof HTMLInputElement) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setStatus('', '');
+
+      const email = input.value.trim();
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setStatus('Ajoute un email professionnel valide.', 'error');
+        input.setAttribute('aria-invalid', 'true');
+        return;
+      }
+
+      input.removeAttribute('aria-invalid');
+      if (submit instanceof HTMLButtonElement) {
+        submit.disabled = true;
+        submit.textContent = 'Envoi...';
+      }
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          setStatus(payload.error || "Impossible d'enregistrer cet email pour le moment.", 'error');
+          return;
+        }
+
+        input.value = '';
+        setStatus(
+          payload.duplicate
+            ? 'Cet email est déjà inscrit. On revient vers toi très vite.'
+            : 'Merci ! On revient vers toi très vite.',
+          'success'
+        );
+      } catch (error) {
+        console.error(error);
+        setStatus("Impossible d'enregistrer cet email pour le moment.", 'error');
+      } finally {
+        if (submit instanceof HTMLButtonElement) {
+          submit.disabled = false;
+          submit.textContent = 'Rejoindre la beta';
+        }
+      }
+    });
+  }
+</script>

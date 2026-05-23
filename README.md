@@ -1,27 +1,55 @@
 # paranoia.re
 
-Landing page Next.js (app router) pour Paranoia.
+Site Astro autonome pour Paranoia, produit autour de la réduction d'exposition des données sensibles dans les prompts IA.
 
-## Démarrer
+## Scripts
 
 ```bash
 npm install
 npm run dev
+npm run build
+npm run preview
 ```
 
-## Notes
+## Structure
 
-- Copie et UI en français, focalisées sur la beta privée.
-- Formulaire email branché sur Supabase (table `waitlist`), en POST via l'API route.
-- Pas de stockage côté Paranoia : tout le contenu reste local sur le poste utilisateur (rappelé dans la page). Le waitlist est stocké dans Supabase.
-- Logo : `public/logo_paranoia.png` (header + favicon) et `public/logo-paranoia.svg`. Palette : fond bleu nuit (#0a0f1f), accents mint (#2de8da) et bleu lavande (#7b8fff).
+- `src/pages` : routes publiques et endpoints Astro
+- `src/layouts` : layout HTML, SEO et Analytics Vercel
+- `src/components` : composants Astro et JS client minimal
+- `src/styles` : tokens écosystème dupliqués et CSS produit
+- `public` : logos et assets servis tels quels
 
-## Supabase (waitlist)
+## Waitlist
 
-1. Crée une base Supabase et ajoute deux variables d'environnement côté Vercel (ou `.env.local` pour dev) :
-   - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY` (service role key, uniquement côté serveur)
-2. Table minimale :
+`POST /api/waitlist` garde le contrat existant :
+
+```json
+{ "email": "email@entreprise.com" }
+```
+
+Réponses :
+
+```json
+{ "ok": true }
+```
+
+```json
+{ "ok": true, "duplicate": true }
+```
+
+```json
+{ "error": "Email invalide" }
+```
+
+Variables d'environnement serveur :
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `RESEND_API_KEY`
+
+## Supabase
+
+Table minimale :
 
 ```sql
 create table if not exists public.waitlist (
@@ -31,8 +59,6 @@ create table if not exists public.waitlist (
 );
 ```
 
-3. L'API POST `/api/waitlist` insère l'email (gère l'unicité). En local, le front appelle cette route via `fetch`.
+## Claims
 
-## Resend (email de bienvenue)
-
-Ajoute la variable d'environnement `RESEND_API_KEY` côté Vercel (et `.env.local` si besoin en local). L'API `/api/waitlist` envoie un email de remerciement via Resend après insertion dans Supabase (non bloquant si l'envoi échoue).
+Ne pas revendiquer de certification publique, conformité garantie, absence de risque, traction chiffrée ou rareté artificielle sans preuve publiée. Les prompts originaux sont présentés comme non stockés côté Paranoia ; les traitements waitlist, support, email et incidents restent séparés.

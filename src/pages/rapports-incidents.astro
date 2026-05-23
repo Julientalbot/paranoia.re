@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+---
+
+<BaseLayout
+  title="Rapports d'incidents (Sentry) — Paranoia"
+  description="Transparence sur les rapports d'erreurs : Sentry, protection des données personnelles, signalement manuel optionnel, conservation 90 jours."
+  canonicalPath="/rapports-incidents"
+>
+  <main class="xo-page xo-page--product">
+    <Header ctaHref="/#cta" ctaLabel="Beta privée en cours" />
+
+    <section class="xo-shell xo-hero" aria-labelledby="incidents-title">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Transparence</p>
+          <h1 id="incidents-title" class="xo-title xo-title--wide">Rapports d'incidents Sentry.</h1>
+        </div>
+        <div>
+          <p>
+            Pour améliorer la stabilité de Paranoia, Sentry peut recevoir des rapports techniques d'erreur.
+            L'objectif est de diagnostiquer les crashs et bugs sans collecter les contenus de prompts.
+          </p>
+          <p>Finalité : diagnostic des bugs et mesure de stabilité par version. Conservation : 90 jours maximum.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="xo-shell" aria-label="Périmètre des rapports">
+      <div class="xo-capability-grid">
+        <article class="xo-card">
+          <div>
+            <p class="xo-label">Automatique</p>
+            <h2>Crashs et erreurs.</h2>
+            <p>Lorsqu'une erreur inattendue survient, un rapport technique peut être envoyé automatiquement.</p>
+          </div>
+          <ul class="xo-list">
+            <li>Message d'erreur et trace technique.</li>
+            <li>Version de Paranoia, navigateur, OS, langue.</li>
+            <li>Horodatage et identifiant d'événement.</li>
+          </ul>
+        </article>
+
+        <article class="xo-card">
+          <div>
+            <p class="xo-label">Protection</p>
+            <h2>Champs sensibles masqués.</h2>
+            <p>Sentry est configuré pour supprimer ou masquer les champs susceptibles de contenir du PII ou des secrets.</p>
+          </div>
+          <ul class="xo-list">
+            <li>Emails, noms, identifiants, numéros.</li>
+            <li>Tokens, clés et secrets si présents.</li>
+            <li>Contexte limité au diagnostic.</li>
+          </ul>
+        </article>
+
+        <article class="xo-card">
+          <div>
+            <p class="xo-label">Sessions</p>
+            <h2>Stabilité par version.</h2>
+            <p>Des événements de session peuvent mesurer la stabilité et l'impact des versions.</p>
+          </div>
+          <p>Ces événements ne contiennent pas de prompts, textes, pages consultées ni URL.</p>
+        </article>
+
+        <article class="xo-card">
+          <div>
+            <p class="xo-label">Optionnel</p>
+            <h2>Signalement manuel.</h2>
+            <p>Depuis le produit, un rapport volontaire peut ajouter du contexte choisi par l'utilisateur.</p>
+          </div>
+          <p>Évitez d'inclure des données client ou des secrets dans un signalement manuel.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section">
+      <div class="xo-start-paths">
+        <article class="xo-start-card">
+          <div>
+            <p class="xo-label">Questions</p>
+            <h2>Ce qui est envoyé.</h2>
+          </div>
+          <p>
+            Par défaut, Paranoia est conçu pour fonctionner en local. Les envois automatiques concernent les rapports
+            techniques et les événements de stabilité, pas les contenus de prompts.
+          </p>
+        </article>
+        <a class="xo-start-card" href="mailto:beta@paranoia.re">
+          <div>
+            <p class="xo-label">Support</p>
+            <h2>Demander une suppression ou signaler un problème.</h2>
+          </div>
+          <p>Écrivez à beta@paranoia.re pour une question ou une demande de suppression anticipée d'un rapport.</p>
+          <span class="xo-card-arrow">Contacter →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const { ctaHref = '#cta', ctaLabel = 'Demander un accès beta →' } = Astro.props;
+---
+
+<header class="product-header">
+  <nav class="xo-shell xo-nav" aria-label="Navigation principale">
+    <a class="xo-brand" href="/" aria-label="Paranoia accueil">
+      <span class="xo-brand-mark">P</span>
+      <span>Paranoia</span>
+    </a>
+    <div class="xo-nav-links">
+      <a href="/#detecte">Produit</a>
+      <a href="/rapports-incidents">Incidents</a>
+    </div>
+    <a class="xo-button xo-button--primary header-cta" href={ctaHref}>{ctaLabel}</a>
+  </nav>
+</header>

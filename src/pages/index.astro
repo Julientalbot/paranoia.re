@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WaitlistForm from '../components/WaitlistForm.astro';
+
+const capabilities = [
+  {
+    href: '#detecte',
+    label: 'Detect',
+    title: 'Repérer les données sensibles.',
+    body: 'Données personnelles, emails, identifiants, clauses, secrets internes et contexte client.',
+  },
+  {
+    href: '#protege',
+    label: 'Protect',
+    title: 'Réduire l’exposition avant l’envoi.',
+    body: 'Masquage, pseudonymisation ou reformulation selon la politique retenue par l’équipe.',
+  },
+  {
+    href: '#review',
+    label: 'Review',
+    title: 'Rendre le départ visible.',
+    body: 'L’utilisateur relit l’avant/après et garde la responsabilité du prompt transmis.',
+  },
+  {
+    href: '/rapports-incidents',
+    label: 'Trust',
+    title: 'Documenter les limites.',
+    body: 'Incidents, traitements séparés, support et limites à lire avant un usage sensible.',
+  },
+];
+
+const before =
+  'Peux-tu résumer ce contrat signé avec Acme Corp ? Client : Jean Dupont (CTO, jean.dupont@acme.com). SIRET 123 456 789 00012. Inclure la clause 4.2.';
+const after =
+  'Peux-tu résumer ce contrat signé avec [Client] ? Client : [Prénom] [Nom] (CTO, [Email]). SIRET [SIRET]. Inclure la clause 4.2.';
+---
+
+<BaseLayout title="Paranoia — réduire les données sensibles envoyées aux assistants IA">
+  <main class="xo-page xo-page--product">
+    <div class="xo-shell">
+      <nav class="xo-nav" aria-label="Navigation principale">
+        <a class="xo-brand" href="/" aria-label="Paranoia accueil">
+          <span class="xo-brand-mark">P</span>
+          <span>Paranoia</span>
+        </a>
+        <div class="xo-nav-links">
+          <a href="#detecte">Produit</a>
+          <a href="/rapports-incidents">Incidents</a>
+          <a href="#cta">Beta</a>
+        </div>
+      </nav>
+    </div>
+
+    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="home-title">
+      <div>
+        <p class="xo-kicker">Confidentialité des prompts IA · beta privée</p>
+        <h1 id="home-title" class="xo-title xo-title--wide">Réduire l’exposition des prompts IA.</h1>
+        <p class="xo-subtitle">
+          Paranoia aide les équipes à détecter, masquer et relire les contenus sensibles dans leurs prompts avant l’usage
+          d’un assistant IA. Le produit réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
+        </p>
+        <div class="xo-actions" style="margin-top: var(--eco-space-6)">
+          <a class="xo-button xo-button--primary" href="#cta">Rejoindre la beta</a>
+          <a class="xo-button" href="/rapports-incidents">Lire les incidents</a>
+        </div>
+      </div>
+
+      <div class="xo-console" aria-label="Avant après prompt">
+        <div class="xo-console-top">
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <strong>prompt/review</strong>
+        </div>
+        <div class="xo-console-body">
+          <div class="xo-console-line"><span>raw</span><span>{before}</span></div>
+          <div class="xo-console-line"><span>mask</span><strong>{after}</strong></div>
+          <div class="xo-console-line"><span>◆</span><span class="xo-console-accent">review required before send</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="xo-shell" aria-label="Capacités Paranoia">
+      <div class="xo-capability-grid">
+        {capabilities.map((item, index) => (
+          <a id={index === 0 ? 'detecte' : index === 1 ? 'protege' : index === 2 ? 'review' : undefined} class="xo-card" href={item.href}>
+            <div class="xo-demo" aria-hidden="true">
+              <div class="xo-console-body" style="padding: 0">
+                <div class="xo-console-line"><span>{String(index + 1).padStart(2, '0')}</span><span>{item.label.toLowerCase()}</span></div>
+                <div class="xo-console-line"><span>policy</span><span>{item.body}</span></div>
+                <div class="xo-console-line"><span>state</span><strong>beta · qualified pilots</strong></div>
+              </div>
+            </div>
+            <div>
+              <p class="xo-label">{item.label}</p>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </div>
+            <span class="xo-card-arrow">Explorer →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section">
+      <div class="xo-metric-strip" aria-label="Repères produit qualifiés">
+        <div class="xo-metric"><strong>Local</strong><span>Contenu traité côté poste selon la conception visée.</span></div>
+        <div class="xo-metric"><strong>Policy</strong><span>Règles ajustables selon contexte et équipe pilote.</span></div>
+        <div class="xo-metric"><strong>Review</strong><span>Avant/après inspectable avant transmission.</span></div>
+        <div class="xo-metric"><strong>Limits</strong><span>Documentation sécurité à compléter avant déploiement sensible.</span></div>
+      </div>
+    </section>
+
+    <section id="cta" class="xo-shell xo-section">
+      <p class="xo-kicker">Choisir par où commencer</p>
+      <div class="xo-start-paths" style="margin-top: var(--eco-space-5)">
+        <div class="xo-start-card">
+          <div>
+            <p class="xo-label">Beta</p>
+            <h2>Décrire un cas d’usage sensible.</h2>
+          </div>
+          <p>Assistant utilisé, types de données copiées, politique à tenir, contraintes de support et de sécurité.</p>
+          <WaitlistForm />
+        </div>
+        <a class="xo-start-card" href="/rapports-incidents">
+          <div>
+            <p class="xo-label">Transparence</p>
+            <h2>Lire les rapports d’incidents.</h2>
+          </div>
+          <p>Sentry, conservation, signalement manuel et limites de collecte sont documentés séparément.</p>
+          <span class="xo-card-arrow">Ouvrir /rapports-incidents →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

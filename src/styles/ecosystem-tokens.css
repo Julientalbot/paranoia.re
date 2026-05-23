@@ -1,0 +1,59 @@
+:root {
+  --eco-font-body: "Archivo Variable", "Avenir Next", "Helvetica Neue", sans-serif;
+  --eco-font-display: "Archivo Variable", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
+  --eco-font-mono: "JetBrains Mono Variable", "SFMono-Regular", Consolas, monospace;
+
+  --eco-color-black: #050505;
+  --eco-color-void: #080808;
+  --eco-color-graphite: #111111;
+  --eco-color-charcoal: #181818;
+  --eco-color-ash: #242424;
+  --eco-color-white: #ffffff;
+  --eco-color-canvas: #f6f6f3;
+  --eco-color-canvas-soft: #ecece7;
+  --eco-color-text: #f7f7f2;
+  --eco-color-text-soft: rgba(247, 247, 242, 0.72);
+  --eco-color-text-muted: rgba(247, 247, 242, 0.48);
+  --eco-color-text-dark: #050505;
+  --eco-color-text-dark-soft: rgba(5, 5, 5, 0.68);
+  --eco-color-line: rgba(5, 5, 5, 0.14);
+  --eco-color-line-strong: rgba(5, 5, 5, 0.24);
+  --eco-color-line-inverse: rgba(255, 255, 255, 0.14);
+  --eco-color-line-inverse-soft: rgba(255, 255, 255, 0.08);
+  --eco-color-signal: #d9ff43;
+  --eco-color-cold: #9fe8ff;
+  --eco-color-blue: #4d8dff;
+  --eco-color-magenta: #de5aaa;
+  --eco-color-green: #37d67a;
+  --eco-color-red: #ff675f;
+
+  --eco-radius-panel: 8px;
+  --eco-radius-control: 999px;
+  --eco-radius-tight: 4px;
+
+  --eco-space-1: 0.25rem;
+  --eco-space-2: 0.5rem;
+  --eco-space-3: 0.75rem;
+  --eco-space-4: 1rem;
+  --eco-space-5: 1.5rem;
+  --eco-space-6: 2rem;
+  --eco-space-7: 3rem;
+  --eco-space-8: 4rem;
+  --eco-space-9: 6rem;
+
+  --eco-container: 1320px;
+  --eco-readable: 70ch;
+  --eco-page-x: 1.25rem;
+
+  --eco-shadow-panel: 0 24px 90px rgba(0, 0, 0, 0.24);
+  --eco-shadow-tight: 0 14px 44px rgba(0, 0, 0, 0.18);
+  --eco-z-header: 50;
+  --eco-z-floating: 80;
+  --eco-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --eco-page-x: 2rem;
+  }
+}
