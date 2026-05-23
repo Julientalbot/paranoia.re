@@ -3,48 +3,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
-const capabilities = [
+const paths = [
   {
-    href: '#detecte',
-    label: 'Detect',
-    title: 'Repérer les données sensibles.',
-    body: 'Données personnelles, emails, identifiants, clauses, secrets internes et contexte client.',
+    href: '#workflow',
+    label: 'Fonctionnement',
+    title: 'Inspecter avant d’envoyer.',
+    body: 'Le prompt est traité comme une surface produit : détection, masquage, relecture, décision.',
+    steps: ['detect', 'mask', 'review'],
   },
   {
-    href: '#protege',
-    label: 'Protect',
-    title: 'Réduire l’exposition avant l’envoi.',
-    body: 'Masquage, pseudonymisation ou reformulation selon la politique retenue par l’équipe.',
-  },
-  {
-    href: '#review',
-    label: 'Review',
-    title: 'Rendre le départ visible.',
-    body: 'L’utilisateur relit l’avant/après et garde la responsabilité du prompt transmis.',
+    href: '#limits',
+    label: 'Limites',
+    title: 'Voir ce que le produit ne promet pas.',
+    body: 'Paranoia réduit une exposition. Il ne remplace ni DLP, ni politique sécurité, ni responsabilité humaine.',
+    steps: ['scope', 'risk', 'human'],
   },
   {
     href: '/rapports-incidents',
-    label: 'Trust',
-    title: 'Documenter les limites.',
-    body: 'Incidents, traitements séparés, support et limites à lire avant un usage sensible.',
-  },
-];
-
-const proofClaims = [
-  {
-    label: 'claim',
-    title: 'Réduire l’exposition avant l’assistant.',
-    body: 'Paranoia traite le prompt comme une surface à inspecter, pas comme un champ texte neutre.',
+    label: 'Incidents',
+    title: 'Lire le journal de confiance.',
+    body: 'Rapports, collecte, signalement manuel, support et limites sont documentés séparément.',
+    steps: ['report', 'support', 'trace'],
   },
   {
-    label: 'policy',
-    title: 'Montrer la règle appliquée.',
-    body: 'Détection, masquage et relecture doivent rester visibles avant tout envoi.',
-  },
-  {
-    label: 'limit',
-    title: 'Documenter ce que le produit ne fait pas.',
-    body: 'La confiance vient aussi des incidents, des limites et du support accessibles.',
+    href: '#cta',
+    label: 'Waitlist',
+    title: 'Décrire un cas pilote.',
+    body: 'Assistant utilisé, données copiées, politique à tenir, contraintes support et sécurité.',
+    steps: ['case', 'policy', 'pilot'],
   },
 ];
 
@@ -52,10 +38,28 @@ const before =
   'Peux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example. Dossier fournisseur K-47B. Inclure la clause 4.2.';
 const after =
   'Peux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email]. Dossier fournisseur [Identifiant]. Inclure la clause 4.2.';
+
+const limits = [
+  {
+    label: 'Scope',
+    title: 'Réduction d’exposition',
+    body: 'Le produit aide avant l’envoi vers un assistant IA. Il ne garantit pas la conformité complète d’une organisation.',
+  },
+  {
+    label: 'Contrôle',
+    title: 'Relecture humaine',
+    body: 'L’utilisateur doit voir l’avant/après et garder la responsabilité du prompt transmis.',
+  },
+  {
+    label: 'Trust',
+    title: 'Incidents séparés',
+    body: 'Les limites, incidents, traitements et supports sont publiés dans une page dédiée.',
+  },
+];
 ---
 
 <BaseLayout title="Paranoia — réduire les données sensibles envoyées aux assistants IA">
-  <main class="xo-page xo-page--product">
+  <main class="xo-page xo-page--product xai-home">
     <div class="xo-shell">
       <nav class="xo-nav" aria-label="Navigation principale">
         <a class="xo-brand" href="/" aria-label="Paranoia accueil">
@@ -65,7 +69,8 @@ const after =
           <span>Paranoia</span>
         </a>
         <div class="xo-nav-links">
-          <a href="#detecte">Produit</a>
+          <a href="#workflow">Produit</a>
+          <a href="#limits">Limites</a>
           <a href="/rapports-incidents">Incidents</a>
           <a href="#cta">Beta</a>
           <a href={PARANOIA_CONTACT_HREF}>Contact</a>
@@ -73,23 +78,21 @@ const after =
       </nav>
     </div>
 
-    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="home-title">
+    <section class="xo-shell xo-hero xo-hero--split xai-home-hero" aria-labelledby="home-title">
       <div>
         <p class="xo-kicker">Confidentialité des prompts IA · beta privée</p>
-        <h1 id="home-title" class="xo-title xo-title--wide">Réduire l’exposition des prompts IA.</h1>
+        <h1 id="home-title" class="xo-title xo-title--wide">Inspecter avant d’envoyer.</h1>
         <p class="xo-subtitle">
-          Paranoia est un produit séparé de confidentialité et d’exposition des prompts. Il aide les équipes à détecter,
-          masquer et relire les contenus sensibles avant l’usage d’un assistant IA. Il réduit une surface d’exposition ;
-          il ne remplace pas une politique de sécurité.
+          Paranoia aide à détecter, masquer et relire les contenus sensibles avant l’usage d’un assistant IA.
+          Il réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
         </p>
         <div class="xo-actions" style="margin-top: var(--eco-space-6)">
           <a class="xo-button xo-button--primary" href="#cta">Rejoindre la beta</a>
-          <a class="xo-button" href={PARANOIA_CONTACT_HREF}>Parler d’un pilote</a>
           <a class="xo-button" href="/rapports-incidents">Lire les incidents</a>
         </div>
       </div>
 
-      <div class="xo-console paranoia-review-artifact" aria-label="Avant après prompt">
+      <div class="xo-console paranoia-review-artifact xai-hero-artifact" aria-label="Avant après prompt">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -122,30 +125,26 @@ const after =
       </div>
     </section>
 
-    <section class="xo-shell xo-proof-claim-grid" aria-label="Grammaire de preuve Paranoia">
-      {proofClaims.map((item) => (
-        <article>
-          <span>{item.label}</span>
-          <strong>{item.title}</strong>
-          <p>{item.body}</p>
-        </article>
-      ))}
-    </section>
+    <section id="workflow" class="xo-shell xo-section xai-compact-section" aria-labelledby="paths-title">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Produit</p>
+          <h2 id="paths-title" class="xo-title xo-title--section">Quatre surfaces à inspecter.</h2>
+        </div>
+        <p>Chaque chemin mène vers une action ou une information de confiance. Rien n’est posé comme simple effet visuel.</p>
+      </div>
 
-    <section class="xo-shell" aria-label="Capacités Paranoia">
-      <div class="xo-capability-grid">
-        {capabilities.map((item, index) => (
-          <a id={index === 0 ? 'detecte' : index === 1 ? 'protege' : index === 2 ? 'review' : undefined} class="xo-card" href={item.href}>
-            <div class="xo-demo" aria-hidden="true">
-              <div class="xo-console-body" style="padding: 0">
-                <div class="xo-console-line"><span>{String(index + 1).padStart(2, '0')}</span><span>{item.label.toLowerCase()}</span></div>
-                <div class="xo-console-line"><span>policy</span><span>{item.body}</span></div>
-                <div class="xo-console-line"><span>state</span><strong>beta · qualified pilots</strong></div>
-              </div>
+      <div class="xai-path-grid" aria-label="Chemins Paranoia">
+        {paths.map((item, index) => (
+          <a class:list={['xai-path-card', index === 0 && 'xai-path-card--primary']} href={item.href}>
+            <div class="xai-path-artifact" aria-hidden="true">
+              {item.steps.map((step, stepIndex) => (
+                <div><span>{String(stepIndex + 1).padStart(2, '0')}</span><strong>{step}</strong></div>
+              ))}
             </div>
             <div>
               <p class="xo-label">{item.label}</p>
-              <h2>{item.title}</h2>
+              <h3>{item.title}</h3>
               <p>{item.body}</p>
             </div>
             <span class="xo-card-arrow">Explorer →</span>
@@ -154,18 +153,38 @@ const after =
       </div>
     </section>
 
-    <section class="xo-shell xo-section">
-      <div class="xo-metric-strip" aria-label="Repères produit qualifiés">
-        <div class="xo-metric"><strong>Local</strong><span>Contenu traité côté poste selon la conception visée.</span></div>
-        <div class="xo-metric"><strong>Policy</strong><span>Règles ajustables selon contexte et équipe pilote.</span></div>
-        <div class="xo-metric"><strong>Review</strong><span>Avant/après inspectable avant transmission.</span></div>
-        <div class="xo-metric"><strong>Limits</strong><span>Documentation sécurité à compléter avant déploiement sensible.</span></div>
+    <section id="limits" class="xo-shell xo-section" aria-labelledby="limits-title">
+      <div class="xai-proof-layout">
+        <div class="xai-proof-copy">
+          <p class="xo-kicker">Trust</p>
+          <h2 id="limits-title" class="xo-title xo-title--section">La limite fait partie du produit.</h2>
+          <p>
+            Une page produit crédible ne cache pas son périmètre. Paranoia doit montrer le contrôle,
+            l’avant/après et ce qui reste à la charge de l’équipe.
+          </p>
+        </div>
+        <div class="xai-field-ledger" aria-label="Limites produit">
+          {limits.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
-    <section id="cta" class="xo-shell xo-section">
-      <p class="xo-kicker">Choisir par où commencer</p>
-      <div class="xo-start-paths" style="margin-top: var(--eco-space-5)">
+    <section id="cta" class="xo-shell xo-section" aria-labelledby="start-title">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Commencer</p>
+          <h2 id="start-title" class="xo-title xo-title--section">Piloter ou lire les limites.</h2>
+        </div>
+        <p>Deux suites possibles : décrire un cas réel ou inspecter le journal de confiance.</p>
+      </div>
+
+      <div class="xo-start-paths">
         <div class="xo-start-card">
           <div>
             <p class="xo-label">Beta</p>

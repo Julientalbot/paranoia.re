@@ -28,6 +28,263 @@
   text-rendering: geometricPrecision;
 }
 
+/* xAI homepage refactor: every block is an artifact, a path, a proof, or an action. */
+.xai-home .xai-home-hero {
+  min-height: min(820px, calc(100dvh - 4.5rem));
+  padding-block: clamp(4.5rem, 8vw, 7rem) 3rem;
+}
+
+.xai-home .xai-compact-section {
+  padding-top: clamp(3rem, 7vw, 5.5rem);
+}
+
+.xai-hero-artifact {
+  align-self: center;
+}
+
+.xai-path-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  background: var(--xo-line);
+}
+
+.xai-path-card {
+  position: relative;
+  display: grid;
+  grid-column: span 3;
+  min-height: 22rem;
+  align-content: space-between;
+  gap: var(--eco-space-5);
+  padding: 1.25rem;
+  background: var(--xo-surface);
+  color: var(--xo-text);
+  text-decoration: none;
+  transition:
+    background var(--eco-motion-standard) ease,
+    transform var(--eco-motion-fast) var(--eco-ease-out);
+}
+
+.xai-path-card--primary::before,
+.xai-path-card:focus-visible::before,
+.xai-path-card:hover::before {
+  opacity: 0.8;
+}
+
+.xai-path-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--xo-accent), transparent);
+  opacity: 0;
+  transition: opacity var(--eco-motion-standard) ease;
+}
+
+.xai-path-card:hover {
+  background: var(--xo-surface-raised);
+}
+
+.xai-path-card:active {
+  transform: translateY(1px) scale(0.998);
+}
+
+.xai-path-card h3 {
+  margin: var(--eco-space-3) 0 0;
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: clamp(1.45rem, 2vw, 1.95rem);
+  font-weight: 680;
+  line-height: 1.04;
+}
+
+.xai-path-card p {
+  margin: var(--eco-space-3) 0 0;
+  color: var(--xo-text-soft);
+  line-height: 1.58;
+}
+
+.xai-path-artifact {
+  display: grid;
+  min-height: 8.75rem;
+  align-content: center;
+  gap: 0.55rem;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  padding: 0.95rem;
+  background: var(--xo-bg);
+  font-family: var(--eco-font-mono);
+  font-size: 0.77rem;
+}
+
+.xai-path-artifact div,
+.xai-field-ledger > div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+}
+
+.xai-path-artifact span,
+.xai-field-ledger span {
+  color: var(--xo-text-muted);
+}
+
+.xai-path-artifact strong,
+.xai-field-ledger strong {
+  min-width: 0;
+  color: var(--xo-accent);
+  overflow-wrap: anywhere;
+}
+
+.xai-proof-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.xai-proof-copy {
+  position: sticky;
+  top: 6rem;
+}
+
+.xai-proof-copy p:not(.xo-kicker) {
+  max-width: 54ch;
+  color: var(--xo-text-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.xai-photo-artifact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  background: var(--xo-line);
+}
+
+.xai-photo-artifact figure {
+  position: relative;
+  min-height: 18rem;
+  margin: 0;
+  background: var(--xo-surface);
+}
+
+.xai-photo-artifact img {
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  object-fit: cover;
+  filter: grayscale(0.12) contrast(1.04);
+}
+
+.xai-photo-artifact figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--eco-space-3);
+  padding: 0.9rem;
+  background: linear-gradient(180deg, transparent, rgba(5, 5, 5, 0.84));
+  color: var(--eco-color-text);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+}
+
+.xai-photo-artifact figcaption span {
+  color: var(--eco-color-text-muted);
+}
+
+.xai-field-ledger {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  background: var(--xo-line);
+}
+
+.xai-field-ledger > div {
+  grid-template-columns: minmax(7rem, 0.35fr) minmax(0, 0.65fr);
+  align-items: baseline;
+  padding: 1.15rem;
+  background: var(--xo-surface);
+}
+
+.xai-field-ledger p {
+  grid-column: 2;
+  margin: 0.45rem 0 0;
+  color: var(--xo-text-soft);
+  line-height: 1.58;
+}
+
+.xai-signal-list {
+  margin-top: var(--eco-space-6);
+}
+
+.xai-start-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  background: var(--xo-line);
+}
+
+.xai-start-grid .xo-start-card {
+  border: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 980px) {
+  .xai-path-card {
+    grid-column: span 6;
+  }
+
+  .xai-proof-layout,
+  .xai-start-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .xai-proof-copy {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .xai-home .xai-home-hero {
+    min-height: auto;
+    padding-block: 4rem 2rem;
+  }
+
+  .xai-path-grid,
+  .xai-photo-artifact {
+    grid-template-columns: 1fr;
+  }
+
+  .xai-path-card {
+    grid-column: 1 / -1;
+    min-height: 18rem;
+    padding: 1rem;
+  }
+
+  .xai-field-ledger > div,
+  .xai-path-artifact div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .xai-field-ledger p {
+    grid-column: 1;
+  }
+}
+
 .xo-page--light {
   --xo-bg: var(--eco-color-canvas);
   --xo-surface: rgba(255, 255, 255, 0.72);
@@ -597,6 +854,10 @@
   align-content: center;
   background: color-mix(in srgb, var(--eco-color-black) 92%, var(--xo-accent) 8%);
   padding: 0.8rem;
+}
+
+.paranoia-review-artifact.xai-hero-artifact {
+  align-self: center;
 }
 
 .xo-metric-strip {
