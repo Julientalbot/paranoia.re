@@ -4,7 +4,7 @@ interface Props {
   ctaLabel?: string;
 }
 
-const { ctaHref = '#cta', ctaLabel = 'Demander un accès beta →' } = Astro.props;
+const { ctaHref = '#cta', ctaLabel = 'Beta' } = Astro.props;
 ---
 
 <header class="product-header">
@@ -16,9 +16,10 @@ const { ctaHref = '#cta', ctaLabel = 'Demander un accès beta →' } = Astro.pro
       <span>Paranoia</span>
     </a>
     <div class="xo-nav-links">
-      <a href="/#detecte">Produit</a>
+      <a href="/#workflow">Produit</a>
+      <a href="/#limits">Limites</a>
       <a href="/rapports-incidents">Incidents</a>
+      <a href={ctaHref}>{ctaLabel}</a>
     </div>
-    <a class="xo-button xo-button--primary header-cta" href={ctaHref}>{ctaLabel}</a>
   </nav>
 </header>

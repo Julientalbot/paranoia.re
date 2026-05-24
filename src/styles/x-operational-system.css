@@ -7,21 +7,21 @@
   --xo-density: 6;
   --xo-motion-level: 2;
   --xo-artifact-min: 13rem;
-  --xo-bg: var(--eco-color-black);
-  --xo-surface: var(--eco-color-graphite);
-  --xo-surface-raised: var(--eco-color-charcoal);
-  --xo-text: var(--eco-color-text);
-  --xo-text-soft: var(--eco-color-text-soft);
-  --xo-text-muted: var(--eco-color-text-muted);
-  --xo-line: var(--eco-color-line-inverse-soft);
-  --xo-line-strong: var(--eco-color-line-inverse);
+  --xo-bg: var(--xds-canvas);
+  --xo-surface: var(--xds-surface);
+  --xo-surface-raised: var(--xds-surface-2);
+  --xo-text: var(--xds-ink);
+  --xo-text-soft: var(--xds-muted);
+  --xo-text-muted: var(--xds-muted-soft);
+  --xo-line: var(--xds-border-soft);
+  --xo-line-strong: var(--xds-border);
   --xo-accent: var(--eco-color-signal);
   --xo-accent-soft: rgba(217, 255, 67, 0.13);
   --xo-danger: var(--eco-color-red);
   min-width: 320px;
   overflow-x: clip;
   background:
-    linear-gradient(90deg, transparent 0 49.96%, rgba(255, 255, 255, 0.05) 49.96% 50.04%, transparent 50.04%),
+    linear-gradient(90deg, transparent 0 49.96%, color-mix(in srgb, var(--xo-text) 5%, transparent) 49.96% 50.04%, transparent 50.04%),
     var(--xo-bg);
   color: var(--xo-text);
   font-family: var(--eco-font-body);
@@ -30,8 +30,8 @@
 
 /* xAI homepage refactor: every block is an artifact, a path, a proof, or an action. */
 .xai-home .xai-home-hero {
-  min-height: min(820px, calc(100dvh - 4.5rem));
-  padding-block: clamp(4.5rem, 8vw, 7rem) 3rem;
+  min-height: min(780px, calc(100dvh - 4.5rem));
+  padding-block: clamp(4.75rem, 7.4vw, 6.5rem) 2.5rem;
 }
 
 .xai-home .xai-compact-section {
@@ -97,8 +97,9 @@
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: clamp(1.45rem, 2vw, 1.95rem);
-  font-weight: 680;
-  line-height: 1.04;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
 }
 
 .xai-path-card p {
@@ -286,17 +287,17 @@
 }
 
 .xo-page--light {
-  --xo-bg: var(--eco-color-canvas);
-  --xo-surface: rgba(255, 255, 255, 0.72);
-  --xo-surface-raised: var(--eco-color-white);
-  --xo-text: var(--eco-color-text-dark);
-  --xo-text-soft: var(--eco-color-text-dark-soft);
-  --xo-text-muted: rgba(5, 5, 5, 0.46);
-  --xo-line: var(--eco-color-line);
-  --xo-line-strong: var(--eco-color-line-strong);
-  --xo-accent-soft: rgba(5, 5, 5, 0.055);
+  --xo-bg: var(--xds-canvas);
+  --xo-surface: var(--xds-surface);
+  --xo-surface-raised: var(--xds-surface-2);
+  --xo-text: var(--xds-ink);
+  --xo-text-soft: var(--xds-muted);
+  --xo-text-muted: var(--xds-muted-soft);
+  --xo-line: var(--xds-border-soft);
+  --xo-line-strong: var(--xds-border);
+  --xo-accent-soft: color-mix(in srgb, var(--xo-text) 5%, transparent);
   background:
-    linear-gradient(90deg, transparent 0 49.96%, rgba(5, 5, 5, 0.055) 49.96% 50.04%, transparent 50.04%),
+    linear-gradient(90deg, transparent 0 49.96%, color-mix(in srgb, var(--xo-text) 5%, transparent) 49.96% 50.04%, transparent 50.04%),
     var(--xo-bg);
 }
 
@@ -350,7 +351,7 @@
 .xo-brand {
   min-width: 0;
   color: var(--xo-text);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .xo-brand-mark {
@@ -439,7 +440,7 @@
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 1.75rem;
-  font-weight: 650;
+  font-weight: 500;
   line-height: 1.08;
 }
 
@@ -457,7 +458,7 @@
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
   font-size: 0.76rem;
-  font-weight: 650;
+  font-weight: 500;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -478,14 +479,14 @@
   background: none;
   color: var(--xo-text);
   font-family: var(--eco-font-display);
-  font-size: 6.8rem;
-  font-weight: 680;
-  font-stretch: 82%;
+  font-size: clamp(3.5rem, 4.35vw, 4.75rem);
+  font-weight: 500;
+  font-stretch: 100%;
   -webkit-background-clip: initial;
   background-clip: border-box;
   -webkit-text-fill-color: currentColor;
-  letter-spacing: 0;
-  line-height: 0.95;
+  letter-spacing: -0.025em;
+  line-height: 1;
 }
 
 .xo-title--wide {
@@ -494,15 +495,15 @@
 
 .xo-title--section {
   max-width: 16ch;
-  font-size: 4.8rem;
+  font-size: clamp(2.75rem, 3.35vw, 3.25rem);
 }
 
 .xo-subtitle {
   max-width: 64ch;
   margin: var(--eco-space-5) 0 0;
   color: var(--xo-text-soft);
-  font-size: 1.12rem;
-  line-height: 1.72;
+  font-size: 1rem;
+  line-height: 1.62;
 }
 
 .xo-button {
@@ -517,7 +518,7 @@
   color: var(--xo-text);
   font-family: var(--eco-font-mono);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 500;
   text-decoration: none;
   transition:
     transform var(--eco-motion-fast) var(--eco-ease-out),
@@ -640,7 +641,7 @@
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 1.7rem;
-  font-weight: 650;
+  font-weight: 500;
   line-height: 1.08;
 }
 
@@ -795,7 +796,7 @@
   color: var(--eco-color-text-muted);
   font-family: var(--eco-font-mono);
   font-size: 0.68rem;
-  font-weight: 650;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
@@ -881,7 +882,7 @@
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 3rem;
-  font-weight: 680;
+  font-weight: 500;
   line-height: 1;
 }
 
@@ -915,7 +916,7 @@
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 4.15rem;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 0.9;
 }
 
@@ -1103,8 +1104,20 @@
   text-decoration: none;
 }
 
+.xo-start-panel {
+  display: grid;
+  min-height: 18rem;
+  align-content: space-between;
+  gap: var(--eco-space-6);
+  padding: 1.85rem;
+  background: var(--xo-surface);
+  color: var(--xo-text);
+}
+
 .xo-start-card h2,
-.xo-start-card h3 {
+.xo-start-card h3,
+.xo-start-panel h2,
+.xo-start-panel h3 {
   max-width: 18ch;
   margin: var(--eco-space-3) 0 0;
   color: var(--xo-text);
@@ -1112,7 +1125,8 @@
   line-height: 1.05;
 }
 
-.xo-start-card p {
+.xo-start-card p,
+.xo-start-panel p {
   max-width: 58ch;
   color: var(--xo-text-soft);
   line-height: 1.65;
@@ -1206,7 +1220,7 @@
   color: var(--xo-accent);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
@@ -1215,7 +1229,7 @@
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 1.7rem;
-  font-weight: 680;
+  font-weight: 500;
   line-height: 1.05;
 }
 
@@ -1265,14 +1279,14 @@
   border-radius: var(--eco-radius-panel);
   background:
     radial-gradient(circle at 84% 12%, color-mix(in srgb, var(--xo-accent) 14%, transparent), transparent 34%),
-    var(--eco-color-black);
+    var(--xds-terminal);
   box-shadow: var(--eco-shadow-tight);
 }
 
 .paranoia-trust-ledger {
   display: grid;
   gap: 1px;
-  background: var(--eco-color-line-inverse-soft);
+  background: var(--xds-terminal-border);
   font-family: var(--eco-font-mono);
 }
 
@@ -1283,7 +1297,7 @@
   align-items: center;
   min-height: 4.25rem;
   padding: 0.9rem 1rem;
-  background: color-mix(in srgb, var(--eco-color-black) 92%, var(--xo-accent) 8%);
+  background: color-mix(in srgb, var(--xds-terminal) 92%, var(--xo-accent) 8%);
 }
 
 .paranoia-trust-ledger strong {
@@ -1338,7 +1352,7 @@
   min-height: 3.1rem;
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-control);
-  background: var(--eco-color-black);
+  background: var(--xo-surface-raised);
   color: var(--xo-text);
   font: inherit;
   padding: 0.85rem 0.95rem;
@@ -1365,7 +1379,7 @@
   color: var(--xo-bg);
   font-family: var(--eco-font-mono);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 500;
   padding: 0.85rem 1.18rem;
   text-decoration: none;
   transition:
@@ -1397,7 +1411,7 @@
   border-color: color-mix(in srgb, var(--xo-accent) 44%, var(--xo-line));
   background:
     linear-gradient(90deg, transparent, color-mix(in srgb, var(--xo-accent) 10%, transparent), transparent),
-    var(--eco-color-black);
+    var(--xo-surface-raised);
   background-size: 220% 100%;
   animation: paranoiaWaitlistShimmer 1.4s var(--eco-ease-snap) infinite;
 }
@@ -1456,11 +1470,11 @@
   }
 
   .xo-title {
-    font-size: 5rem;
+    font-size: clamp(3.25rem, 7.2vw, 4rem);
   }
 
   .xo-title--section {
-    font-size: 4rem;
+    font-size: clamp(2.65rem, 5.8vw, 3.25rem);
   }
 
   .xo-hero--split,
@@ -1522,12 +1536,12 @@
 
   .xo-title {
     max-width: 100%;
-    font-size: 3rem;
+    font-size: clamp(2.25rem, 9.6vw, 2.75rem);
     overflow-wrap: anywhere;
   }
 
   .xo-title--section {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8.5vw, 2.5rem);
   }
 
   .xo-subtitle {
@@ -1567,7 +1581,8 @@
   }
 
   .xo-card,
-  .xo-start-card {
+  .xo-start-card,
+  .xo-start-panel {
     min-height: auto;
     padding: 1rem;
   }
@@ -1586,7 +1601,9 @@
   }
 
   .xo-start-card h2,
-  .xo-start-card h3 {
+  .xo-start-card h3,
+  .xo-start-panel h2,
+  .xo-start-panel h3 {
     font-size: 1.7rem;
   }
 

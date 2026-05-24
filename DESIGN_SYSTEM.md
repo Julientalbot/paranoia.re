@@ -51,11 +51,14 @@ Chaque repo garde une copie locale de ces fichiers :
 
 ```text
 src/styles/ecosystem-tokens.css
+src/styles/xai-copy-system.css
 src/styles/x-operational-system.css
 DESIGN_SYSTEM.md
 ```
 
 `ecosystem-tokens.css` porte les tokens bruts communs.
+
+`xai-copy-system.css` porte la grammaire xAI page par page : shell `1232px`, titres non condenses, poids maximum `500`, artifacts, ledgers, listes, chemins cliquables, lecture longue et bloc de demarrage final.
 
 `x-operational-system.css` porte les primitives communes : `.xo-page`, `.xo-shell`, `.xo-nav`, `.xo-hero`, `.xo-capability-grid`, `.xo-card`, `.xo-console`, `.xo-metric-strip`, `.xo-start-paths`, `.xo-state-rail`, `.xo-footer`.
 
@@ -103,6 +106,7 @@ Claims a eviter : certification non obtenue, conformite automatique, securite to
 - Les metriques doivent etre prouvees, qualifiees, ou remplacees par des etats descriptifs.
 - Les cartes existent seulement quand elles portent une surface produit, une limite ou un chemin trust.
 - Les interactions restent CSS-first : hover, focus-visible, active, reduced-motion. Pas de runtime motion tant qu'un besoin produit ne le justifie pas.
+- Les themes clair et sombre doivent rester equivalents : pas de page forcee dans un seul theme, pas de CTA illisible apres inversion de scheme.
 
 ## Extension
 
@@ -112,11 +116,13 @@ Aucune nouvelle primitive n'est creee avant d'avoir tente d'utiliser le kernel e
 
 ## QA
 
-Verifier la home en desktop et en 390px mobile :
+Verifier chaque page publique en desktop, en 390px mobile, en clair et en sombre :
 
 - aucun overflow horizontal ;
 - header lisible ;
 - CTA beta ou incidents visible tot ;
+- artifact, preuve ou action dans le premier ecran ;
+- action de demarrage finale sur les pages non legales ;
 - deck de capacites visible avant les explications longues ;
 - produit autonome, sans emprunter la preuve de Julien ;
 - claims prudents, sourcables, sans urgence artificielle.

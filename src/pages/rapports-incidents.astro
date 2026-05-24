@@ -45,57 +45,34 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
       </aside>
     </section>
 
-    <section class="xo-shell" aria-label="Périmètre des rapports">
-      <div class="xo-capability-grid">
-        <article class="xo-card">
-          <div>
-            <p class="xo-label">Automatique</p>
-            <h2>Crashs et erreurs.</h2>
-            <p>Lorsqu'une erreur inattendue survient, un rapport technique peut être envoyé automatiquement.</p>
-          </div>
-          <ul class="xo-list">
-            <li>Message d'erreur et trace technique.</li>
-            <li>Version de Paranoia, navigateur, OS, langue.</li>
-            <li>Horodatage et identifiant d'événement.</li>
-          </ul>
+    <section class="xo-shell xo-section" aria-label="Périmètre des rapports">
+      <div class="xds-list">
+        <article>
+          <span>Automatique</span>
+          <strong>Crashs et erreurs.</strong>
+          <p>Message d'erreur, trace technique, version, navigateur, OS, langue, horodatage et identifiant d'événement.</p>
         </article>
-
-        <article class="xo-card">
-          <div>
-            <p class="xo-label">Protection</p>
-            <h2>Champs sensibles masqués.</h2>
-            <p>Sentry est configuré pour supprimer ou masquer les champs susceptibles de contenir du PII ou des secrets.</p>
-          </div>
-          <ul class="xo-list">
-            <li>Emails, noms, identifiants, numéros.</li>
-            <li>Tokens, clés et secrets si présents.</li>
-            <li>Contexte limité au diagnostic.</li>
-          </ul>
+        <article>
+          <span>Protection</span>
+          <strong>Champs sensibles masqués.</strong>
+          <p>Sentry est configuré pour supprimer ou masquer emails, noms, identifiants, tokens, clés et secrets si présents.</p>
         </article>
-
-        <article class="xo-card">
-          <div>
-            <p class="xo-label">Sessions</p>
-            <h2>Stabilité par version.</h2>
-            <p>Des événements de session peuvent mesurer la stabilité et l'impact des versions.</p>
-          </div>
-          <p>Ces événements ne contiennent pas de prompts, textes, pages consultées ni URL.</p>
+        <article>
+          <span>Sessions</span>
+          <strong>Stabilité par version.</strong>
+          <p>Des événements de session peuvent mesurer la stabilité et l'impact des versions, sans prompts, textes, pages consultées ni URL.</p>
         </article>
-
-        <article class="xo-card">
-          <div>
-            <p class="xo-label">Optionnel</p>
-            <h2>Signalement manuel.</h2>
-            <p>Depuis le produit, un rapport volontaire peut ajouter du contexte choisi par l'utilisateur.</p>
-          </div>
-          <p>Évitez d'inclure des données client ou des secrets dans un signalement manuel.</p>
+        <article>
+          <span>Optionnel</span>
+          <strong>Signalement manuel.</strong>
+          <p>Un rapport volontaire peut ajouter du contexte choisi par l'utilisateur. Évitez d’inclure données client ou secrets.</p>
         </article>
       </div>
     </section>
 
     <section class="xo-shell xo-section">
       <div class="xo-start-paths">
-        <article class="xo-start-card">
+        <article class="xo-start-panel">
           <div>
             <p class="xo-label">Questions</p>
             <h2>Ce qui est envoyé.</h2>

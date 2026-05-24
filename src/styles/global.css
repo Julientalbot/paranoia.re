@@ -1,4 +1,5 @@
 @import "./ecosystem-tokens.css";
+@import "./xai-copy-system.css";
 
 /* ==========================================================================
    PARANOIA.RE — X-OPERATIONAL PRODUCT SURFACE
@@ -189,7 +190,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 4.25rem;
-  font-weight: 600;
+  font-weight: 500;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -204,7 +205,7 @@ h2 {
 h3 {
   font-size: 1.25rem;
   font-family: var(--font-mono), monospace;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0;
 }
 
@@ -304,7 +305,7 @@ header {
   align-items: center;
   gap: var(--space-md);
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.25rem;
   letter-spacing: 0;
   color: var(--text-primary);
@@ -385,7 +386,7 @@ header {
   color: var(--primary);
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   animation: fadeInUp 0.6s var(--ease-out-expo) 0.1s both;
@@ -446,7 +447,7 @@ header {
   color: white;
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -533,7 +534,7 @@ header {
   background: var(--danger-dim);
   border-left: 3px solid var(--danger);
   color: var(--danger);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Risk Stats - Alarming numbers */
@@ -565,7 +566,7 @@ header {
 .risk-value {
   font-family: var(--font-display);
   font-size: 2.25rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--danger);
   text-shadow: 0 0 20px rgba(255, 0, 102, 0.4);
 }
@@ -638,7 +639,7 @@ header {
   color: white;
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-lg);
@@ -741,7 +742,7 @@ header {
   display: block;
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   position: relative;
   z-index: 1;
@@ -786,7 +787,7 @@ header {
   background: var(--primary);
   color: var(--bg-void);
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   border: none;
   border-radius: var(--radius-md);
@@ -1010,7 +1011,7 @@ header {
   color: var(--primary);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -1130,7 +1131,7 @@ header {
 .metric-value {
   font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--primary);
   text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
 }
@@ -1189,7 +1190,7 @@ header {
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: all 0.3s ease;
@@ -1263,7 +1264,7 @@ header {
   color: var(--danger);
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   animation: processingPulse 0.5s ease infinite;
@@ -1304,7 +1305,7 @@ header {
 
 .demo-code .char.bracket {
   color: var(--danger);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Enhanced chips */
@@ -1329,7 +1330,7 @@ header {
 }
 
 .chip-value {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .chip.masked {
@@ -1437,7 +1438,7 @@ header {
   color: var(--danger);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -1524,7 +1525,7 @@ header {
 .stat-value {
   font-family: var(--font-display);
   font-size: 3rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
   line-height: 1;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
@@ -1688,7 +1689,7 @@ header {
 
 .author-name {
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
@@ -1788,7 +1789,7 @@ header {
 
 .result-value {
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   color: var(--primary);
 }
@@ -1911,7 +1912,7 @@ header {
 .faq.compact summary {
   cursor: pointer;
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
   font-size: 14px;
   display: flex;
@@ -2077,7 +2078,7 @@ input[type="email"]::placeholder {
   color: var(--primary);
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   backdrop-filter: blur(20px);
@@ -2276,4 +2277,66 @@ input[type="email"]::placeholder {
   .hero-cta .btn {
     width: 100%;
   }
+}
+
+body.xds-theme.xo-page--product {
+  color-scheme: light;
+  --primary: #087987;
+  --primary-rgb: 8, 121, 135;
+  --primary-dim: rgba(8, 121, 135, 0.12);
+  --accent: #0a6f87;
+  --accent-dim: rgba(10, 111, 135, 0.1);
+  --danger: #b4234f;
+  --danger-dim: rgba(180, 35, 79, 0.1);
+  --bg-void: var(--xds-canvas);
+  --bg-deep: var(--xds-surface);
+  --bg-surface: var(--xds-surface);
+  --bg-elevated: var(--xds-surface-2);
+  --bg-hover: color-mix(in srgb, var(--xds-surface-2) 80%, var(--xds-ink) 20%);
+  --text-primary: var(--xds-ink);
+  --text-secondary: var(--xds-muted);
+  --text-muted: var(--xds-muted-soft);
+  --text-dim: color-mix(in srgb, var(--xds-ink) 26%, transparent);
+  --border: var(--xds-border);
+  --border-subtle: var(--xds-border-soft);
+  --border-focus: rgba(8, 121, 135, 0.42);
+  --border-glow: rgba(8, 121, 135, 0.2);
+  background: var(--xds-canvas) !important;
+  color: var(--xds-ink) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.xds-theme.xo-page--product {
+    color-scheme: dark;
+    --primary: #9fe8ff;
+    --primary-rgb: 159, 232, 255;
+    --primary-dim: rgba(159, 232, 255, 0.14);
+    --accent: #9fe8ff;
+    --accent-dim: rgba(159, 232, 255, 0.12);
+    --danger: #ff675f;
+    --danger-dim: rgba(255, 103, 95, 0.12);
+    --bg-void: var(--xds-canvas);
+    --bg-deep: var(--xds-surface-2);
+    --bg-surface: var(--xds-surface);
+    --bg-elevated: var(--xds-surface-2);
+    --bg-hover: color-mix(in srgb, var(--xds-surface) 86%, var(--xds-ink) 14%);
+    --text-primary: var(--xds-ink);
+    --text-secondary: var(--xds-muted);
+    --text-muted: var(--xds-muted-soft);
+    --text-dim: color-mix(in srgb, var(--xds-ink) 28%, transparent);
+    --border: var(--xds-border);
+    --border-subtle: var(--xds-border-soft);
+    --border-focus: rgba(159, 232, 255, 0.42);
+    --border-glow: rgba(159, 232, 255, 0.2);
+  }
+}
+
+body.xds-theme.xo-page--product .product-footer {
+  background: var(--xds-canvas) !important;
+  color: var(--xds-ink) !important;
+}
+
+body.xds-theme.xo-page--product .product-footer p,
+body.xds-theme.xo-page--product .product-footer a {
+  color: var(--xds-muted) !important;
 }
