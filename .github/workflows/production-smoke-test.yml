@@ -1,0 +1,35 @@
+name: Production Smoke Test
+
+on:
+  schedule:
+    # Tous les jours à 8h UTC.
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      live_waitlist_email:
+        description: "Adresse email optionnelle pour tester un vrai envoi Resend"
+        required: false
+        type: string
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check production endpoints
+        run: npm run check:prod
+        env:
+          PARANOIA_HEALTH_LIVE_WAITLIST_EMAIL: ${{ inputs.live_waitlist_email }}

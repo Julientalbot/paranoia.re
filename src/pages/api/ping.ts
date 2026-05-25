@@ -16,5 +16,15 @@ export const GET: APIRoute = async () => {
     return json({ ok: false, error: 'Configuration email manquante' }, 500);
   }
 
-  return json({ ok: true, backend: 'email' });
+  return json({
+    ok: true,
+    backend: 'email',
+    waitlist: {
+      version: 2,
+      bodyLimit: true,
+      emailValidation: true,
+      honeypot: true,
+      rateLimit: true,
+    },
+  });
 };

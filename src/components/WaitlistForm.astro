@@ -11,6 +11,16 @@
       required
     />
   </div>
+  <label class="sr-only" aria-hidden="true" for="waitlist-website">Site web</label>
+  <input
+    id="waitlist-website"
+    class="sr-only"
+    type="text"
+    name="website"
+    autocomplete="off"
+    tabindex="-1"
+    aria-hidden="true"
+  />
   <button class="btn" type="submit" data-submit-label>Rejoindre la beta</button>
 </form>
 <p class="hint" id="waitlist-hint">
@@ -23,6 +33,7 @@
   const status = document.querySelector('#waitlist-status');
   const submit = document.querySelector('[data-submit-label]');
   const input = document.querySelector('#waitlist-email');
+  const honeypot = document.querySelector('#waitlist-website');
 
   const setStatus = (message, type) => {
     if (!status) return;
@@ -60,7 +71,10 @@
         const response = await fetch('/api/waitlist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({
+            email,
+            website: honeypot instanceof HTMLInputElement ? honeypot.value : '',
+          }),
         });
         const payload = await response.json().catch(() => ({}));
 
