@@ -39,6 +39,62 @@ const before =
 const after =
   'Peux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email]. Dossier fournisseur [Identifiant]. Inclure la clause 4.2.';
 
+const dataFlow = [
+  {
+    label: '01 prompt entrant',
+    title: 'Le texte reste lisible avant décision.',
+    body: 'L’utilisateur voit le contenu brut et les zones qui risquent d’exposer une personne, une organisation ou un identifiant.',
+  },
+  {
+    label: '02 champs détectés',
+    title: 'Les catégories sensibles sont visibles.',
+    body: 'Personne, email, organisation, rôle, identifiant ou fragment contractuel sont signalés avant transmission.',
+  },
+  {
+    label: '03 sortie masquée',
+    title: 'Une version réduite est proposée.',
+    body: 'Le prompt peut remplacer les données directes par des libellés contrôlables sans changer l’intention de travail.',
+  },
+  {
+    label: '04 décision humaine',
+    title: 'La relecture reste obligatoire.',
+    body: 'L’utilisateur choisit quoi accepter, corriger ou garder hors assistant. Paranoia ne retire pas la responsabilité.',
+  },
+  {
+    label: '05 envoi',
+    title: 'Seule la version relue part vers l’assistant.',
+    body: 'Le produit réduit l’exposition avant envoi ; il ne rend pas sûr l’envoi de secrets bruts.',
+  },
+];
+
+const fitItems = [
+  {
+    label: 'Pour',
+    title: 'Données client, contrat, RH, support ou internes.',
+    body: 'Équipes qui copient déjà des informations sensibles dans des assistants IA et veulent une étape de contrôle.',
+  },
+  {
+    label: 'Pour',
+    title: 'Relecture humaine avant transmission.',
+    body: 'Organisations qui veulent rendre visible ce qui part, ce qui est masqué et ce qui doit rester sous responsabilité humaine.',
+  },
+  {
+    label: 'Pas pour',
+    title: 'Remplacer une DLP ou une politique sécurité.',
+    body: 'Paranoia est une réduction d’exposition avant prompt, pas un contrôle global du système d’information.',
+  },
+  {
+    label: 'Pas pour',
+    title: 'Garantir une conformité complète.',
+    body: 'Le produit n’efface pas les obligations juridiques, contractuelles, organisationnelles ou humaines.',
+  },
+  {
+    label: 'Pas pour',
+    title: 'Rendre sûr l’envoi de secrets bruts.',
+    body: 'Un secret qui ne doit pas sortir doit rester hors assistant. Le masquage n’autorise pas tout envoi.',
+  },
+];
+
 const limits = [
   {
     label: 'Scope',
@@ -153,6 +209,28 @@ const limits = [
       </div>
     </section>
 
+    <section id="flow" class="xo-shell xo-section" aria-labelledby="flow-title">
+      <div class="xai-proof-layout">
+        <div class="xai-proof-copy">
+          <p class="xo-kicker">Flux produit</p>
+          <h2 id="flow-title" class="xo-title xo-title--section">Ce qui se passe avant l’envoi.</h2>
+          <p>
+            La preuve produit tient dans une séquence vérifiable : voir le prompt, détecter les champs,
+            proposer une version masquée, relire, puis décider ce qui quitte l’interface.
+          </p>
+        </div>
+        <div class="xai-field-ledger" aria-label="Flux de réduction d'exposition avant envoi">
+          {dataFlow.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section id="limits" class="xo-shell xo-section" aria-labelledby="limits-title">
       <div class="xai-proof-layout">
         <div class="xai-proof-copy">
@@ -165,6 +243,28 @@ const limits = [
         </div>
         <div class="xai-field-ledger" aria-label="Limites produit">
           {limits.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="fit" class="xo-shell xo-section" aria-labelledby="fit-title">
+      <div class="xai-proof-layout">
+        <div class="xai-proof-copy">
+          <p class="xo-kicker">Usage</p>
+          <h2 id="fit-title" class="xo-title xo-title--section">Pour qui, pas pour qui.</h2>
+          <p>
+            La limite fait partie de la confiance : Paranoia aide sur une étape précise du prompt,
+            pas sur toute la politique de sécurité d’une organisation.
+          </p>
+        </div>
+        <div class="xai-field-ledger" aria-label="Publics et limites Paranoia">
+          {fitItems.map((item) => (
             <div>
               <span>{item.label}</span>
               <strong>{item.title}</strong>
