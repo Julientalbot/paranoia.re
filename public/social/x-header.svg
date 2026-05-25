@@ -1,2 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500" role="img" aria-labelledby="title desc"><title id="title">PARANOIA</title><desc id="desc">Détecter, masquer, relire. Limites documentées.</desc><defs><pattern id="paranoia-x-header-grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M41 0V42M0 41H42" stroke="#ffffff" stroke-opacity="0.055" stroke-width="1"/></pattern><radialGradient id="paranoia-x-header-signal" cx="10%" cy="0%" r="78%"><stop offset="0" stop-color="#9fe8ff" stop-opacity="0.22"/><stop offset="1" stop-color="#050505" stop-opacity="0"/></radialGradient></defs><rect width="1500" height="500" fill="#050505"/><rect width="1500" height="500" fill="url(#paranoia-x-header-grid)"/><rect width="1500" height="500" fill="url(#paranoia-x-header-signal)"/><rect x="60" y="50" width="1380" height="400" rx="8" fill="#050505" fill-opacity="0.72" stroke="#ffffff" stroke-opacity="0.14"/><rect x="105" y="100" width="85" height="85" rx="15.299999999999999" fill="#050505" stroke="#9fe8ff" stroke-opacity="0.26" stroke-width="1.5299999999999998"/><path d="M126.25 117h30.599999999999998c15.299999999999999 0 23.8 8.5 23.8 22.1 0 14.450000000000001-9.35 23.8-24.65 23.8h-13.6v17H126.25V117Zm12.75 12.75v21.25h13.6c6.8 0 11.05-3.4 11.05-11.05 0-6.8-4.25-10.2-11.05-10.2h-13.6Z" fill="#f7f7f2"/><rect x="167.9" y="161.2" width="8.5" height="17" fill="#9fe8ff"/><text x="228" y="144" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">[ PARANOIA ]</text><text x="105" y="243.3" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="53" font-weight="790" letter-spacing="0">Réduire l'exposition</text>
-<text x="105" y="297.89" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="53" font-weight="790" letter-spacing="0">des prompts IA</text><text x="105" y="375" fill="#b8bdc4" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="24" font-weight="470">Détecter, masquer, relire. Limites documentées.</text><text x="105" y="420" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="650">paranoia.re</text><line x1="930" y1="60" x2="930" y2="440" stroke="#9fe8ff" stroke-opacity="0.18" stroke-width="3"/><g transform="translate(1035 85) scale(0.7076923076923077)" opacity="0.82"><rect x="42" y="0" width="300" height="178" rx="8" fill="#080a0d" stroke="#9fe8ff" stroke-opacity="0.22"/><rect x="0" y="126" width="238" height="146" rx="8" fill="#10151c" stroke="#9fe8ff" stroke-opacity="0.22"/><rect x="226" y="206" width="238" height="126" rx="8" fill="#080a0d" stroke="#9fe8ff" stroke-opacity="0.22"/><path d="M72 42h86M72 74h140M72 106h102" stroke="#9fe8ff" stroke-opacity="0.68" stroke-width="6"/><path d="M196 74h94M196 106h118" stroke="#9fe8ff" stroke-opacity="0.24" stroke-width="6"/><path d="M34 166h74M34 198h96M34 230h68" stroke="#9fe8ff" stroke-opacity="0.24" stroke-width="7"/><path d="M136 166h72M136 198h54M136 230h84" stroke="#9fe8ff" stroke-opacity="0.55" stroke-width="7"/><path d="M258 246h52M258 278h118M258 308h80" stroke="#9fe8ff" stroke-opacity="0.25" stroke-width="7"/><path d="M354 278h66M354 308h48" stroke="#9fe8ff" stroke-opacity="0.60" stroke-width="7"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Paranoia X header fallback</title>
+  <desc id="desc">Reduce AI prompt exposure. Detect, mask, review. Documented limits.</desc>
+  <defs>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M41 0V42M0 41H42" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="signal" cx="16%" cy="0%" r="76%">
+      <stop offset="0" stop-color="#9fe8ff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#050505" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1500" height="500" fill="#050505"/>
+  <rect width="1500" height="500" fill="url(#grid)"/>
+  <rect width="1500" height="500" fill="url(#signal)"/>
+  <rect x="48" y="46" width="1404" height="408" rx="10" fill="#050505" fill-opacity=".66" stroke="#ffffff" stroke-opacity=".12"/>
+  <g transform="translate(88 82)">
+    <text x="0" y="60" fill="#f7f7f2" font-family="Arial Black, Archivo, Helvetica Neue, sans-serif" font-size="68" font-weight="900">Paranoia</text>
+    <circle cx="368" cy="42" r="16" fill="#9fe8ff"/>
+    <text x="0" y="104" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="650">[ PROMPTS IA ]</text>
+  </g>
+  <g transform="translate(380 158)">
+    <text x="0" y="58" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="54" font-weight="520" letter-spacing="-.8">Reduce AI prompt</text>
+    <text x="0" y="118" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="54" font-weight="520" letter-spacing="-.8">exposure</text>
+    <text x="0" y="176" fill="#c7ccd2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="24" font-weight="430">Detect, mask, review. Documented limits.</text>
+    <text x="0" y="232" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="650">paranoia.re</text>
+  </g>
+  <line x1="935" y1="72" x2="935" y2="428" stroke="#9fe8ff" stroke-opacity=".22" stroke-width="3"/>
+  <g transform="translate(1015 84)">
+    <rect x="0" y="0" width="300" height="138" rx="8" fill="#071015" stroke="#9fe8ff" stroke-opacity=".28"/>
+    <text x="24" y="42" fill="#f7f7f2" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="650">PROMPT ORIGINAL</text>
+    <rect x="24" y="66" width="220" height="8" fill="#36414b"/>
+    <rect x="24" y="90" width="86" height="8" fill="#36414b"/>
+    <rect x="122" y="90" width="74" height="8" fill="#f04444" opacity=".86"/>
+    <rect x="24" y="114" width="138" height="8" fill="#f04444" opacity=".86"/>
+    <rect x="174" y="114" width="88" height="8" fill="#36414b"/>
+    <rect x="0" y="162" width="360" height="146" rx="8" fill="#071015" stroke="#ffffff" stroke-opacity=".16"/>
+    <text x="24" y="204" fill="#f7f7f2" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="650">RULES APPLIED</text>
+    <text x="24" y="244" fill="#c7ccd2" font-family="Archivo, Helvetica Neue, sans-serif" font-size="20">PII</text>
+    <text x="226" y="244" fill="#f7f7f2" font-family="Archivo, Helvetica Neue, sans-serif" font-size="20">Masked</text>
+    <circle cx="320" cy="237" r="7" fill="#9fe8ff"/>
+    <text x="24" y="280" fill="#c7ccd2" font-family="Archivo, Helvetica Neue, sans-serif" font-size="20">Secrets</text>
+    <text x="226" y="280" fill="#f7f7f2" font-family="Archivo, Helvetica Neue, sans-serif" font-size="20">Masked</text>
+    <circle cx="320" cy="273" r="7" fill="#9fe8ff"/>
+  </g>
+  <rect x="0" y="300" width="356" height="200" fill="#050505" fill-opacity=".68"/>
+</svg>

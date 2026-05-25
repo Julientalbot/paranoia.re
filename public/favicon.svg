@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Paranoia">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Paranoia</title>
+  <desc id="desc">Favicon Paranoia</desc>
   <rect width="64" height="64" rx="12" fill="#050505"/>
-  <rect x="7" y="7" width="50" height="50" rx="8" fill="#090b0f" stroke="#9fe8ff" stroke-opacity="0.32"/>
-  <path d="M19 16h20c10 0 16 6 16 15 0 10-7 16-17 16h-9v10H19V16Zm10 9v13h8c5 0 8-2 8-7s-3-6-8-6h-8Z" fill="#f7f7f2"/>
-  <path d="M46 43h8v14h-8z" fill="#9fe8ff"/>
+  <text x="14" y="46" fill="#ffffff" font-family="Arial Black, Helvetica Neue, Arial, sans-serif" font-size="41" font-weight="900">P</text>
+  <circle cx="49" cy="45" r="5.5" fill="#9fe8ff"/>
 </svg>

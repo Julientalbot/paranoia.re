@@ -1,10 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="440" height="96" viewBox="0 0 440 96" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="260" viewBox="0 0 760 260" role="img" aria-labelledby="title desc">
   <title id="title">Paranoia</title>
-  <desc id="desc">Wordmark produit Paranoia</desc>
-  <rect x="1" y="1" width="94" height="94" rx="12" fill="#050505" stroke="#9fe8ff" stroke-opacity="0.24" stroke-width="2"/>
-  <path d="M25 24h32c17 0 27 10 27 25 0 16-11 26-28 26H41v15H25V24Zm16 14v23h14c8 0 13-4 13-12s-5-11-13-11H41Z" fill="#f7f7f2"/>
-  <path d="M73 70h12v20H73z" fill="#9fe8ff"/>
-  <path d="M18 16h69M18 80h45" stroke="#9fe8ff" stroke-opacity="0.48" stroke-width="2"/>
-  <text x="119" y="58" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="42" font-weight="780" letter-spacing="0">Paranoia</text>
-  <text x="121" y="82" fill="#a9adb3" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="650">prompt exposure review</text>
+  <desc id="desc">Wordmark Paranoia avec point froid</desc>
+  <rect width="760" height="260" fill="#050505"/>
+  <text x="58" y="166" fill="#ffffff" font-family="Arial Black, Helvetica Neue, Arial, sans-serif" font-size="112" font-weight="900">Paranoia</text>
+  <circle cx="636" cy="145" r="21" fill="#9fe8ff"/>
 </svg>

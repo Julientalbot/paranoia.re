@@ -66,24 +66,27 @@ DESIGN_SYSTEM.md
 
 Les assets d'identite restent locaux dans `public/` :
 
-- `logo.svg` : wordmark produit, sobre et technique.
-- `logo-mark.svg` : marque `P`, utilisee dans la navigation et les petits formats.
-- `favicon.svg` : favicon harmonise avec le mark.
+- `logo.svg` : wordmark produit noir/blanc avec point froid.
+- `logo.png` : export PNG haute resolution du wordmark, utile pour reseaux sociaux et documents qui n'acceptent pas le SVG.
+- `logo-mark.svg` : marque `P` avec point froid, utilisee dans la navigation et les petits formats.
+- `logo-mark.png` : export PNG 1024x1024 du mark, utile pour avatars ou imports externes.
+- `favicon.svg` : favicon harmonise avec le mark a point.
+- `favicon.png` : export PNG 512x512 du favicon.
 - `social-card.svg` et `social-card.png` : carte Open Graph 1200x630.
 - `logo-paranoia.svg` et `logo_paranoia.png` : aliases de compatibilite conserves pour eviter les liens casses.
 - `social/` : exports reseaux sociaux LinkedIn et X, avec sources SVG pour les covers/cards et PNG prets a publier.
 
 Regles : Paranoia doit ressembler a un produit de confidentialite inspectable, pas a un embleme cyber fictionnel. Les assets ne doivent pas suggerer une certification, une securite totale ou une rarete artificielle.
 
-Direction imagegen : les assets de flux (`social/linkedin-share.png`, `social/x-card.png`) utilisent la piste raster generee avec texte integre et details graphiques, car elle est moins generique en usage social. Les SVG equivalents restent les sources/fallbacks editables quand il faut regenerer proprement.
+Direction imagegen : les assets de flux (`social/linkedin-share.png`, `social/x-card.png`) et le header X final (`social/x-header.png`) utilisent la piste raster generee avec texte integre et details graphiques, car elle est moins generique en usage social. Le header X est volontairement en anglais pour l'audience IA/produit internationale. Les SVG equivalents restent les sources/fallbacks editables quand il faut regenerer proprement.
 
 Assets sociaux :
 
-- `social/linkedin-profile.png` : logo 400x400.
-- `social/linkedin-cover.png` : couverture LinkedIn Page 4200x700.
+- `social/linkedin-profile.png` : logo 400x400, regenere depuis le mark actuel.
+- `social/linkedin-cover.png` : couverture LinkedIn Page 4200x700, avatar-safe avec artifact produit inspectable.
 - `social/linkedin-share.png` : image de partage LinkedIn 1200x627, finale imagegen.
-- `social/x-profile.png` : logo 400x400.
-- `social/x-header.png` : header X 1500x500.
+- `social/x-profile.png` : logo 400x400, regenere depuis le mark actuel.
+- `social/x-header.png` : header X 1500x500, final imagegen anglais retouche pour ne pas placer de texte utile sous la photo de profil.
 - `social/x-card.png` : card X 1200x600, finale imagegen.
 
 ## Skin Paranoia
@@ -126,3 +129,11 @@ Verifier chaque page publique en desktop, en 390px mobile, en clair et en sombre
 - deck de capacites visible avant les explications longues ;
 - produit autonome, sans emprunter la preuve de Julien ;
 - claims prudents, sourcables, sans urgence artificielle.
+
+## Affinages 2026-05-25
+
+Voir la mise à jour du document racine `DESIGN_SYSTEM_XAI_TASTE_2026-05-23.md` (section 2026-05-25).
+
+Spécifiquement pour cette peau (produit trust / console sécurité) :
+- Pousser au maximum le sentiment **"console produit inspectable"** : traces, before/after, incidents, policy et limites doivent être les surfaces les plus vivantes et rejouables de la page.
+- Les artefacts techniques (prompts masqués, détections, rapports) doivent donner l'impression d'un outil réel en production, pas d'une promesse.
