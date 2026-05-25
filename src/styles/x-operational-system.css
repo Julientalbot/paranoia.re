@@ -381,9 +381,15 @@
 
 .xo-nav-links a,
 .xo-link {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  border-radius: var(--eco-radius-tight);
+  padding: 0.35rem 0.55rem;
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
   font-size: 0.78rem;
+  line-height: 1.2;
   text-decoration: none;
 }
 
@@ -1048,7 +1054,9 @@
 }
 
 .xo-trust-footer a {
-  display: block;
+  display: flex;
+  min-height: 2rem;
+  align-items: center;
   text-decoration: none;
 }
 
@@ -1532,6 +1540,12 @@
   .xo-nav-links {
     max-width: 100%;
     justify-content: flex-start;
+  }
+
+  .xo-brand,
+  .xo-nav-links a,
+  .xo-trust-footer a {
+    min-height: 2.75rem;
   }
 
   .xo-title {
