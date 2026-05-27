@@ -31,6 +31,12 @@ const imageUrl = new URL(image, 'https://paranoia.re').toString();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- General Sans (Fontshare CDN) — preferred display font, x.ai-like proportions. -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#020206" />
@@ -63,22 +69,30 @@ const imageUrl = new URL(image, 'https://paranoia.re').toString();
             <h3>Produit</h3>
             <a href="/#workflow">Fonctionnement</a>
             <a href="/#limits">Limites</a>
-            <a href="/rapports-incidents">Incidents</a>
+            <a href="/#fit">Pour qui</a>
+            <a href="/#cta">Rejoindre la beta</a>
           </nav>
           <nav aria-label="Trust">
             <h3>Trust</h3>
             <a href="/rapports-incidents">Rapports d'incidents</a>
+            <a href="/#limits">Politique données</a>
             <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Support beta</a>
           </nav>
-          <nav aria-label="Démarrage">
-            <h3>Démarrage</h3>
-            <a href="/#cta">Rejoindre la beta</a>
-            <a href="https://ergonomia.re/">Ergonomia</a>
+          <nav aria-label="Docs">
+            <h3>Docs</h3>
+            <a href="/#flow">Workflow détaillé</a>
+            <a href="/rapports-incidents">Trust center</a>
+            <a href="/#fit">Cas d'usage</a>
           </nav>
           <nav aria-label="Écosystème">
             <h3>Écosystème</h3>
             <a href="https://julientalbot.com/">Julien Talbot</a>
+            <a href="https://ergonomia.re/">Ergonomia</a>
+          </nav>
+          <nav aria-label="Légal">
+            <h3>Légal</h3>
             <a href="https://julientalbot.com/contact/">Contact</a>
+            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Email</a>
           </nav>
         </div>
       </footer>

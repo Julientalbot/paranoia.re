@@ -1187,6 +1187,15 @@
   height: 0.5rem;
   border-radius: 50%;
   background: var(--eco-color-line-inverse);
+  animation: xo-console-dot-pulse 3.6s var(--eco-ease-snap) infinite;
+}
+
+.xo-console-dot:nth-child(2) { animation-delay: 0.4s; }
+.xo-console-dot:nth-child(3) { animation-delay: 0.8s; }
+
+@keyframes xo-console-dot-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.08); }
 }
 
 .xo-console-body {
@@ -1269,6 +1278,43 @@
   display: flex;
   gap: 0.7rem;
   color: var(--eco-color-text-soft);
+  animation: xo-console-line-write 0.7s var(--eco-ease-out) both;
+}
+
+.xo-console-body > .xo-console-line:nth-child(1) { animation-delay: 0.1s; }
+.xo-console-body > .xo-console-line:nth-child(2) { animation-delay: 0.45s; }
+.xo-console-body > .xo-console-line:nth-child(3) { animation-delay: 0.8s; }
+.xo-console-body > .xo-console-line:nth-child(4) { animation-delay: 1.15s; }
+.xo-console-body > .xo-console-line:nth-child(5) { animation-delay: 1.5s; }
+
+@keyframes xo-console-line-write {
+  0%   { opacity: 0; transform: translateX(-4px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Cursor blink on the LAST line (caret-style) */
+.xo-console-line[data-cursor]::after,
+.xo-console-body > .xo-console-line:last-child::after {
+  content: "▌";
+  margin-left: 0.25rem;
+  color: var(--xo-accent);
+  animation: xo-console-caret-blink 1.1s steps(2, end) infinite;
+}
+
+@keyframes xo-console-caret-blink {
+  0%, 50%   { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-console-dot,
+  .xo-console-line,
+  .xo-console-line::after,
+  .xo-console-body > .xo-console-line::after {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 .xo-console-line > span:last-child,
@@ -1585,6 +1631,11 @@
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) repeat(5, minmax(7.25rem, 0.55fr));
   gap: var(--eco-space-6);
+}
+
+/* 7-column variant for sites with a denser operating-map footer (julien). */
+.xo-trust-grid--7 {
+  grid-template-columns: minmax(0, 1.05fr) repeat(6, minmax(6rem, 0.5fr));
 }
 
 .xo-trust-footer h2,

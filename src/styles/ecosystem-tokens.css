@@ -1,6 +1,7 @@
 :root {
-  --eco-font-body: "Archivo Variable", "Avenir Next", "Helvetica Neue", sans-serif;
-  --eco-font-display: "Archivo Variable", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
+  /* General Sans (Fontshare) preferred for x.ai-like typography; Archivo Variable as fallback. */
+  --eco-font-body: "General Sans Variable", "General Sans", "Archivo Variable", "Avenir Next", "Helvetica Neue", sans-serif;
+  --eco-font-display: "General Sans Variable", "General Sans", "Archivo Variable", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
   --eco-font-mono: "JetBrains Mono Variable", "SFMono-Regular", Consolas, monospace;
 
   --eco-color-black: #050505;
