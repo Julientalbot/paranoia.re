@@ -30,3 +30,6 @@ pnpm-debug.log*
 # local agent artifacts
 .claude/settings.local.json
 .claude/worktrees/
+
+# Local generated image experiments
+public/social/imagegen-tests/
