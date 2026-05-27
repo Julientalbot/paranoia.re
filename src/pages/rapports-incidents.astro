@@ -20,13 +20,13 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
           Pour améliorer la stabilité de Paranoia, Sentry peut recevoir des rapports techniques d'erreur.
           L'objectif est de diagnostiquer les crashs et bugs sans collecter les contenus de prompts.
         </p>
-        <div class="xo-actions" style="margin-top: var(--eco-space-6)">
+        <div class="xo-actions">
           <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Contacter le support</a>
           <a class="xo-button" href="/#cta">Rejoindre la beta</a>
         </div>
       </div>
 
-      <aside class="paranoia-trust-artifact" aria-label="Ledger des rapports d'incidents">
+      <aside class="xo-artifact-panel paranoia-trust-artifact" aria-label="Ledger des rapports d'incidents">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -46,7 +46,7 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
     </section>
 
     <section class="xo-shell xo-section" aria-label="Périmètre des rapports">
-      <div class="xds-list">
+      <div class="xo-signal-list">
         <article>
           <span>Automatique</span>
           <strong>Crashs et erreurs.</strong>

@@ -1,5 +1,5 @@
-<form data-waitlist-form action="/api/waitlist" method="post" aria-describedby="waitlist-hint waitlist-status">
-  <div class="field">
+<form class="waitlist-form" data-waitlist-form action="/api/waitlist" method="post" aria-describedby="waitlist-hint waitlist-status">
+  <div class="waitlist-field">
     <label for="waitlist-email" class="sr-only">Email professionnel</label>
     <input
       id="waitlist-email"
@@ -21,9 +21,9 @@
     tabindex="-1"
     aria-hidden="true"
   />
-  <button class="btn" type="submit" data-submit-label>Rejoindre la beta</button>
+  <button class="xo-button xo-button--primary" type="submit" data-submit-label>Rejoindre la beta</button>
 </form>
-<p class="hint" id="waitlist-hint">
+<p class="waitlist-hint" id="waitlist-hint">
   Votre email est transmis à l'équipe Paranoia. Réponse sous 48h.
 </p>
 <div id="waitlist-status" aria-live="polite"></div>
@@ -37,7 +37,7 @@
 
   const setStatus = (message, type) => {
     if (!status) return;
-    status.innerHTML = message ? `<div class="status ${type}">${message}</div>` : '';
+    status.innerHTML = message ? `<div class="waitlist-status-message waitlist-status-message--${type}">${message}</div>` : '';
   };
 
   const setFormState = (state) => {

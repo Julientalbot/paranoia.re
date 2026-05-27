@@ -142,7 +142,7 @@ const limits = [
           Paranoia aide à détecter, masquer et relire les contenus sensibles avant l’usage d’un assistant IA.
           Il réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
         </p>
-        <div class="xo-actions" style="margin-top: var(--eco-space-6)">
+        <div class="xo-actions">
           <a class="xo-button xo-button--primary" href="#cta" data-event="primary_cta_click">Rejoindre la beta</a>
           <a class="xo-button" href="/rapports-incidents" data-event="incident_reports_click">Lire les incidents</a>
         </div>
@@ -190,7 +190,7 @@ const limits = [
         <p>Chaque chemin mène vers une action ou une information de confiance. Rien n’est posé comme simple effet visuel.</p>
       </div>
 
-      <div class="xai-path-grid" aria-label="Chemins Paranoia">
+      <div class="xai-path-grid xai-path-grid--surfaces" aria-label="Chemins Paranoia">
         {paths.map((item, index) => (
           <a class:list={['xai-path-card', index === 0 && 'xai-path-card--primary']} href={item.href}>
             <div class="xai-path-artifact" aria-hidden="true">
@@ -292,7 +292,7 @@ const limits = [
           </div>
           <p>Assistant utilisé, types de données copiées, politique à tenir, contraintes de support et de sécurité.</p>
           <WaitlistForm />
-          <p class="hint">
+          <p class="waitlist-hint">
             Question directe ou pilote déjà identifié ?
             <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
           </p>
