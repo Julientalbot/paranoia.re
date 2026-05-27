@@ -403,6 +403,11 @@
     grid-column: span 6;
   }
 
+  /* Routes grid (3 cards) — force 1 per row to avoid orphan card in 6-col layout */
+  .xai-path-grid--routes .xai-path-card {
+    grid-column: span 12;
+  }
+
   .xai-proof-layout,
   .xai-compact-hero,
   .xai-start-grid {
@@ -497,9 +502,7 @@
   --xo-line: var(--eco-color-line);
   --xo-line-strong: var(--eco-color-line-strong);
   --xo-accent-soft: rgba(5, 5, 5, 0.055);
-  background:
-    linear-gradient(90deg, transparent 0 49.96%, rgba(5, 5, 5, 0.055) 49.96% 50.04%, transparent 50.04%),
-    var(--xo-bg);
+  background: var(--xo-bg);
 }
 
 .xo-page--product {
@@ -829,6 +832,7 @@
   }
 }
 
+/* @deprecated — prefer .xai-path-card for new pages. Kept for legacy compatibility. */
 .xo-card {
   position: relative;
   isolation: isolate;
@@ -1042,6 +1046,15 @@
   margin: 0;
   color: var(--xo-text-soft);
   line-height: 1.55;
+}
+
+/* "Verdict" row — accent on strong, tinted background. Use sparingly: one per ledger. */
+.xo-ledger > .is-output {
+  background: color-mix(in srgb, var(--xo-accent) 7%, var(--xo-surface));
+}
+
+.xo-ledger > .is-output strong {
+  color: var(--xo-accent);
 }
 
 .xo-console-line {
@@ -1430,6 +1443,7 @@
   line-height: 1.6;
 }
 
+/* @deprecated .xo-start-card — prefer .xai-path-card. Kept for legacy compatibility. */
 .xo-start-panel,
 .xo-start-card {
   display: grid;
@@ -3178,6 +3192,11 @@
 /* @extras-start: managed by sync.sh */
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */
 /* Edit this file in _design-system/extras/, not in the site repo. */
+
+@keyframes paranoiaExposurePulse {
+  0%, 100% { transform: scaleX(1);    opacity: 0.82; }
+  50%      { transform: scaleX(1.03); opacity: 1; }
+}
 
 .paranoia-review-artifact {
   align-self: stretch;

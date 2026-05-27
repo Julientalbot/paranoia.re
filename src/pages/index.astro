@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
@@ -116,23 +117,7 @@ const limits = [
 
 <BaseLayout title="Paranoia — réduire les données sensibles envoyées aux assistants IA">
   <main class="xo-page xo-page--product xai-home">
-    <div class="xo-shell">
-      <nav class="xo-nav" aria-label="Navigation principale">
-        <a class="xo-brand" href="/" aria-label="Paranoia accueil">
-          <span class="xo-brand-mark" aria-hidden="true">
-            <img src="/logo-mark.svg" alt="" width="38" height="38" loading="eager" decoding="async" />
-          </span>
-          <span>Paranoia</span>
-        </a>
-        <div class="xo-nav-links">
-          <a href="#workflow">Produit</a>
-          <a href="#limits">Limites</a>
-          <a href="/rapports-incidents">Incidents</a>
-          <a href="#cta">Beta</a>
-          <a href={PARANOIA_CONTACT_HREF}>Contact</a>
-        </div>
-      </nav>
-    </div>
+    <Header ctaHref="#cta" ctaLabel="Beta" />
 
     <section class="xo-shell xo-hero xo-hero--split xai-home-hero" aria-labelledby="home-title">
       <div>
@@ -297,12 +282,17 @@ const limits = [
             <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
           </p>
         </div>
-        <a class="xo-start-card" href="/rapports-incidents" data-event="incident_reports_click">
+        <a class="xai-path-card" href="/rapports-incidents" data-event="incident_reports_click">
+          <div class="xai-path-artifact" aria-hidden="true">
+            <div><span>01</span><strong>collecte</strong></div>
+            <div><span>02</span><strong>conservation</strong></div>
+            <div class="is-output"><span>03</span><strong>limites</strong></div>
+          </div>
           <div>
             <p class="xo-label">Transparence</p>
-            <h2>Lire les rapports d’incidents.</h2>
+            <h3>Lire les rapports d’incidents.</h3>
+            <p>Sentry, conservation, signalement manuel et limites de collecte sont documentés séparément.</p>
           </div>
-          <p>Sentry, conservation, signalement manuel et limites de collecte sont documentés séparément.</p>
           <span class="xo-card-arrow">Ouvrir /rapports-incidents →</span>
         </a>
       </div>

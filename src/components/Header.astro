@@ -1,10 +1,12 @@
 ---
+import { PARANOIA_CONTACT_HREF } from '../lib/contact';
+
 interface Props {
   ctaHref?: string;
   ctaLabel?: string;
 }
 
-const { ctaHref = '#cta', ctaLabel = 'Beta' } = Astro.props;
+const { ctaHref = '/#cta', ctaLabel = 'Beta' } = Astro.props;
 ---
 
 <header class="product-header">
@@ -20,6 +22,7 @@ const { ctaHref = '#cta', ctaLabel = 'Beta' } = Astro.props;
       <a href="/#limits">Limites</a>
       <a href="/rapports-incidents">Incidents</a>
       <a href={ctaHref}>{ctaLabel}</a>
+      <a href={PARANOIA_CONTACT_HREF}>Contact</a>
     </div>
   </nav>
 </header>
