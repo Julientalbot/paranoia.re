@@ -1,5 +1,5 @@
 :root {
-  /* General Sans (Fontshare) preferred for x.ai-like typography; Archivo Variable as fallback. */
+  /* General Sans (Fontshare) preferred for sharp display typography; Archivo Variable as fallback. */
   --eco-font-body: "General Sans Variable", "General Sans", "Archivo Variable", "Avenir Next", "Helvetica Neue", sans-serif;
   --eco-font-display: "General Sans Variable", "General Sans", "Archivo Variable", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
   --eco-font-mono: "JetBrains Mono Variable", "SFMono-Regular", Consolas, monospace;
@@ -52,7 +52,7 @@
   --eco-shadow-tight: 0 14px 44px rgba(0, 0, 0, 0.18);
   --eco-z-header: 50;
   --eco-z-floating: 80;
-  --eco-motion-fast: 140ms;
+  --eco-motion-fast: 150ms;
   --eco-motion-standard: 220ms;
   --eco-motion-slow: 360ms;
   --eco-ease-out: cubic-bezier(0.16, 1, 0.3, 1);

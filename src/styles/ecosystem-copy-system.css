@@ -1,5 +1,5 @@
 /*
-  xAI Copy Layer — Light/Dark adaptative primitives (--xo-*) + .xds-* utility classes.
+  Ecosystem Copy Layer — Light/Dark adaptative primitives (--xo-*) + .xds-* utility classes.
 
   Cascade :
     --eco-*  : tokens bruts immuables (ecosystem-tokens.css)
@@ -67,6 +67,9 @@
   --xo-line: rgba(255, 255, 255, 0.06);
   --xo-surface: #1a1a1a;
   --xo-surface-raised: #151515;
+  /* On near-black canvas the terminal must stay separated, not vanish. */
+  --xo-terminal: #1c1c1c;
+  --xo-terminal-border: rgba(255, 255, 255, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,6 +84,8 @@
     --xo-line: rgba(255, 255, 255, 0.06);
     --xo-surface: #1a1a1a;
     --xo-surface-raised: #151515;
+    --xo-terminal: #1c1c1c;
+    --xo-terminal-border: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -141,7 +146,7 @@ body.xds-theme::after {
   color: var(--xo-ink);
   font-family: var(--eco-font-display);
   font-size: var(--xo-h2);
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -0.025em;
   line-height: var(--xo-h2-line);
 }

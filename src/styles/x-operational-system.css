@@ -1,6 +1,6 @@
 /*
   Ecosystem Operational Taste System
-  xAI proof grammar + taste-skill execution guardrails.
+  Proof grammar + taste-skill execution guardrails.
 */
 
 .xo-page {
@@ -18,7 +18,7 @@
   text-rendering: geometricPrecision;
 }
 
-/* xAI canonical typography (60px/500, tracking -0.025em on h1). */
+/* Canonical typography (60px/500, tracking -0.025em on h1). */
 .xo-page h1,
 .xo-page .xo-title,
 .xo-page .xo-title--wide {
@@ -38,26 +38,26 @@
   font-weight: 500;
 }
 
-/* xAI homepage refactor: every block is an artifact, a path, a proof, or an action. */
-.xai-home .xai-home-hero {
+/* Homepage grammar: every block is an artifact, a path, a proof, or an action. */
+.xo-home .xo-home-hero {
   min-height: min(780px, calc(100dvh - 4.5rem));
   padding-block: clamp(4.75rem, 7.4vw, 6.5rem) 2.5rem;
 }
 
-.xai-home .xai-compact-section {
+.xo-home .xo-compact-section {
   padding-top: clamp(3rem, 7vw, 5.5rem);
 }
 
-.xai-hero-artifact {
+.xo-hero-artifact {
   align-self: center;
   min-width: 0;
 }
 
-.xai-live-trace-hero {
+.xo-live-trace-hero {
   min-width: min(420px, 100%);
 }
 
-.xai-person-line {
+.xo-person-line {
   max-width: 58ch;
   margin: var(--eco-space-5) 0 0;
   color: var(--xo-text-muted);
@@ -66,7 +66,7 @@
   line-height: 1.55;
 }
 
-.xai-person-proof {
+.xo-person-proof {
   display: grid;
   width: min(100%, 41rem);
   height: clamp(30rem, 42vw, 34rem);
@@ -84,13 +84,13 @@
   color: var(--xo-text);
 }
 
-.xai-person-proof__portrait,
-.xai-person-proof__ledger {
+.xo-person-proof__portrait,
+.xo-person-proof__ledger {
   margin: 0;
   min-width: 0;
 }
 
-.xai-person-proof__portrait {
+.xo-person-proof__portrait {
   position: relative;
   grid-area: portrait;
   min-height: 0;
@@ -98,7 +98,7 @@
   background: var(--xo-terminal);
 }
 
-.xai-person-proof__portrait img {
+.xo-person-proof__portrait img {
   display: block;
   width: 100%;
   height: 100%;
@@ -108,7 +108,7 @@
   filter: saturate(0.9) contrast(1.04);
 }
 
-.xai-person-proof__portrait::after {
+.xo-person-proof__portrait::after {
   position: absolute;
   inset: 0;
   content: "";
@@ -118,7 +118,7 @@
   pointer-events: none;
 }
 
-.xai-person-proof__portrait figcaption {
+.xo-person-proof__portrait figcaption {
   position: absolute;
   inset: auto 0 0;
   z-index: 1;
@@ -128,13 +128,13 @@
   color: #fff;
 }
 
-.xai-person-proof__portrait strong {
+.xo-person-proof__portrait strong {
   font-size: 0.95rem;
   font-weight: 550;
   line-height: 1.2;
 }
 
-.xai-person-proof__portrait span {
+.xo-person-proof__portrait span {
   color: rgba(255, 255, 255, 0.68);
   font-family: var(--eco-font-mono);
   font-size: 0.7rem;
@@ -142,14 +142,14 @@
   text-transform: uppercase;
 }
 
-.xai-person-proof__ledger {
+.xo-person-proof__ledger {
   grid-area: ledger;
   display: grid;
   gap: 1px;
   background: var(--xo-line-strong);
 }
 
-.xai-person-proof__ledger > div {
+.xo-person-proof__ledger > div {
   display: grid;
   min-height: 4.45rem;
   align-content: center;
@@ -158,13 +158,13 @@
   background: var(--xo-surface);
 }
 
-.xai-person-proof__ledger dt,
-.xai-person-proof__ledger dd {
+.xo-person-proof__ledger dt,
+.xo-person-proof__ledger dd {
   margin: 0;
   min-width: 0;
 }
 
-.xai-person-proof__ledger dt {
+.xo-person-proof__ledger dt {
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
   font-size: 0.65rem;
@@ -173,7 +173,7 @@
   text-transform: uppercase;
 }
 
-.xai-person-proof__ledger dd {
+.xo-person-proof__ledger dd {
   color: var(--xo-text);
   font-size: 0.86rem;
   font-weight: 500;
@@ -182,7 +182,7 @@
   overflow-wrap: anywhere;
 }
 
-.xai-person-proof__trace {
+.xo-person-proof__trace {
   display: grid;
   grid-area: trace;
   min-width: 0;
@@ -190,7 +190,7 @@
   background: var(--xo-surface);
 }
 
-.xai-person-proof .live-work-trace.is-compact {
+.xo-person-proof .live-work-trace.is-compact {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -200,25 +200,25 @@
   background: var(--xo-surface);
 }
 
-.xai-person-proof .live-work-trace.is-compact .trace-header {
+.xo-person-proof .live-work-trace.is-compact .trace-header {
   flex: 0 0 auto;
   padding: 0.6rem 0.78rem;
 }
 
-.xai-person-proof .live-work-trace.is-compact .trace-body {
+.xo-person-proof .live-work-trace.is-compact .trace-body {
   flex: 1 1 auto;
   min-height: auto;
   padding-block: 0.25rem;
   overflow: hidden;
 }
 
-.xai-person-proof .live-work-trace.is-compact .trace-row {
+.xo-person-proof .live-work-trace.is-compact .trace-row {
   grid-template-columns: 3rem minmax(0, 1fr);
   gap: 0.2rem 0.7rem;
   padding: 0.42rem 0.78rem;
 }
 
-.xai-person-proof .live-work-trace.is-compact .trace-text {
+.xo-person-proof .live-work-trace.is-compact .trace-text {
   grid-column: 2;
   display: -webkit-box;
   overflow: hidden;
@@ -226,19 +226,19 @@
   -webkit-line-clamp: 2;
 }
 
-.xai-person-proof .live-work-trace.is-compact .trace-footer {
+.xo-person-proof .live-work-trace.is-compact .trace-footer {
   flex: 0 0 auto;
   padding: 0.5rem 0.78rem;
 }
 
-.xai-compact-hero {
+.xo-compact-hero {
   display: grid;
   grid-template-columns: minmax(0, 0.94fr) minmax(22rem, 0.74fr);
   gap: clamp(2rem, 5.5vw, 5rem);
   align-items: center;
 }
 
-.xai-hero-status {
+.xo-hero-status {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
@@ -248,33 +248,33 @@
   background: var(--xo-line);
 }
 
-.xai-hero-status div {
+.xo-hero-status div {
   min-width: 0;
   padding: 0.75rem;
   background: color-mix(in srgb, var(--xo-surface) 78%, var(--xo-bg));
 }
 
-.xai-hero-status dt,
-.xai-hero-status dd {
+.xo-hero-status dt,
+.xo-hero-status dd {
   margin: 0;
   font-family: var(--eco-font-mono);
   line-height: 1.35;
 }
 
-.xai-hero-status dt {
+.xo-hero-status dt {
   color: var(--xo-text-muted);
   font-size: 0.68rem;
   text-transform: uppercase;
 }
 
-.xai-hero-status dd {
+.xo-hero-status dd {
   margin-top: 0.3rem;
   color: var(--xo-accent);
   font-size: 0.72rem;
   font-weight: 550;
 }
 
-.xai-path-grid {
+.xo-path-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1px;
@@ -285,7 +285,7 @@
   align-items: stretch;
 }
 
-.xai-path-card {
+.xo-path-card {
   position: relative;
   display: grid;
   grid-column: span 3;
@@ -304,25 +304,25 @@
 
 @media (min-width: 981px) {
   /* Routes grid (3 cards) — even 4-col spans */
-  .xai-path-grid--routes .xai-path-card,
-  .xai-path-grid--routes .xai-path-card--primary {
+  .xo-path-grid--routes .xo-path-card,
+  .xo-path-grid--routes .xo-path-card--primary {
     grid-column: span 4;
   }
 
   /* Surfaces grid (4 cards) — clean 3-col each, no nth-child pollution */
-  .xai-path-grid--surfaces .xai-path-card,
-  .xai-path-grid--surfaces .xai-path-card--primary {
+  .xo-path-grid--surfaces .xo-path-card,
+  .xo-path-grid--surfaces .xo-path-card--primary {
     grid-column: span 3;
   }
 }
 
-.xai-path-card--primary::before,
-.xai-path-card:focus-visible::before,
-.xai-path-card:hover::before {
+.xo-path-card--primary::before,
+.xo-path-card:focus-visible::before,
+.xo-path-card:hover::before {
   opacity: 0.8;
 }
 
-.xai-path-card::before {
+.xo-path-card::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
@@ -332,15 +332,15 @@
   transition: opacity var(--eco-motion-standard) ease;
 }
 
-.xai-path-card:hover {
+.xo-path-card:hover {
   background: var(--xo-surface-raised);
 }
 
-.xai-path-card:active {
+.xo-path-card:active {
   transform: translateY(1px) scale(0.998);
 }
 
-.xai-path-card h3 {
+.xo-path-card h3 {
   margin: var(--eco-space-3) 0 0;
   color: var(--xo-text);
   font-family: var(--eco-font-display);
@@ -350,13 +350,13 @@
   line-height: 1.08;
 }
 
-.xai-path-card p {
+.xo-path-card p {
   margin: var(--eco-space-3) 0 0;
   color: var(--xo-text-soft);
   line-height: 1.58;
 }
 
-.xai-path-artifact {
+.xo-path-artifact {
   display: grid;
   min-height: 8.75rem;
   align-content: center;
@@ -369,32 +369,32 @@
   font-size: 0.77rem;
 }
 
-.xai-path-artifact div,
-.xai-field-ledger > div {
+.xo-path-artifact div,
+.xo-field-ledger > div {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.7rem;
 }
 
-.xai-path-artifact span,
-.xai-field-ledger span {
+.xo-path-artifact span,
+.xo-field-ledger span {
   color: var(--xo-text-muted);
 }
 
-.xai-path-artifact strong,
-.xai-field-ledger strong {
+.xo-path-artifact strong,
+.xo-field-ledger strong {
   min-width: 0;
   color: var(--xo-accent);
   overflow-wrap: anywhere;
 }
 
 /* 2026-05-25: artefact plus vivant sur les cartes Chemins */
-.xai-path-artifact .is-output {
+.xo-path-artifact .is-output {
   position: relative;
   padding-right: 1rem;
 }
 
-.xai-path-artifact .is-output::after {
+.xo-path-artifact .is-output::after {
   content: "→";
   position: absolute;
   right: 0.1rem;
@@ -403,26 +403,26 @@
   font-size: 0.85em;
 }
 
-.xai-proof-layout {
+.xo-proof-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
   gap: clamp(2rem, 5.6vw, 5rem);
   align-items: start;
 }
 
-.xai-proof-copy {
+.xo-proof-copy {
   position: sticky;
   top: 6rem;
 }
 
-.xai-proof-copy p:not(.xo-kicker) {
+.xo-proof-copy p:not(.xo-kicker) {
   max-width: 54ch;
   color: var(--xo-text-soft);
   font-size: 1.05rem;
   line-height: 1.7;
 }
 
-.xai-photo-artifact {
+.xo-photo-artifact {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-auto-rows: minmax(11.5rem, auto);
@@ -433,7 +433,7 @@
   background: var(--xo-line);
 }
 
-.xai-photo-artifact figure {
+.xo-photo-artifact figure {
   position: relative;
   grid-column: span 6;
   min-height: 16rem;
@@ -442,22 +442,22 @@
   background: var(--xo-surface);
 }
 
-.xai-photo-artifact figure:first-child {
+.xo-photo-artifact figure:first-child {
   grid-column: span 7;
   grid-row: span 2;
 }
 
-.xai-photo-artifact figure:nth-child(2),
-.xai-photo-artifact figure:nth-child(3) {
+.xo-photo-artifact figure:nth-child(2),
+.xo-photo-artifact figure:nth-child(3) {
   grid-column: span 5;
 }
 
-.xai-photo-artifact figure:nth-child(4) {
+.xo-photo-artifact figure:nth-child(4) {
   grid-column: 1 / -1;
   min-height: 14rem;
 }
 
-.xai-photo-artifact img {
+.xo-photo-artifact img {
   position: absolute;
   inset: 0;
   display: block;
@@ -468,7 +468,7 @@
   filter: grayscale(0.06) saturate(0.96) contrast(1.08) brightness(1.12);
 }
 
-.xai-photo-artifact figcaption {
+.xo-photo-artifact figcaption {
   position: absolute;
   inset: auto 0 0;
   display: flex;
@@ -481,11 +481,11 @@
   font-size: 0.72rem;
 }
 
-.xai-photo-artifact figcaption span {
+.xo-photo-artifact figcaption span {
   color: var(--eco-color-text-muted);
 }
 
-.xai-field-ledger {
+.xo-field-ledger {
   display: grid;
   gap: 1px;
   overflow: hidden;
@@ -494,30 +494,30 @@
   background: var(--xo-line);
 }
 
-.xai-field-ledger > div {
+.xo-field-ledger > div {
   grid-template-columns: minmax(7rem, 0.35fr) minmax(0, 0.65fr);
   align-items: baseline;
   padding: 1.15rem;
   background: var(--xo-surface);
 }
 
-.xai-field-ledger p {
+.xo-field-ledger p {
   grid-column: 2;
   margin: 0.45rem 0 0;
   color: var(--xo-text-soft);
   line-height: 1.58;
 }
 
-.xai-signal-list {
+.xo-signal-list--spaced {
   margin-top: var(--eco-space-6);
 }
 
-.xai-latest-list {
+.xo-latest-list {
   display: grid;
   border-top: 1px solid var(--xo-line);
 }
 
-.xai-latest-row {
+.xo-latest-row {
   display: grid;
   grid-template-columns: minmax(8rem, 0.22fr) minmax(0, 0.45fr) minmax(0, 0.88fr);
   gap: var(--eco-space-5);
@@ -531,19 +531,19 @@
     background var(--eco-motion-standard) ease;
 }
 
-.xai-latest-row:hover,
-.xai-latest-row:focus-visible {
+.xo-latest-row:hover,
+.xo-latest-row:focus-visible {
   border-bottom-color: color-mix(in srgb, var(--xo-accent) 46%, var(--xo-line));
   background: color-mix(in srgb, var(--xo-accent) 4%, transparent);
 }
 
-.xai-latest-row span {
+.xo-latest-row span {
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
   font-size: 0.78rem;
 }
 
-.xai-latest-row strong {
+.xo-latest-row strong {
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 1.42rem;
@@ -552,13 +552,13 @@
   line-height: 1.1;
 }
 
-.xai-latest-row p {
+.xo-latest-row p {
   margin: 0;
   color: var(--xo-text-soft);
   line-height: 1.58;
 }
 
-.xai-start-grid {
+.xo-start-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
@@ -568,67 +568,67 @@
   background: var(--xo-line);
 }
 
-.xai-start-grid .xo-start-card {
+.xo-start-grid .xo-start-card {
   border: 0;
   border-radius: 0;
 }
 
 @media (max-width: 980px) {
-  .xai-path-card {
+  .xo-path-card {
     grid-column: span 6;
   }
 
   /* Routes grid (3 cards) — force 1 per row to avoid orphan card in 6-col layout */
-  .xai-path-grid--routes .xai-path-card {
+  .xo-path-grid--routes .xo-path-card {
     grid-column: span 12;
   }
 
-  .xai-proof-layout,
-  .xai-compact-hero,
-  .xai-start-grid {
+  .xo-proof-layout,
+  .xo-compact-hero,
+  .xo-start-grid {
     grid-template-columns: 1fr;
   }
 
-  .xai-person-proof {
+  .xo-person-proof {
     width: min(100%, 42rem);
     justify-self: start;
   }
 
-  .xai-proof-copy {
+  .xo-proof-copy {
     position: static;
   }
 
-  .xai-photo-artifact figure,
-  .xai-photo-artifact figure:first-child,
-  .xai-photo-artifact figure:nth-child(2),
-  .xai-photo-artifact figure:nth-child(3),
-  .xai-photo-artifact figure:nth-child(4) {
+  .xo-photo-artifact figure,
+  .xo-photo-artifact figure:first-child,
+  .xo-photo-artifact figure:nth-child(2),
+  .xo-photo-artifact figure:nth-child(3),
+  .xo-photo-artifact figure:nth-child(4) {
     grid-column: span 6;
     grid-row: auto;
     min-height: 18rem;
   }
 
-  .xai-latest-row {
+  .xo-latest-row {
     grid-template-columns: minmax(7rem, 0.28fr) minmax(0, 1fr);
   }
 
-  .xai-latest-row p {
+  .xo-latest-row p {
     grid-column: 2;
   }
 }
 
 @media (max-width: 640px) {
-  .xai-home .xai-home-hero {
+  .xo-home .xo-home-hero {
     min-height: auto;
     padding-block: 4rem 2rem;
   }
 
-  .xai-live-trace-hero {
+  .xo-live-trace-hero {
     min-width: 100%;
     margin-top: 1.5rem;
   }
 
-  .xai-person-proof {
+  .xo-person-proof {
     height: auto;
     grid-template-areas:
       "portrait"
@@ -637,65 +637,65 @@
     grid-template-columns: 1fr;
   }
 
-  .xai-person-proof__portrait {
+  .xo-person-proof__portrait {
     min-height: clamp(17rem, 72vw, 23rem);
   }
 
-  .xai-person-proof__ledger > div {
+  .xo-person-proof__ledger > div {
     min-height: auto;
     padding: 0.85rem 0.95rem;
   }
 
-  .xai-person-proof .live-work-trace.is-compact .trace-header,
-  .xai-person-proof .live-work-trace.is-compact .trace-footer {
+  .xo-person-proof .live-work-trace.is-compact .trace-header,
+  .xo-person-proof .live-work-trace.is-compact .trace-footer {
     padding-inline: 0.95rem;
   }
 
-  .xai-person-proof .live-work-trace.is-compact .trace-row {
+  .xo-person-proof .live-work-trace.is-compact .trace-row {
     grid-template-columns: 2.85rem minmax(0, 1fr);
     padding-inline: 0.95rem;
   }
 
-  .xai-path-grid,
-  .xai-photo-artifact {
+  .xo-path-grid,
+  .xo-photo-artifact {
     grid-template-columns: 1fr;
   }
 
-  .xai-hero-status {
+  .xo-hero-status {
     grid-template-columns: 1fr;
   }
 
-  .xai-path-card {
+  .xo-path-card {
     grid-column: 1 / -1;
     min-height: 18rem;
     padding: 1rem;
   }
 
-  .xai-photo-artifact figure,
-  .xai-photo-artifact figure:first-child,
-  .xai-photo-artifact figure:nth-child(2),
-  .xai-photo-artifact figure:nth-child(3),
-  .xai-photo-artifact figure:nth-child(4) {
+  .xo-photo-artifact figure,
+  .xo-photo-artifact figure:first-child,
+  .xo-photo-artifact figure:nth-child(2),
+  .xo-photo-artifact figure:nth-child(3),
+  .xo-photo-artifact figure:nth-child(4) {
     grid-column: 1 / -1;
     min-height: 16rem;
   }
 
-  .xai-latest-row {
+  .xo-latest-row {
     grid-template-columns: 1fr;
     gap: var(--eco-space-2);
   }
 
-  .xai-latest-row p {
+  .xo-latest-row p {
     grid-column: auto;
   }
 
-  .xai-field-ledger > div,
-  .xai-path-artifact div {
+  .xo-field-ledger > div,
+  .xo-path-artifact div {
     grid-template-columns: 1fr;
     gap: 0.35rem;
   }
 
-  .xai-field-ledger p {
+  .xo-field-ledger p {
     grid-column: 1;
   }
 }
@@ -829,7 +829,7 @@
 }
 
 .xo-hero .xo-actions,
-.xai-compact-hero .xo-actions,
+.xo-compact-hero .xo-actions,
 .xo-page article.xo-shell > header .xo-actions {
   margin-top: var(--eco-space-6);
 }
@@ -1040,7 +1040,7 @@
   }
 }
 
-/* @deprecated — prefer .xai-path-card for new pages. Kept for legacy compatibility. */
+/* @deprecated — prefer .xo-path-card for new pages. Kept for legacy compatibility. */
 .xo-card {
   position: relative;
   isolation: isolate;
@@ -1266,11 +1266,13 @@
 }
 
 /* "Verdict" row — accent on strong, tinted background. Use sparingly: one per ledger. */
-.xo-ledger > .is-output {
+.xo-ledger > .is-output,
+.xo-field-ledger > .is-output {
   background: color-mix(in srgb, var(--xo-accent) 7%, var(--xo-surface));
 }
 
-.xo-ledger > .is-output strong {
+.xo-ledger > .is-output strong,
+.xo-field-ledger > .is-output strong {
   color: var(--xo-accent);
 }
 
@@ -1702,7 +1704,7 @@
   line-height: 1.6;
 }
 
-/* @deprecated .xo-start-card — prefer .xai-path-card. Kept for legacy compatibility. */
+/* @deprecated .xo-start-card — prefer .xo-path-card. Kept for legacy compatibility. */
 .xo-start-panel,
 .xo-start-card {
   display: grid;
@@ -3551,7 +3553,7 @@
   padding: 0.8rem;
 }
 
-.paranoia-review-artifact.xai-hero-artifact {
+.paranoia-review-artifact.xo-hero-artifact {
   align-self: center;
 }
 

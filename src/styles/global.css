@@ -1,5 +1,5 @@
 @import "./ecosystem-tokens.css";
-@import "./xai-copy-system.css";
+@import "./ecosystem-copy-system.css";
 
 /* ==========================================================================
    PARANOIA.RE — X-OPERATIONAL PRODUCT SURFACE
@@ -177,7 +177,7 @@ body::after {
 }
 
 /* ==========================================================================
-   TYPOGRAPHY SYSTEM — h1/h2 controlled by xo-page (60px/500 xAI scale).
+   TYPOGRAPHY SYSTEM — h1/h2 controlled by xo-page (60px/500 scale).
    No text gradients (anti-slop). h3 keeps a mono accent.
    ========================================================================== */
 

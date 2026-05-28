@@ -116,10 +116,10 @@ const limits = [
 ---
 
 <BaseLayout title="Paranoia — réduire les données sensibles envoyées aux assistants IA">
-  <main class="xo-page xo-page--product xai-home">
+  <main class="xo-page xo-page--product xo-home">
     <Header ctaHref="#cta" ctaLabel="Beta" />
 
-    <section class="xo-shell xo-hero xo-hero--split xai-home-hero" aria-labelledby="home-title">
+    <section class="xo-shell xo-hero xo-hero--split xo-home-hero" aria-labelledby="home-title">
       <div>
         <p class="xo-kicker">Confidentialité des prompts IA · beta privée</p>
         <h1 id="home-title" class="xo-title xo-title--wide">Inspecter avant d’envoyer.</h1>
@@ -133,7 +133,7 @@ const limits = [
         </div>
       </div>
 
-      <div class="xo-console paranoia-review-artifact xai-hero-artifact" aria-label="Avant après prompt">
+      <div class="xo-console paranoia-review-artifact xo-hero-artifact" aria-label="Avant après prompt">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -166,7 +166,7 @@ const limits = [
       </div>
     </section>
 
-    <section id="workflow" class="xo-shell xo-section xai-compact-section" aria-labelledby="paths-title">
+    <section id="workflow" class="xo-shell xo-section xo-compact-section" aria-labelledby="paths-title">
       <div class="xo-section-heading">
         <div>
           <p class="xo-kicker">Produit</p>
@@ -175,12 +175,15 @@ const limits = [
         <p>Chaque chemin mène vers une action ou une information de confiance. Rien n’est posé comme simple effet visuel.</p>
       </div>
 
-      <div class="xai-path-grid xai-path-grid--surfaces" aria-label="Chemins Paranoia">
+      <div class="xo-path-grid xo-path-grid--surfaces" aria-label="Chemins Paranoia">
         {paths.map((item, index) => (
-          <a class:list={['xai-path-card', index === 0 && 'xai-path-card--primary']} href={item.href}>
-            <div class="xai-path-artifact" aria-hidden="true">
+          <a class:list={['xo-path-card', index === 0 && 'xo-path-card--primary']} href={item.href}>
+            <div class="xo-path-artifact" aria-hidden="true">
               {item.steps.map((step, stepIndex) => (
-                <div><span>{String(stepIndex + 1).padStart(2, '0')}</span><strong>{step}</strong></div>
+                <div class={stepIndex === item.steps.length - 1 ? 'is-output' : ''}>
+                  <span>{String(stepIndex + 1).padStart(2, '0')}</span>
+                  <strong>{step}</strong>
+                </div>
               ))}
             </div>
             <div>
@@ -195,8 +198,8 @@ const limits = [
     </section>
 
     <section id="flow" class="xo-shell xo-section" aria-labelledby="flow-title">
-      <div class="xai-proof-layout">
-        <div class="xai-proof-copy">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
           <p class="xo-kicker">Flux produit</p>
           <h2 id="flow-title" class="xo-title xo-title--section">Ce qui se passe avant l’envoi.</h2>
           <p>
@@ -204,9 +207,9 @@ const limits = [
             proposer une version masquée, relire, puis décider ce qui quitte l’interface.
           </p>
         </div>
-        <div class="xai-field-ledger" aria-label="Flux de réduction d'exposition avant envoi">
-          {dataFlow.map((item) => (
-            <div>
+        <div class="xo-field-ledger" aria-label="Flux de réduction d'exposition avant envoi">
+          {dataFlow.map((item, index) => (
+            <div class={index === dataFlow.length - 1 ? 'is-output' : ''}>
               <span>{item.label}</span>
               <strong>{item.title}</strong>
               <p>{item.body}</p>
@@ -217,8 +220,8 @@ const limits = [
     </section>
 
     <section id="limits" class="xo-shell xo-section" aria-labelledby="limits-title">
-      <div class="xai-proof-layout">
-        <div class="xai-proof-copy">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
           <p class="xo-kicker">Trust</p>
           <h2 id="limits-title" class="xo-title xo-title--section">La limite fait partie du produit.</h2>
           <p>
@@ -226,7 +229,7 @@ const limits = [
             l’avant/après et ce qui reste à la charge de l’équipe.
           </p>
         </div>
-        <div class="xai-field-ledger" aria-label="Limites produit">
+        <div class="xo-field-ledger" aria-label="Limites produit">
           {limits.map((item) => (
             <div>
               <span>{item.label}</span>
@@ -239,8 +242,8 @@ const limits = [
     </section>
 
     <section id="fit" class="xo-shell xo-section" aria-labelledby="fit-title">
-      <div class="xai-proof-layout">
-        <div class="xai-proof-copy">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
           <p class="xo-kicker">Usage</p>
           <h2 id="fit-title" class="xo-title xo-title--section">Pour qui, pas pour qui.</h2>
           <p>
@@ -248,7 +251,7 @@ const limits = [
             pas sur toute la politique de sécurité d’une organisation.
           </p>
         </div>
-        <div class="xai-field-ledger" aria-label="Publics et limites Paranoia">
+        <div class="xo-field-ledger" aria-label="Publics et limites Paranoia">
           {fitItems.map((item) => (
             <div>
               <span>{item.label}</span>
@@ -260,7 +263,7 @@ const limits = [
       </div>
     </section>
 
-    <section class="xo-shell xo-section xai-compact-section" aria-labelledby="latest-title">
+    <section class="xo-shell xo-section xo-compact-section" aria-labelledby="latest-title">
       <div class="xo-section-heading">
         <div>
           <p class="xo-kicker">Latest</p>
@@ -269,18 +272,18 @@ const limits = [
         <p>Releases, statut beta et incidents — ce que Paranoia publie, daté.</p>
       </div>
 
-      <div class="xai-latest-list" aria-label="Latest Paranoia">
-        <a class="xai-latest-row" href="/rapports-incidents">
+      <div class="xo-latest-list" aria-label="Latest Paranoia">
+        <a class="xo-latest-row" href="/rapports-incidents">
           <span>Trust</span>
           <strong>Rapports d'incidents Sentry</strong>
           <p>Diagnostic bugs et stabilité, conservation 90 jours max, prompts non collectés par défaut.</p>
         </a>
-        <a class="xai-latest-row" href="#workflow">
+        <a class="xo-latest-row" href="#workflow">
           <span>Beta</span>
           <strong>Détection 5 catégories sensibles</strong>
           <p>Person, email, organisation, rôle, identifiant — masquage avant envoi avec relecture humaine.</p>
         </a>
-        <a class="xai-latest-row" href="#limits">
+        <a class="xo-latest-row" href="#limits">
           <span>Scope</span>
           <strong>Réduction d'exposition, pas DLP</strong>
           <p>Ce que le produit fait et ce qu'il ne fait pas — documenté côté limites.</p>
@@ -310,8 +313,8 @@ const limits = [
             <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
           </p>
         </div>
-        <a class="xai-path-card" href="/rapports-incidents" data-event="incident_reports_click">
-          <div class="xai-path-artifact" aria-hidden="true">
+        <a class="xo-path-card" href="/rapports-incidents" data-event="incident_reports_click">
+          <div class="xo-path-artifact" aria-hidden="true">
             <div><span>01</span><strong>collecte</strong></div>
             <div><span>02</span><strong>conservation</strong></div>
             <div class="is-output"><span>03</span><strong>limites</strong></div>
