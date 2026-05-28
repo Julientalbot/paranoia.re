@@ -7,21 +7,9 @@
     .xo-page : alias contextuels par page (x-operational-system.css)
 */
 
-:root,
-[data-theme="light"] {
-  color-scheme: light;
-  --xo-canvas: #ffffff;
-  --xo-ink: #0a0a0a;
-  --xo-ink-soft: #1f2228;
-  --xo-text-soft: rgba(10, 10, 10, 0.5);
-  --xo-text-muted: rgba(10, 10, 10, 0.4);
-  --xo-line-strong: #d5d9e2;
-  --xo-line: rgba(10, 10, 10, 0.06);
-  --xo-surface: #f9f8f6;
-  --xo-surface-raised: #f4f3f1;
-  --xo-terminal: #151515;
+/* Structural tokens — theme-agnostic, always applied. */
+:root {
   --xo-terminal-ink: #f7f7f7;
-  --xo-terminal-border: rgba(255, 255, 255, 0.08);
   --xo-accent: var(--eco-color-signal);
   --xo-danger: var(--eco-color-red);
 
@@ -56,6 +44,9 @@
   --xo-motion-artifact: 500ms var(--xo-ease);
 }
 
+/* Dark is the default theme (frontier look). Light is served on explicit
+   opt-in ([data-theme="light"]) or prefers-color-scheme: light — full parity. */
+:root,
 [data-theme="dark"] {
   color-scheme: dark;
   --xo-canvas: #0a0a0a;
@@ -72,20 +63,35 @@
   --xo-terminal-border: rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --xo-canvas: #0a0a0a;
-    --xo-ink: #ffffff;
-    --xo-ink-soft: rgba(255, 255, 255, 0.86);
-    --xo-text-soft: rgba(255, 255, 255, 0.58);
-    --xo-text-muted: rgba(255, 255, 255, 0.42);
-    --xo-line-strong: #1f2228;
-    --xo-line: rgba(255, 255, 255, 0.06);
-    --xo-surface: #1a1a1a;
-    --xo-surface-raised: #151515;
-    --xo-terminal: #1c1c1c;
-    --xo-terminal-border: rgba(255, 255, 255, 0.1);
+[data-theme="light"] {
+  color-scheme: light;
+  --xo-canvas: #ffffff;
+  --xo-ink: #0a0a0a;
+  --xo-ink-soft: #1f2228;
+  --xo-text-soft: rgba(10, 10, 10, 0.5);
+  --xo-text-muted: rgba(10, 10, 10, 0.4);
+  --xo-line-strong: #d5d9e2;
+  --xo-line: rgba(10, 10, 10, 0.06);
+  --xo-surface: #f9f8f6;
+  --xo-surface-raised: #f4f3f1;
+  --xo-terminal: #151515;
+  --xo-terminal-border: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --xo-canvas: #ffffff;
+    --xo-ink: #0a0a0a;
+    --xo-ink-soft: #1f2228;
+    --xo-text-soft: rgba(10, 10, 10, 0.5);
+    --xo-text-muted: rgba(10, 10, 10, 0.4);
+    --xo-line-strong: #d5d9e2;
+    --xo-line: rgba(10, 10, 10, 0.06);
+    --xo-surface: #f9f8f6;
+    --xo-surface-raised: #f4f3f1;
+    --xo-terminal: #151515;
+    --xo-terminal-border: rgba(255, 255, 255, 0.08);
   }
 }
 

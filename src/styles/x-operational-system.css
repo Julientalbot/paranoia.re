@@ -38,6 +38,11 @@
   font-weight: 500;
 }
 
+/* Two-tone heading: secondary clause in muted ink (subject white, complement dimmed). */
+.xo-title-dim {
+  color: var(--xo-text-soft);
+}
+
 /* Homepage grammar: every block is an artifact, a path, a proof, or an action. */
 .xo-home .xo-home-hero {
   min-height: min(780px, calc(100dvh - 4.5rem));
@@ -1008,6 +1013,19 @@
   color: var(--xo-text);
 }
 
+/* Grid of standalone artifact panels (e.g. Labs case cards). Auto-fit keeps dense
+   ledgers readable: ~3 cols desktop, 2 on tablet, 1 on mobile, no media queries. */
+.xo-case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--eco-space-4);
+  align-items: stretch;
+}
+
+.xo-case-grid > .xo-artifact-panel {
+  margin: 0;
+}
+
 .xo-capability-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1197,6 +1215,31 @@
   0%, 100% { opacity: 0.55; transform: scale(1); }
   50%      { opacity: 1;    transform: scale(1.08); }
 }
+
+/* State/severity tag in a console-top: dot + short label, pushed to the right.
+   Semantic only (real state), not decoration. */
+.xo-console-top .xo-tag {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  font-family: var(--eco-font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.xo-console-top .xo-tag::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.xo-tag--failure { color: var(--xo-danger); }
+.xo-tag--control { color: var(--xo-accent); }
+.xo-tag--state   { color: var(--xo-text-soft); }
 
 .xo-console-body {
   display: grid;
