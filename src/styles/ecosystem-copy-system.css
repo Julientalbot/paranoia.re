@@ -53,7 +53,7 @@
   --xo-ink: #ffffff;
   --xo-ink-soft: rgba(255, 255, 255, 0.86);
   --xo-text-soft: rgba(255, 255, 255, 0.58);
-  --xo-text-muted: rgba(255, 255, 255, 0.42);
+  --xo-text-muted: rgba(255, 255, 255, 0.5);
   --xo-line-strong: #1f2228;
   --xo-line: rgba(255, 255, 255, 0.06);
   --xo-surface: #1a1a1a;
@@ -68,8 +68,8 @@
   --xo-canvas: #ffffff;
   --xo-ink: #0a0a0a;
   --xo-ink-soft: #1f2228;
-  --xo-text-soft: rgba(10, 10, 10, 0.5);
-  --xo-text-muted: rgba(10, 10, 10, 0.4);
+  --xo-text-soft: rgba(10, 10, 10, 0.62);
+  --xo-text-muted: rgba(10, 10, 10, 0.56);
   --xo-line-strong: #d5d9e2;
   --xo-line: rgba(10, 10, 10, 0.06);
   --xo-surface: #f9f8f6;
@@ -84,8 +84,8 @@
     --xo-canvas: #ffffff;
     --xo-ink: #0a0a0a;
     --xo-ink-soft: #1f2228;
-    --xo-text-soft: rgba(10, 10, 10, 0.5);
-    --xo-text-muted: rgba(10, 10, 10, 0.4);
+    --xo-text-soft: rgba(10, 10, 10, 0.62);
+    --xo-text-muted: rgba(10, 10, 10, 0.56);
     --xo-line-strong: #d5d9e2;
     --xo-line: rgba(10, 10, 10, 0.06);
     --xo-surface: #f9f8f6;
@@ -107,17 +107,11 @@ body.xds-theme {
   min-width: 320px;
   margin: 0;
   overflow-x: clip;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--xo-ink) 3%, transparent), transparent 24rem),
-    var(--xo-canvas);
+  /* Canvas pur (DESIGN_SYSTEM §6) : aucun gradient ornemental sur le body. */
+  background: var(--xo-canvas);
   color: var(--xo-ink);
   font-family: var(--eco-font-body);
   text-rendering: geometricPrecision;
-}
-
-body.xds-theme::before,
-body.xds-theme::after {
-  opacity: 0.08;
 }
 
 .xds-page {

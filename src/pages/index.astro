@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
@@ -11,6 +10,7 @@ const paths = [
     title: 'Inspecter avant d’envoyer.',
     body: 'Le prompt est traité comme une surface produit : détection, masquage, relecture, décision.',
     steps: ['detect', 'mask', 'review'],
+    cta: 'Voir le fonctionnement →',
   },
   {
     href: '#limits',
@@ -18,6 +18,7 @@ const paths = [
     title: 'Voir ce que le produit ne promet pas.',
     body: 'Paranoia réduit une exposition. Il ne remplace ni DLP, ni politique sécurité, ni responsabilité humaine.',
     steps: ['scope', 'risk', 'human'],
+    cta: 'Lire les limites →',
   },
   {
     href: '/rapports-incidents',
@@ -25,6 +26,7 @@ const paths = [
     title: 'Lire le journal de confiance.',
     body: 'Rapports, collecte, signalement manuel, support et limites sont documentés séparément.',
     steps: ['report', 'support', 'trace'],
+    cta: 'Ouvrir les incidents →',
   },
   {
     href: '#cta',
@@ -32,6 +34,7 @@ const paths = [
     title: 'Décrire un cas pilote.',
     body: 'Assistant utilisé, données copiées, politique à tenir, contraintes support et sécurité.',
     steps: ['case', 'policy', 'pilot'],
+    cta: 'Décrire un cas →',
   },
 ];
 
@@ -98,7 +101,7 @@ const fitItems = [
 
 const limits = [
   {
-    label: 'Scope',
+    label: 'Périmètre',
     title: 'Réduction d’exposition',
     body: 'Le produit aide avant l’envoi vers un assistant IA. Il ne garantit pas la conformité complète d’une organisation.',
   },
@@ -108,17 +111,15 @@ const limits = [
     body: 'L’utilisateur doit voir l’avant/après et garder la responsabilité du prompt transmis.',
   },
   {
-    label: 'Trust',
+    label: 'Confiance',
     title: 'Incidents séparés',
     body: 'Les limites, incidents, traitements et supports sont publiés dans une page dédiée.',
   },
 ];
 ---
 
-<BaseLayout title="Paranoia — réduire les données sensibles envoyées aux assistants IA">
-  <main class="xo-page xo-page--product xo-home">
-    <Header ctaHref="#cta" ctaLabel="Beta" />
-
+<BaseLayout title="Paranoia — masquer les données sensibles avant l’IA">
+  <main id="main" class="xo-page xo-page--product xo-home">
     <section class="xo-shell xo-hero xo-hero--split xo-home-hero" aria-labelledby="home-title">
       <div>
         <p class="xo-kicker">Confidentialité des prompts IA · beta privée</p>
@@ -148,19 +149,19 @@ const limits = [
             </div>
             <div class="paranoia-exposure-bar" aria-hidden="true"><i></i></div>
           </div>
-          <div class="paranoia-token-grid" aria-label="Types de données détectées">
-            <span>person</span>
-            <span>email</span>
-            <span>org</span>
-            <span>role</span>
-            <span>id</span>
+          <div class="paranoia-token-grid" role="list" aria-label="Types de données détectées">
+            <span role="listitem">person</span>
+            <span role="listitem">email</span>
+            <span role="listitem">org</span>
+            <span role="listitem">role</span>
+            <span role="listitem">id</span>
           </div>
           <div class="xo-console-line"><span>raw</span><span>{before}</span></div>
           <div class="xo-console-line"><span>mask</span><strong>{after}</strong></div>
-          <div class="paranoia-policy-stack" aria-label="Contrôles avant envoi">
-            <div><span>policy</span><strong>mask before send</strong></div>
-            <div><span>state</span><strong>review required</strong></div>
-            <div><span>limit</span><strong>not a DLP replacement</strong></div>
+          <div class="paranoia-policy-stack" role="list" aria-label="Contrôles avant envoi">
+            <div role="listitem"><span>policy</span><strong>mask before send</strong></div>
+            <div role="listitem"><span>state</span><strong>review required</strong></div>
+            <div role="listitem"><span>limit</span><strong>not a DLP replacement</strong></div>
           </div>
         </div>
       </div>
@@ -191,7 +192,7 @@ const limits = [
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </div>
-            <span class="xo-card-arrow">Explorer →</span>
+            <span class="xo-card-arrow">{item.cta}</span>
           </a>
         ))}
       </div>
@@ -205,6 +206,10 @@ const limits = [
           <p>
             La preuve produit tient dans une séquence vérifiable : voir le prompt, détecter les champs,
             proposer une version masquée, relire, puis décider ce qui quitte l’interface.
+          </p>
+          <p>
+            Chaque étape reste observable, vérifiable et reprenable : rien n’est masqué sans que l’équipe
+            puisse le voir, le contrôler et revenir en arrière.
           </p>
         </div>
         <div class="xo-field-ledger" aria-label="Flux de réduction d'exposition avant envoi">
@@ -222,7 +227,7 @@ const limits = [
     <section id="limits" class="xo-shell xo-section" aria-labelledby="limits-title">
       <div class="xo-proof-layout">
         <div class="xo-proof-copy">
-          <p class="xo-kicker">Trust</p>
+          <p class="xo-kicker">Confiance</p>
           <h2 id="limits-title" class="xo-title xo-title--section">La limite fait partie du produit.</h2>
           <p>
             Une page produit crédible ne cache pas son périmètre. Paranoia doit montrer le contrôle,
@@ -266,25 +271,25 @@ const limits = [
     <section class="xo-shell xo-section xo-compact-section" aria-labelledby="latest-title">
       <div class="xo-section-heading">
         <div>
-          <p class="xo-kicker">Latest</p>
-          <h2 id="latest-title" class="xo-title xo-title--section">Suivi public du produit.</h2>
+          <p class="xo-kicker">Suivi public</p>
+          <h2 id="latest-title" class="xo-title xo-title--section">Trois surfaces à inspecter.</h2>
         </div>
-        <p>Releases, statut beta et incidents — ce que Paranoia publie, daté.</p>
+        <p>Incidents, détection et périmètre sont documentés séparément. Chaque lien mène à une surface réelle.</p>
       </div>
 
-      <div class="xo-latest-list" aria-label="Latest Paranoia">
+      <div class="xo-latest-list" aria-label="Suivi public Paranoia">
         <a class="xo-latest-row" href="/rapports-incidents">
-          <span>Trust</span>
+          <span>Confiance</span>
           <strong>Rapports d'incidents Sentry</strong>
           <p>Diagnostic bugs et stabilité, conservation 90 jours max, prompts non collectés par défaut.</p>
         </a>
         <a class="xo-latest-row" href="#workflow">
-          <span>Beta</span>
+          <span>Détection</span>
           <strong>Détection 5 catégories sensibles</strong>
           <p>Person, email, organisation, rôle, identifiant — masquage avant envoi avec relecture humaine.</p>
         </a>
         <a class="xo-latest-row" href="#limits">
-          <span>Scope</span>
+          <span>Périmètre</span>
           <strong>Réduction d'exposition, pas DLP</strong>
           <p>Ce que le produit fait et ce qu'il ne fait pas — documenté côté limites.</p>
         </a>
@@ -304,7 +309,7 @@ const limits = [
         <div class="xo-start-panel">
           <div>
             <p class="xo-label">Beta</p>
-            <h2>Décrire un cas d’usage sensible.</h2>
+            <h3>Décrire un cas d’usage sensible.</h3>
           </div>
           <p>Assistant utilisé, types de données copiées, politique à tenir, contraintes de support et de sécurité.</p>
           <WaitlistForm />

@@ -53,15 +53,16 @@
       setStatus('', '');
       setFormState('idle');
 
+      input.removeAttribute('aria-invalid');
+
       const email = input.value.trim();
       if (!/\S+@\S+\.\S+/.test(email)) {
-        setStatus('Ajoute un email professionnel valide.', 'error');
+        setStatus('Indiquez un email professionnel valide.', 'error');
         setFormState('error');
         input.setAttribute('aria-invalid', 'true');
         return;
       }
 
-      input.removeAttribute('aria-invalid');
       if (submit instanceof HTMLButtonElement) {
         submit.disabled = true;
         submit.textContent = 'Envoi...';
@@ -88,6 +89,7 @@
           }));
           setStatus(payload.error || "Impossible d'enregistrer cet email pour le moment.", 'error');
           setFormState('error');
+          input.setAttribute('aria-invalid', 'true');
           return;
         }
 
@@ -98,7 +100,7 @@
             props: { status: response.status },
           },
         }));
-        setStatus('Merci ! On revient vers toi très vite.', 'success');
+        setStatus('Merci. Nous revenons vers vous très vite.', 'success');
         setFormState('success');
       } catch (error) {
         console.error(error);
@@ -110,6 +112,7 @@
         }));
         setStatus("Impossible d'enregistrer cet email pour le moment.", 'error');
         setFormState('error');
+        input.setAttribute('aria-invalid', 'true');
       } finally {
         if (submit instanceof HTMLButtonElement) {
           submit.disabled = false;

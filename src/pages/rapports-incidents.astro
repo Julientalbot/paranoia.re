@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 ---
 
@@ -8,10 +7,9 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
   title="Rapports d'incidents (Sentry) — Paranoia"
   description="Transparence sur les rapports d'erreurs : Sentry, protection des données personnelles, signalement manuel optionnel, conservation 90 jours."
   canonicalPath="/rapports-incidents"
+  headerCtaLabel="Beta privée en cours"
 >
-  <main class="xo-page xo-page--product">
-    <Header ctaHref="/#cta" ctaLabel="Beta privée en cours" />
-
+  <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="incidents-title">
       <div>
         <p class="xo-kicker">Transparence</p>
@@ -78,8 +76,8 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
             <h2>Ce qui est envoyé.</h2>
           </div>
           <p>
-            Par défaut, Paranoia est conçu pour fonctionner en local. Les envois automatiques concernent les rapports
-            techniques et les événements de stabilité, pas les contenus de prompts.
+            Le traitement de détection et de masquage est conçu pour s’exécuter sur le poste. Les envois automatiques
+            concernent les rapports techniques et les événements de stabilité, pas les contenus de prompts.
           </p>
         </article>
         <a class="xo-path-card" href={PARANOIA_CONTACT_HREF}>
