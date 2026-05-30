@@ -7,6 +7,16 @@
     .xo-page : alias contextuels par page (x-operational-system.css)
 */
 
+/* General Sans — self-hosted (woff2 variable, poids 200–700, aucun CDN tiers).
+   Le fichier vit dans <site>/public/fonts/ ; l'URL absolue résout par site. */
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
 /* Structural tokens — theme-agnostic, always applied. */
 :root {
   --xo-terminal-ink: #f7f7f7;
