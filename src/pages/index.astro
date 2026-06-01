@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PilotForm from '../components/PilotForm.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
 const paths = [
@@ -121,7 +120,7 @@ const limits = [
           Il réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href="#cta" data-event="primary_cta_click">Décrire un pilote</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Écrire à Paranoia</a>
           <a class="xo-button" href="/rapports-incidents" data-event="incident_reports_click">Lire les incidents</a>
         </div>
       </div>
@@ -276,11 +275,16 @@ const limits = [
             <h3>Décrire un cas d’usage sensible.</h3>
           </div>
           <p>Assistant utilisé, types de données copiées, politique à tenir, contraintes de support et de sécurité.</p>
-          <PilotForm />
-          <p class="pilot-hint">
-            Question directe ou pilote déjà identifié ?
-            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
-          </p>
+          <div class="paranoia-direct-contact" aria-label="Message utile pour Paranoia">
+            <div><span>01</span><strong>assistant</strong><p>Quel assistant ou outil reçoit les prompts aujourd’hui.</p></div>
+            <div><span>02</span><strong>données</strong><p>Les types de contenus sensibles copiés avant envoi.</p></div>
+            <div><span>03</span><strong>limite</strong><p>La politique, le support ou la contrainte sécurité à tenir.</p></div>
+          </div>
+          <div class="xo-contact-actions">
+            <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à Paranoia</a>
+            <a class="xo-button" href="/rapports-incidents" data-event="incident_reports_click">Lire les incidents</a>
+          </div>
+          <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_HREF}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
         </div>
         <a class="xo-path-card" href="/rapports-incidents" data-event="incident_reports_click">
           <div class="xo-path-artifact" aria-hidden="true">

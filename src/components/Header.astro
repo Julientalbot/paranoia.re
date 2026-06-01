@@ -6,7 +6,7 @@ interface Props {
   ctaLabel?: string;
 }
 
-const { ctaHref = '/#cta', ctaLabel = 'Pilote' } = Astro.props;
+const { ctaHref = PARANOIA_CONTACT_HREF, ctaLabel = 'Contact' } = Astro.props;
 ---
 
 <header class="site-header">

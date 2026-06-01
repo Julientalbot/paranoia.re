@@ -5,7 +5,7 @@ import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 import '../styles/x-operational-system.css';
 import Header from '../components/Header.astro';
-import { PARANOIA_CONTACT_EMAIL } from '../lib/contact';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
 interface Props {
   title: string;
@@ -32,8 +32,8 @@ const {
   twitterImage,
   ogImageWidth = 1200,
   ogImageHeight,
-  headerCtaHref = '/#cta',
-  headerCtaLabel = 'Pilote',
+  headerCtaHref = PARANOIA_CONTACT_HREF,
+  headerCtaLabel = 'Contact',
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
@@ -119,12 +119,12 @@ const structuredData = {
             <a href="/#workflow">Fonctionnement</a>
             <a href="/#limits">Limites</a>
             <a href="/#fit">Pour qui</a>
-            <a href="/#cta">Décrire un pilote</a>
+            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à Paranoia</a>
           </nav>
           <nav aria-label="Confiance">
             <h3>Confiance</h3>
             <a href="/rapports-incidents">Rapports d'incidents</a>
-            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Support pilote</a>
+            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Support pilote</a>
           </nav>
           <nav aria-label="Docs">
             <h3>Docs</h3>
@@ -138,8 +138,7 @@ const structuredData = {
           </nav>
           <nav aria-label="Légal">
             <h3>Légal</h3>
-            <a href="https://julientalbot.com/contact/">Contact</a>
-            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Email</a>
+            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Email</a>
           </nav>
         </div>
       </footer>

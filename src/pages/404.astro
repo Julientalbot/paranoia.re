@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 ---
 
 <BaseLayout
@@ -16,7 +17,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Le lien a peut-être changé. Reprenez par le pilote ou par le journal de confiance.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href="/#cta">Décrire un pilote</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Écrire à Paranoia</a>
           <a class="xo-button" href="/rapports-incidents">Lire les incidents</a>
         </div>
       </div>

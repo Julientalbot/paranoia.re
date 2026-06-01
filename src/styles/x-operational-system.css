@@ -2186,7 +2186,6 @@
 .xo-page .surface-item,
 .xo-page .proof-shell,
 .xo-page .article-note,
-.xo-page .guided-contact-form,
 .xo-page .contact-cal-card {
   overflow: hidden;
   border: 1px solid var(--xo-line);
@@ -2991,35 +2990,9 @@
   align-items: start;
 }
 
-.xo-page .guided-contact-form {
-  gap: var(--eco-space-4);
-  padding: 1.35rem;
-}
-
-.xo-page .contact-field label {
-  color: var(--xo-text);
-  font-family: var(--eco-font-mono);
-}
-
-.xo-page .contact-field input,
-.xo-page .contact-field select,
-.xo-page .contact-field textarea {
-  border: 1px solid var(--xo-line-strong);
-  border-radius: var(--eco-radius-control);
-  background: rgba(0, 0, 0, 0.34);
-  color: var(--xo-text);
-}
-
-.xo-page .contact-field textarea {
-  border-radius: var(--eco-radius-panel);
-}
-
 .xo-page .btn:focus-visible,
 .xo-page .text-link:focus-visible,
-.xo-page .path-card:focus-visible,
-.xo-page .contact-field input:focus-visible,
-.xo-page .contact-field select:focus-visible,
-.xo-page .contact-field textarea:focus-visible {
+.xo-page .path-card:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--xo-accent) 72%, transparent);
   outline-offset: 4px;
 }
@@ -3418,7 +3391,6 @@
   }
 
   .xo-contact-block,
-  .xo-page .guided-contact-form,
   .xo-page .feature-card,
   .xo-page .surface-item,
   .xo-page .article-note,
@@ -3491,7 +3463,6 @@
     font-size: 1.7rem;
   }
 
-  .xo-page .contact-form-actions,
   .xo-contact-actions {
     align-items: stretch;
     flex-direction: column;
@@ -3653,57 +3624,6 @@
   line-height: 1.58;
 }
 
-.pilot-form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--eco-space-3);
-  align-items: stretch;
-  margin-top: var(--eco-space-5);
-}
-
-.pilot-field {
-  min-width: 0;
-}
-
-.pilot-form input[type="email"] {
-  width: 100%;
-  min-height: var(--eco-control-min);
-  border: 1px solid var(--xo-line-strong);
-  border-radius: var(--eco-radius-control);
-  background: color-mix(in srgb, var(--xo-bg) 72%, var(--xo-surface));
-  color: var(--xo-text);
-  font-family: var(--eco-font-body);
-  font-size: 0.95rem;
-  line-height: 1.35;
-  padding: 0.85rem 1rem;
-  transition:
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease,
-    box-shadow var(--eco-motion-standard) ease;
-}
-
-.pilot-form input[type="email"]::placeholder {
-  color: var(--xo-text-muted);
-}
-
-.pilot-form input[type="email"]:focus {
-  border-color: var(--xo-accent);
-  background: color-mix(in srgb, var(--xo-bg) 62%, var(--xo-surface));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xo-accent) 16%, transparent);
-  outline: none;
-}
-
-.pilot-form input[aria-invalid="true"] {
-  border-color: var(--xo-danger);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--xo-danger) 14%, transparent);
-}
-
-.pilot-form .xo-button:disabled {
-  cursor: wait;
-  opacity: 0.58;
-  transform: none;
-}
-
 .pilot-hint {
   margin: var(--eco-space-3) 0 0;
   color: var(--xo-text-muted);
@@ -3712,45 +3632,56 @@
   line-height: 1.55;
 }
 
-.pilot-status-message {
-  margin-top: var(--eco-space-3);
-  border: 1px solid var(--xo-line);
-  border-radius: var(--eco-radius-panel);
-  padding: 0.85rem 1rem;
+.paranoia-direct-contact {
+  display: grid;
+  gap: var(--eco-space-2);
+  margin-top: var(--eco-space-5);
+}
+
+.paranoia-direct-contact > div {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 0.72fr) minmax(0, 1fr);
+  gap: var(--eco-space-3);
+  border-top: 1px solid var(--xo-line);
+  padding-top: var(--eco-space-3);
+}
+
+.paranoia-direct-contact span {
+  color: var(--xo-accent);
   font-family: var(--eco-font-mono);
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.72rem;
+  text-transform: uppercase;
 }
 
-.pilot-status-message--error {
-  border-color: color-mix(in srgb, var(--xo-danger) 56%, var(--xo-line));
-  background: color-mix(in srgb, var(--xo-danger) 12%, transparent);
-  color: color-mix(in srgb, var(--xo-danger) 70%, var(--xo-text));
-}
-
-.pilot-status-message--success {
-  border-color: color-mix(in srgb, var(--xo-accent) 48%, var(--xo-line));
-  background: color-mix(in srgb, var(--xo-accent) 10%, transparent);
+.paranoia-direct-contact strong {
   color: var(--xo-text);
+  font-size: 0.9rem;
+}
+
+.paranoia-direct-contact p {
+  margin: 0;
+  color: var(--xo-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
 }
 
 @media (max-width: 640px) {
   .paranoia-trust-ledger > div {
-      grid-template-columns: 1fr;
-      gap: var(--eco-space-2);
-    }
-  
-    .paranoia-exposure > div:first-child,
-    .paranoia-policy-stack,
-    .paranoia-token-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .paranoia-exposure > div:first-child {
-      display: grid;
-    }
+    grid-template-columns: 1fr;
+    gap: var(--eco-space-2);
+  }
 
-    .pilot-form {
-      grid-template-columns: 1fr;
-    }
+  .paranoia-direct-contact > div {
+    grid-template-columns: 1fr;
+  }
+
+  .paranoia-exposure > div:first-child,
+  .paranoia-policy-stack,
+  .paranoia-token-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paranoia-exposure > div:first-child {
+    display: grid;
+  }
 }
