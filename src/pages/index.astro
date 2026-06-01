@@ -7,6 +7,27 @@ const before =
 const after =
   'Peux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email]. Dossier fournisseur [Identifiant]. Inclure la clause 4.2.';
 
+const reviewTabs = [
+  {
+    id: 'raw',
+    label: 'Brut',
+    code: before,
+  },
+  {
+    id: 'masked',
+    label: 'Masqué',
+    code: after,
+  },
+  {
+    id: 'control',
+    label: 'Contrôle',
+    code: `review_state: required
+detected_fields: personne, email, organisation, rôle, identifiant
+rule: mask before send
+limit: not a DLP replacement`,
+  },
+];
+
 const workflowSteps = [
   {
     label: '01 détecter',
@@ -106,12 +127,15 @@ const contactHints = [
         </div>
       </div>
 
-      <div class="xo-console paranoia-review-artifact xo-hero-artifact" aria-label="Avant après prompt">
+      <div class="xo-console paranoia-review-artifact xo-hero-artifact" data-code-artifact aria-label="Avant après prompt">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
           <strong>prompt/review</strong>
+          <button class="xo-copy-button paranoia-console-copy" type="button" data-copy-current>
+            <span class="xo-copy-label">Copier</span>
+          </button>
         </div>
         <div class="xo-console-body paranoia-review-body">
           <div class="paranoia-exposure">
@@ -128,8 +152,25 @@ const contactHints = [
             <span role="listitem">rôle</span>
             <span role="listitem">id</span>
           </div>
-          <div class="xo-console-line"><span>brut</span><span>{before}</span></div>
-          <div class="xo-console-line"><span>masqué</span><strong>{after}</strong></div>
+          <div class="xo-code-tabs paranoia-review-tabs" role="tablist" aria-label="États du prompt">
+            {reviewTabs.map((tab, index) => (
+              <button
+                class="xo-code-tab"
+                type="button"
+                role="tab"
+                data-code-tab={tab.id}
+                aria-selected={index === 0 ? 'true' : 'false'}
+                tabindex={index === 0 ? '0' : '-1'}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          {reviewTabs.map((tab, index) => (
+            <div class="xo-code-panel paranoia-review-panel" data-code-panel={tab.id} hidden={index !== 0}>
+              <pre><code>{tab.code}</code></pre>
+            </div>
+          ))}
           <div class="paranoia-policy-stack" role="list" aria-label="Contrôles avant envoi">
             <div role="listitem"><span>règle</span><strong>mask before send</strong></div>
             <div role="listitem"><span>état</span><strong>review required</strong></div>
