@@ -3653,7 +3653,7 @@
   line-height: 1.58;
 }
 
-.waitlist-form {
+.pilot-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--eco-space-3);
@@ -3661,11 +3661,11 @@
   margin-top: var(--eco-space-5);
 }
 
-.waitlist-field {
+.pilot-field {
   min-width: 0;
 }
 
-.waitlist-form input[type="email"] {
+.pilot-form input[type="email"] {
   width: 100%;
   min-height: var(--eco-control-min);
   border: 1px solid var(--xo-line-strong);
@@ -3682,29 +3682,29 @@
     box-shadow var(--eco-motion-standard) ease;
 }
 
-.waitlist-form input[type="email"]::placeholder {
+.pilot-form input[type="email"]::placeholder {
   color: var(--xo-text-muted);
 }
 
-.waitlist-form input[type="email"]:focus {
+.pilot-form input[type="email"]:focus {
   border-color: var(--xo-accent);
   background: color-mix(in srgb, var(--xo-bg) 62%, var(--xo-surface));
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--xo-accent) 16%, transparent);
   outline: none;
 }
 
-.waitlist-form input[aria-invalid="true"] {
+.pilot-form input[aria-invalid="true"] {
   border-color: var(--xo-danger);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--xo-danger) 14%, transparent);
 }
 
-.waitlist-form .xo-button:disabled {
+.pilot-form .xo-button:disabled {
   cursor: wait;
   opacity: 0.58;
   transform: none;
 }
 
-.waitlist-hint {
+.pilot-hint {
   margin: var(--eco-space-3) 0 0;
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
@@ -3712,7 +3712,7 @@
   line-height: 1.55;
 }
 
-.waitlist-status-message {
+.pilot-status-message {
   margin-top: var(--eco-space-3);
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-panel);
@@ -3722,13 +3722,13 @@
   line-height: 1.5;
 }
 
-.waitlist-status-message--error {
+.pilot-status-message--error {
   border-color: color-mix(in srgb, var(--xo-danger) 56%, var(--xo-line));
   background: color-mix(in srgb, var(--xo-danger) 12%, transparent);
   color: color-mix(in srgb, var(--xo-danger) 70%, var(--xo-text));
 }
 
-.waitlist-status-message--success {
+.pilot-status-message--success {
   border-color: color-mix(in srgb, var(--xo-accent) 48%, var(--xo-line));
   background: color-mix(in srgb, var(--xo-accent) 10%, transparent);
   color: var(--xo-text);
@@ -3750,7 +3750,7 @@
       display: grid;
     }
 
-    .waitlist-form {
+    .pilot-form {
       grid-template-columns: 1fr;
     }
 }

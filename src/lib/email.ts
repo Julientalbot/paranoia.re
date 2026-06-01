@@ -2,17 +2,17 @@ import { Resend } from 'resend';
 import { PARANOIA_CONTACT_EMAIL } from './contact';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY?.trim();
-const PARANOIA_WAITLIST_FROM_EMAIL = 'waitlist@send.paranoia.re';
+const PARANOIA_PILOT_FROM_EMAIL = process.env.PARANOIA_PILOT_FROM_EMAIL?.trim() || 'pilot@send.paranoia.re';
 
 export const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
-export const WAITLIST_NOTIFY_TO = process.env.WAITLIST_NOTIFY_TO?.trim() || PARANOIA_CONTACT_EMAIL;
+export const PILOT_NOTIFY_TO = process.env.PILOT_NOTIFY_TO?.trim() || PARANOIA_CONTACT_EMAIL;
 
-type SendWaitlistEmailParams = {
+type SendPilotEmailParams = {
   to: string;
 };
 
-type SendWaitlistNotificationParams = {
+type SendPilotNotificationParams = {
   email: string;
   submittedAt: string;
   to?: string;
@@ -26,34 +26,34 @@ const escapeHtml = (value: string) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 
-export const isEmailConfigured = () => Boolean(resend && WAITLIST_NOTIFY_TO);
+export const isEmailConfigured = () => Boolean(resend && PILOT_NOTIFY_TO);
 
-export async function sendWaitlistNotification({
+export async function sendPilotNotification({
   email,
   submittedAt,
-  to = WAITLIST_NOTIFY_TO,
-}: SendWaitlistNotificationParams) {
+  to = PILOT_NOTIFY_TO,
+}: SendPilotNotificationParams) {
   if (!resend) {
     throw new Error('RESEND_API_KEY is not configured');
   }
 
   if (!to) {
-    throw new Error('WAITLIST_NOTIFY_TO is not configured');
+    throw new Error('PILOT_NOTIFY_TO is not configured');
   }
 
-  const subject = '[Paranoia] Nouvelle demande beta';
+  const subject = '[Paranoia] Nouvelle demande pilote';
 
   const html = `
     <div style="font-family: Arial, sans-serif; color: #0a0f1f; line-height: 1.5;">
-      <h2 style="margin: 0 0 12px;">Nouvelle demande beta Paranoia.</h2>
+      <h2 style="margin: 0 0 12px;">Nouvelle demande pilote Paranoia.</h2>
       <p style="margin: 0 0 12px;"><strong>Email :</strong> ${escapeHtml(email)}</p>
       <p style="margin: 0 0 12px;"><strong>Reçu le :</strong> ${escapeHtml(submittedAt)}</p>
-      <p style="margin: 0 0 12px;">Ce message sert de trace temporaire pour la demande waitlist.</p>
+      <p style="margin: 0 0 12px;">Ce message sert de trace temporaire pour la demande de pilote.</p>
     </div>
   `;
 
   await resend.emails.send({
-    from: `Paranoia <${PARANOIA_WAITLIST_FROM_EMAIL}>`,
+    from: `Paranoia <${PARANOIA_PILOT_FROM_EMAIL}>`,
     to,
     replyTo: email,
     subject,
@@ -61,15 +61,15 @@ export async function sendWaitlistNotification({
   });
 }
 
-export async function sendWaitlistEmail({ to }: SendWaitlistEmailParams) {
+export async function sendPilotEmail({ to }: SendPilotEmailParams) {
   if (!resend) return;
 
-  const subject = 'Paranoia - On vous recontacte pour la beta privée';
+  const subject = 'Paranoia - On vous recontacte pour le pilote privé';
 
   const html = `
     <div style="font-family: Arial, sans-serif; color: #0a0f1f; line-height: 1.5;">
       <h2 style="margin: 0 0 12px;">Merci pour votre intérêt.</h2>
-      <p style="margin: 0 0 12px;">Votre email est bien enregistré pour la beta privée de Paranoia.</p>
+      <p style="margin: 0 0 12px;">Votre email est bien enregistré pour le pilote privé de Paranoia.</p>
       <p style="margin: 0 0 12px;">Paranoia aide à réduire l'exposition des données sensibles dans les prompts avant l'usage d'un assistant IA.</p>
       <p style="margin: 0 0 12px;">Nous revenons vers vous sous peu pour cadrer le cas d'usage.</p>
       <p style="margin: 0 0 12px;">L'équipe Paranoia</p>
@@ -77,7 +77,7 @@ export async function sendWaitlistEmail({ to }: SendWaitlistEmailParams) {
   `;
 
   await resend.emails.send({
-    from: `Paranoia <${PARANOIA_WAITLIST_FROM_EMAIL}>`,
+    from: `Paranoia <${PARANOIA_PILOT_FROM_EMAIL}>`,
     to,
     replyTo: PARANOIA_CONTACT_EMAIL,
     subject,

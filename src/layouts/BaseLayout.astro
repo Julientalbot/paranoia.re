@@ -33,7 +33,7 @@ const {
   ogImageWidth = 1200,
   ogImageHeight,
   headerCtaHref = '/#cta',
-  headerCtaLabel = 'Beta',
+  headerCtaLabel = 'Pilote',
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
@@ -93,14 +93,14 @@ const structuredData = {
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content={ogImageWidth} />
     <meta property="og:image:height" content={resolvedOgImageHeight} />
-    <meta property="og:image:alt" content="Paranoia - Réduire l'exposition des prompts IA" />
+    <meta property="og:image:alt" content="Paranoia - Inspecter avant d'envoyer" />
     <meta property="og:site_name" content="Paranoia" />
     <meta property="og:locale" content="fr_FR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={twitterImageUrl} />
-    <meta name="twitter:image:alt" content="Paranoia - Réduire l'exposition des prompts IA" />
+    <meta name="twitter:image:alt" content="Paranoia - Inspecter avant d'envoyer" />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="xds-theme xo-page xo-page--product">
@@ -112,19 +112,19 @@ const structuredData = {
         <div class="xo-shell xo-trust-grid">
           <div>
             <p class="xo-footer-brand">Paranoia</p>
-            <p>Produit beta pour réduire l'exposition de données sensibles dans les prompts IA. Les limites et incidents restent documentés publiquement.</p>
+            <p>Produit pilote pour réduire l'exposition de données sensibles dans les prompts IA. Les limites et incidents restent documentés publiquement.</p>
           </div>
           <nav aria-label="Produit">
             <h3>Produit</h3>
             <a href="/#workflow">Fonctionnement</a>
             <a href="/#limits">Limites</a>
             <a href="/#fit">Pour qui</a>
-            <a href="/#cta">Rejoindre la beta</a>
+            <a href="/#cta">Décrire un pilote</a>
           </nav>
           <nav aria-label="Confiance">
             <h3>Confiance</h3>
             <a href="/rapports-incidents">Rapports d'incidents</a>
-            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Support beta</a>
+            <a href={`mailto:${PARANOIA_CONTACT_EMAIL}`} data-event="contact_mail_click">Support pilote</a>
           </nav>
           <nav aria-label="Docs">
             <h3>Docs</h3>

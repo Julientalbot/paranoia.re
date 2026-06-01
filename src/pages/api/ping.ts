@@ -19,7 +19,7 @@ export const GET: APIRoute = async () => {
   return json({
     ok: true,
     backend: 'email',
-    waitlist: {
+    pilot: {
       version: 2,
       bodyLimit: true,
       emailValidation: true,

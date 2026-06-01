@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500" role="img" aria-labelledby="title desc">
   <title id="title">Paranoia X header fallback</title>
-  <desc id="desc">Reduce AI prompt exposure. Detect, mask, review. Documented limits.</desc>
+  <desc id="desc">Inspect before sending. Detect, mask, review. Documented limits.</desc>
   <defs>
     <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
       <path d="M41 0V42M0 41H42" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
@@ -20,8 +20,8 @@
     <text x="0" y="104" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="650">[ PROMPTS IA ]</text>
   </g>
   <g transform="translate(380 158)">
-    <text x="0" y="58" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="54" font-weight="520" letter-spacing="-.8">Reduce AI prompt</text>
-    <text x="0" y="118" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="54" font-weight="520" letter-spacing="-.8">exposure</text>
+    <text x="0" y="58" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="54" font-weight="520" letter-spacing="-.8">Inspect before</text>
+    <text x="0" y="118" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="54" font-weight="520" letter-spacing="-.8">sending</text>
     <text x="0" y="176" fill="#c7ccd2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="24" font-weight="430">Detect, mask, review. Documented limits.</text>
     <text x="0" y="232" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="650">paranoia.re</text>
   </g>

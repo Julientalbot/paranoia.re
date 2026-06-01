@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="4200" height="700" viewBox="0 0 4200 700" role="img" aria-labelledby="title desc">
   <title id="title">Paranoia LinkedIn cover</title>
-  <desc id="desc">Réduire l'exposition des prompts IA. Détecter, masquer, relire. Limites documentées.</desc>
+  <desc id="desc">Inspecter avant d'envoyer. Détecter, masquer, relire. Limites documentées.</desc>
   <defs>
     <pattern id="grid" width="92" height="92" patternUnits="userSpaceOnUse">
       <path d="M91 0V92M0 91H92" stroke="#ffffff" stroke-opacity=".052" stroke-width="1"/>
@@ -27,11 +27,11 @@
   <g transform="translate(250 118)">
     <text x="0" y="76" fill="#f7f7f2" font-family="Arial Black, Archivo, Helvetica Neue, sans-serif" font-size="86" font-weight="900">Paranoia</text>
     <circle cx="465" cy="52" r="21" fill="#9fe8ff"/>
-    <text x="0" y="125" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="24" font-weight="650">[ PROTECTION DES PROMPTS IA ]</text>
+    <text x="0" y="125" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="24" font-weight="650">[ PROMPTS IA · PILOTE ]</text>
   </g>
 
   <g transform="translate(930 170)">
-    <text x="0" y="84" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="84" font-weight="520" letter-spacing="-1.2">Réduire l'exposition des prompts IA</text>
+    <text x="0" y="84" fill="#f7f7f2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="84" font-weight="520" letter-spacing="-1.2">Inspecter avant d’envoyer</text>
     <text x="0" y="155" fill="#c7ccd2" font-family="Archivo, Avenir Next, Helvetica Neue, sans-serif" font-size="34" font-weight="430">Détecter, masquer, relire. Limites documentées.</text>
     <text x="0" y="223" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="28" font-weight="650">paranoia.re</text>
   </g>

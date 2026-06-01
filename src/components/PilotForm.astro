@@ -1,8 +1,8 @@
-<form class="waitlist-form" data-waitlist-form action="/api/waitlist" method="post" aria-describedby="waitlist-hint waitlist-status">
-  <div class="waitlist-field">
-    <label for="waitlist-email" class="sr-only">Email professionnel</label>
+<form class="pilot-form" data-pilot-form action="/api/pilot" method="post" aria-describedby="pilot-hint pilot-status">
+  <div class="pilot-field">
+    <label for="pilot-email" class="sr-only">Email professionnel</label>
     <input
-      id="waitlist-email"
+      id="pilot-email"
       type="email"
       name="email"
       placeholder="email@entreprise.com"
@@ -11,9 +11,9 @@
       required
     />
   </div>
-  <label class="sr-only" aria-hidden="true" for="waitlist-website">Site web</label>
+  <label class="sr-only" aria-hidden="true" for="pilot-website">Site web</label>
   <input
-    id="waitlist-website"
+    id="pilot-website"
     class="sr-only"
     type="text"
     name="website"
@@ -22,23 +22,23 @@
     tabindex="-1"
     aria-hidden="true"
   />
-  <button class="xo-button xo-button--primary" type="submit" data-submit-label>Rejoindre la beta</button>
+  <button class="xo-button xo-button--primary" type="submit" data-submit-label>Décrire un pilote</button>
 </form>
-<p class="waitlist-hint" id="waitlist-hint">
+<p class="pilot-hint" id="pilot-hint">
   Votre email est transmis à l'équipe Paranoia. Réponse sous 48h.
 </p>
-<div id="waitlist-status" aria-live="polite"></div>
+<div id="pilot-status" aria-live="polite"></div>
 
 <script>
-  const form = document.querySelector('[data-waitlist-form]');
-  const status = document.querySelector('#waitlist-status');
+  const form = document.querySelector('[data-pilot-form]');
+  const status = document.querySelector('#pilot-status');
   const submit = document.querySelector('[data-submit-label]');
-  const input = document.querySelector('#waitlist-email');
-  const honeypot = document.querySelector('#waitlist-website');
+  const input = document.querySelector('#pilot-email');
+  const honeypot = document.querySelector('#pilot-website');
 
   const setStatus = (message, type) => {
     if (!status) return;
-    status.innerHTML = message ? `<div class="waitlist-status-message waitlist-status-message--${type}">${message}</div>` : '';
+    status.innerHTML = message ? `<div class="pilot-status-message pilot-status-message--${type}">${message}</div>` : '';
   };
 
   const setFormState = (state) => {
@@ -70,7 +70,7 @@
       setFormState('loading');
 
       try {
-        const response = await fetch('/api/waitlist', {
+        const response = await fetch('/api/pilot', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -83,7 +83,7 @@
         if (!response.ok) {
           window.dispatchEvent(new CustomEvent('site:event', {
             detail: {
-              name: 'waitlist_submit_error',
+              name: 'pilot_submit_error',
               props: { status: response.status },
             },
           }));
@@ -96,7 +96,7 @@
         input.value = '';
         window.dispatchEvent(new CustomEvent('site:event', {
           detail: {
-            name: 'waitlist_submit_success',
+            name: 'pilot_submit_success',
             props: { status: response.status },
           },
         }));
@@ -106,7 +106,7 @@
         console.error(error);
         window.dispatchEvent(new CustomEvent('site:event', {
           detail: {
-            name: 'waitlist_submit_error',
+            name: 'pilot_submit_error',
             props: { status: 'network' },
           },
         }));
@@ -116,7 +116,7 @@
       } finally {
         if (submit instanceof HTMLButtonElement) {
           submit.disabled = false;
-          submit.textContent = 'Rejoindre la beta';
+          submit.textContent = 'Décrire un pilote';
         }
         if (form.dataset.state === 'loading') {
           setFormState('idle');

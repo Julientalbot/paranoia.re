@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WaitlistForm from '../components/WaitlistForm.astro';
+import PilotForm from '../components/PilotForm.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
 const paths = [
@@ -27,14 +27,6 @@ const paths = [
     body: 'Rapports, collecte, signalement manuel, support et limites sont documentés séparément.',
     steps: ['report', 'support', 'trace'],
     cta: 'Ouvrir les incidents →',
-  },
-  {
-    href: '#cta',
-    label: 'Waitlist',
-    title: 'Décrire un cas pilote.',
-    body: 'Assistant utilisé, données copiées, politique à tenir, contraintes support et sécurité.',
-    steps: ['case', 'policy', 'pilot'],
-    cta: 'Décrire un cas →',
   },
 ];
 
@@ -122,14 +114,14 @@ const limits = [
   <main id="main" class="xo-page xo-page--product xo-home">
     <section class="xo-shell xo-hero xo-hero--split xo-home-hero" aria-labelledby="home-title">
       <div>
-        <p class="xo-kicker">Confidentialité des prompts IA · beta privée</p>
+        <p class="xo-kicker">Confidentialité des prompts IA · pilote privé</p>
         <h1 id="home-title" class="xo-title xo-title--wide">Inspecter avant d’envoyer.</h1>
         <p class="xo-subtitle">
           Paranoia aide à détecter, masquer et relire les contenus sensibles avant l’usage d’un assistant IA.
           Il réduit une surface d’exposition ; il ne remplace pas une politique de sécurité.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href="#cta" data-event="primary_cta_click">Rejoindre la beta</a>
+          <a class="xo-button xo-button--primary" href="#cta" data-event="primary_cta_click">Décrire un pilote</a>
           <a class="xo-button" href="/rapports-incidents" data-event="incident_reports_click">Lire les incidents</a>
         </div>
       </div>
@@ -171,9 +163,9 @@ const limits = [
       <div class="xo-section-heading">
         <div>
           <p class="xo-kicker">Produit</p>
-          <h2 id="paths-title" class="xo-title xo-title--section">Quatre surfaces à inspecter.</h2>
+          <h2 id="paths-title" class="xo-title xo-title--section">Trois décisions avant l’envoi.</h2>
         </div>
-        <p>Chaque chemin mène vers une action ou une information de confiance. Rien n’est posé comme simple effet visuel.</p>
+        <p>Comprendre le produit, vérifier ses limites, puis inspecter la confiance publique.</p>
       </div>
 
       <div class="xo-path-grid xo-path-grid--surfaces" aria-label="Chemins Paranoia">
@@ -268,52 +260,24 @@ const limits = [
       </div>
     </section>
 
-    <section class="xo-shell xo-section xo-compact-section" aria-labelledby="latest-title">
-      <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Suivi public</p>
-          <h2 id="latest-title" class="xo-title xo-title--section">Trois surfaces à inspecter.</h2>
-        </div>
-        <p>Incidents, détection et périmètre sont documentés séparément. Chaque lien mène à une surface réelle.</p>
-      </div>
-
-      <div class="xo-latest-list" aria-label="Suivi public Paranoia">
-        <a class="xo-latest-row" href="/rapports-incidents">
-          <span>Confiance</span>
-          <strong>Rapports d'incidents Sentry</strong>
-          <p>Diagnostic bugs et stabilité, conservation 90 jours max, prompts non collectés par défaut.</p>
-        </a>
-        <a class="xo-latest-row" href="#workflow">
-          <span>Détection</span>
-          <strong>Détection 5 catégories sensibles</strong>
-          <p>Person, email, organisation, rôle, identifiant — masquage avant envoi avec relecture humaine.</p>
-        </a>
-        <a class="xo-latest-row" href="#limits">
-          <span>Périmètre</span>
-          <strong>Réduction d'exposition, pas DLP</strong>
-          <p>Ce que le produit fait et ce qu'il ne fait pas — documenté côté limites.</p>
-        </a>
-      </div>
-    </section>
-
     <section id="cta" class="xo-shell xo-section" aria-labelledby="start-title">
       <div class="xo-section-heading">
         <div>
           <p class="xo-kicker">Commencer</p>
-          <h2 id="start-title" class="xo-title xo-title--section">Piloter ou lire les limites.</h2>
+          <h2 id="start-title" class="xo-title xo-title--section">Décrire un cas pilote.</h2>
         </div>
-        <p>Deux suites possibles : décrire un cas réel ou inspecter le journal de confiance.</p>
+        <p>Assistant utilisé, données copiées, politique à tenir, contraintes support et sécurité.</p>
       </div>
 
       <div class="xo-start-paths">
         <div class="xo-start-panel">
           <div>
-            <p class="xo-label">Beta</p>
+            <p class="xo-label">Pilote</p>
             <h3>Décrire un cas d’usage sensible.</h3>
           </div>
           <p>Assistant utilisé, types de données copiées, politique à tenir, contraintes de support et de sécurité.</p>
-          <WaitlistForm />
-          <p class="waitlist-hint">
+          <PilotForm />
+          <p class="pilot-hint">
             Question directe ou pilote déjà identifié ?
             <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à {PARANOIA_CONTACT_EMAIL}</a>.
           </p>

@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { sendWaitlistEmail, sendWaitlistNotification } from '../../lib/email';
+import { sendPilotEmail, sendPilotNotification } from '../../lib/email';
 
 export const prerender = false;
 
@@ -253,16 +253,16 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    await sendWaitlistNotification({ email: normalized, submittedAt: new Date().toJSON() });
+    await sendPilotNotification({ email: normalized, submittedAt: new Date().toJSON() });
   } catch (error) {
-    console.error('waitlist.notification_failed', safeError(error));
+    console.error('pilot.notification_failed', safeError(error));
     return expectsJson
       ? json({ error: "Impossible d'enregistrer cet email pour le moment." }, 500)
       : html('Enregistrement impossible', "L'email ne peut pas être enregistré pour le moment. Réessayez depuis le formulaire.", 500);
   }
 
-  sendWaitlistEmail({ to: normalized }).catch((sendError) => {
-    console.error('waitlist.confirmation_failed', safeError(sendError));
+  sendPilotEmail({ to: normalized }).catch((sendError) => {
+    console.error('pilot.confirmation_failed', safeError(sendError));
   });
 
   return expectsJson
