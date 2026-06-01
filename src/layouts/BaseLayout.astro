@@ -25,7 +25,7 @@ const DEFAULT_TWITTER_IMAGE = '/social/x-card.png';
 
 const {
   title,
-  description = "Paranoia aide les équipes à détecter, masquer et relire les données sensibles dans leurs prompts avant d'utiliser des assistants IA.",
+  description = "Paranoia aide les équipes à réduire l'exposition de données sensibles dans leurs prompts IA avant envoi.",
   canonicalPath = Astro.url.pathname,
   image,
   ogImage,
@@ -33,7 +33,7 @@ const {
   ogImageWidth = 1200,
   ogImageHeight,
   headerCtaHref = PARANOIA_CONTACT_HREF,
-  headerCtaLabel = 'Contact',
+  headerCtaLabel = 'Demander un accès pilote',
 } = Astro.props;
 
 const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
@@ -53,7 +53,7 @@ const structuredData = {
       operatingSystem: 'Web',
       url: 'https://paranoia.re',
       description:
-        "Paranoia aide les équipes à détecter, masquer et relire les données sensibles dans leurs prompts avant d'utiliser des assistants IA.",
+        "Paranoia aide les équipes à réduire l'exposition de données sensibles dans leurs prompts IA avant envoi.",
       inLanguage: 'fr',
       publisher: { '@id': 'https://paranoia.re/#org' },
     },
@@ -112,33 +112,23 @@ const structuredData = {
         <div class="xo-shell xo-trust-grid">
           <div>
             <p class="xo-footer-brand">Paranoia</p>
-            <p>Produit pilote pour réduire l'exposition de données sensibles dans les prompts IA. Les limites et incidents restent documentés publiquement.</p>
+            <p>Produit pilote pour inspecter, masquer et relire les prompts IA sensibles avant envoi.</p>
           </div>
           <nav aria-label="Produit">
             <h3>Produit</h3>
             <a href="/#workflow">Fonctionnement</a>
             <a href="/#limits">Limites</a>
             <a href="/#fit">Pour qui</a>
-            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Écrire à Paranoia</a>
           </nav>
-          <nav aria-label="Confiance">
-            <h3>Confiance</h3>
-            <a href="/rapports-incidents">Rapports d'incidents</a>
+          <nav aria-label="Transparence">
+            <h3>Transparence</h3>
+            <a href="/rapports-incidents">Ce qui est envoyé</a>
             <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Support pilote</a>
-          </nav>
-          <nav aria-label="Docs">
-            <h3>Docs</h3>
-            <a href="/#flow">Workflow détaillé</a>
-            <a href="/#fit">Cas d'usage</a>
           </nav>
           <nav aria-label="Écosystème">
             <h3>Écosystème</h3>
             <a href="https://julientalbot.com/">Julien Talbot</a>
             <a href="https://ergonomia.re/">Ergonomia</a>
-          </nav>
-          <nav aria-label="Légal">
-            <h3>Légal</h3>
-            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Email</a>
           </nav>
         </div>
       </footer>

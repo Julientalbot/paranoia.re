@@ -1,70 +1,86 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
+
+const reportItems = [
+  {
+    label: 'Rapports techniques',
+    title: 'Crashs et erreurs.',
+    body: "Message d'erreur, trace technique, version, navigateur, OS, langue, horodatage et identifiant d'événement.",
+  },
+  {
+    label: 'Protection',
+    title: 'Champs sensibles masqués.',
+    body: 'Sentry est configuré pour supprimer ou masquer emails, noms, identifiants, tokens, clés et secrets si présents.',
+  },
+  {
+    label: 'Sessions',
+    title: 'Stabilité par version.',
+    body: "Des événements de session peuvent mesurer la stabilité sans prompts, textes, pages consultées ni URL.",
+  },
+  {
+    label: 'Manuel',
+    title: 'Contexte choisi par l’utilisateur.',
+    body: "Un signalement volontaire peut ajouter du contexte. Il ne faut pas y inclure données client, prompts sensibles ou secrets.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Rapports d'incidents (Sentry) — Paranoia"
-  description="Transparence sur les rapports d'erreurs : Sentry, protection des données personnelles, signalement manuel optionnel, conservation 90 jours."
+  title="Transparence — Paranoia"
+  description="Ce que Paranoia envoie, ce qu'il n'envoie pas, combien de temps les rapports techniques sont conservés et comment contacter le support."
   canonicalPath="/rapports-incidents"
-  headerCtaLabel="Pilote privé"
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="incidents-title">
       <div>
         <p class="xo-kicker">Transparence</p>
-        <h1 id="incidents-title" class="xo-title xo-title--wide">Rapports d'incidents Sentry.</h1>
+        <h1 id="incidents-title" class="xo-title xo-title--wide">Ce qui est envoyé. Ce qui ne l’est pas.</h1>
         <p class="xo-subtitle">
-          Pour améliorer la stabilité de Paranoia, Sentry peut recevoir des rapports techniques d'erreur.
-          L'objectif est de diagnostiquer les crashs et bugs sans collecter les contenus de prompts.
+          Paranoia peut utiliser Sentry pour diagnostiquer les bugs et la stabilité du pilote.
+          Les rapports automatiques concernent le fonctionnement technique, pas le contenu des prompts.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Contacter le support</a>
-          <a class="xo-button" href={PARANOIA_CONTACT_HREF}>Écrire à Paranoia</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">Contacter le support</a>
+          <a class="xo-button" href="/#workflow">Retour au produit</a>
         </div>
       </div>
 
-      <aside class="xo-artifact-panel paranoia-trust-artifact" aria-label="Ledger des rapports d'incidents">
+      <aside class="xo-artifact-panel paranoia-trust-artifact" aria-label="Ledger de transparence Paranoia">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
-          <strong>trust/incidents</strong>
+          <strong>trust/telemetry</strong>
         </div>
         <div class="paranoia-trust-ledger">
-          <div><span>finalité</span><strong>diagnostic bugs + stabilité</strong></div>
-          <div><span>contenu prompt</span><strong>non collecté par défaut</strong></div>
+          <div><span>finalité</span><strong>bugs + stabilité</strong></div>
+          <div><span>prompts</span><strong>non collectés par défaut</strong></div>
           <div><span>conservation</span><strong>90 jours maximum</strong></div>
-          <div><span>signalement</span><strong>manuel, contexte choisi</strong></div>
+          <div><span>support</span><strong>suppression sur demande</strong></div>
         </div>
         <p>
-          La confiance est traitée comme une surface lisible : données envoyées, protections, sessions, support et limites.
+          La page sert de trace publique : collecte technique, exclusions, durée de conservation, support et suppression.
         </p>
       </aside>
     </section>
 
-    <section class="xo-shell xo-section" aria-label="Périmètre des rapports">
+    <section class="xo-shell xo-section" aria-labelledby="reports-title">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Rapports techniques</p>
+          <h2 id="reports-title" class="xo-title xo-title--section">Le périmètre reste étroit.</h2>
+        </div>
+        <p>Le suivi sert à corriger le produit pilote, pas à inspecter les prompts des utilisateurs.</p>
+      </div>
       <div class="xo-signal-list">
-        <article>
-          <span>Automatique</span>
-          <strong>Crashs et erreurs.</strong>
-          <p>Message d'erreur, trace technique, version, navigateur, OS, langue, horodatage et identifiant d'événement.</p>
-        </article>
-        <article>
-          <span>Protection</span>
-          <strong>Champs sensibles masqués.</strong>
-          <p>Sentry est configuré pour supprimer ou masquer emails, noms, identifiants, tokens, clés et secrets si présents.</p>
-        </article>
-        <article>
-          <span>Sessions</span>
-          <strong>Stabilité par version.</strong>
-          <p>Des événements de session peuvent mesurer la stabilité et l'impact des versions, sans prompts, textes, pages consultées ni URL.</p>
-        </article>
-        <article>
-          <span>Optionnel</span>
-          <strong>Signalement manuel.</strong>
-          <p>Un rapport volontaire peut ajouter du contexte choisi par l'utilisateur. Évitez d’inclure données client ou secrets.</p>
-        </article>
+        {reportItems.map((item) => (
+          <article>
+            <span>{item.label}</span>
+            <strong>{item.title}</strong>
+            <p>{item.body}</p>
+          </article>
+        ))}
       </div>
     </section>
 
@@ -72,24 +88,24 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
       <div class="xo-start-paths">
         <article class="xo-start-panel">
           <div>
-            <p class="xo-label">Questions</p>
-            <h2>Ce qui est envoyé.</h2>
+            <p class="xo-label">Prompts</p>
+            <h2>Les contenus de travail restent hors rapports automatiques.</h2>
           </div>
           <p>
-            Le traitement de détection et de masquage est conçu pour s’exécuter sur le poste. Les envois automatiques
-            concernent les rapports techniques et les événements de stabilité, pas les contenus de prompts.
+            Le traitement de détection et de masquage est conçu pour s’exécuter avant l’envoi.
+            Les événements automatiques documentent les erreurs techniques et la stabilité, pas les textes que vous relisez.
           </p>
         </article>
-        <a class="xo-path-card" href={PARANOIA_CONTACT_HREF}>
+        <a class="xo-path-card" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">
           <div class="xo-path-artifact" aria-hidden="true">
             <div><span>01</span><strong>écrire</strong></div>
-            <div><span>02</span><strong>contexte</strong></div>
-            <div class="is-output"><span>03</span><strong>suppression</strong></div>
+            <div><span>02</span><strong>identifier</strong></div>
+            <div class="is-output"><span>03</span><strong>supprimer</strong></div>
           </div>
           <div>
             <p class="xo-label">Support</p>
             <h3>Demander une suppression ou signaler un problème.</h3>
-            <p>Écrivez à {PARANOIA_CONTACT_EMAIL} pour une question ou une demande de suppression anticipée d'un rapport.</p>
+            <p>Écrivez à {PARANOIA_CONTACT_EMAIL} pour une question ou une demande de suppression anticipée d’un rapport.</p>
           </div>
           <span class="xo-card-arrow">Contacter →</span>
         </a>

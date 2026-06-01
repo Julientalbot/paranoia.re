@@ -69,3 +69,26 @@ body.xds-theme.xo-page--product .product-footer p,
 body.xds-theme.xo-page--product .product-footer a {
   color: var(--xo-text-soft) !important;
 }
+
+body.xds-theme.xo-page--product .xo-console,
+body.xds-theme.xo-page--product .paranoia-trust-artifact {
+  color: var(--xo-terminal-ink);
+}
+
+body.xds-theme.xo-page--product .xo-console-line {
+  color: color-mix(in srgb, var(--xo-terminal-ink) 68%, transparent);
+}
+
+body.xds-theme.xo-page--product .paranoia-exposure span,
+body.xds-theme.xo-page--product .paranoia-token-grid span,
+body.xds-theme.xo-page--product .paranoia-policy-stack span {
+  color: color-mix(in srgb, var(--xo-terminal-ink) 58%, transparent);
+}
+
+body.xds-theme.xo-page--product .paranoia-trust-ledger strong {
+  color: var(--xo-terminal-ink);
+}
+
+body.xds-theme.xo-page--product .paranoia-trust-artifact p {
+  color: color-mix(in srgb, var(--xo-terminal-ink) 66%, transparent);
+}

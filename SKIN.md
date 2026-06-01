@@ -1,6 +1,7 @@
 # Skin paranoia.re
 
 **Rôle** : produit autonome de confidentialité / réduction d'exposition des prompts IA.
+**CTA primaire** : demander un accès pilote.
 **Peau** : theme-responsive product console (canvas profond, surfaces graphite, ligne fine).
 **Accent** : `#9fe8ff` — cold cyan. Console produit, trust, état technique.
 **Classe body** : `xo-page xo-page--product`.

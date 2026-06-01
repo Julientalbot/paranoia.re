@@ -6,7 +6,7 @@ interface Props {
   ctaLabel?: string;
 }
 
-const { ctaHref = PARANOIA_CONTACT_HREF, ctaLabel = 'Contact' } = Astro.props;
+const { ctaHref = PARANOIA_CONTACT_HREF, ctaLabel = 'Demander un accès pilote' } = Astro.props;
 ---
 
 <header class="site-header">
@@ -20,9 +20,8 @@ const { ctaHref = PARANOIA_CONTACT_HREF, ctaLabel = 'Contact' } = Astro.props;
     <div class="xo-nav-links">
       <a href="/#workflow">Produit</a>
       <a href="/#limits">Limites</a>
-      <a href="/rapports-incidents">Incidents</a>
-      <a href={ctaHref}>{ctaLabel}</a>
-      <a href={PARANOIA_CONTACT_HREF}>Contact</a>
+      <a href="/rapports-incidents">Transparence</a>
+      <a href={ctaHref} data-event="nav_primary_cta_click">{ctaLabel}</a>
     </div>
   </nav>
 </header>
