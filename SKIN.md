@@ -10,5 +10,6 @@
 **Claims interdits** : certification non obtenue, conformité automatique, sécurité totale, rareté artificielle, chiffres non sourcés.
 
 **Artefact hero principal** : `paranoia-review-artifact` — prompt before/after avec champs détectés et version masquée.
+**Figures de contenu** : privilégier les diagrammes HTML/CSS (`paranoia-exposure-map`, ledgers, traces) aux bitmaps générés quand les libellés de sécurité doivent rester exacts, inspectables et maintenables.
 
 Le reste de la doctrine et de la grammaire est dans `/ecosystem/DESIGN_SYSTEM.md`.

@@ -4047,6 +4047,107 @@
   line-height: 1.58;
 }
 
+.paranoia-exposure-map {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  background: var(--xo-line);
+  box-shadow: none;
+}
+
+.paranoia-exposure-map__header,
+.paranoia-exposure-map__rule {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--xo-terminal) 92%, var(--xo-accent) 8%);
+}
+
+.paranoia-exposure-map__header span,
+.paranoia-exposure-map__rule span,
+.paranoia-exposure-map__node span {
+  color: var(--xo-accent);
+  font-family: var(--eco-font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.paranoia-exposure-map__header strong,
+.paranoia-exposure-map__rule strong {
+  color: var(--xo-text);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.paranoia-exposure-map__chain {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--xo-line);
+}
+
+.paranoia-exposure-map__node {
+  position: relative;
+  display: grid;
+  min-height: 7.4rem;
+  align-content: space-between;
+  gap: 0.45rem;
+  padding: 0.95rem;
+  background: color-mix(in srgb, var(--xo-terminal) 88%, var(--xo-surface) 12%);
+}
+
+.paranoia-exposure-map__node::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -0.44rem;
+  z-index: 1;
+  display: grid;
+  width: 0.88rem;
+  height: 0.88rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--xo-accent);
+  color: var(--xo-terminal);
+  font-family: var(--eco-font-mono);
+  font-size: 0.62rem;
+  transform: translateY(-50%);
+}
+
+.paranoia-exposure-map__node:last-child::after {
+  content: none;
+}
+
+.paranoia-exposure-map__node strong {
+  color: var(--xo-text);
+  font-size: 0.94rem;
+  line-height: 1.22;
+}
+
+.paranoia-exposure-map__node p {
+  margin: 0;
+  color: var(--xo-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.paranoia-exposure-map__node.is-output {
+  background: color-mix(in srgb, var(--xo-accent) 12%, var(--xo-terminal));
+}
+
+.paranoia-exposure-map__node.is-output strong {
+  color: var(--xo-accent);
+}
+
+.paranoia-exposure-map__rule {
+  grid-template-columns: minmax(5.8rem, 0.22fr) minmax(0, 1fr);
+  align-items: center;
+  background: color-mix(in srgb, var(--xo-danger, var(--xo-accent)) 9%, var(--xo-terminal));
+}
+
 .pilot-hint {
   margin: var(--eco-space-3) 0 0;
   color: var(--xo-text-muted);
@@ -4099,9 +4200,22 @@
   }
 
   .paranoia-exposure > div:first-child,
+  .paranoia-exposure-map__chain,
+  .paranoia-exposure-map__rule,
   .paranoia-policy-stack,
   .paranoia-token-grid {
     grid-template-columns: 1fr;
+  }
+
+  .paranoia-exposure-map__node {
+    min-height: auto;
+  }
+
+  .paranoia-exposure-map__node::after {
+    top: auto;
+    right: 50%;
+    bottom: -0.44rem;
+    transform: translateX(50%) rotate(90deg);
   }
 
   .paranoia-exposure > div:first-child {
