@@ -27,35 +27,18 @@
   --xo-accent: var(--eco-color-signal);
   --xo-danger: var(--eco-color-red);
 
-  --xo-container-wide: 1232px;
-  --xo-container-readable: 768px;
-  --xo-container-narrow: 576px;
-  --xo-gutter: clamp(16px, 7.2vw, 104px);
-  --xo-nav-height: 80px;
-  --xo-section-xl: clamp(72px, 8.9vw, 128px);
-  --xo-section-lg: clamp(56px, 7vw, 96px);
-  --xo-gap: 24px;
-  --xo-card-gap: 16px;
 
   --xo-h1: clamp(36px, 4.17vw, 60px);
   --xo-h1-line: 1;
   --xo-h1-track: -0.025em;
   --xo-h2: clamp(30px, 3.34vw, 48px);
   --xo-h2-line: 1;
-  --xo-section-title: clamp(24px, 2.1vw, 30px);
   --xo-body: 16px;
   --xo-body-line: 1.5;
-  --xo-small: 14px;
-  --xo-small-line: 20px;
 
   --xo-radius-artifact: 16px;
-  --xo-radius-terminal: 12px;
-  --xo-radius-card: 16px;
-  --xo-radius-large-card: 24px;
   --xo-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --xo-motion-fast: 150ms var(--xo-ease);
-  --xo-motion-nav: 200ms var(--xo-ease);
-  --xo-motion-artifact: 500ms var(--xo-ease);
 }
 
 /* Dark is the default theme (frontier look). Light is served on explicit
@@ -65,7 +48,6 @@
   color-scheme: dark;
   --xo-canvas: #0a0a0a;
   --xo-ink: #ffffff;
-  --xo-ink-soft: rgba(255, 255, 255, 0.86);
   --xo-text-soft: rgba(255, 255, 255, 0.58);
   --xo-text-muted: rgba(255, 255, 255, 0.5);
   --xo-line-strong: #1f2228;
@@ -81,7 +63,6 @@
   color-scheme: light;
   --xo-canvas: #ffffff;
   --xo-ink: #0a0a0a;
-  --xo-ink-soft: #1f2228;
   --xo-text-soft: rgba(10, 10, 10, 0.62);
   --xo-text-muted: rgba(10, 10, 10, 0.56);
   --xo-line-strong: #d5d9e2;
@@ -97,7 +78,6 @@
     color-scheme: light;
     --xo-canvas: #ffffff;
     --xo-ink: #0a0a0a;
-    --xo-ink-soft: #1f2228;
     --xo-text-soft: rgba(10, 10, 10, 0.62);
     --xo-text-muted: rgba(10, 10, 10, 0.56);
     --xo-line-strong: #d5d9e2;
