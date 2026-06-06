@@ -5,17 +5,12 @@
     <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
       <path d="M41 0V42M0 41H42" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
     </pattern>
-    <radialGradient id="signal" cx="16%" cy="0%" r="76%">
-      <stop offset="0" stop-color="#9fe8ff" stop-opacity=".22"/>
-      <stop offset="1" stop-color="#050505" stop-opacity="0"/>
-    </radialGradient>
   </defs>
   <rect width="1500" height="500" fill="#050505"/>
   <rect width="1500" height="500" fill="url(#grid)"/>
-  <rect width="1500" height="500" fill="url(#signal)"/>
   <rect x="48" y="46" width="1404" height="408" rx="10" fill="#050505" fill-opacity=".66" stroke="#ffffff" stroke-opacity=".12"/>
   <g transform="translate(88 82)">
-    <text x="0" y="60" fill="#f7f7f2" font-family="Arial Black, Archivo, Helvetica Neue, sans-serif" font-size="68" font-weight="900">Paranoia</text>
+    <text x="0" y="60" fill="#f7f7f2" font-family="Archivo, Helvetica Neue, sans-serif" font-size="68" font-weight="560">Paranoia</text>
     <circle cx="368" cy="42" r="16" fill="#9fe8ff"/>
     <text x="0" y="104" fill="#9fe8ff" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="650">[ PROMPTS IA ]</text>
   </g>

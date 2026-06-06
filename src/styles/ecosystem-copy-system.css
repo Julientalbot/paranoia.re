@@ -469,7 +469,7 @@ body.xds-theme .article-meta {
   position: absolute;
   inset: auto 0 0;
   padding: 12px;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78));
+  background: rgba(0, 0, 0, 0.78);
   color: #fff;
   font-family: var(--eco-font-mono);
   font-size: 12px;
