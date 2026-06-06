@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PARANOIA_CONTACT_HREF } from '../lib/contact';
+
+const useCases = [
+  {
+    label: 'Contrats',
+    title: 'Résumer sans exposer les noms inutiles.',
+    body: 'Le prompt peut garder la demande de synthèse tout en remplaçant client, fournisseur, contact et identifiant par des libellés contrôlables.',
+  },
+  {
+    label: 'RH',
+    title: 'Préparer une question sans copier le dossier brut.',
+    body: 'Paranoia aide à voir les noms, emails, rôles ou fragments sensibles avant qu’ils partent vers un assistant généraliste.',
+  },
+  {
+    label: 'Support',
+    title: 'Réduire l’exposition d’un ticket client.',
+    body: 'Le contenu opérationnel reste lisible, mais les données directes peuvent être masquées avant la reformulation ou l’analyse.',
+  },
+  {
+    label: 'Pilote IA',
+    title: 'Documenter ce qui doit rester relu.',
+    body: 'Le produit convient aux équipes qui veulent tester l’IA sans banaliser le copier-coller de données sensibles.',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'Paranoia autorise-t-il l’envoi de secrets ?',
+    a: 'Non. Un secret qui ne doit pas sortir doit rester hors prompt. Paranoia aide à réduire une exposition, pas à rendre partageable une donnée interdite.',
+  },
+  {
+    q: 'Quels contenus sont les plus adaptés ?',
+    a: 'Contrats, tickets support, demandes RH, comptes rendus ou notes opérationnelles qui contiennent des noms, emails, organisations, rôles ou identifiants.',
+  },
+  {
+    q: 'À quel moment l’utiliser ?',
+    a: 'Juste avant l’envoi vers un assistant IA, quand l’utilisateur peut encore relire, corriger ou retirer les éléments sensibles.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Cas d’usage prompts IA — Paranoia"
+  description="Cas d’usage de Paranoia pour contrats, RH, support, opérations et pilotes IA quand des données sensibles risquent d’être copiées dans un prompt."
+  canonicalPath="/cas-usages"
+  structuredData={faqSchema}
+>
+  <main id="main" class="xo-page xo-page--product">
+    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="cases-title">
+      <div>
+        <p class="xo-kicker">Cas d’usage</p>
+        <h1 id="cases-title" class="xo-title xo-title--wide">Quand le prompt contient trop de réel.</h1>
+        <p class="xo-subtitle">
+          Paranoia sert aux moments où le travail est utile à l’assistant IA, mais où noms,
+          contacts, identifiants ou éléments de dossier doivent être revus avant l’envoi.
+        </p>
+        <div class="xo-actions">
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Demander un accès pilote</a>
+          <a class="xo-button" href="/confidentialite-prompts-ia">Voir la confidentialité</a>
+        </div>
+      </div>
+
+      <aside class="xo-artifact-panel" aria-label="Cas d'usage prompts IA">
+        <div class="xo-console-top">
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <strong>use-cases/prompt-risk</strong>
+        </div>
+        <div class="xo-ledger xo-ledger--flush">
+          <div><span>entrée</span><strong>contrat, RH, support, opérations</strong></div>
+          <div><span>risque</span><strong>données directes dans le prompt</strong></div>
+          <div><span>contrôle</span><strong>masquer puis relire</strong></div>
+          <div class="is-output"><span>sortie</span><strong>prompt réduit avant assistant</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="xo-shell xo-section" aria-labelledby="use-cases-list">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Situations</p>
+          <h2 id="use-cases-list" class="xo-title xo-title--section">Les cas où le contrôle a du sens.</h2>
+        </div>
+        <p>La bonne cible n’est pas “tout prompt”. C’est le prompt utile qui transporte trop de données identifiantes.</p>
+      </div>
+      <div class="xo-signal-list">
+        {useCases.map((item) => (
+          <article>
+            <span>{item.label}</span>
+            <strong>{item.title}</strong>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section" aria-labelledby="cases-faq">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Questions</p>
+          <h2 id="cases-faq" class="xo-title xo-title--section">Décider si Paranoia est utile.</h2>
+        </div>
+        <p>Le produit doit rester dans son périmètre : rendre l’exposition visible avant l’envoi.</p>
+      </div>
+      <div class="xo-field-ledger" aria-label="Questions fréquentes sur les cas d'usage">
+        {faqItems.map((item) => (
+          <div>
+            <span>{item.q}</span>
+            <strong>{item.a}</strong>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

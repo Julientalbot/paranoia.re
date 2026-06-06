@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PARANOIA_CONTACT_HREF } from '../lib/contact';
+
+const controls = [
+  {
+    label: 'Périmètre',
+    title: 'Avant l’envoi, pas partout.',
+    body: 'Paranoia intervient sur le prompt en préparation. Il ne prétend pas contrôler tout le système d’information.',
+  },
+  {
+    label: 'Validation',
+    title: 'La personne garde la décision.',
+    body: 'La relecture humaine reste obligatoire avant l’usage d’un assistant IA, surtout dans les contextes sensibles.',
+  },
+  {
+    label: 'Traçabilité',
+    title: 'La transparence est documentée.',
+    body: 'La page de transparence précise ce que les rapports techniques peuvent contenir et ce qui reste exclu.',
+  },
+  {
+    label: 'Support',
+    title: 'Suppression sur demande.',
+    body: 'Une équipe pilote doit pouvoir demander une suppression anticipée d’un rapport technique ou signaler un problème.',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'Paranoia est-il un DLP ?',
+    a: 'Non. Paranoia n’est pas un DLP complet. Il ajoute un contrôle local avant l’envoi d’un prompt IA.',
+  },
+  {
+    q: 'Les rapports automatiques collectent-ils les prompts ?',
+    a: 'La page de transparence précise que les rapports automatiques concernent les erreurs techniques et la stabilité, pas le contenu des prompts.',
+  },
+  {
+    q: 'Que doit valider une organisation avant pilote ?',
+    a: 'Le périmètre testé, les catégories de données à exclure, les règles de relecture, les contacts support et les situations où l’envoi reste interdit.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Sécurité des prompts IA — Paranoia"
+  description="Principes de sécurité de Paranoia : périmètre limité, relecture obligatoire, absence de DLP magique, support pilote et suppression sur demande."
+  canonicalPath="/securite"
+  structuredData={faqSchema}
+>
+  <main id="main" class="xo-page xo-page--product">
+    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="security-title">
+      <div>
+        <p class="xo-kicker">Sécurité</p>
+        <h1 id="security-title" class="xo-title xo-title--wide">Un contrôle limité doit être très clair.</h1>
+        <p class="xo-subtitle">
+          La sécurité de Paranoia repose d’abord sur son périmètre : rendre visible une exposition avant l’envoi,
+          garder une décision humaine, et documenter les limites.
+        </p>
+        <div class="xo-actions">
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Demander un accès pilote</a>
+          <a class="xo-button" href="/rapports-incidents">Voir la transparence</a>
+        </div>
+      </div>
+
+      <aside class="xo-artifact-panel" aria-label="Contrôles sécurité Paranoia">
+        <div class="xo-console-top">
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <span class="xo-console-dot"></span>
+          <strong>security/scope</strong>
+        </div>
+        <div class="xo-ledger xo-ledger--flush">
+          <div><span>contrôle</span><strong>avant envoi</strong></div>
+          <div><span>humain</span><strong>relecture obligatoire</strong></div>
+          <div><span>limite</span><strong>pas un DLP complet</strong></div>
+          <div class="is-output"><span>preuve</span><strong>transparence publique</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="xo-shell xo-section" aria-labelledby="controls-title">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Contrôles</p>
+          <h2 id="controls-title" class="xo-title xo-title--section">Ce que le pilote doit rendre explicite.</h2>
+        </div>
+        <p>Une organisation doit pouvoir comprendre le rôle du produit avant de lui confier un flux sensible.</p>
+      </div>
+      <div class="xo-signal-list">
+        {controls.map((item) => (
+          <article>
+            <span>{item.label}</span>
+            <strong>{item.title}</strong>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section" aria-labelledby="security-faq">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
+          <p class="xo-kicker">FAQ sécurité</p>
+          <h2 id="security-faq" class="xo-title xo-title--section">La limite est une information de sécurité.</h2>
+          <p>Paranoia doit être acheté pour son périmètre réel, pas pour une promesse de protection totale.</p>
+        </div>
+        <div class="xo-field-ledger" aria-label="Questions fréquentes sécurité">
+          {faqItems.map((item) => (
+            <div>
+              <span>{item.q}</span>
+              <strong>{item.a}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
