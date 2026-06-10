@@ -20,10 +20,10 @@
   --eco-color-green: #37d67a;
   --eco-color-red: #ff675f;
 
-  --eco-radius-panel: 8px;
+  --eco-radius-panel: 12px;
   --eco-radius-control: 999px;
   --eco-radius-tight: 4px;
-  --eco-control-min: 3rem;
+  --eco-control-min: 2.75rem;
 
   --eco-space-2: 0.5rem;
   --eco-space-3: 0.75rem;

@@ -270,7 +270,7 @@
 
 .xo-hero-status dd {
   margin-top: 0.3rem;
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-size: 0.72rem;
   font-weight: 550;
 }
@@ -295,12 +295,13 @@
   align-content: space-between;
   gap: var(--eco-space-5);
   padding: 1.25rem;
+  border-radius: var(--eco-radius-panel);
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background var(--eco-motion-standard) ease,
-    transform var(--eco-motion-fast) var(--eco-ease-out);
+    background var(--xo-motion-fast),
+    transform var(--xo-motion-fast);
 }
 
 @media (min-width: 981px) {
@@ -330,7 +331,7 @@
   height: 1px;
   background: var(--xo-accent);
   opacity: 0;
-  transition: opacity var(--eco-motion-standard) ease;
+  transition: opacity var(--xo-motion-fast);
 }
 
 .xo-path-card:hover {
@@ -385,7 +386,7 @@
 .xo-path-artifact strong,
 .xo-field-ledger strong {
   min-width: 0;
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   overflow-wrap: anywhere;
 }
 
@@ -399,7 +400,7 @@
   content: "→";
   position: absolute;
   right: 0.1rem;
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   opacity: 0.7;
   font-size: 0.85em;
 }
@@ -427,8 +428,8 @@
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background var(--eco-motion-standard) ease,
-    transform var(--eco-motion-fast) var(--eco-ease-out);
+    background var(--xo-motion-fast),
+    transform var(--xo-motion-fast);
 }
 
 .xo-start-track {
@@ -443,18 +444,18 @@
   height: 1px;
   background: var(--xo-accent);
   opacity: 0;
-  transition: opacity var(--eco-motion-standard) ease;
+  transition: opacity var(--xo-motion-fast);
 }
 
-.xo-mode-surface:hover,
-.xo-mode-surface:focus-visible,
+a.xo-mode-surface:hover,
+a.xo-mode-surface:focus-visible,
 .xo-start-track:hover,
 .xo-start-track:focus-visible {
   background: var(--xo-surface-raised);
 }
 
-.xo-mode-surface:hover::before,
-.xo-mode-surface:focus-visible::before,
+a.xo-mode-surface:hover::before,
+a.xo-mode-surface:focus-visible::before,
 .xo-start-track:hover::before,
 .xo-start-track:focus-visible::before {
   opacity: 0.82;
@@ -522,7 +523,7 @@
 
 .xo-mode-artifact strong {
   min-width: 0;
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   overflow-wrap: anywhere;
 }
 
@@ -589,10 +590,10 @@
   line-height: 1;
   text-decoration: none;
   transition:
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease,
-    color var(--eco-motion-standard) ease,
-    transform var(--eco-motion-fast) var(--eco-ease-out);
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast),
+    color var(--xo-motion-fast),
+    transform var(--xo-motion-fast);
 }
 
 .xo-theme-toggle {
@@ -748,7 +749,7 @@
 
 .xo-practice-item summary::after {
   content: "+";
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
 }
 
@@ -888,8 +889,8 @@
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease;
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast);
 }
 
 .xo-latest-row:hover,
@@ -1129,7 +1130,7 @@
   overflow: hidden;
   border: 1px solid var(--xo-line-strong);
   border-radius: 0.7rem;
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.82rem;
 }
@@ -1355,10 +1356,10 @@
   font-weight: 500;
   text-decoration: none;
   transition:
-    transform var(--eco-motion-fast) var(--eco-ease-out),
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease,
-    color var(--eco-motion-standard) ease;
+    transform var(--xo-motion-fast),
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast),
+    color var(--xo-motion-fast);
 }
 
 .xo-button:hover {
@@ -1376,7 +1377,7 @@
 .xo-link:focus-visible,
 .xo-nav-links a:focus-visible,
 .xo-theme-toggle:focus-visible {
-  outline: 2px solid var(--xo-accent);
+  outline: 2px solid var(--xo-accent-ink);
   outline-offset: 3px;
 }
 
@@ -1457,8 +1458,8 @@
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background var(--eco-motion-standard) ease,
-    transform var(--eco-motion-fast) var(--eco-ease-out);
+    background var(--xo-motion-fast),
+    transform var(--xo-motion-fast);
 }
 
 .xo-card::before {
@@ -1468,7 +1469,7 @@
   height: 1px;
   background: var(--xo-accent);
   opacity: 0;
-  transition: opacity var(--eco-motion-standard) ease;
+  transition: opacity var(--xo-motion-fast);
 }
 
 .xo-card:hover {
@@ -1699,7 +1700,7 @@
 
 .xo-ledger > .is-output strong,
 .xo-field-ledger > .is-output strong {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
 }
 
 .xo-console-line {
@@ -1969,8 +1970,8 @@
 
 .xo-signal-list > a {
   transition:
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease;
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast);
 }
 
 .xo-signal-list > a:hover,
@@ -2010,8 +2011,8 @@
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease;
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast);
 }
 
 .xo-page .article-row:hover,
@@ -2249,7 +2250,7 @@
 }
 
 .xo-proof-claim-grid span {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
   font-weight: 550;
@@ -2318,20 +2319,20 @@
   color: var(--xo-text-muted);
   line-height: 1;
   text-decoration: none;
-  transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+  transition: border-color var(--xo-motion-fast), background var(--xo-motion-fast), color var(--xo-motion-fast), transform var(--xo-motion-fast);
 }
 
 .site-nav-link:hover {
   transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--xo-accent) 24%, transparent);
   background: color-mix(in srgb, var(--xo-text) 5%, transparent);
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
 }
 
 .site-nav-link[data-active="true"] {
   border-color: color-mix(in srgb, var(--xo-accent) 42%, transparent);
   background: var(--xo-accent-soft);
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
 }
 
 .lang-switch {
@@ -2468,10 +2469,10 @@
   font-weight: 500;
   text-decoration: none;
   transition:
-    transform var(--eco-motion-fast) var(--eco-ease-out),
-    border-color var(--eco-motion-standard) ease,
-    background var(--eco-motion-standard) ease,
-    color var(--eco-motion-standard) ease;
+    transform var(--xo-motion-fast),
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast),
+    color var(--xo-motion-fast);
 }
 
 .xo-page .btn:hover {
@@ -2502,7 +2503,7 @@
 }
 
 .xo-page .text-link {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.78rem;
   font-weight: 500;
@@ -2586,7 +2587,7 @@
 .xo-page .about-timeline-period,
 .xo-page .proof-metrics dt,
 .xo-page .method-metrics dt {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
 }
 
@@ -2897,7 +2898,7 @@
 }
 
 .xo-page .labs-card-label {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.68rem;
   font-weight: 550;
@@ -3134,7 +3135,7 @@
 
 .xo-page .path-card {
   min-height: 18rem;
-  transition: background 0.2s ease, transform 0.2s var(--eco-ease-out);
+  transition: background var(--xo-motion-fast), transform var(--xo-motion-fast);
 }
 
 .xo-page .path-card:hover {
@@ -3320,7 +3321,7 @@
   min-width: 2rem;
   min-height: 2rem;
   align-items: center;
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
 }
 
 .xo-page .prose {
@@ -3361,7 +3362,7 @@
 .xo-page .btn:focus-visible,
 .xo-page .text-link:focus-visible,
 .xo-page .path-card:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--xo-accent) 72%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--xo-accent-ink) 72%, transparent);
   outline-offset: 4px;
 }
 
@@ -3940,11 +3941,16 @@
 
 .xo-proof-claim-grid span,
 .paranoia-trust-ledger span {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
+}
+
+/* Ledger sur fond terminal (sombre dans les deux thèmes) : accent vif requis. */
+.paranoia-trust-ledger span {
+  color: var(--xo-accent);
 }
 
 .paranoia-trust-artifact {
@@ -4109,7 +4115,7 @@
 }
 
 .paranoia-direct-contact span {
-  color: var(--xo-accent);
+  color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
