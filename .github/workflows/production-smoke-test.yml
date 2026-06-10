@@ -5,11 +5,6 @@ on:
     # Tous les jours à 8h UTC.
     - cron: "0 8 * * *"
   workflow_dispatch:
-    inputs:
-      live_waitlist_email:
-        description: "Adresse email optionnelle pour tester un vrai envoi Resend"
-        required: false
-        type: string
 
 jobs:
   smoke-test:
@@ -31,5 +26,3 @@ jobs:
 
       - name: Check production endpoints
         run: npm run check:prod
-        env:
-          PARANOIA_HEALTH_LIVE_WAITLIST_EMAIL: ${{ inputs.live_waitlist_email }}
