@@ -168,7 +168,7 @@
 .xo-person-proof__ledger dt {
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 550;
   line-height: 1.2;
   text-transform: uppercase;
@@ -264,7 +264,7 @@
 
 .xo-hero-status dt {
   color: var(--xo-text-muted);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
 }
 
@@ -697,7 +697,7 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-code-status span {
   color: color-mix(in srgb, var(--xo-terminal-ink) 52%, transparent);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
 }
 
@@ -1608,7 +1608,7 @@ a.xo-mode-surface:focus-visible::before,
   align-items: center;
   gap: 0.36rem;
   font-family: var(--eco-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -1793,7 +1793,7 @@ a.xo-mode-surface:focus-visible::before,
 /* 2026-05-25: vivacité console */
 .xo-console-live {
   margin-left: auto;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   color: var(--xo-accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -2652,7 +2652,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .lab-proof-stream span:first-child,
 .xo-page .lab-proof-rail span {
   color: var(--eco-color-text-muted);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -2830,7 +2830,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .labs-orbit-status span {
   color: var(--eco-color-text-muted);
   font-family: var(--eco-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -2900,7 +2900,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .labs-card-label {
   color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 550;
   text-transform: uppercase;
 }
@@ -3030,7 +3030,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .labs-data-stream small,
 .xo-page .labs-data-stream em {
   color: var(--xo-text-muted);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-style: normal;
   text-transform: uppercase;
 }
@@ -3073,7 +3073,7 @@ a.xo-mode-surface:focus-visible::before,
   border: 1px solid var(--xo-line);
   border-radius: 999px;
   color: var(--xo-text);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   padding: 0.3rem 0.5rem;
   animation: none;
 }
@@ -3297,6 +3297,45 @@ a.xo-mode-surface:focus-visible::before,
   margin-inline: 0;
   padding-left: var(--eco-space-5);
   color: var(--xo-text-soft);
+}
+
+/* Flux MDX : le preflight Tailwind supprime list-style — le restaurer,
+   et couvrir code inline + images pour la lecture longue. */
+.xo-page article.xo-shell ol,
+.xo-page article.xo-shell ul {
+  padding-left: 1.4em;
+}
+
+.xo-page article.xo-shell ol {
+  list-style: decimal;
+}
+
+.xo-page article.xo-shell ul {
+  list-style: disc;
+}
+
+.xo-page article.xo-shell li {
+  margin-block: 0.35em;
+}
+
+.xo-page article.xo-shell li::marker {
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-mono);
+  font-size: 0.9em;
+}
+
+.xo-page article.xo-shell :is(p, li) code {
+  border: 1px solid var(--xo-line);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--xo-text) 7%, transparent);
+  padding: 0.08em 0.35em;
+  font-family: var(--eco-font-mono);
+  font-size: 0.85em;
+}
+
+.xo-page article.xo-shell img {
+  max-width: 100%;
+  height: auto;
 }
 
 .xo-page article.xo-shell > pre {
