@@ -3567,7 +3567,7 @@ a.xo-mode-surface:focus-visible::before,
   }
 
   .xo-shell {
-    max-width: 390px;
+    max-width: 100%;
     margin-inline: 0;
     box-sizing: border-box;
   }
