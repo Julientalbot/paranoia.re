@@ -3534,10 +3534,29 @@ a.xo-mode-surface:focus-visible::before,
     padding-block: 4rem 1rem;
   }
 
+  /* Header mobile compact : rangée 1 = marque + toggle + CTA, rangée 2 = liens.
+     Le fold doit montrer le message, pas le chrome. */
   .xo-nav {
-    align-items: flex-start;
-    flex-direction: column;
-    padding-block: var(--eco-space-4);
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 0.4rem;
+    padding-block: var(--eco-space-3);
+  }
+
+  .xo-nav > .xo-theme-toggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .xo-nav > .xo-button {
+    order: 3;
+    width: auto;
+  }
+
+  .xo-nav > .xo-nav-links {
+    order: 4;
+    flex-basis: 100%;
+    flex-wrap: wrap;
   }
 
   .breadcrumb-list {
