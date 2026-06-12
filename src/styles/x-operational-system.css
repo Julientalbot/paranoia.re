@@ -3338,6 +3338,29 @@ a.xo-mode-surface:focus-visible::before,
   height: auto;
 }
 
+.xo-page article.xo-shell table {
+  width: 100%;
+  max-width: var(--eco-readable);
+  border-collapse: collapse;
+  font-feature-settings: "tnum";
+  font-size: 0.95rem;
+}
+
+.xo-page article.xo-shell th,
+.xo-page article.xo-shell td {
+  border-bottom: 1px solid var(--xo-line);
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  text-align: left;
+}
+
+.xo-page article.xo-shell th {
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
 .xo-page article.xo-shell > pre {
   overflow-x: auto;
   border: 1px solid var(--xo-line);
