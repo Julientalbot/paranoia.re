@@ -39,6 +39,7 @@ const reportItems = [
         <p class="xo-subtitle">
           Paranoia peut utiliser Sentry pour diagnostiquer les bugs et la stabilité du pilote.
           Les rapports automatiques concernent le fonctionnement technique, pas le contenu des prompts.
+          Vercel Analytics et Speed Insights mesurent l’usage agrégé du site, sans collecter le texte des prompts.
         </p>
         <div class="xo-actions">
           <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">Contacter le support</a>
@@ -55,7 +56,7 @@ const reportItems = [
         </div>
         <div class="paranoia-trust-ledger">
           <div><span>finalité</span><strong>bugs + stabilité</strong></div>
-          <div><span>prompts</span><strong>non collectés par défaut</strong></div>
+          <div><span>prompts</span><strong>non stockés côté Paranoia</strong></div>
           <div><span>conservation</span><strong>90 jours maximum</strong></div>
           <div><span>support</span><strong>suppression sur demande</strong></div>
         </div>
@@ -93,6 +94,7 @@ const reportItems = [
           </div>
           <p>
             Le traitement de détection et de masquage est conçu pour s’exécuter avant l’envoi.
+            Les prompts originaux ne sont pas stockés côté Paranoia par défaut.
             Les événements automatiques documentent les erreurs techniques et la stabilité, pas les textes que vous relisez.
           </p>
         </article>
