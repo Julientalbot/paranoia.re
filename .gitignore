@@ -28,8 +28,10 @@ pnpm-debug.log*
 .vscode
 
 # local agent artifacts
-.claude/settings.local.json
-.claude/worktrees/
+.claude/
+.codex/
+_screenshots/
+.audit/
 
 # Local generated image experiments
 public/social/imagegen-tests/
