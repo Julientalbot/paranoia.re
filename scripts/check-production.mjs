@@ -20,7 +20,7 @@ const request = async (path, init = {}) => {
       ...init,
       signal: controller.signal,
       headers: {
-        'user-agent': 'paranoia-production-check/1.0',
+        'user-agent': 'paranoia-production-check/1.1',
         ...(init.headers || {}),
       },
     });
@@ -44,27 +44,94 @@ const runCheck = async (name, fn) => {
   checks.push({ name, durationMs: Date.now() - startedAt });
 };
 
-await runCheck('GET / returns contact route', async () => {
-  const response = await request('/');
+const pageChecks = [
+  {
+    path: '/',
+    mustInclude: ['mailto:contact@paranoia.re', 'Réduire l’exposition', 'id="workflow"'],
+  },
+  {
+    path: '/cas-usages',
+    mustInclude: ['Contrats', 'mailto:contact@paranoia.re'],
+  },
+  {
+    path: '/confidentialite-prompts-ia',
+    mustInclude: ['Confidentialité', 'prompts'],
+  },
+  {
+    path: '/securite',
+    mustInclude: ['Sécurité', 'périmètre'],
+  },
+  {
+    path: '/rapports-incidents',
+    mustInclude: ['transparence', 'Sentry'],
+  },
+];
 
-  if (response.status !== 200) {
-    fail('GET /', `expected 200, got ${response.status}`, { body: response.body });
+for (const page of pageChecks) {
+  await runCheck(`GET ${page.path} returns expected content`, async () => {
+    const response = await request(page.path);
+
+    if (response.status !== 200) {
+      fail(`GET ${page.path}`, `expected 200, got ${response.status}`, { body: response.body });
+    }
+
+    if (typeof response.body !== 'string') {
+      fail(`GET ${page.path}`, 'expected HTML body', { body: response.body });
+    }
+
+    for (const snippet of page.mustInclude) {
+      if (!response.body.includes(snippet)) {
+        fail(`GET ${page.path}`, `missing expected snippet: ${snippet}`, {
+          body: response.body.slice(0, 500),
+        });
+      }
+    }
+  });
+}
+
+await runCheck('GET /unknown-page returns 404 without indexable canonical', async () => {
+  const response = await request('/unknown-page-paranoia-health-check');
+
+  if (response.status !== 404) {
+    fail('GET /unknown-page', `expected 404, got ${response.status}`, { body: response.body });
   }
 
-  if (typeof response.body !== 'string' || !response.body.includes('mailto:contact@paranoia.re')) {
-    fail('GET /', 'missing direct contact mailto', { body: String(response.body).slice(0, 500) });
+  if (typeof response.body !== 'string') {
+    fail('GET /unknown-page', 'expected HTML body', { body: response.body });
+  }
+
+  if (!response.body.includes('noindex')) {
+    fail('GET /unknown-page', 'missing noindex robots meta', { body: response.body.slice(0, 500) });
+  }
+
+  if (response.body.includes('rel="canonical" href="https://paranoia.re/404')) {
+    fail('GET /unknown-page', '404 should not expose canonical to /404', {
+      body: response.body.slice(0, 500),
+    });
   }
 });
 
-await runCheck('GET /rapports-incidents returns support route', async () => {
-  const response = await request('/rapports-incidents');
+await runCheck('GET /robots.txt references sitemap', async () => {
+  const response = await request('/robots.txt');
 
   if (response.status !== 200) {
-    fail('GET /rapports-incidents', `expected 200, got ${response.status}`, { body: response.body });
+    fail('GET /robots.txt', `expected 200, got ${response.status}`, { body: response.body });
   }
 
-  if (typeof response.body !== 'string' || !response.body.includes('Rapports')) {
-    fail('GET /rapports-incidents', 'unexpected report page body', { body: String(response.body).slice(0, 500) });
+  if (typeof response.body !== 'string' || !response.body.includes('sitemap')) {
+    fail('GET /robots.txt', 'missing sitemap reference', { body: response.body });
+  }
+});
+
+await runCheck('GET /sitemap-index.xml returns sitemap index', async () => {
+  const response = await request('/sitemap-index.xml');
+
+  if (response.status !== 200) {
+    fail('GET /sitemap-index.xml', `expected 200, got ${response.status}`, { body: response.body });
+  }
+
+  if (typeof response.body !== 'string' || !response.body.includes('<sitemapindex')) {
+    fail('GET /sitemap-index.xml', 'unexpected sitemap index body', { body: String(response.body).slice(0, 500) });
   }
 });
 
