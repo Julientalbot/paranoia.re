@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="627" viewBox="0 0 1200 627" role="img" aria-labelledby="paranoia-linkedin-share-title paranoia-linkedin-share-desc">
   <title id="paranoia-linkedin-share-title">PARANOIA</title>
-  <desc id="paranoia-linkedin-share-desc">Inspecter avant d’envoyer</desc>
+  <desc id="paranoia-linkedin-share-desc">Réduire l’exposition avant l’envoi</desc>
   <defs>
     <pattern id="paranoia-linkedin-share-grid" width="36" height="36" patternUnits="userSpaceOnUse">
       <path d="M35 0V36M0 35H36" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1"/>
@@ -24,9 +24,9 @@
     <rect x="80" y="76" width="10" height="20" fill="#9fe8ff"/>
     <text x="142" y="67" class="brand" fill="#9fe8ff">[ PARANOIA ]</text>
   </g>
-  <text x="84" y="262" class="card-title">Inspecter</text>
-    <text x="84" y="334" class="card-title">avant</text>
-    <text x="84" y="406" class="card-title">d’envoyer.</text>
+  <text x="84" y="262" class="card-title">Réduire</text>
+    <text x="84" y="334" class="card-title">l’exposition</text>
+    <text x="84" y="406" class="card-title">avant l’envoi.</text>
   <text x="84" y="510" class="deck">Détecter · masquer · relire</text>
   <text x="84" y="555" class="route">paranoia.re</text>
   <line x1="690" y1="78" x2="690" y2="549" stroke="#9fe8ff" stroke-opacity="0.28" stroke-width="2"/>
