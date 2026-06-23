@@ -336,6 +336,7 @@
 
 .xo-path-card:hover {
   background: var(--xo-surface-raised);
+  transform: scale(1.02);
 }
 
 .xo-path-card:active {
@@ -452,6 +453,7 @@ a.xo-mode-surface:focus-visible,
 .xo-start-track:hover,
 .xo-start-track:focus-visible {
   background: var(--xo-surface-raised);
+  transform: scale(1.02);
 }
 
 a.xo-mode-surface:hover::before,

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ModeTabs from '../components/sections/ModeTabs.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 ---
 
@@ -78,6 +79,15 @@ Inclure la clause 4.2.</code></pre>
           </div>
         </div>
       </div>
+
+      <ModeTabs
+        artifactTitle="cas-usage · prompt-review"
+        tabs={[
+          { id: 'contrat', label: 'Contrat', content: 'Avant :\nPeux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example.\n\nAprès :\nPeux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email].' },
+          { id: 'rh', label: 'RH', content: 'Avant :\nPrépare un courrier pour Marie Dubois, salariée n°1042, adresse 12 rue des Lilas.\n\nAprès :\nPrépare un courrier pour [Nom salarié], n°[ID], [Adresse].' },
+          { id: 'support', label: 'Support', content: 'Avant :\nLe client Acme Corp (SIRET 12345678900012) signale un bug sur la facture FAC-2026-0042.\n\nAprès :\nLe client [Organisation] (SIRET [ID]) signale un bug sur la facture [ID].' },
+        ]}
+      />
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="proof-title">

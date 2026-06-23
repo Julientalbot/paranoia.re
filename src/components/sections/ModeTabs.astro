@@ -1,0 +1,239 @@
+---
+interface ModeTab {
+  id: string;
+  label: string;
+  content: string;
+}
+
+interface Props {
+  tabs: ModeTab[];
+  artifactTitle?: string;
+  class?: string;
+}
+
+const {
+  tabs,
+  artifactTitle,
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  class:list={['xo-artifact-panel', 'xo-card-shimmer', 'mode-tabs', className]}
+  data-mode-tabs
+>
+  <div class="mode-tabs-header">
+    {artifactTitle && <span class="mode-tabs-title">{artifactTitle}</span>}
+    <div class="mode-tabs-bar" role="tablist" aria-label={artifactTitle ?? 'Modes'}>
+      {tabs.map((tab, index) => (
+        <button
+          class="mode-tab-pill"
+          type="button"
+          role="tab"
+          data-mode-tab={tab.id}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? '0' : '-1'}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="mode-tabs-content">
+    {tabs.map((tab, index) => (
+      <div
+        class="mode-tab-panel"
+        data-mode-panel={tab.id}
+        hidden={index !== 0}
+        role="tabpanel"
+        set:html={tab.content}
+      />
+    ))}
+  </div>
+</div>
+
+<style>
+  .mode-tabs {
+    overflow: hidden;
+  }
+
+  .mode-tabs-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--xo-border, rgba(255, 255, 255, 0.06));
+  }
+
+  .mode-tabs-title {
+    font-family: var(--eco-font-mono, ui-monospace, monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--xo-text-soft, rgba(255, 255, 255, 0.5));
+    margin-right: auto;
+  }
+
+  .mode-tabs-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .mode-tab-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    font-family: var(--eco-font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    font-weight: 550;
+    color: rgba(255, 255, 255, 0.5);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: background 150ms, color 150ms;
+  }
+
+  .mode-tab-pill:hover {
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .mode-tab-pill[aria-selected='true'] {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .mode-tabs-content {
+    padding: 1rem;
+  }
+
+  .mode-tab-panel {
+    font-family: var(--eco-font-mono, ui-monospace, monospace);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--xo-text-soft, rgba(255, 255, 255, 0.7));
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .mode-tab-panel[hidden] {
+    display: none;
+  }
+
+  [data-theme='light'] .mode-tabs-header {
+    border-bottom-color: rgba(10, 10, 10, 0.06);
+  }
+
+  [data-theme='light'] .mode-tab-pill {
+    color: rgba(10, 10, 10, 0.5);
+  }
+
+  [data-theme='light'] .mode-tab-pill:hover {
+    color: rgba(10, 10, 10, 0.85);
+    background: rgba(10, 10, 10, 0.04);
+  }
+
+  [data-theme='light'] .mode-tab-pill[aria-selected='true'] {
+    background: rgba(10, 10, 10, 0.06);
+    color: rgba(10, 10, 10, 0.85);
+  }
+
+  [data-theme='light'] .mode-tabs-title {
+    color: rgba(10, 10, 10, 0.5);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mode-tab-pill {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initModeTabs(root: ParentNode = document) {
+    const groups = root.querySelectorAll<HTMLElement>('[data-mode-tabs]');
+    groups.forEach((group) => {
+      if (group.dataset.modeTabsInit === '1') return;
+      group.dataset.modeTabsInit = '1';
+
+      const pills = group.querySelectorAll<HTMLButtonElement>('[data-mode-tab]');
+      const panels = group.querySelectorAll<HTMLElement>('[data-mode-panel]');
+
+      const activate = (id: string) => {
+        pills.forEach((pill) => {
+          const active = pill.dataset.modeTab === id;
+          pill.setAttribute('aria-selected', active ? 'true' : 'false');
+          pill.tabIndex = active ? 0 : -1;
+        });
+        panels.forEach((panel) => {
+          const active = panel.dataset.modePanel === id;
+          if (active) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      };
+
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          const id = pill.dataset.modeTab;
+          if (id) activate(id);
+        });
+      });
+
+      const bar = group.querySelector<HTMLElement>('[role="tablist"]');
+      if (bar) {
+        bar.addEventListener('keydown', (event) => {
+          const target = event.target as HTMLButtonElement;
+          if (!target.matches('[data-mode-tab]')) return;
+          const list = Array.from(pills);
+          const idx = list.indexOf(target);
+          let next: number | null = null;
+          if (event.key === 'ArrowRight') next = (idx + 1) % list.length;
+          if (event.key === 'ArrowLeft') next = (idx - 1 + list.length) % list.length;
+          if (next !== null) {
+            event.preventDefault();
+            const n = list[next];
+            n.focus();
+            const id = n.dataset.modeTab;
+            if (id) activate(id);
+          }
+        });
+      }
+    });
+  }
+
+  function setupObserver() {
+    const groups = document.querySelectorAll<HTMLElement>('[data-mode-tabs]:not([data-mode-tabs-init="1"])');
+    if (!groups.length) return;
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              initModeTabs(entry.target as HTMLElement);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: '200px' }
+      );
+      groups.forEach((g) => io.observe(g));
+    } else {
+      initModeTabs();
+    }
+  }
+
+  function boot() {
+    setupObserver();
+  }
+
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('astro:after-swap', boot);
+</script>

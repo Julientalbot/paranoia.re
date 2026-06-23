@@ -1,0 +1,84 @@
+---
+---
+
+<script>
+  function initCodeArtifacts() {
+    const artifacts = document.querySelectorAll('[data-code-artifact]');
+    artifacts.forEach((artifact) => {
+      if (artifact.dataset.codeArtifactInit === 'true') return;
+      artifact.dataset.codeArtifactInit = 'true';
+
+      const tabs = Array.from(
+        artifact.querySelectorAll('[data-code-tab]')
+      );
+      const panels = Array.from(
+        artifact.querySelectorAll('[data-code-panel]')
+      );
+      const copyButton = artifact.querySelector('[data-copy-current]');
+
+      function activateTab(targetTab: Element) {
+        const targetId = targetTab.getAttribute('data-code-tab');
+        tabs.forEach((tab) => {
+          const isActive = tab === targetTab;
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          tab.setAttribute('tabindex', isActive ? '0' : '-1');
+          tab.classList.toggle('is-active', isActive);
+        });
+        panels.forEach((panel) => {
+          const panelId = panel.getAttribute('data-code-panel');
+          if (panelId === targetId) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+        (targetTab as HTMLElement).focus?.();
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => activateTab(tab));
+      });
+
+      const tablist = artifact.querySelector('[role="tablist"]');
+      if (tablist) {
+        tablist.addEventListener('keydown', (event: KeyboardEvent) => {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          const currentIndex = tabs.findIndex((t) => t === document.activeElement);
+          if (currentIndex === -1) return;
+          const delta = event.key === 'ArrowRight' ? 1 : -1;
+          const nextIndex = (currentIndex + delta + tabs.length) % tabs.length;
+          activateTab(tabs[nextIndex]);
+        });
+      }
+
+      if (copyButton) {
+        const labelEl = copyButton.querySelector('.xo-copy-label');
+        const originalLabel = labelEl ? labelEl.textContent : '';
+        const doneLabel = copyButton.getAttribute('data-copy-done') || 'Copied';
+        let resetTimer: number | undefined;
+
+        copyButton.addEventListener('click', async () => {
+          const visiblePanel = panels.find((p) => !p.hasAttribute('hidden'));
+          const text = visiblePanel ? visiblePanel.textContent : '';
+          if (!text) return;
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch {
+            return;
+          }
+          copyButton.setAttribute('data-copy-state', 'copied');
+          if (labelEl) labelEl.textContent = doneLabel;
+          if (resetTimer) window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(() => {
+            copyButton.removeAttribute('data-copy-state');
+            if (labelEl) labelEl.textContent = originalLabel;
+          }, 2000);
+        });
+      }
+    });
+  }
+
+  initCodeArtifacts();
+  document.addEventListener('astro:after-swap', initCodeArtifacts);
+</script>
