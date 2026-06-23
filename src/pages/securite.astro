@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
+import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
 const controls = [
   {
@@ -36,6 +37,7 @@ const controls = [
       <div>
         <p class="xo-kicker">Sécurité</p>
         <h1 id="security-title" class="xo-title xo-title--wide">Un contrôle limité doit être très clair.</h1>
+        <HeroShimmer />
         <p class="xo-subtitle">
           La sécurité de Paranoia repose d’abord sur son périmètre : rendre visible une exposition avant l’envoi,
           garder une décision humaine, et documenter les limites.

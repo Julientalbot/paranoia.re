@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
+import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
 const exposureFlow = [
   ['01', 'Prompt', 'texte + contexte'],
@@ -21,6 +22,7 @@ const exposureFlow = [
       <div>
         <p class="xo-kicker">Confidentialité des prompts IA</p>
         <h1 id="privacy-title" class="xo-title xo-title--wide">Réduire l’exposition ne suffit pas toujours.</h1>
+        <HeroShimmer />
         <p class="xo-subtitle">
           Paranoia aide à préparer un prompt plus contrôlable. La règle reste simple :
           ce qui ne doit pas sortir ne doit pas être envoyé, même masqué.
