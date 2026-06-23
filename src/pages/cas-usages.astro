@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ModeTabs from '../components/sections/ModeTabs.astro';
+import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 ---
@@ -26,20 +27,23 @@ import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
         </div>
       </div>
 
-      <aside class="xo-artifact-panel xo-card-shimmer" aria-label="Cas d'usage prompts IA">
-        <div class="xo-console-top">
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <strong>use-cases/prompt-risk</strong>
-        </div>
-        <div class="xo-ledger xo-ledger--flush">
-          <div><span>entrée</span><strong>contrat, RH, support, opérations</strong></div>
-          <div><span>risque</span><strong>données directes dans le prompt</strong></div>
-          <div><span>contrôle</span><strong>masquer puis relire</strong></div>
-          <div class="is-output"><span>sortie</span><strong>prompt réduit avant assistant</strong></div>
-        </div>
-      </aside>
+      <a class="xo-card-shimmer" href={PARANOIA_CONTACT_HREF} aria-label="Demander un accès pilote">
+        <AgentTraceDemo
+          title="prompt-review/contrat"
+          progressLabel="détection"
+          steps={[
+            { prompt: '❯', text: 'Analyser prompt avant envoi.', dim: true },
+            { text: 'Scanning...', dim: true },
+            { prompt: '▸', text: 'detect: "Maya Hoarau" (personne)', accent: true, progress: 20 },
+            { prompt: '▸', text: 'detect: maya.hoarau@atelier-kanope.example (email)', accent: true, progress: 40 },
+            { prompt: '▸', text: 'detect: "Atelier Kanopé" (organisation)', accent: true, progress: 60 },
+            { prompt: '▸', text: 'detect: "K-47B" (identifiant)', accent: true, progress: 80 },
+            { prompt: '▸', text: 'detect: "direction ops" (rôle)', accent: true, progress: 100 },
+            { prompt: '✓', text: '5 champs détectés. Masquage prêt.', accent: true },
+            { text: 'rule: mask before send', dim: true },
+          ]}
+        />
+      </a>
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="concrete-title">

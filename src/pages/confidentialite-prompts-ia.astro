@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
@@ -33,20 +34,23 @@ const exposureFlow = [
         </div>
       </div>
 
-      <aside class="xo-artifact-panel xo-card-shimmer" aria-label="Principes de confidentialité des prompts IA">
-        <div class="xo-console-top">
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <strong>privacy/prompt-control</strong>
-        </div>
-        <div class="xo-ledger xo-ledger--flush">
-          <div><span>champ</span><strong>personne, email, organisation</strong></div>
-          <div><span>action</span><strong>masque contrôlable</strong></div>
-          <div><span>limite</span><strong>pas une autorisation d’envoi</strong></div>
-          <div class="is-output"><span>décision</span><strong>relire ou retirer</strong></div>
-        </div>
-      </aside>
+      <a class="xo-card-shimmer" href={PARANOIA_CONTACT_HREF} aria-label="Demander un accès pilote">
+        <AgentTraceDemo
+          title="privacy/controls"
+          progressLabel="contrôles"
+          steps={[
+            { prompt: '❯', text: 'Vérifier les contrôles confidentialité.', dim: true },
+            { text: 'Inspection...', dim: true },
+            { prompt: '▸', text: 'Données personnelles: masquées avant envoi', dim: true },
+            { prompt: '▸', text: 'Secrets: non transmis (blocage)', dim: true },
+            { text: 'Frontières respectées', accent: true, progress: 50 },
+            { prompt: '◆', text: 'Aucune donnée client stockée', accent: true, progress: 75 },
+            { prompt: '▸', text: 'Suppression: immédiate post-masquage', dim: true },
+            { text: 'Confidentialité: local, éphémère, borné', accent: true, progress: 100 },
+            { prompt: '✓', text: 'Contrôles actifs. Pas de fuite.', accent: true },
+          ]}
+        />
+      </a>
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="concrete-title">

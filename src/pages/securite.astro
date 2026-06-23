@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
@@ -48,20 +49,23 @@ const controls = [
         </div>
       </div>
 
-      <aside class="xo-artifact-panel xo-card-shimmer" aria-label="Contrôles sécurité Paranoia">
-        <div class="xo-console-top">
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <strong>security/scope</strong>
-        </div>
-        <div class="xo-ledger xo-ledger--flush">
-          <div><span>contrôle</span><strong>avant envoi</strong></div>
-          <div><span>humain</span><strong>relecture obligatoire</strong></div>
-          <div><span>limite</span><strong>pas un DLP complet</strong></div>
-          <div class="is-output"><span>preuve</span><strong>transparence publique</strong></div>
-        </div>
-      </aside>
+      <a class="xo-card-shimmer" href={PARANOIA_CONTACT_HREF} aria-label="Demander un accès pilote">
+        <AgentTraceDemo
+          title="security/audit"
+          progressLabel="audit"
+          steps={[
+            { prompt: '❯', text: 'Audit sécurité des prompts IA.', dim: true },
+            { text: 'Vérification...', dim: true },
+            { prompt: '▸', text: 'Stockage local: aucun prompt envoyé sans validation', dim: true },
+            { prompt: '▸', text: 'Chiffrement: AES-256 en transit', dim: true },
+            { text: 'Valider les contrôles', accent: true, progress: 40 },
+            { prompt: '◆', text: 'Pas de télémétrie, pas de logs distants', accent: true, progress: 70 },
+            { prompt: '▸', text: 'Suppression: immédiate après masquage', dim: true },
+            { text: 'Audit: contrôle local, pas de fuite', accent: true, progress: 100 },
+            { prompt: '✓', text: 'Conforme: local-first, privacy-bound.', accent: true },
+          ]}
+        />
+      </a>
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="controls-title">

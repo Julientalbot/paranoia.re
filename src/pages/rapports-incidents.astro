@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
@@ -49,23 +50,23 @@ const reportItems = [
         </div>
       </div>
 
-      <aside class="xo-artifact-panel paranoia-trust-artifact xo-card-shimmer" aria-label="Ledger de transparence Paranoia">
-        <div class="xo-console-top">
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <strong>trust/telemetry</strong>
-        </div>
-        <div class="paranoia-trust-ledger">
-          <div><span>finalité</span><strong>bugs + stabilité</strong></div>
-          <div><span>prompts</span><strong>non stockés côté Paranoia</strong></div>
-          <div><span>conservation</span><strong>90 jours maximum</strong></div>
-          <div><span>support</span><strong>suppression sur demande</strong></div>
-        </div>
-        <p>
-          La page sert de trace publique : collecte technique, exclusions, durée de conservation, support et suppression.
-        </p>
-      </aside>
+      <a class="xo-card-shimmer" href={PARANOIA_CONTACT_HREF} aria-label="Contacter le support">
+        <AgentTraceDemo
+          title="incident/trace"
+          progressLabel="traçabilité"
+          steps={[
+            { prompt: '❯', text: 'Tracer un incident de prompt.', dim: true },
+            { text: 'Récupération...', dim: true },
+            { prompt: '▸', text: 'Prompt reçu: 14:32 UTC', dim: true },
+            { prompt: '▸', text: 'Détection: 3 champs sensibles', dim: true },
+            { text: 'Masquer et journaliser', accent: true, progress: 50 },
+            { prompt: '◆', text: 'Masquage appliqué: 14:32:03', accent: true, progress: 75 },
+            { prompt: '▸', text: 'Envoi: 14:32:05 (version masquée)', dim: true },
+            { text: 'Suppression locale: 14:32:06', accent: true, progress: 100 },
+            { prompt: '✓', text: 'Traçabilité: 4 étapes, 0 fuite.', accent: true },
+          ]}
+        />
+      </a>
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="reports-title">
