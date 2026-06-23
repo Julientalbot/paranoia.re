@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
+import ModeTabs from '../components/sections/ModeTabs.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
@@ -85,6 +86,14 @@ const controls = [
           </article>
         ))}
       </div>
+      <ModeTabs
+        artifactTitle="sécurité · 3 contrôles"
+        tabs={[
+          { id: 'stockage', label: 'Stockage', content: 'Local uniquement\nAucun prompt envoyé sans validation\nSuppression immédiate post-masquage' },
+          { id: 'transit', label: 'Transit', content: 'Chiffrement AES-256\nPas de télémétrie\nPas de logs distants\nPas de cookies tiers' },
+          { id: 'acces', label: 'Accès', content: 'Contrôle local utilisateur\nPas de compte requis\nPas d\'API distante\nDonnées jamais hors du poste' },
+        ]}
+      />
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="security-cta">

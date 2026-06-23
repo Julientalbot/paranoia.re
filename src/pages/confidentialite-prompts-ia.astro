@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
+import ModeTabs from '../components/sections/ModeTabs.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 
@@ -83,6 +84,14 @@ const exposureFlow = [
           </div>
         </div>
       </div>
+      <ModeTabs
+        artifactTitle="confidentialité · 3 frontières"
+        tabs={[
+          { id: 'donnees', label: 'Données', content: 'Noms, emails, organisations: masqués\nIdentifiants: masqués\nSecrets: bloqués (pas masqués)' },
+          { id: 'session', label: 'Session', content: 'Pas de dump de session\nPas de messages privés\nPas de chemins locaux complets\nMétadonnées uniquement' },
+          { id: 'suppression', label: 'Suppression', content: 'Suppression immédiate post-masquage\nPas de conservation locale\nPas d\'historique des prompts\nTrace: métadonnée seulement' },
+        ]}
+      />
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="proof-title">

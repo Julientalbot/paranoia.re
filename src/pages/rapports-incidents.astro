@@ -70,7 +70,13 @@ const reportItems = [
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="reports-title">
-      <div class="xo-section-heading">
+      <div style="position: relative;">
+        <div class="xo-grid-shimmer" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; opacity: 0.4;">
+          <div class="xo-grid-shimmer-line" style="top: 20%; --xo-shimmer-color: #9fe8ff; --xo-shimmer-color-2: #478fd1; --xo-shimmer-duration: 2.58s; --xo-shimmer-delay: 2.82s;"></div>
+          <div class="xo-grid-shimmer-line" style="top: 45%; --xo-shimmer-color: #9fe8ff; --xo-shimmer-color-2: #5b47d1; --xo-shimmer-duration: 2.06s; --xo-shimmer-delay: 3.85s;"></div>
+          <div class="xo-grid-shimmer-line" style="top: 70%; --xo-shimmer-color: #9fe8ff; --xo-shimmer-color-2: #478fd1; --xo-shimmer-duration: 2.21s; --xo-shimmer-delay: 0.77s;"></div>
+        </div>
+        <div class="xo-section-heading">
         <div>
           <p class="xo-kicker">Rapports techniques</p>
           <h2 id="reports-title" class="xo-title xo-title--section">Le périmètre reste étroit.</h2>
@@ -85,6 +91,7 @@ const reportItems = [
             <p>{item.body}</p>
           </article>
         ))}
+      </div>
       </div>
     </section>
 
