@@ -92,3 +92,111 @@ body.xds-theme.xo-page--product .paranoia-trust-ledger strong {
 body.xds-theme.xo-page--product .paranoia-trust-artifact p {
   color: color-mix(in srgb, var(--xo-terminal-ink) 66%, transparent);
 }
+
+/* ==========================================================================
+   LIGHT MODE OVERRIDES
+   The kernel defines light tokens but some components (consoles, path-artifacts)
+   use dark-only colors that don't adapt. Override here.
+   ========================================================================== */
+
+[data-theme="light"] .xo-console,
+[data-theme="light"] .xo-console-top,
+[data-theme="light"] .xo-trace-demo {
+  background: var(--xo-surface);
+  color: var(--xo-text);
+  border-color: var(--xo-line);
+}
+
+[data-theme="light"] .xo-console-top {
+  border-bottom-color: var(--xo-line);
+  color: var(--xo-text-muted);
+}
+
+[data-theme="light"] .xo-console-dot {
+  background: var(--xo-line-strong);
+}
+
+[data-theme="light"] .xo-console-line {
+  color: var(--xo-text-soft);
+}
+
+[data-theme="light"] .xo-console-line strong,
+[data-theme="light"] .xo-console-accent,
+[data-theme="light"] .xo-trace-demo-accent {
+  color: var(--xo-accent-ink);
+}
+
+[data-theme="light"] .xo-trace-demo {
+  background: var(--xo-surface);
+  color: var(--xo-text);
+}
+
+[data-theme="light"] .xo-trace-demo-header {
+  border-bottom-color: var(--xo-line);
+}
+
+[data-theme="light"] .xo-trace-demo-title,
+[data-theme="light"] .xo-trace-demo-progress {
+  color: var(--xo-text-muted);
+}
+
+[data-theme="light"] .xo-trace-demo-bar {
+  background: var(--xo-line-strong);
+}
+
+[data-theme="light"] .xo-trace-demo-bar-fill {
+  background: var(--xo-accent-ink);
+}
+
+[data-theme="light"] .xo-trace-demo-line .xo-trace-demo-dim,
+[data-theme="light"] .xo-trace-demo-line .xo-trace-demo-prompt {
+  color: var(--xo-text-muted);
+}
+
+[data-theme="light"] .xo-chat-bubble {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.85);
+}
+
+[data-theme="light"] .xo-chat-bubble.is-assistant {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .xo-theme-toggle.xo-theme-toggle {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+[data-theme="light"] {
+  --xo-line: rgba(10, 10, 10, 0.12);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --xo-line: rgba(10, 10, 10, 0.12);
+  }
+
+  :root:not([data-theme="dark"]) .xo-console,
+  :root:not([data-theme="dark"]) .xo-console-top,
+  :root:not([data-theme="dark"]) .xo-trace-demo {
+    background: var(--xo-surface);
+    color: var(--xo-text);
+    border-color: var(--xo-line);
+  }
+
+  :root:not([data-theme="dark"]) .xo-console-top {
+    border-bottom-color: var(--xo-line);
+    color: var(--xo-text-muted);
+  }
+
+  :root:not([data-theme="dark"]) .xo-console-dot {
+    background: var(--xo-line-strong);
+  }
+
+  :root:not([data-theme="dark"]) .xo-console-line {
+    color: var(--xo-text-soft);
+  }
+}
