@@ -1,0 +1,107 @@
+---
+// ChatBubbleDemo.astro — Bulles de chat qui défilent en boucle.
+// Mesuré sur x.ai 2026-06-23 : bulles alternées, fade-in+translateY, 10.5px.
+// Usage: <ChatBubbleDemo messages={messages} />
+
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  text: string;
+}
+
+interface Props {
+  messages?: ChatMessage[];
+  class?: string;
+}
+
+const {
+  messages = [
+    { role: 'user', text: 'How do black holes form?' },
+    { role: 'assistant', text: 'A massive star exhausts its fuel and gravity collapses the core into a singularity.' },
+    { role: 'user', text: 'What causes aurora borealis?' },
+    { role: 'assistant', text: 'Solar particles hit atmospheric gases near the poles, exciting them to glow.' },
+    { role: 'user', text: 'Explain quantum entanglement simply' },
+    { role: 'assistant', text: 'Two particles share a state — measuring one instantly determines the other, regardless of distance.' },
+  ],
+  class: className = '',
+} = Astro.props;
+
+const messagesJson = JSON.stringify(messages);
+---
+
+<div class={`xo-chat-demo ${className}`} data-chat-demo data-messages={messagesJson}>
+  {messages.map((msg, i) => (
+    <div
+      class={`xo-chat-bubble ${msg.role === 'assistant' ? 'is-assistant' : 'is-user'}`}
+      data-chat-bubble={i}
+    >
+      {msg.text}
+    </div>
+  ))}
+</div>
+
+<script>
+  function initChatDemos() {
+    const demos = document.querySelectorAll<HTMLElement>('[data-chat-demo]');
+    demos.forEach((demo) => {
+      if (demo.dataset.initialized) return;
+      demo.dataset.initialized = 'true';
+
+      const messages = JSON.parse(demo.dataset.messages || '[]');
+      const bubbles = demo.querySelectorAll<HTMLElement>('[data-chat-bubble]');
+      const maxVisible = 4;
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) {
+        bubbles.forEach((b, i) => {
+          if (i < maxVisible) b.classList.add('is-visible');
+        });
+        return;
+      }
+
+      let currentIndex = 0;
+      let visibleStart = 0;
+
+      function update() {
+        // Hide all
+        bubbles.forEach((b) => b.classList.remove('is-visible'));
+
+        // Show maxVisible bubbles ending at currentIndex
+        const start = Math.max(0, currentIndex - maxVisible + 1);
+        for (let i = start; i <= currentIndex && i < bubbles.length; i++) {
+          const bubble = bubbles[i];
+          // Delay each bubble's appearance
+          setTimeout(() => bubble.classList.add('is-visible'), (i - start) * 200);
+        }
+
+        currentIndex++;
+        if (currentIndex >= messages.length) {
+          // Pause then restart
+          setTimeout(() => {
+            currentIndex = 0;
+            update();
+          }, 3000);
+          return;
+        }
+
+        setTimeout(update, 1800);
+      }
+
+      // Start when scrolled into view
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(update, 500);
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(demo);
+    });
+  }
+
+  initChatDemos();
+  document.addEventListener('astro:after-swap', initChatDemos);
+</script>

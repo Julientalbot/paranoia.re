@@ -1,5 +1,6 @@
 ---
-import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
@@ -86,7 +87,7 @@ const jsonLd = {
       '@id': 'https://paranoia.re/#org',
       name: 'Paranoia',
       url: 'https://paranoia.re',
-      sameAs: ['https://julientalbot.com', 'https://ergonomia.re'],
+      sameAs: ['https://julientalbot.com'],
     },
     ...structuredDataItems,
   ],
@@ -111,7 +112,7 @@ const jsonLd = {
     </script>
 
     <!-- General Sans — self-hosted (woff2 variable, @font-face dans le kernel). -->
-    <link rel="preload" href="/fonts/general-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -167,10 +168,9 @@ const jsonLd = {
             <a href="/rapports-incidents">Ce qui est envoyé</a>
             <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Support pilote</a>
           </nav>
-          <nav aria-label="Écosystème">
-            <h3>Écosystème</h3>
+          <nav aria-label="Liens">
+            <h3>Liens</h3>
             <a href="https://julientalbot.com/">Julien Talbot</a>
-            <a href="https://ergonomia.re/">Ergonomia</a>
           </nav>
         </div>
       </footer>

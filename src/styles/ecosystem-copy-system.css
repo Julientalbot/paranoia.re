@@ -11,19 +11,12 @@
   encore stylé sous ce thème.
 */
 
-/* General Sans — self-hosted (woff2 variable, poids 200–700, aucun CDN tiers).
-   Le fichier vit dans <site>/public/fonts/ ; l'URL absolue résout par site. */
-@font-face {
-  font-family: "General Sans";
-  src: url("/fonts/general-sans-variable.woff2") format("woff2");
-  font-weight: 200 700;
-  font-display: swap;
-  font-style: normal;
-}
+/* Geist — chargé via @fontsource-variable/geist et @fontsource-variable/geist-mono
+   (importés dans les layouts Astro). Aucun @font-face local à maintenir. */
 
 /* Structural tokens — theme-agnostic, always applied. */
 :root {
-  --xo-terminal-ink: #f7f7f7;
+  --xo-terminal-ink: #d7d1c9;
   --xo-accent: var(--eco-color-signal);
   /* Accent pour du TEXTE sur canvas/surface : identique à l'accent en dark,
      assombri en light (45% signal sur #0a0a0a → ≥ 4.5:1 sur blanc pour les
@@ -52,8 +45,8 @@
   color-scheme: dark;
   --xo-canvas: #0a0a0a;
   --xo-ink: #ffffff;
-  --xo-text-soft: rgba(255, 255, 255, 0.58);
-  --xo-text-muted: rgba(255, 255, 255, 0.5);
+  --xo-text-soft: rgba(255, 255, 255, 0.5);
+  --xo-text-muted: rgba(255, 255, 255, 0.45);
   --xo-line-strong: #1f2228;
   --xo-line: rgba(255, 255, 255, 0.06);
   --xo-surface: #1a1a1a;

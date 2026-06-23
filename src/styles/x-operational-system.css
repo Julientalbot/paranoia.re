@@ -32,8 +32,8 @@
   font-family: var(--eco-font-display);
   font-size: var(--xo-h2);
   line-height: var(--xo-h2-line);
-  letter-spacing: -0.02em;
-  font-weight: 500;
+  letter-spacing: -0.025em;
+  font-weight: 400;
 }
 
 /* Two-tone heading: secondary clause in muted ink (subject white, complement dimmed). */
@@ -1099,7 +1099,7 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-nav {
   display: flex;
-  min-height: 4.5rem;
+  min-height: 4rem;
   align-items: center;
   justify-content: space-between;
   gap: var(--eco-space-5);
@@ -1155,7 +1155,8 @@ a.xo-mode-surface:focus-visible::before,
   padding: 0.35rem 0.55rem;
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
-  font-size: 0.78rem;
+  font-size: 0.875rem;
+  font-weight: 550;
   line-height: 1.2;
   text-decoration: none;
 }
@@ -1337,8 +1338,8 @@ a.xo-mode-surface:focus-visible::before,
   max-width: 64ch;
   margin: var(--eco-space-5) 0 0;
   color: var(--xo-text-soft);
-  font-size: 1rem;
-  line-height: 1.62;
+  font-size: 1.125rem;
+  line-height: 1.625;
 }
 
 .xo-button {
@@ -1347,13 +1348,13 @@ a.xo-mode-surface:focus-visible::before,
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
-  border: 1px solid var(--xo-line-strong);
+  border: 0;
   border-radius: var(--eco-radius-control);
-  padding: 0.85rem 1.18rem;
+  padding: 0.5rem 1rem;
   color: var(--xo-text);
   font-family: var(--eco-font-mono);
-  font-size: 0.78rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 550;
   text-decoration: none;
   transition:
     transform var(--xo-motion-fast),
@@ -1364,7 +1365,6 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-button:hover {
   transform: translateY(-1px);
-  border-color: var(--xo-text);
 }
 
 .xo-button:active {
@@ -1382,13 +1382,12 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-button--primary {
-  border-color: var(--xo-text);
+  border: 0;
   background: var(--xo-text);
   color: var(--xo-bg);
 }
 
 .xo-button--primary:hover {
-  border-color: var(--xo-accent);
   background: var(--xo-accent);
   color: var(--eco-color-black);
 }
@@ -2104,6 +2103,10 @@ a.xo-mode-surface:focus-visible::before,
   background: var(--xo-line);
 }
 
+.xo-start-paths > .xo-path-card {
+  grid-column: auto;
+}
+
 .xo-state-rail {
   display: grid;
   border-top: 1px solid var(--xo-line);
@@ -2612,8 +2615,28 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-page .lab-proof-artifact {
   position: relative;
+  display: block;
   align-self: stretch;
+  overflow: hidden;
+  border: 1px solid var(--xo-line-strong);
+  border-radius: var(--xo-radius-artifact);
+  background: var(--xo-line-strong);
+  color: inherit;
   padding: 0;
+  text-decoration: none;
+  transition:
+    border-color var(--xo-motion-fast),
+    transform var(--xo-motion-fast);
+}
+
+.xo-page .lab-proof-artifact:hover {
+  border-color: color-mix(in srgb, var(--xo-accent) 42%, var(--xo-line-strong));
+  transform: translateY(-1px);
+}
+
+.xo-page .lab-proof-artifact:focus-visible {
+  outline: 2px solid var(--xo-accent);
+  outline-offset: 4px;
 }
 
 .xo-page .lab-proof-artifact::after {
@@ -2739,16 +2762,30 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-page .labs-full-taste {
   --labs-taste-line: color-mix(in srgb, var(--xo-accent) 18%, var(--xo-line));
+  background: var(--xo-bg);
 }
 
 .xo-page .labs-taste-hero {
+  --xo-bg: #000;
+  --xo-text: #f7f7f7;
+  --xo-text-soft: rgba(255, 255, 255, 0.66);
+  --xo-text-muted: rgba(255, 255, 255, 0.48);
+  --xo-line: rgba(255, 255, 255, 0.07);
+  --xo-line-strong: rgba(255, 255, 255, 0.14);
+  --xo-surface: #080808;
+  --xo-surface-raised: #101010;
+  --xo-accent-ink: var(--xo-accent);
   position: relative;
+  isolation: isolate;
   display: grid;
-  min-height: min(920px, calc(100dvh - 4.5rem));
-  grid-template-columns: minmax(0, 1.28fr) minmax(26rem, 0.72fr);
-  gap: clamp(2rem, 6vw, 7rem);
+  min-height: min(860px, calc(100dvh - 4.5rem));
+  grid-template-columns: minmax(0, 0.96fr) minmax(25rem, 0.86fr);
+  gap: clamp(2rem, 6vw, 6.5rem);
   align-items: center;
-  padding-block: clamp(5rem, 9vw, 8rem) clamp(3rem, 7vw, 6rem);
+  background: #000;
+  box-shadow: 0 0 0 100vmax #000;
+  clip-path: inset(0 -100vmax);
+  padding-block: clamp(5rem, 9vw, 7.5rem) clamp(3rem, 7vw, 5.5rem);
 }
 
 .xo-page .labs-taste-hero::before {
@@ -2767,14 +2804,14 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-page .labs-hero-copy h1 {
-  max-width: 10.6ch;
+  max-width: 11ch;
   margin: 0;
   color: var(--xo-text);
   font-family: var(--eco-font-display);
-  font-size: clamp(3.5rem, 4.8vw, 5rem);
+  font-size: 4.85rem;
   font-weight: 500;
   font-stretch: 100%;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -2794,13 +2831,20 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-page .labs-orbit-artifact {
-  min-height: 42rem;
-  transform: translateY(2rem);
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  transform: translateY(1.2rem);
   box-shadow: none;
 }
 
+.xo-page .labs-orbit-artifact > .xo-trace-demo {
+  flex: 1;
+  min-height: 0;
+}
+
 .xo-page .labs-orbit-artifact .lab-proof-body {
-  min-height: calc(42rem - 2.35rem);
+  min-height: auto;
 }
 
 .xo-page .labs-orbit-artifact .lab-proof-case {
@@ -2862,7 +2906,13 @@ a.xo-mode-surface:focus-visible::before,
   gap: var(--eco-space-5);
   overflow: hidden;
   background: var(--xo-surface);
+  border-radius: var(--eco-radius-panel);
   padding: clamp(1.1rem, 2.5vw, 1.7rem);
+  transition: background var(--xo-motion-fast);
+}
+
+.xo-page .labs-bento-card:hover {
+  background: var(--xo-surface-raised);
 }
 
 .xo-page .labs-bento-card::before {
@@ -2889,12 +2939,12 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-page .labs-bento-card--stream {
   grid-column: span 7;
-  min-height: 15rem;
+  min-height: 16rem;
 }
 
 .xo-page .labs-bento-card--document {
   grid-column: span 5;
-  min-height: 15rem;
+  min-height: 16rem;
 }
 
 .xo-page .labs-card-label {
@@ -2906,12 +2956,12 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-page .labs-bento-card h2 {
-  max-width: 18ch;
+  max-width: 22ch;
   margin: 0;
   color: var(--xo-text);
   font-family: var(--eco-font-display);
-  font-size: clamp(1.45rem, 2.1vw, 2rem);
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 400;
   letter-spacing: -0.025em;
   line-height: 1.08;
 }
@@ -2973,7 +3023,7 @@ a.xo-mode-surface:focus-visible::before,
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-control);
   background: var(--eco-color-black);
-  color: var(--xo-text-soft);
+  color: var(--eco-color-text-soft);
   padding: 0.9rem;
 }
 
@@ -2982,9 +3032,9 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-page .labs-command-line strong {
-  color: var(--xo-text);
-  font-size: 0.78rem;
-  overflow-wrap: anywhere;
+  color: var(--eco-color-text);
+  font-size: 0.74rem;
+  overflow-wrap: break-word;
 }
 
 .xo-page .labs-command-line i {
@@ -2995,7 +3045,8 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-page .labs-status-stack > div {
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: 0.48rem minmax(4rem, auto) minmax(0, 1fr);
+  gap: 0.6rem;
 }
 
 .xo-page .labs-status-stack span {
@@ -3010,21 +3061,26 @@ a.xo-mode-surface:focus-visible::before,
   overflow: hidden;
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-control);
-  background: rgba(0, 0, 0, 0.2);
+  background: color-mix(in srgb, var(--xo-bg) 72%, var(--xo-surface));
 }
 
 .xo-page .labs-data-stream > div {
-  display: flex;
-  width: max-content;
-  animation: labsStream 26s linear infinite;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  animation: none;
 }
 
 .xo-page .labs-data-stream span {
   display: grid;
-  min-width: 13rem;
-  gap: 0.25rem;
+  min-width: 0;
+  gap: 0.5rem;
   border-right: 1px solid var(--xo-line);
-  padding: 0.9rem;
+  padding: 1rem;
+}
+
+.xo-page .labs-data-stream span:last-child {
+  border-right: 0;
 }
 
 .xo-page .labs-data-stream small,
@@ -3038,6 +3094,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .labs-data-stream strong {
   color: var(--xo-text);
   font-size: 0.88rem;
+  overflow-wrap: anywhere;
 }
 
 .xo-page .labs-doc-view {
@@ -3052,7 +3109,7 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-page .labs-doc-view p {
   margin: 0;
-  color: var(--xo-text-soft);
+  color: var(--eco-color-text-soft);
   font-size: 0.76rem;
   line-height: 1.55;
 }
@@ -3552,9 +3609,12 @@ a.xo-mode-surface:focus-visible::before,
   .xo-page .service-hero h1,
   .xo-page .article-head h1,
   .xo-page .contact-page-intro h1,
-  .xo-page .about-hero h1,
-  .xo-page .labs-hero-copy h1 {
+  .xo-page .about-hero h1 {
     font-size: clamp(3.15rem, 7vw, 4rem);
+  }
+
+  .xo-page .labs-hero-copy h1 {
+    font-size: 4rem;
   }
 
   .xo-page .labs-motion-bento,
@@ -3583,6 +3643,14 @@ a.xo-mode-surface:focus-visible::before,
   .xo-page .labs-orbit-artifact .lab-proof-body {
     min-height: auto;
   }
+
+  .xo-page .labs-data-stream > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xo-page .labs-data-stream span:nth-child(2n) {
+    border-right: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -3596,29 +3664,45 @@ a.xo-mode-surface:focus-visible::before,
     padding-block: 4rem 1rem;
   }
 
-  /* Header mobile compact : rangée 1 = marque + toggle + CTA, rangée 2 = liens.
+  /* Header mobile compact : rangée 1 = marque + toggle, rangée 2 = liens.
      Le fold doit montrer le message, pas le chrome. */
-  .xo-nav {
-    flex-wrap: wrap;
+  .site-header .xo-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand theme"
+      "links links";
     align-items: center;
-    row-gap: 0.4rem;
+    column-gap: 0.75rem;
+    row-gap: 0.45rem;
     padding-block: var(--eco-space-3);
   }
 
-  .xo-nav > .xo-theme-toggle {
-    order: 2;
+  .site-header .xo-brand {
+    grid-area: brand;
+    min-width: 0;
+  }
+
+  .site-header .xo-brand span:last-child {
+    max-width: min(44vw, 11rem);
+  }
+
+  .site-header .xo-nav > .xo-theme-toggle {
+    grid-area: theme;
     margin-left: auto;
   }
 
-  .xo-nav > .xo-button {
-    order: 3;
-    width: auto;
+  .site-header .site-nav-cta {
+    display: none;
   }
 
-  .xo-nav > .xo-nav-links {
-    order: 4;
-    flex-basis: 100%;
+  .site-header .xo-nav > .xo-nav-links {
+    grid-area: links;
+    max-width: 100%;
+    min-width: 0;
     flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: flex-start;
   }
 
   .breadcrumb-list {
@@ -3809,7 +3893,8 @@ a.xo-mode-surface:focus-visible::before,
   .xo-page .labs-taste-hero {
     min-height: auto;
     gap: 2.5rem;
-    padding-block: 4rem;
+    padding-block: 3.5rem;
+    overflow: hidden;
   }
 
   .xo-page .labs-taste-hero::before {
@@ -3847,11 +3932,27 @@ a.xo-mode-surface:focus-visible::before,
   .xo-page .service-hero h1,
   .xo-page .article-head h1,
   .xo-page .contact-page-intro h1,
-  .xo-page .about-hero h1,
-  .xo-page .labs-hero-copy h1 {
+  .xo-page .about-hero h1 {
     max-width: 100%;
     font-size: 2.9rem;
     overflow-wrap: anywhere;
+  }
+
+  .xo-page .labs-hero-copy h1 {
+    max-width: 9.6ch;
+    font-size: 2.65rem;
+    overflow-wrap: normal;
+  }
+
+  .xo-page .labs-hero-copy p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .xo-page .labs-orbit-artifact,
+  .xo-page .labs-motion-bento,
+  .xo-page .labs-bento-card {
+    min-width: 0;
   }
 
   .xo-page .service-hero p,
@@ -3872,7 +3973,8 @@ a.xo-mode-surface:focus-visible::before,
   }
 
   .xo-page .labs-hero-actions,
-  .xo-page .labs-hero-actions .btn {
+  .xo-page .labs-hero-actions .btn,
+  .xo-page .labs-hero-actions .xo-button {
     width: 100%;
   }
 
@@ -3895,6 +3997,19 @@ a.xo-mode-surface:focus-visible::before,
     grid-column: 1 / -1;
   }
 
+  .xo-page .labs-data-stream > div {
+    grid-template-columns: 1fr;
+  }
+
+  .xo-page .labs-data-stream span {
+    border-right: 0;
+    border-bottom: 1px solid var(--xo-line);
+  }
+
+  .xo-page .labs-data-stream span:last-child {
+    border-bottom: 0;
+  }
+
   .xo-page .thesis-band p {
     font-size: 1.7rem;
   }
@@ -3903,6 +4018,339 @@ a.xo-mode-surface:focus-visible::before,
     align-items: stretch;
     flex-direction: column;
   }
+}
+
+/* ============================================
+   Living Artefacts — mesuré sur x.ai 2026-06-23
+   ============================================ */
+
+/* 1. Card shimmer overlay — lumière qui balaie la carte au survol.
+     Usage: ajouter .xo-card-shimmer sur le parent + un enfant ::after. */
+.xo-card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.xo-card-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.06) 48%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 52%,
+    transparent 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 700ms var(--eco-ease-out);
+}
+
+.xo-card-shimmer:hover::after,
+.xo-card-shimmer:focus-visible::after {
+  transform: translateX(100%);
+  opacity: 1;
+}
+
+[data-theme="light"] .xo-card-shimmer::after {
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.04) 48%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.04) 52%,
+    transparent 60%,
+    transparent 100%
+  );
+}
+
+/* 2. Grid shimmer — grille statique parcourue par des impulsions lumineuses.
+     Usage: <div class="xo-grid-shimmer"> avec N enfants .xo-grid-shimmer-line. */
+.xo-grid-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.xo-grid-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--xo-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--xo-line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+  pointer-events: none;
+}
+
+.xo-grid-shimmer-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  container-type: inline-size;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.xo-grid-shimmer-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 38%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--xo-shimmer-color, var(--xo-accent)) 40%,
+    var(--xo-shimmer-color-2, var(--xo-accent)) 60%,
+    transparent
+  );
+  opacity: 0.55;
+  will-change: transform;
+  animation: xo-grid-shimmer-move var(--xo-shimmer-duration, 2.2s) linear infinite;
+  animation-delay: var(--xo-shimmer-delay, 0s);
+}
+
+@keyframes xo-grid-shimmer-move {
+  0% { transform: translateX(-45cqw); }
+  100% { transform: translateX(145cqw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-grid-shimmer-line::after,
+  .xo-card-shimmer::after {
+    animation: none !important;
+    opacity: 0 !important;
+    transform: none !important;
+  }
+}
+
+/* 3. Progressive blur — fondu élégant en bas d'un artifact (terminal, console).
+     Empile 4 couches de backdrop-blur avec des masques dégradés.
+     Usage: <div class="xo-progressive-blur"></div> en dernier enfant d'un overflow:hidden. */
+.xo-progressive-blur {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 10;
+  height: 4rem;
+  overflow: hidden;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  pointer-events: none;
+}
+
+.xo-progressive-blur::before,
+.xo-progressive-blur::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.xo-progressive-blur::before {
+  backdrop-filter: blur(0.5px);
+  -webkit-backdrop-filter: blur(0.5px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
+}
+
+.xo-progressive-blur::after {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  mask-image: linear-gradient(to bottom, transparent 50%, black 80%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 50%, black 80%, black 100%);
+}
+
+/* 4. Hero shimmer — bande multicolore sous le H1 au load (une seule fois). */
+.xo-hero-shimmer {
+  height: 3px;
+  border-radius: 999px;
+  background-size: 400% 100%;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.25) 35%,
+    var(--xo-accent) 40%,
+    var(--xo-accent) 60%,
+    rgba(255, 255, 255, 0.25) 65%
+  );
+  animation: xo-hero-shimmer-sweep 3s linear 1;
+}
+
+@keyframes xo-hero-shimmer-sweep {
+  0% { background-position: 150% center; }
+  100% { background-position: -150% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-hero-shimmer { animation: none !important; }
+}
+
+/* 5. Chat bubble demo — bulles qui défilent en boucle (JS-driven via Astro component). */
+.xo-chat-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.xo-chat-bubble {
+  max-width: 82%;
+  padding: 0.5rem 0.85rem;
+  border-radius: 1rem 1rem 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.66rem;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--eco-ease-out), transform 0.4s var(--eco-ease-out);
+}
+
+.xo-chat-bubble.is-assistant {
+  align-self: flex-start;
+  border-radius: 1rem 1rem 1rem 0.375rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.xo-chat-bubble.is-user {
+  align-self: flex-end;
+}
+
+.xo-chat-bubble.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-theme="light"] .xo-chat-bubble {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.85);
+}
+
+[data-theme="light"] .xo-chat-bubble.is-assistant {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 6. Agent trace demo — terminal avec progress bar et étapes d'agent (JS-driven). */
+.xo-trace-demo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #151515;
+  color: #d7d1c9;
+  font-family: var(--eco-font-mono);
+  font-size: 0.75rem;
+  line-height: 1.625;
+}
+
+.xo-trace-demo-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.xo-trace-demo-dots {
+  display: flex;
+  gap: 0.38rem;
+  flex-shrink: 0;
+}
+
+.xo-trace-demo-dots span {
+  width: 0.56rem;
+  height: 0.56rem;
+  border-radius: 50%;
+}
+
+.xo-trace-demo-dots span:nth-child(1) { background: #ff5f57; }
+.xo-trace-demo-dots span:nth-child(2) { background: #febc2e; }
+.xo-trace-demo-dots span:nth-child(3) { background: #28c840; }
+
+.xo-trace-demo-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+}
+
+.xo-trace-demo-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.xo-trace-demo-bar {
+  display: inline-block;
+  width: 3.5em;
+  height: 1em;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.xo-trace-demo-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  transition: width 700ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.xo-trace-demo-body {
+  flex: 1;
+  overflow: hidden;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+}
+
+.xo-trace-demo-line {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.06rem 0;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s var(--eco-ease-out), transform 0.3s var(--eco-ease-out);
+}
+
+.xo-trace-demo-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.xo-trace-demo-line .xo-trace-demo-prompt {
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.xo-trace-demo-line .xo-trace-demo-accent {
+  color: var(--xo-accent);
+}
+
+.xo-trace-demo-line .xo-trace-demo-dim {
+  color: rgba(255, 255, 255, 0.35);
 }
 /* @extras-start: managed by sync.sh */
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */

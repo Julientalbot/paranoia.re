@@ -1,8 +1,9 @@
 :root {
-  /* General Sans self-hosté (woff2 variable, @font-face dans ecosystem-copy-system.css) ; fallbacks : Archivo Variable (si présent), système. */
-  --eco-font-body: "General Sans", "Archivo Variable", "Avenir Next", "Helvetica Neue", sans-serif;
-  --eco-font-display: "General Sans", "Archivo Variable", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
-  --eco-font-mono: "JetBrains Mono Variable", "SFMono-Regular", Consolas, monospace;
+  /* Geist (Vercel, open-source) — substitut mesuré à universalSans/universalSansDisplay (xAI, propriétaire).
+     @font-face géré par @fontsource-variable/geist importé dans les layouts. */
+  --eco-font-body: "Geist Variable", "Avenir Next", "Helvetica Neue", sans-serif;
+  --eco-font-display: "Geist Variable", "Avenir Next", "Helvetica Neue", sans-serif;
+  --eco-font-mono: "Geist Mono Variable", "SFMono-Regular", Consolas, monospace;
 
   --eco-color-black: #050505;
   --eco-color-graphite: #111111;

@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
-    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "@fontsource-variable/geist": "^5.2.9",
+    "@fontsource-variable/geist-mono": "^5.2.8",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "astro": "^6.3.3"
