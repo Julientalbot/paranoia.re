@@ -1,0 +1,162 @@
+---
+// Terminal vivant — progress bar, étapes séquentielles, badges [running]/[done], progressive blur.
+// Mesuré sur x.ai 2026-06-23. Usage: <AgentTraceDemo title="case/0012" steps={traceSteps} />
+
+interface TraceStep {
+  kind?: 'line' | 'task';
+  prompt?: string;
+  text: string;
+  mode?: string;
+  status?: 'running' | 'done' | 'fast' | 'thinking';
+  accent?: boolean;
+  dim?: boolean;
+  progress?: number;
+}
+
+interface Props {
+  title?: string;
+  steps?: TraceStep[];
+  progressLabel?: string;
+  pulse?: { label: string; variant?: 'live' | 'running' | 'locked' };
+  class?: string;
+}
+
+const {
+  title = 'projects/main',
+  steps = [
+    { prompt: '❯', text: 'Add rate limiting to all API routes.', dim: true },
+    { text: 'Thinking...', dim: true },
+    { prompt: '▸', text: 'grep "rateLimit" src/', dim: true },
+    { prompt: '▸', text: 'read_file src/api/routes.ts (42 lines)', dim: true },
+    { text: 'Scan route handlers', accent: true, progress: 16 },
+    { kind: 'task', text: 'Audit auth middleware', mode: 'explore', status: 'running' },
+    { kind: 'task', text: 'Design token rotation', mode: 'general', status: 'running' },
+    { kind: 'task', text: 'Find session references', mode: 'explore', status: 'done' },
+    { prompt: '◆', text: 'Thought for 2.8s', dim: true },
+    { prompt: '◆', text: 'Edit src/api/routes.ts', accent: true, progress: 32 },
+    { text: 'export async function handler(req) {', dim: true },
+    { text: '  await rateLimit(req, { max: 100 });', dim: true },
+    { prompt: '✓', text: 'Done. 3 routes patched.', accent: true, progress: 100 },
+  ],
+  progressLabel = '16.15%',
+  pulse,
+  class: className = '',
+} = Astro.props;
+
+const stepJson = JSON.stringify(steps);
+
+function statusLabel(status: TraceStep['status']) {
+  if (!status) return '';
+  if (status === 'thinking') return '[thinking]';
+  if (status === 'fast') return '[fast]';
+  return `[${status}]`;
+}
+---
+
+<div class={`xo-trace-demo ${className}`} data-trace-demo data-steps={stepJson} data-progress-label={progressLabel}>
+  <div class="xo-trace-demo-header">
+    <div class="xo-trace-demo-dots" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="xo-trace-demo-title">{title}</div>
+    {pulse && (
+      <span class:list={['xo-live-pulse', pulse.variant && `is-${pulse.variant}`]}>
+        <span class="xo-live-pulse-dot" aria-hidden="true"></span>
+        {pulse.label}
+      </span>
+    )}
+    <div class="xo-trace-demo-progress">
+      <span class="xo-trace-demo-bar"><span class="xo-trace-demo-bar-fill" data-trace-bar></span></span>
+      <span data-trace-progress-text>{progressLabel}</span>
+    </div>
+  </div>
+  <div class="xo-trace-demo-body" data-trace-body>
+    {steps.map((step, i) => (
+      step.kind === 'task' ? (
+        <div class="xo-trace-demo-line xo-trace-demo-line--task" data-trace-line={i}>
+          <span class="xo-trace-demo-task-label">{step.text}</span>
+          {step.mode && <span class="xo-trace-demo-task-mode">{step.mode}</span>}
+          {step.status && (
+            <span class={`xo-trace-demo-status is-${step.status}`}>{statusLabel(step.status)}</span>
+          )}
+        </div>
+      ) : (
+        <div class="xo-trace-demo-line" data-trace-line={i}>
+          {step.prompt && <span class="xo-trace-demo-prompt">{step.prompt}</span>}
+          <span class={step.accent ? 'xo-trace-demo-accent' : step.dim ? 'xo-trace-demo-dim' : ''}>{step.text}</span>
+          {step.status && (
+            <span class={`xo-trace-demo-status is-${step.status}`}>{statusLabel(step.status)}</span>
+          )}
+        </div>
+      )
+    ))}
+    <div class="xo-progressive-blur"></div>
+  </div>
+</div>
+
+<script>
+  function initTraceDemos() {
+    const demos = document.querySelectorAll<HTMLElement>('[data-trace-demo]');
+    demos.forEach((demo) => {
+      if (demo.dataset.initialized) return;
+      demo.dataset.initialized = 'true';
+
+      const steps = JSON.parse(demo.dataset.steps || '[]');
+      const lines = demo.querySelectorAll<HTMLElement>('[data-trace-line]');
+      const bar = demo.querySelector<HTMLElement>('[data-trace-bar]');
+      const progressText = demo.querySelector<HTMLElement>('[data-trace-progress-text]');
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduced) {
+        lines.forEach((l) => l.classList.add('is-visible'));
+        if (bar) bar.style.width = '100%';
+        return;
+      }
+
+      let stepIndex = 0;
+
+      function showStep() {
+        if (stepIndex >= steps.length) {
+          setTimeout(() => {
+            lines.forEach((l) => l.classList.remove('is-visible'));
+            if (bar) bar.style.width = '0%';
+            if (progressText) progressText.textContent = '0%';
+            stepIndex = 0;
+            setTimeout(showStep, 300);
+          }, 3000);
+          return;
+        }
+
+        const line = lines[stepIndex];
+        const step = steps[stepIndex];
+        if (line) line.classList.add('is-visible');
+
+        if (step.progress !== undefined && bar) {
+          bar.style.width = step.progress + '%';
+          if (progressText) progressText.textContent = step.progress + '%';
+        }
+
+        stepIndex++;
+        const delay = step.kind === 'task' ? 650 : step.prompt === '◆' || step.prompt === '✓' ? 800 : 500;
+        window.setTimeout(showStep, delay);
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(showStep, 400);
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(demo);
+    });
+  }
+
+  initTraceDemos();
+  document.addEventListener('astro:after-swap', initTraceDemos);
+</script>

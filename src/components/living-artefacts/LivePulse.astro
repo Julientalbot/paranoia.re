@@ -1,0 +1,17 @@
+---
+// Pastille live / running — pulse sémantique (x.ai [running], LiveWorkTrace).
+// Usage: <LivePulse label="live" /> ou <LivePulse label="evaluating" variant="running" />
+
+interface Props {
+  label: string;
+  variant?: 'live' | 'running' | 'locked';
+  class?: string;
+}
+
+const { label, variant = 'live', class: className = '' } = Astro.props;
+---
+
+<span class:list={['xo-live-pulse', `is-${variant}`, className]}>
+  <span class="xo-live-pulse-dot" aria-hidden="true"></span>
+  {label}
+</span>

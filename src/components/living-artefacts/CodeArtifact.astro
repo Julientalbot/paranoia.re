@@ -1,0 +1,69 @@
+---
+// Console code avec onglets + copie — mesuré sur x.ai/api 2026-06-23.
+// Usage: <CodeArtifact title="api/quickstart" tabs={tabs} />
+
+interface CodeTab {
+  id: string;
+  label: string;
+  code: string;
+}
+
+interface Props {
+  title?: string;
+  tabs: CodeTab[];
+  copyLabel?: string;
+  copyDoneLabel?: string;
+  shimmer?: boolean;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  title = 'api/quickstart',
+  tabs,
+  copyLabel = 'Copier',
+  copyDoneLabel = 'Copié',
+  shimmer = false,
+  class: className = '',
+  ariaLabel,
+} = Astro.props;
+---
+
+<div
+  class:list={['xo-console', 'xo-code-artifact', shimmer && 'xo-card-shimmer', className]}
+  data-code-artifact
+  aria-label={ariaLabel}
+>
+  <div class="xo-console-top">
+    <span class="xo-console-dot"></span>
+    <span class="xo-console-dot"></span>
+    <span class="xo-console-dot"></span>
+    <strong>{title}</strong>
+    <button class="xo-copy-button" type="button" data-copy-current data-copy-done={copyDoneLabel}>
+      <span class="xo-copy-label">{copyLabel}</span>
+    </button>
+  </div>
+  <div class="xo-console-body">
+    <slot name="before-tabs" />
+    <div class="xo-code-tabs" role="tablist" aria-label={ariaLabel ? `${ariaLabel} — langages` : 'Langages'}>
+      {tabs.map((tab, index) => (
+        <button
+          class="xo-code-tab"
+          type="button"
+          role="tab"
+          data-code-tab={tab.id}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? '0' : '-1'}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+    {tabs.map((tab, index) => (
+      <div class="xo-code-panel" data-code-panel={tab.id} hidden={index !== 0}>
+        <pre><code>{tab.code}</code></pre>
+      </div>
+    ))}
+    <slot name="after-panels" />
+  </div>
+</div>

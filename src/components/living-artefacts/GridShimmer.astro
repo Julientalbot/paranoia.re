@@ -1,0 +1,52 @@
+---
+// Grille parcourue par des impulsions lumineuses — mesuré sur x.ai 2026-06-23.
+// Usage: <GridShimmer /> ou <GridShimmer lines={customLines} opacity={0.4} />
+
+interface ShimmerLine {
+  top: string;
+  color?: string;
+  color2?: string;
+  duration?: string;
+  delay?: string;
+}
+
+interface Props {
+  lines?: ShimmerLine[];
+  opacity?: number;
+  class?: string;
+  style?: string;
+}
+
+const defaultLines: ShimmerLine[] = [
+  { top: '20%', color: '#7547d1', color2: '#d147d1', duration: '2.58s', delay: '2.82s' },
+  { top: '35%', color: '#cad147', color2: '#6ed147', duration: '2.06s', delay: '3.85s' },
+  { top: '55%', color: '#478fd1', color2: '#5b47d1', duration: '2.21s', delay: '0.77s' },
+  { top: '70%', color: '#d14783', color2: '#d16847', duration: '1.86s', delay: '4.92s' },
+];
+
+const {
+  lines = defaultLines,
+  opacity = 0.4,
+  class: className = '',
+  style = '',
+} = Astro.props;
+---
+
+<div
+  class:list={['xo-grid-shimmer', className]}
+  aria-hidden="true"
+  style={`opacity: ${opacity};${style}`}
+>
+  {lines.map((line) => (
+    <div
+      class="xo-grid-shimmer-line"
+      style={[
+        line.top ? `top: ${line.top};` : '',
+        line.color ? `--xo-shimmer-color: ${line.color};` : '',
+        line.color2 ? `--xo-shimmer-color-2: ${line.color2};` : '',
+        line.duration ? `--xo-shimmer-duration: ${line.duration};` : '',
+        line.delay ? `--xo-shimmer-delay: ${line.delay};` : '',
+      ].join(' ')}
+    />
+  ))}
+</div>

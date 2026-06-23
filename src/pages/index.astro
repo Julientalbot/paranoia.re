@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AgentTraceDemo from '../components/sections/AgentTraceDemo.astro';
-import ChatBubbleDemo from '../components/sections/ChatBubbleDemo.astro';
+import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
+import ChatBubbleDemo from '../components/living-artefacts/ChatBubbleDemo.astro';
+import CodeArtifact from '../components/living-artefacts/CodeArtifact.astro';
+import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
 const before =
@@ -37,7 +39,7 @@ limit: not a DLP replacement`,
       <div>
         <p class="xo-kicker">Confidentialité des prompts IA · pilote privé</p>
         <h1 id="home-title" class="xo-title xo-title--wide">Réduire l’exposition avant l’envoi.</h1>
-        <div class="xo-hero-shimmer" aria-hidden="true"></div>
+        <HeroShimmer />
         <p class="xo-subtitle">
           Paranoia détecte, masque et fait relire les contenus sensibles d’un prompt avant usage d’un assistant IA.
           Un seul rôle : rendre visible ce qui risque de sortir.
@@ -48,17 +50,14 @@ limit: not a DLP replacement`,
         </div>
       </div>
 
-      <div class="xo-console paranoia-review-artifact xo-hero-artifact xo-card-shimmer" data-code-artifact aria-label="Avant après prompt">
-        <div class="xo-console-top">
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <span class="xo-console-dot"></span>
-          <strong>prompt/review</strong>
-          <button class="xo-copy-button paranoia-console-copy" type="button" data-copy-current>
-            <span class="xo-copy-label">Copier</span>
-          </button>
-        </div>
-        <div class="xo-console-body paranoia-review-body">
+      <CodeArtifact
+        title="prompt/review"
+        tabs={reviewTabs}
+        shimmer
+        class="paranoia-review-artifact xo-hero-artifact"
+        ariaLabel="Avant après prompt"
+      >
+        <div slot="before-tabs" class="paranoia-review-body">
           <div class="paranoia-exposure">
             <div>
               <span>exposition</span>
@@ -73,32 +72,13 @@ limit: not a DLP replacement`,
             <span role="listitem">rôle</span>
             <span role="listitem">id</span>
           </div>
-          <div class="xo-code-tabs paranoia-review-tabs" role="tablist" aria-label="États du prompt">
-            {reviewTabs.map((tab, index) => (
-              <button
-                class="xo-code-tab"
-                type="button"
-                role="tab"
-                data-code-tab={tab.id}
-                aria-selected={index === 0 ? 'true' : 'false'}
-                tabindex={index === 0 ? '0' : '-1'}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-          {reviewTabs.map((tab, index) => (
-            <div class="xo-code-panel paranoia-review-panel" data-code-panel={tab.id} hidden={index !== 0}>
-              <pre><code>{tab.code}</code></pre>
-            </div>
-          ))}
-          <div class="paranoia-policy-stack" role="list" aria-label="Contrôles avant envoi">
-            <div role="listitem"><span>règle</span><strong>mask before send</strong></div>
-            <div role="listitem"><span>état</span><strong>review required</strong></div>
-            <div role="listitem"><span>limite</span><strong>not a DLP replacement</strong></div>
-          </div>
         </div>
-      </div>
+        <div slot="after-panels" class="paranoia-policy-stack" role="list" aria-label="Contrôles avant envoi">
+          <div role="listitem"><span>règle</span><strong>mask before send</strong></div>
+          <div role="listitem"><span>état</span><strong>review required</strong></div>
+          <div role="listitem"><span>limite</span><strong>not a DLP replacement</strong></div>
+        </div>
+      </CodeArtifact>
     </section>
 
     <section id="concrete" class="xo-shell xo-section xo-compact-section" aria-labelledby="concrete-title">
