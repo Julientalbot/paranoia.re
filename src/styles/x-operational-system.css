@@ -43,8 +43,8 @@
 
 /* Homepage grammar: every block is an artifact, a path, a proof, or an action. */
 .xo-home .xo-home-hero {
-  min-height: min(780px, calc(100dvh - 4.5rem));
-  padding-block: clamp(4.75rem, 7.4vw, 6.5rem) 2.5rem;
+  min-height: max(100dvh, 800px);
+  padding-block: clamp(6rem, 9vw, 9rem) 4rem;
 }
 
 .xo-home .xo-compact-section {
@@ -294,14 +294,16 @@
   height: 100%;
   align-content: space-between;
   gap: var(--eco-space-5);
-  padding: 1.25rem;
-  border-radius: var(--eco-radius-panel);
+  padding: 1rem;
+  border: 1px solid var(--xo-line);
+  border-radius: 16px;
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background var(--xo-motion-fast),
-    transform var(--xo-motion-fast);
+    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 981px) {
@@ -424,13 +426,16 @@
   min-height: 25rem;
   align-content: space-between;
   gap: var(--eco-space-6);
-  padding: clamp(1.1rem, 2.4vw, 1.65rem);
+  padding: 1rem;
+  border: 1px solid var(--xo-line);
+  border-radius: 16px;
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background var(--xo-motion-fast),
-    transform var(--xo-motion-fast);
+    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .xo-start-track {
@@ -632,6 +637,8 @@ a.xo-mode-surface:focus-visible::before,
 .xo-code-tab {
   padding: 0.35rem 0.7rem;
   color: color-mix(in srgb, var(--xo-terminal-ink) 58%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .xo-code-tab[aria-selected="true"],
@@ -1151,15 +1158,15 @@ a.xo-mode-surface:focus-visible::before,
 .xo-nav-links a,
 .xo-link {
   display: inline-flex;
-  min-height: var(--xo-button-min);
+  min-height: 2rem;
   align-items: center;
   border-radius: var(--eco-radius-tight);
-  padding: 0.5rem 0.75rem;
-  color: var(--xo-text-soft);
-  font-family: var(--eco-font-body);
-  font-size: var(--xo-nav-link-size);
-  font-weight: 550;
-  line-height: var(--xo-nav-link-line);
+  padding: 0.35rem 0.55rem;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.2;
   text-decoration: none;
 }
 
@@ -1211,12 +1218,32 @@ a.xo-mode-surface:focus-visible::before,
   }
 }
 
+.xo-page a,
+.xo-page button,
+.xo-page summary,
+.xo-page .xo-signal-row,
+.xo-page .xo-latest-row,
+.xo-page .xo-signal-list > :is(a, article) {
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.xo-page .xo-path-card,
+.xo-page .xo-mode-surface,
+.xo-page .xo-start-track,
+.xo-page .xo-card {
+  transition: background 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .xo-hero {
   display: grid;
-  min-height: min(860px, calc(100dvh - 4.5rem));
+  min-height: max(100dvh, 800px);
   align-items: center;
   gap: 4rem;
-  padding-block: 6.5rem 2rem;
+  padding-block: 9rem 4rem;
 }
 
 .xo-hero--split {
@@ -1455,13 +1482,16 @@ a.xo-mode-surface:focus-visible::before,
   flex-direction: column;
   justify-content: space-between;
   gap: var(--eco-space-5);
-  padding: 1.35rem;
+  padding: 1rem;
+  border: 1px solid var(--xo-line);
+  border-radius: 16px;
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background var(--xo-motion-fast),
-    transform var(--xo-motion-fast);
+    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .xo-card::before {
@@ -4207,6 +4237,8 @@ a.xo-mode-surface:focus-visible::before,
   border-radius: 1rem 1rem 0.375rem;
   border: 1px solid rgba(255, 255, 255, 0.07);
   background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.66rem;
   line-height: 1.5;

@@ -14,7 +14,8 @@
 /* Geist — chargé via @fontsource-variable/geist et @fontsource-variable/geist-mono
    (importés dans les layouts Astro). Aucun @font-face local à maintenir. */
 
-/* Structural tokens — theme-agnostic, always applied. */
+/* Structural tokens — theme-agnostic, always applied.
+   Mesure autoritaire : .audit/xai-measured/2026-06-23-computed-styles.json */
 :root {
   --xo-terminal-ink: #d7d1c9;
   --xo-accent: var(--eco-color-signal);
@@ -24,7 +25,6 @@
   --xo-accent-ink: var(--xo-accent);
   --xo-danger: var(--eco-color-red);
 
-
   --xo-h1: clamp(36px, 4.17vw, 60px);
   --xo-h1-line: 1;
   --xo-h1-track: -0.025em;
@@ -32,6 +32,14 @@
   --xo-h2-line: 1;
   --xo-body: 16px;
   --xo-body-line: 1.5;
+  --xo-subtitle-size: 1.125rem;
+  --xo-subtitle-line: 1.625;
+  --xo-nav-height: 4rem;
+  --xo-nav-link-size: 0.875rem;
+  --xo-nav-link-line: 1.4285714286;
+  --xo-button-min: 2.25rem;
+  --xo-code-size: 0.75rem;
+  --xo-code-line: 1.625;
 
   --xo-radius-artifact: 16px;
   --xo-ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -51,9 +59,8 @@
   --xo-line: rgba(255, 255, 255, 0.06);
   --xo-surface: #1a1a1a;
   --xo-surface-raised: #151515;
-  /* On near-black canvas the terminal must stay separated, not vanish. */
-  --xo-terminal: #1c1c1c;
-  --xo-terminal-border: rgba(255, 255, 255, 0.1);
+  --xo-terminal: #151515;
+  --xo-terminal-border: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="light"] {
