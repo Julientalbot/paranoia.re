@@ -1,60 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
-
-const useCases = [
-  {
-    label: 'Contrats',
-    title: 'Résumer sans exposer les noms inutiles.',
-    body: 'Le prompt peut garder la demande de synthèse tout en remplaçant client, fournisseur, contact et identifiant par des libellés contrôlables.',
-  },
-  {
-    label: 'RH',
-    title: 'Préparer une question sans copier le dossier brut.',
-    body: 'Paranoia aide à voir les noms, emails, rôles ou fragments sensibles avant qu’ils partent vers un assistant généraliste.',
-  },
-  {
-    label: 'Support',
-    title: 'Réduire l’exposition d’un ticket client.',
-    body: 'Le contenu opérationnel reste lisible, mais les données directes peuvent être masquées avant la reformulation ou l’analyse.',
-  },
-  {
-    label: 'Pilote IA',
-    title: 'Documenter ce qui doit rester relu.',
-    body: 'Le produit convient aux équipes qui veulent tester l’IA sans banaliser le copier-coller de données sensibles.',
-  },
-];
-
-const faqItems = [
-  {
-    q: 'Paranoia autorise-t-il l’envoi de secrets ?',
-    a: 'Non. Un secret qui ne doit pas sortir doit rester hors prompt. Paranoia aide à réduire une exposition, pas à rendre partageable une donnée interdite.',
-  },
-  {
-    q: 'Quels contenus sont les plus adaptés ?',
-    a: 'Contrats, tickets support, demandes RH, comptes rendus ou notes opérationnelles qui contiennent des noms, emails, organisations, rôles ou identifiants.',
-  },
-  {
-    q: 'À quel moment l’utiliser ?',
-    a: 'Juste avant l’envoi vers un assistant IA, quand l’utilisateur peut encore relire, corriger ou retirer les éléments sensibles.',
-  },
-];
-
-const faqSchema = {
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
-  })),
-};
 ---
 
 <BaseLayout
   title="Cas d’usage prompts IA — Paranoia"
-  description="Cas d’usage de Paranoia pour contrats, RH, support, opérations et pilotes IA quand des données sensibles risquent d’être copiées dans un prompt."
+  description="Cas d’usage de Paranoia pour contrats, RH, support et opérations quand des données sensibles risquent d’être copiées dans un prompt."
   canonicalPath="/cas-usages"
-  structuredData={faqSchema}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="cases-title">
@@ -66,12 +18,12 @@ const faqSchema = {
           contacts, identifiants ou éléments de dossier doivent être revus avant l’envoi.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Demander un accès pilote</a>
-          <a class="xo-button" href="/confidentialite-prompts-ia">Voir la confidentialité</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
+          <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
         </div>
       </div>
 
-      <aside class="xo-artifact-panel" aria-label="Cas d'usage prompts IA">
+      <aside class="xo-artifact-panel xo-card-shimmer" aria-label="Cas d'usage prompts IA">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -87,40 +39,71 @@ const faqSchema = {
       </aside>
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="use-cases-list">
-      <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Situations</p>
-          <h2 id="use-cases-list" class="xo-title xo-title--section">Les cas où le contrôle a du sens.</h2>
+    <section class="xo-shell xo-section" aria-labelledby="concrete-title">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
+          <p class="xo-kicker">Exemple réel</p>
+          <h2 id="concrete-title" class="xo-title xo-title--section">Synthèse de contrat — Atelier Kanopé.</h2>
+          <p>
+            Un collaborateur colle un contrat client dans un assistant IA pour en obtenir un résumé.
+            Le prompt brut transporte un nom, un email, une organisation, un rôle et un identifiant fournisseur.
+            La version relue garde la demande, remplace les données directes par des libellés contrôlables,
+            et part vers l’assistant sans exposer le client.
+          </p>
         </div>
-        <p>La bonne cible n’est pas “tout prompt”. C’est le prompt utile qui transporte trop de données identifiantes.</p>
-      </div>
-      <div class="xo-signal-list">
-        {useCases.map((item) => (
-          <article>
-            <span>{item.label}</span>
-            <strong>{item.title}</strong>
-            <p>{item.body}</p>
-          </article>
-        ))}
+        <div class="xo-artifact-panel xo-card-shimmer" style="padding: 0; overflow: hidden;">
+          <div class="xo-console-top">
+            <span class="xo-console-dot"></span>
+            <span class="xo-console-dot"></span>
+            <span class="xo-console-dot"></span>
+            <strong>contrat/synthèse</strong>
+          </div>
+          <div class="xo-code-panel" style="padding: 1.25rem;">
+            <pre><code>BRUT
+Peux-tu résumer le contrat Atelier Kanopé ?
+Contact : Maya Hoarau, direction ops,
+maya.hoarau@atelier-kanope.example
+Dossier fournisseur K-47B. Inclure la clause 4.2.
+
+RELU
+Peux-tu résumer le contrat [Organisation] ?
+Contact : [Prénom] [Nom], [Rôle], [Email]
+Dossier fournisseur [Identifiant].
+Inclure la clause 4.2.</code></pre>
+          </div>
+          <div class="paranoia-policy-stack" role="list" aria-label="Contrôles">
+            <div role="listitem"><span>détecté</span><strong>5 champs sensibles</strong></div>
+            <div role="listitem"><span>règle</span><strong>mask before send</strong></div>
+            <div role="listitem"><span>état</span><strong>review required</strong></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="cases-faq">
-      <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Questions</p>
-          <h2 id="cases-faq" class="xo-title xo-title--section">Décider si Paranoia est utile.</h2>
+    <section class="xo-shell xo-section" aria-labelledby="proof-title">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
+          <p class="xo-kicker">Preuve</p>
+          <h2 id="proof-title" class="xo-title xo-title--section">Ce qui part, ce qui reste, nommés.</h2>
+          <p>
+            Les rapports techniques documentent crashs et stabilité, pas le contenu des prompts.
+            Sentry masque emails, noms, tokens et secrets. Conservation 90 jours maximum,
+            suppression sur demande. Le périmètre est public.
+          </p>
         </div>
-        <p>Le produit doit rester dans son périmètre : rendre l’exposition visible avant l’envoi.</p>
-      </div>
-      <div class="xo-field-ledger" aria-label="Questions fréquentes sur les cas d'usage">
-        {faqItems.map((item) => (
-          <div>
-            <span>{item.q}</span>
-            <strong>{item.a}</strong>
+        <a class="xo-path-card xo-card-shimmer" href="/rapports-incidents" data-event="transparency_click">
+          <div class="xo-path-artifact" aria-hidden="true">
+            <div><span>01</span><strong>collecte</strong></div>
+            <div><span>02</span><strong>conservation</strong></div>
+            <div class="is-output"><span>03</span><strong>suppression</strong></div>
           </div>
-        ))}
+          <div>
+            <p class="xo-label">Transparence</p>
+            <h3>Lire le périmètre exact.</h3>
+            <p>Rapports techniques, exclusions, durée de conservation et support.</p>
+          </div>
+          <span class="xo-card-arrow">Lire la transparence →</span>
+        </a>
       </div>
     </section>
 
@@ -132,25 +115,26 @@ const faqSchema = {
             <h2 id="cases-cta">Vérifier Paranoia sur votre cas.</h2>
           </div>
           <p>
-            Si un de ces cas ressemble à votre usage, le pilote sert à le vérifier sur un flux réel.
+            Si votre flux ressemble à cet exemple, le pilote sert à le vérifier sur un cas réel.
             Trois lignes suffisent : l’assistant utilisé, les contenus copiés, la limite à garder visible.
           </p>
           <div class="xo-contact-actions">
             <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
+            <a class="xo-button" href="/confidentialite-prompts-ia" data-event="privacy_click">Voir la confidentialité</a>
           </div>
         </article>
-        <a class="xo-path-card" href="/confidentialite-prompts-ia">
+        <a class="xo-path-card xo-card-shimmer" href="/rapports-incidents" data-event="transparency_click">
           <div class="xo-path-artifact" aria-hidden="true">
-            <div><span>01</span><strong>détecter</strong></div>
-            <div><span>02</span><strong>masquer</strong></div>
-            <div class="is-output"><span>03</span><strong>relire</strong></div>
+            <div><span>01</span><strong>collecte</strong></div>
+            <div><span>02</span><strong>conservation</strong></div>
+            <div class="is-output"><span>03</span><strong>suppression</strong></div>
           </div>
           <div>
-            <p class="xo-label">Confidentialité</p>
-            <h3>Ce que le masquage ne remplace pas.</h3>
-            <p>La méthode, les limites et ce qui doit rester hors assistant sont documentés.</p>
+            <p class="xo-label">Transparence</p>
+            <h3>Ce qui est envoyé, ce qui ne l’est pas.</h3>
+            <p>Rapports techniques, prompts, conservation, support et suppression documentés.</p>
           </div>
-          <span class="xo-card-arrow">Voir la confidentialité →</span>
+          <span class="xo-card-arrow">Lire la transparence →</span>
         </a>
       </div>
     </section>

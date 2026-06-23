@@ -29,88 +29,6 @@ rule: mask before send
 limit: not a DLP replacement`,
   },
 ];
-
-const workflowSteps = [
-  {
-    label: '01 détecter',
-    title: 'Voir les champs exposés.',
-    body: 'Noms, emails, organisations, rôles, identifiants et fragments sensibles sont rendus visibles avant transmission.',
-  },
-  {
-    label: '02 masquer',
-    title: 'Produire une version réduite.',
-    body: 'Le prompt garde son intention de travail, mais remplace les données directes par des libellés contrôlables.',
-  },
-  {
-    label: '03 relire',
-    title: 'Garder la décision humaine.',
-    body: 'L’utilisateur accepte, corrige ou retire ce qui ne doit pas quitter le poste.',
-  },
-  {
-    label: '04 envoyer',
-    title: 'Transmettre seulement la version relue.',
-    body: 'Paranoia réduit l’exposition avant l’assistant IA. Il ne transforme pas un secret brut en donnée partageable.',
-  },
-];
-
-const limits = [
-  {
-    label: 'Périmètre',
-    title: 'Réduction d’exposition, pas DLP.',
-    body: 'Paranoia intervient avant l’envoi d’un prompt. Il ne contrôle pas tout le système d’information.',
-  },
-  {
-    label: 'Responsabilité',
-    title: 'La relecture reste obligatoire.',
-    body: 'Le produit rend l’exposition visible ; l’équipe garde la décision sur ce qui peut partir.',
-  },
-  {
-    label: 'Conformité',
-    title: 'Aucune conformité magique.',
-    body: 'Les obligations juridiques, contractuelles et organisationnelles restent à traiter avec leurs propriétaires.',
-  },
-];
-
-const fitItems = [
-  {
-    label: 'Pour',
-    title: 'Contrats, clients, RH, support, opérations.',
-    body: 'Équipes qui copient déjà du travail réel dans des assistants IA et veulent un contrôle avant envoi.',
-  },
-  {
-    label: 'Pour',
-    title: 'Pilotes IA avec risque visible.',
-    body: 'Organisations qui veulent documenter ce qui part, ce qui est masqué et ce qui reste hors assistant.',
-  },
-  {
-    label: 'Pas pour',
-    title: 'Autoriser l’envoi de secrets bruts.',
-    body: 'Un secret qui ne doit pas sortir doit rester hors prompt. Le masquage ne remplace pas l’interdiction.',
-  },
-  {
-    label: 'Pas pour',
-    title: 'Remplacer la politique sécurité.',
-    body: 'Paranoia est une étape de contrôle locale, pas une gouvernance complète de l’IA.',
-  },
-];
-
-const contactHints = [
-  {
-    label: '01 situation',
-    title: 'assistant',
-    body: 'Quel assistant reçoit les prompts aujourd’hui.',
-  },
-  {
-    label: '02 données',
-    title: 'contenus',
-    body: 'Quels contenus sensibles sont copiés avant envoi.',
-  },
-  {
-    label: '03 contrainte',
-    title: 'limite',
-    body: 'Quelle règle, limite ou trace doit rester visible.',
-  },
-];
 ---
 
 <BaseLayout title="Paranoia — réduire l’exposition des prompts IA">
@@ -183,33 +101,14 @@ const contactHints = [
       </div>
     </section>
 
-    <section id="workflow" class="xo-shell xo-section xo-compact-section" aria-labelledby="workflow-title">
+    <section id="concrete" class="xo-shell xo-section xo-compact-section" aria-labelledby="concrete-title">
       <div class="xo-proof-layout">
         <div class="xo-proof-copy">
-          <p class="xo-kicker">Produit</p>
-          <h2 id="workflow-title" class="xo-title xo-title--section">Un geste avant l’assistant.</h2>
+          <p class="xo-kicker">Exemple réel</p>
+          <h2 id="concrete-title" class="xo-title xo-title--section">Un contrat, cinq champs, une version relue.</h2>
           <p>
-            Paranoia ne cherche pas à tout gouverner. Il ajoute une étape lisible entre le travail réel
-            et l’assistant IA : inspecter, masquer, relire, puis décider.
-          </p>
-        </div>
-        <div class="xo-field-ledger" aria-label="Flux de réduction d'exposition avant envoi">
-          {workflowSteps.map((item, index) => (
-            <div class={index === workflowSteps.length - 1 ? 'is-output' : ''}>
-              <span>{item.label}</span>
-              <strong>{item.title}</strong>
-              <p>{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="xo-proof-layout" style="margin-top: 3rem;">
-        <div class="xo-proof-copy">
-          <p class="xo-kicker">Détection live</p>
-          <h3 class="xo-title xo-title--section" style="font-size: clamp(1.5rem, 2vw, 2rem);">Ce que Paranoia voit avant l’envoi.</h3>
-          <p>
-            Chaque champ sensible est identifié, classé, puis masqué. L’utilisateur garde le dernier mot.
+            Un prompt de synthèse de contrat contient un nom, un email, une organisation, un rôle et un identifiant.
+            Paranoia les détecte, les masque, et laisse l’utilisateur décider avant l’envoi.
           </p>
         </div>
         <AgentTraceDemo
@@ -251,47 +150,29 @@ const contactHints = [
       </div>
     </section>
 
-    <section id="limits" class="xo-shell xo-section" aria-labelledby="limits-title">
+    <section id="proof" class="xo-shell xo-section" aria-labelledby="proof-title">
       <div class="xo-proof-layout">
         <div class="xo-proof-copy">
-          <p class="xo-kicker">Limites</p>
-          <h2 id="limits-title" class="xo-title xo-title--section">Ce que Paranoia ne promet pas.</h2>
+          <p class="xo-kicker">Preuve</p>
+          <h2 id="proof-title" class="xo-title xo-title--section">Transparence documentée, pas promesse.</h2>
           <p>
-            La confiance vient aussi de la limite. Le produit réduit une exposition identifiable ;
-            il ne remplace ni une politique sécurité, ni une validation juridique, ni le jugement humain.
+            Sentry pour les crashs, Vercel Analytics pour l’usage agrégé, conservation 90 jours maximum,
+            prompts non stockés côté Paranoia, suppression sur demande. Tout est nommé sur la page transparence.
           </p>
         </div>
-        <div class="xo-field-ledger" aria-label="Limites produit">
-          {limits.map((item) => (
-            <div>
-              <span>{item.label}</span>
-              <strong>{item.title}</strong>
-              <p>{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="fit" class="xo-shell xo-section" aria-labelledby="fit-title">
-      <div class="xo-proof-layout">
-        <div class="xo-proof-copy">
-          <p class="xo-kicker">Usage</p>
-          <h2 id="fit-title" class="xo-title xo-title--section">Pour qui, pas pour qui.</h2>
-          <p>
-            Paranoia convient aux équipes qui utilisent déjà l’IA sur du travail sensible
-            et veulent une barrière simple avant le copier-coller.
-          </p>
-        </div>
-        <div class="xo-field-ledger" aria-label="Publics et limites Paranoia">
-          {fitItems.map((item) => (
-            <div>
-              <span>{item.label}</span>
-              <strong>{item.title}</strong>
-              <p>{item.body}</p>
-            </div>
-          ))}
-        </div>
+        <a class="xo-path-card xo-card-shimmer" href="/rapports-incidents" data-event="transparency_click">
+          <div class="xo-path-artifact" aria-hidden="true">
+            <div><span>01</span><strong>collecte</strong></div>
+            <div><span>02</span><strong>conservation</strong></div>
+            <div class="is-output"><span>03</span><strong>suppression</strong></div>
+          </div>
+          <div>
+            <p class="xo-label">Transparence</p>
+            <h3>Lire le périmètre exact.</h3>
+            <p>Rapports techniques, exclusions, durée de conservation, support et suppression.</p>
+          </div>
+          <span class="xo-card-arrow">Lire la transparence →</span>
+        </a>
       </div>
     </section>
 
@@ -306,33 +187,24 @@ const contactHints = [
             Envoyez trois lignes, pas un dossier. Le premier échange sert seulement à vérifier
             si Paranoia répond au risque réel.
           </p>
-          <div class="paranoia-direct-contact" aria-label="Message utile pour demander un accès pilote">
-            {contactHints.map((item) => (
-              <div>
-                <span>{item.label}</span>
-                <strong>{item.title}</strong>
-                <p>{item.body}</p>
-              </div>
-            ))}
-          </div>
           <div class="xo-contact-actions">
             <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
             <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
           </div>
           <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_HREF}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
         </article>
-        <a class="xo-path-card xo-card-shimmer" href="/rapports-incidents" data-event="transparency_click">
+        <a class="xo-path-card xo-card-shimmer" href="/cas-usages" data-event="cases_click">
           <div class="xo-path-artifact" aria-hidden="true">
-            <div><span>01</span><strong>collecte</strong></div>
-            <div><span>02</span><strong>conservation</strong></div>
-            <div class="is-output"><span>03</span><strong>suppression</strong></div>
+            <div><span>01</span><strong>contrats</strong></div>
+            <div><span>02</span><strong>RH</strong></div>
+            <div class="is-output"><span>03</span><strong>support</strong></div>
           </div>
           <div>
-            <p class="xo-label">Transparence</p>
-            <h3>Ce qui est envoyé, ce qui ne l’est pas.</h3>
-            <p>Rapports techniques, prompts, conservation, support et suppression sont documentés sur une seule page.</p>
+            <p class="xo-label">Cas d’usage</p>
+            <h3>Vérifier sur votre flux.</h3>
+            <p>Contrats, RH, support, opérations : un exemple concret par contexte.</p>
           </div>
-          <span class="xo-card-arrow">Lire la transparence →</span>
+          <span class="xo-card-arrow">Voir les cas →</span>
         </a>
       </div>
     </section>

@@ -9,37 +9,12 @@ const exposureFlow = [
   ['04', 'Relecture', 'corriger ou retirer'],
   ['05', 'Envoi', 'décision humaine'],
 ];
-
-const faqItems = [
-  {
-    q: 'Le masquage suffit-il pour tout envoyer ?',
-    a: 'Non. Le masquage réduit une exposition, mais ne remplace pas une règle de confidentialité, une obligation contractuelle ou une interdiction de sortie.',
-  },
-  {
-    q: 'Pourquoi garder une relecture humaine ?',
-    a: 'Parce que le contexte décide souvent du risque. L’utilisateur doit pouvoir corriger un masque, retirer un détail ou abandonner l’envoi.',
-  },
-  {
-    q: 'Que faut-il garder hors assistant ?',
-    a: 'Secrets, données interdites par contrat, informations dont la sortie n’a pas de base claire, et tout élément que l’organisation a explicitement exclu.',
-  },
-];
-
-const faqSchema = {
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
-  })),
-};
 ---
 
 <BaseLayout
   title="Confidentialité prompts IA — Paranoia"
   description="Comprendre comment Paranoia réduit l’exposition des prompts IA : détection, masquage, relecture humaine, limites et données à garder hors assistant."
   canonicalPath="/confidentialite-prompts-ia"
-  structuredData={faqSchema}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="privacy-title">
@@ -51,12 +26,12 @@ const faqSchema = {
           ce qui ne doit pas sortir ne doit pas être envoyé, même masqué.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Demander un accès pilote</a>
-          <a class="xo-button" href="/securite">Voir la sécurité</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
+          <a class="xo-button" href="/securite" data-event="security_click">Voir la sécurité</a>
         </div>
       </div>
 
-      <aside class="xo-artifact-panel" aria-label="Principes de confidentialité des prompts IA">
+      <aside class="xo-artifact-panel xo-card-shimmer" aria-label="Principes de confidentialité des prompts IA">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -72,14 +47,17 @@ const faqSchema = {
       </aside>
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="principles-title">
+    <section class="xo-shell xo-section" aria-labelledby="concrete-title">
       <div class="xo-proof-layout">
         <div class="xo-proof-copy">
-          <p class="xo-kicker">Méthode</p>
-          <h2 id="principles-title" class="xo-title xo-title--section">Quatre gestes avant l’assistant.</h2>
-          <p>Le contrôle est volontairement court : voir l’exposition, réduire ce qui peut l’être, puis décider.</p>
+          <p class="xo-kicker">Exemple réel</p>
+          <h2 id="concrete-title" class="xo-title xo-title--section">Un prompt traverse cinq états.</h2>
+          <p>
+            Du texte brut à la décision humaine, chaque étape est nommée et inspectable.
+            Le masquage n’autorise jamais l’envoi : la relecture décide.
+          </p>
         </div>
-        <div class="paranoia-exposure-map" aria-label="Carte d'exposition d'un prompt avant assistant IA">
+        <div class="paranoia-exposure-map xo-card-shimmer" aria-label="Carte d'exposition d'un prompt avant assistant IA">
           <div class="paranoia-exposure-map__header">
             <span>surface d’exposition</span>
             <strong>Ce qui sort doit être décidé, pas seulement masqué.</strong>
@@ -101,21 +79,30 @@ const faqSchema = {
       </div>
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="privacy-faq">
-      <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Limites</p>
-          <h2 id="privacy-faq" class="xo-title xo-title--section">Les limites font partie de la confidentialité.</h2>
+    <section class="xo-shell xo-section" aria-labelledby="proof-title">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
+          <p class="xo-kicker">Preuve</p>
+          <h2 id="proof-title" class="xo-title xo-title--section">Les limites sont nommées publiquement.</h2>
+          <p>
+            Sentry masque emails, noms, tokens et secrets. Conservation 90 jours maximum.
+            Prompts non stockés côté Paranoia. Suppression sur demande.
+            Le périmètre est documenté, pas promis.
+          </p>
         </div>
-        <p>Une page crédible doit dire ce que le produit ne remplace pas.</p>
-      </div>
-      <div class="xo-signal-list">
-        {faqItems.map((item) => (
-          <article>
-            <span>{item.q}</span>
-            <strong>{item.a}</strong>
-          </article>
-        ))}
+        <a class="xo-path-card xo-card-shimmer" href="/rapports-incidents" data-event="transparency_click">
+          <div class="xo-path-artifact" aria-hidden="true">
+            <div><span>01</span><strong>collecte</strong></div>
+            <div><span>02</span><strong>conservation</strong></div>
+            <div class="is-output"><span>03</span><strong>suppression</strong></div>
+          </div>
+          <div>
+            <p class="xo-label">Transparence</p>
+            <h3>Lire le périmètre exact.</h3>
+            <p>Rapports techniques, exclusions, durée de conservation et support.</p>
+          </div>
+          <span class="xo-card-arrow">Lire la transparence →</span>
+        </a>
       </div>
     </section>
 
@@ -132,9 +119,10 @@ const faqSchema = {
           </p>
           <div class="xo-contact-actions">
             <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
+            <a class="xo-button" href="/securite" data-event="security_click">Voir la sécurité</a>
           </div>
         </article>
-        <a class="xo-path-card" href="/securite">
+        <a class="xo-path-card xo-card-shimmer" href="/securite" data-event="security_click">
           <div class="xo-path-artifact" aria-hidden="true">
             <div><span>01</span><strong>périmètre</strong></div>
             <div><span>02</span><strong>relecture</strong></div>

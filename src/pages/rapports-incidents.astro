@@ -43,11 +43,11 @@ const reportItems = [
         </p>
         <div class="xo-actions">
           <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">Contacter le support</a>
-          <a class="xo-button" href="/#workflow">Retour au produit</a>
+          <a class="xo-button" href="/#concrete" data-event="product_click">Retour au produit</a>
         </div>
       </div>
 
-      <aside class="xo-artifact-panel paranoia-trust-artifact" aria-label="Ledger de transparence Paranoia">
+      <aside class="xo-artifact-panel paranoia-trust-artifact xo-card-shimmer" aria-label="Ledger de transparence Paranoia">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -76,7 +76,7 @@ const reportItems = [
       </div>
       <div class="xo-signal-list">
         {reportItems.map((item) => (
-          <article>
+          <article class="xo-card-shimmer">
             <span>{item.label}</span>
             <strong>{item.title}</strong>
             <p>{item.body}</p>
@@ -85,31 +85,34 @@ const reportItems = [
       </div>
     </section>
 
-    <section class="xo-shell xo-section">
+    <section class="xo-shell xo-section" aria-labelledby="incidents-cta">
       <div class="xo-start-paths">
         <article class="xo-start-panel">
           <div>
-            <p class="xo-label">Prompts</p>
-            <h2>Les contenus de travail restent hors rapports automatiques.</h2>
+            <p class="xo-label">Support</p>
+            <h2 id="incidents-cta">Demander une suppression ou signaler un problème.</h2>
           </div>
           <p>
-            Le traitement de détection et de masquage est conçu pour s’exécuter avant l’envoi.
-            Les prompts originaux ne sont pas stockés côté Paranoia par défaut.
-            Les événements automatiques documentent les erreurs techniques et la stabilité, pas les textes que vous relisez.
+            Écrivez à {PARANOIA_CONTACT_EMAIL} pour une question, un signalement de bug
+            ou une demande de suppression anticipée d’un rapport technique.
           </p>
+          <div class="xo-contact-actions">
+            <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">Contacter le support</a>
+            <a class="xo-button" href="/securite" data-event="security_click">Voir la sécurité</a>
+          </div>
         </article>
-        <a class="xo-path-card" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">
+        <a class="xo-path-card xo-card-shimmer" href="/securite" data-event="security_click">
           <div class="xo-path-artifact" aria-hidden="true">
-            <div><span>01</span><strong>écrire</strong></div>
-            <div><span>02</span><strong>identifier</strong></div>
-            <div class="is-output"><span>03</span><strong>supprimer</strong></div>
+            <div><span>01</span><strong>périmètre</strong></div>
+            <div><span>02</span><strong>relecture</strong></div>
+            <div class="is-output"><span>03</span><strong>limites</strong></div>
           </div>
           <div>
-            <p class="xo-label">Support</p>
-            <h3>Demander une suppression ou signaler un problème.</h3>
-            <p>Écrivez à {PARANOIA_CONTACT_EMAIL} pour une question ou une demande de suppression anticipée d’un rapport.</p>
+            <p class="xo-label">Sécurité</p>
+            <h3>Un contrôle limité, documenté.</h3>
+            <p>Le périmètre, la relecture obligatoire et les limites du produit sont explicites.</p>
           </div>
-          <span class="xo-card-arrow">Contacter →</span>
+          <span class="xo-card-arrow">Voir la sécurité →</span>
         </a>
       </div>
     </section>

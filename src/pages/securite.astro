@@ -24,37 +24,12 @@ const controls = [
     body: 'Une équipe pilote doit pouvoir demander une suppression anticipée d’un rapport technique ou signaler un problème.',
   },
 ];
-
-const faqItems = [
-  {
-    q: 'Paranoia est-il un DLP ?',
-    a: 'Non. Paranoia n’est pas un DLP complet. Il ajoute un contrôle local avant l’envoi d’un prompt IA.',
-  },
-  {
-    q: 'Les rapports automatiques collectent-ils les prompts ?',
-    a: 'La page de transparence précise que les rapports automatiques concernent les erreurs techniques et la stabilité, pas le contenu des prompts.',
-  },
-  {
-    q: 'Que doit valider une organisation avant pilote ?',
-    a: 'Le périmètre testé, les catégories de données à exclure, les règles de relecture, les contacts support et les situations où l’envoi reste interdit.',
-  },
-];
-
-const faqSchema = {
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
-  })),
-};
 ---
 
 <BaseLayout
   title="Sécurité des prompts IA — Paranoia"
   description="Principes de sécurité de Paranoia : périmètre limité, relecture obligatoire, absence de DLP magique, support pilote et suppression sur demande."
   canonicalPath="/securite"
-  structuredData={faqSchema}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="security-title">
@@ -66,12 +41,12 @@ const faqSchema = {
           garder une décision humaine, et documenter les limites.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF}>Demander un accès pilote</a>
-          <a class="xo-button" href="/rapports-incidents">Voir la transparence</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
+          <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
         </div>
       </div>
 
-      <aside class="xo-artifact-panel" aria-label="Contrôles sécurité Paranoia">
+      <aside class="xo-artifact-panel xo-card-shimmer" aria-label="Contrôles sécurité Paranoia">
         <div class="xo-console-top">
           <span class="xo-console-dot"></span>
           <span class="xo-console-dot"></span>
@@ -97,7 +72,7 @@ const faqSchema = {
       </div>
       <div class="xo-signal-list">
         {controls.map((item) => (
-          <article>
+          <article class="xo-card-shimmer">
             <span>{item.label}</span>
             <strong>{item.title}</strong>
             <p>{item.body}</p>
@@ -106,21 +81,35 @@ const faqSchema = {
       </div>
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="security-faq">
-      <div class="xo-proof-layout">
-        <div class="xo-proof-copy">
-          <p class="xo-kicker">FAQ sécurité</p>
-          <h2 id="security-faq" class="xo-title xo-title--section">La limite est une information de sécurité.</h2>
-          <p>Paranoia doit être acheté pour son périmètre réel, pas pour une promesse de protection totale.</p>
-        </div>
-        <div class="xo-field-ledger" aria-label="Questions fréquentes sécurité">
-          {faqItems.map((item) => (
-            <div>
-              <span>{item.q}</span>
-              <strong>{item.a}</strong>
-            </div>
-          ))}
-        </div>
+    <section class="xo-shell xo-section" aria-labelledby="security-cta">
+      <div class="xo-start-paths">
+        <article class="xo-start-panel">
+          <div>
+            <p class="xo-label">Pilote privé</p>
+            <h2 id="security-cta">Vérifier le périmètre sur votre flux.</h2>
+          </div>
+          <p>
+            Le pilote sert à confirmer que le périmètre de Paranoia correspond à votre risque réel.
+            Trois lignes suffisent : l’assistant utilisé, les contenus copiés, la limite à garder visible.
+          </p>
+          <div class="xo-contact-actions">
+            <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
+            <a class="xo-button" href="/confidentialite-prompts-ia" data-event="privacy_click">Voir la confidentialité</a>
+          </div>
+        </article>
+        <a class="xo-path-card xo-card-shimmer" href="/rapports-incidents" data-event="transparency_click">
+          <div class="xo-path-artifact" aria-hidden="true">
+            <div><span>01</span><strong>collecte</strong></div>
+            <div><span>02</span><strong>conservation</strong></div>
+            <div class="is-output"><span>03</span><strong>suppression</strong></div>
+          </div>
+          <div>
+            <p class="xo-label">Transparence</p>
+            <h3>Ce qui est envoyé, ce qui ne l’est pas.</h3>
+            <p>Rapports techniques, exclusions, durée de conservation et support documentés publiquement.</p>
+          </div>
+          <span class="xo-card-arrow">Lire la transparence →</span>
+        </a>
       </div>
     </section>
   </main>
