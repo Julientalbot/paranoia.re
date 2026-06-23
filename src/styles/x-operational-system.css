@@ -4499,6 +4499,305 @@ a.xo-metric:focus-visible strong {
     opacity: 1 !important;
   }
 }
+
+/* ============================================================
+   7. Artefact card — cadrage x.ai (carte statique au repos, bordure
+      éclaircie au survol seulement) + plateau hero 2×2. Mesuré 2026-06-23.
+   ============================================================ */
+.xo-artefact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--xo-radius-artifact, 16px);
+  background: var(--xo-surface);
+  color: var(--xo-text);
+  text-decoration: none;
+  transition: border-color 220ms var(--eco-ease-out);
+}
+
+a.xo-artefact-card:hover,
+a.xo-artefact-card:focus-visible {
+  border-color: var(--xo-line-strong);
+}
+
+.xo-artefact-card__body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.xo-artefact-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1.1rem;
+  border-top: 1px solid var(--xo-line);
+}
+
+.xo-artefact-card__label {
+  color: var(--xo-text);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.xo-artefact-card__cta {
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  transition: color 200ms var(--eco-ease-out);
+}
+
+a.xo-artefact-card:hover .xo-artefact-card__cta,
+a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
+  color: var(--xo-text);
+}
+
+/* Plateau hero : grille 2×2 (1 col en mobile), hairline partagée comme x.ai. */
+.xo-hero-tray {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.2vw, 1rem);
+  width: 100%;
+  min-width: 0;
+}
+
+.xo-hero-tray .xo-artefact-card {
+  height: clamp(15rem, 20vw, 18rem);
+}
+
+@media (max-width: 880px) {
+  .xo-hero-tray {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Le terminal reste sombre dans une tuile d'artefact, même en thème clair
+   (console = toujours sombre chez x.ai ; sinon texte clair sur fond clair).
+   Ré-asserte toute la palette sombre (le thème clair global la neutraliserait). */
+[data-theme="light"] .xo-artefact-card .xo-trace-demo,
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-header,
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-body {
+  background: #151515;
+  color: #d7d1c9;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-title,
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-progress {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-dim,
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-prompt,
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-task-mode {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-accent {
+  color: var(--xo-accent);
+}
+
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .xo-artefact-card .xo-trace-demo-bar-fill {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Hero "stack" : copie centrée (home = + plateau ; sous-pages = copie seule façon x.ai/grok). */
+.xo-home-hero--stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.25rem);
+  min-height: auto;
+  padding-block: clamp(4rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.xo-home-hero--stack .xo-hero-lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 54rem;
+}
+
+.xo-home-hero--stack .xo-hero-lead .xo-subtitle {
+  max-width: 46rem;
+}
+
+.xo-home-hero--stack .xo-actions {
+  justify-content: center;
+}
+
+.xo-home-hero--stack .xo-person-line {
+  max-width: none;
+  text-align: center;
+}
+
+/* Portrait en tuile d'artefact (identité, dans le plateau). */
+.xo-portrait-tile {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.xo-portrait-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 26%;
+  filter: saturate(0.92) contrast(1.04);
+}
+
+.xo-portrait-tile figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 0.9rem 1.1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent);
+  color: #fff;
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+}
+
+/* Flux de texte non-interactif pour tuile d'artefact (derniers écrits, activité). */
+.xo-tile-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  height: 100%;
+  padding: 1.1rem 1.2rem;
+  font-family: var(--eco-font-mono);
+  overflow: hidden;
+}
+
+.xo-tile-stream__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--xo-text-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.xo-tile-stream__row {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, auto) 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding-block: 0.4rem;
+  border-top: 1px solid var(--xo-line);
+}
+
+.xo-tile-stream__row span {
+  color: var(--xo-accent-ink, var(--xo-accent));
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.xo-tile-stream__row strong {
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* ============================================================
+   8. Waveform — égaliseur "Voice" (CSS, barres scaleY décalées).
+   ============================================================ */
+.xo-waveform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  min-height: 8rem;
+  padding: 1.5rem;
+}
+
+.xo-waveform-bar {
+  width: 4px;
+  min-height: 6%;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    hsl(var(--hue, 270) 90% 72%),
+    hsl(calc(var(--hue, 270) + 18) 82% 58%)
+  );
+  transform: scaleY(0.4);
+  transform-origin: center;
+  will-change: transform;
+  animation: xo-waveform-pulse 1s var(--eco-ease-snap, ease-in-out) infinite alternate;
+}
+
+@keyframes xo-waveform-pulse {
+  from { transform: scaleY(0.32); opacity: 0.65; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-waveform-bar {
+    animation: none !important;
+    transform: scaleY(0.7);
+  }
+}
+
+/* ============================================================
+   9. Hero headline — révélation mot à mot + mot final qui cycle.
+   ============================================================ */
+.xo-hl-word {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .xo-hl[data-hl] .xo-hl-word,
+  .xo-hl[data-hl] .xo-hl-rotate {
+    animation: xo-hl-reveal 0.6s var(--eco-ease-out) both;
+    animation-delay: calc(var(--i, 0) * 55ms);
+  }
+}
+
+@keyframes xo-hl-reveal {
+  from { opacity: 0; transform: translateY(0.42em); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.xo-hl-rotate {
+  display: inline-grid;
+  vertical-align: top;
+}
+
+.xo-hl-rotate-word {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity 0.5s var(--eco-ease-out), transform 0.5s var(--eco-ease-out);
+}
+
+.xo-hl-rotate-word.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-hl-rotate-word {
+    transition: none !important;
+  }
+}
 /* @extras-start: managed by sync.sh */
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */
 /* Edit this file in _design-system/extras/, not in the site repo. */

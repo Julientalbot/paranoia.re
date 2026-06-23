@@ -4,6 +4,8 @@ import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro'
 import ModeTabs from '../components/sections/ModeTabs.astro';
 import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
+import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
+import GridShimmer from '../components/living-artefacts/GridShimmer.astro';
 
 const controls = [
   {
@@ -35,10 +37,10 @@ const controls = [
   canonicalPath="/securite"
 >
   <main id="main" class="xo-page xo-page--product">
-    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="security-title">
-      <div>
+    <section class="xo-shell xo-home-hero--stack" aria-labelledby="security-title">
+      <div class="xo-hero-lead">
         <p class="xo-kicker">Sécurité</p>
-        <h1 id="security-title" class="xo-title xo-title--wide">Un contrôle limité doit être très clair.</h1>
+        <HeroHeadline id="security-title" class="xo-title--wide" text="Un contrôle limité doit être très clair." />
         <HeroShimmer />
         <p class="xo-subtitle">
           La sécurité de Paranoia repose d’abord sur son périmètre : rendre visible une exposition avant l’envoi,
@@ -49,8 +51,18 @@ const controls = [
           <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
         </div>
       </div>
+    </section>
 
-      <a class="xo-card-shimmer" href={PARANOIA_CONTACT_HREF} aria-label="Demander un accès pilote">
+    <section class="xo-shell xo-section" aria-labelledby="controls-title">
+      <div class="xo-proof-layout">
+        <div class="xo-proof-copy">
+          <p class="xo-kicker">Contrôles</p>
+          <h2 id="controls-title" class="xo-title xo-title--section">Ce que le pilote doit rendre explicite.</h2>
+          <p>Une organisation doit pouvoir comprendre le rôle du produit avant de lui confier un flux sensible.</p>
+          <div class="xo-actions">
+            <a class="xo-button" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote →</a>
+          </div>
+        </div>
         <AgentTraceDemo
           title="security/audit"
           progressLabel="audit"
@@ -66,16 +78,6 @@ const controls = [
             { prompt: '✓', text: 'Conforme: local-first, privacy-bound.', accent: true },
           ]}
         />
-      </a>
-    </section>
-
-    <section class="xo-shell xo-section" aria-labelledby="controls-title">
-      <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Contrôles</p>
-          <h2 id="controls-title" class="xo-title xo-title--section">Ce que le pilote doit rendre explicite.</h2>
-        </div>
-        <p>Une organisation doit pouvoir comprendre le rôle du produit avant de lui confier un flux sensible.</p>
       </div>
       <div class="xo-signal-list">
         {controls.map((item) => (
@@ -96,8 +98,9 @@ const controls = [
       />
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="security-cta">
-      <div class="xo-start-paths">
+    <section class="xo-shell xo-section" aria-labelledby="security-cta" style="position: relative;">
+      <GridShimmer count={14} style="position: absolute; inset: 0; pointer-events: none;" />
+      <div class="xo-start-paths" style="position: relative;">
         <article class="xo-start-panel">
           <div>
             <p class="xo-label">Pilote privé</p>

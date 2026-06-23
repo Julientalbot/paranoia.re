@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
+import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
+import LivePulse from '../components/living-artefacts/LivePulse.astro';
 
 const reportItems = [
   {
@@ -34,10 +35,10 @@ const reportItems = [
   canonicalPath="/rapports-incidents"
 >
   <main id="main" class="xo-page xo-page--product">
-    <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="incidents-title">
-      <div>
+    <section class="xo-shell xo-home-hero--stack" aria-labelledby="incidents-title">
+      <div class="xo-hero-lead">
         <p class="xo-kicker">Transparence</p>
-        <h1 id="incidents-title" class="xo-title xo-title--wide">Ce qui est envoyé. Ce qui ne l’est pas.</h1>
+        <HeroHeadline id="incidents-title" class="xo-title--wide" text="Ce qui est envoyé. Ce qui ne l’est pas." />
         <HeroShimmer />
         <p class="xo-subtitle">
           Paranoia peut utiliser Sentry pour diagnostiquer les bugs et la stabilité du pilote.
@@ -49,24 +50,6 @@ const reportItems = [
           <a class="xo-button" href="/#concrete" data-event="product_click">Retour au produit</a>
         </div>
       </div>
-
-      <a class="xo-card-shimmer" href={PARANOIA_CONTACT_HREF} aria-label="Contacter le support">
-        <AgentTraceDemo
-          title="incident/trace"
-          progressLabel="traçabilité"
-          steps={[
-            { prompt: '❯', text: 'Tracer un incident de prompt.', dim: true },
-            { text: 'Récupération...', dim: true },
-            { prompt: '▸', text: 'Prompt reçu: 14:32 UTC', dim: true },
-            { prompt: '▸', text: 'Détection: 3 champs sensibles', dim: true },
-            { text: 'Masquer et journaliser', accent: true, progress: 50 },
-            { prompt: '◆', text: 'Masquage appliqué: 14:32:03', accent: true, progress: 75 },
-            { prompt: '▸', text: 'Envoi: 14:32:05 (version masquée)', dim: true },
-            { text: 'Suppression locale: 14:32:06', accent: true, progress: 100 },
-            { prompt: '✓', text: 'Traçabilité: 4 étapes, 0 fuite.', accent: true },
-          ]}
-        />
-      </a>
     </section>
 
     <section class="xo-shell xo-section" aria-labelledby="reports-title">
@@ -76,13 +59,28 @@ const reportItems = [
           <div class="xo-grid-shimmer-line" style="top: 45%; --xo-shimmer-color: #9fe8ff; --xo-shimmer-color-2: #5b47d1; --xo-shimmer-duration: 2.06s; --xo-shimmer-delay: 3.85s;"></div>
           <div class="xo-grid-shimmer-line" style="top: 70%; --xo-shimmer-color: #9fe8ff; --xo-shimmer-color-2: #478fd1; --xo-shimmer-duration: 2.21s; --xo-shimmer-delay: 0.77s;"></div>
         </div>
-        <div class="xo-section-heading">
-        <div>
-          <p class="xo-kicker">Rapports techniques</p>
-          <h2 id="reports-title" class="xo-title xo-title--section">Le périmètre reste étroit.</h2>
+        <div class="xo-proof-layout" style="position: relative;">
+          <div class="xo-proof-copy">
+            <p class="xo-kicker">Rapports techniques</p>
+            <h2 id="reports-title" class="xo-title xo-title--section">Le périmètre reste étroit.</h2>
+            <p>Le suivi sert à corriger le produit pilote, pas à inspecter les prompts des utilisateurs.</p>
+            <div class="xo-actions">
+              <a class="xo-button" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">Contacter le support →</a>
+            </div>
+          </div>
+          <div class="xo-tile-stream" style="border: 1px solid var(--xo-line); border-radius: var(--xo-radius-artifact, 16px);">
+            <div class="xo-tile-stream__head">
+              <span>Rapports techniques</span>
+              <LivePulse label="périmètre étroit" variant="locked" />
+            </div>
+            {reportItems.map((item) => (
+              <div class="xo-tile-stream__row">
+                <span>{item.label}</span>
+                <strong>{item.title}</strong>
+              </div>
+            ))}
+          </div>
         </div>
-        <p>Le suivi sert à corriger le produit pilote, pas à inspecter les prompts des utilisateurs.</p>
-      </div>
       <div class="xo-signal-list">
         {reportItems.map((item) => (
           <article class="xo-card-shimmer">

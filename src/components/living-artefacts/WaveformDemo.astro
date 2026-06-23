@@ -1,0 +1,31 @@
+---
+// Waveform / égaliseur — modalité "Voice" du plateau hero x.ai (mesuré 2026-06-23).
+// CSS-driven : N barres animées en hauteur (scaleY 0.4↔1), décalées → onde vivante.
+// Usage: <WaveformDemo /> ou <WaveformDemo bars={40} />
+
+interface Props {
+  bars?: number;
+  class?: string;
+}
+
+const { bars = 36, class: className = '' } = Astro.props;
+
+// Profil ondulé déterministe (sinus) + timings désynchronisés sans Math.random
+// (build reproductible : pas de diff bruité à chaque build).
+const items = Array.from({ length: bars }, (_, i) => {
+  const wave = 0.4 + 0.6 * Math.abs(Math.sin((i / bars) * Math.PI * 3.2));
+  const hue = Math.round(218 + (i / bars) * 118); // bleu → magenta, comme x.ai
+  const dur = (0.7 + ((i * 37) % 13) / 18).toFixed(2); // 0.70–1.42s
+  const delay = (((i * 53) % 100) / 100).toFixed(2); // 0–0.99s
+  return { h: Math.round(wave * 100), hue, dur, delay };
+});
+---
+
+<div class:list={['xo-waveform', className]} aria-hidden="true">
+  {items.map((b) => (
+    <span
+      class="xo-waveform-bar"
+      style={`height:${b.h}%;--hue:${b.hue};animation-duration:${b.dur}s;animation-delay:${b.delay}s;`}
+    ></span>
+  ))}
+</div>

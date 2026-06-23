@@ -1,0 +1,47 @@
+---
+// Cadrage d'artefact x.ai : carte statique au repos (bordure éclaircie au survol seulement),
+// contenu vivant en haut (slot) + pied label-gauche / "Explore →"-droite (mesuré 2026-06-23).
+// Brique du plateau hero ET de la distribution des artefacts dans les sections.
+// ⚠ Quand `href` est fourni la carte est un <a> : le contenu du slot doit être
+//   NON-INTERACTIF (pas de <a>/<button> imbriqués — le parser HTML fermerait la
+//   carte et viderait la tuile). Artefacts OK : image, terminal, waveform, grille,
+//   flux de texte. Pour du contenu interactif, omets `href` (rendu <div>).
+// Usage:
+//   <ArtefactCard label="Voice" href="/x" cta="Explore →"><WaveformDemo /></ArtefactCard>
+
+interface Props {
+  label?: string;
+  href?: string;
+  cta?: string;
+  class?: string;
+  ariaLabel?: string;
+  event?: string;
+}
+
+const {
+  label,
+  href,
+  cta = 'Explore →',
+  class: className = '',
+  ariaLabel,
+  event,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+const showFoot = Boolean(label || href);
+---
+
+<Tag
+  class:list={['xo-artefact-card', className]}
+  href={href}
+  aria-label={ariaLabel}
+  data-event={event}
+>
+  <div class="xo-artefact-card__body"><slot /></div>
+  {showFoot && (
+    <div class="xo-artefact-card__foot">
+      {label && <span class="xo-artefact-card__label">{label}</span>}
+      {href && <span class="xo-artefact-card__cta">{cta}</span>}
+    </div>
+  )}
+</Tag>

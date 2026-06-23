@@ -1,0 +1,53 @@
+---
+// Titre hero x.ai : révélation mot à mot au load + (optionnel) dernier mot qui cycle
+// (mesuré 2026-06-23 — chaque mot wrappé en inline-block, stagger opacity/translateY).
+// Usage:
+//   <HeroHeadline id="home-title" class="xo-title--wide" text="Ce que l’IA change dans le travail" />
+//   <HeroHeadline text="Frontier AI models for everything you" rotate={['raisonne','décide','agit']} />
+
+interface Props {
+  text: string;
+  rotate?: string[];
+  id?: string;
+  class?: string;
+}
+
+const { text, rotate, id, class: className = '' } = Astro.props;
+const words = text.trim().split(/\s+/);
+const hasRotate = Array.isArray(rotate) && rotate.length > 0;
+---
+
+<h1 id={id} class:list={['xo-title', 'xo-hl', className]} data-hl>
+  {words.map((w, i) => (
+    <span class="xo-hl-word" style={`--i:${i}`}>{w}&nbsp;</span>
+  ))}
+  {hasRotate && (
+    <span class="xo-hl-rotate" style={`--i:${words.length}`} data-hl-rotate>
+      {rotate!.map((w, i) => (
+        <span class:list={['xo-hl-rotate-word', i === 0 && 'is-active']}>{w}</span>
+      ))}
+    </span>
+  )}
+</h1>
+
+{hasRotate && (
+  <script>
+    function initHlRotate() {
+      document.querySelectorAll<HTMLElement>('[data-hl-rotate]').forEach((el) => {
+        if (el.dataset.hlInit) return;
+        el.dataset.hlInit = '1';
+        const words = el.querySelectorAll<HTMLElement>('.xo-hl-rotate-word');
+        if (words.length < 2) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        let i = 0;
+        window.setInterval(() => {
+          words[i].classList.remove('is-active');
+          i = (i + 1) % words.length;
+          words[i].classList.add('is-active');
+        }, 2400);
+      });
+    }
+    initHlRotate();
+    document.addEventListener('astro:after-swap', initHlRotate);
+  </script>
+)}

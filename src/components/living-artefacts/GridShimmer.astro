@@ -12,10 +12,18 @@ interface ShimmerLine {
 
 interface Props {
   lines?: ShimmerLine[];
+  count?: number;
   opacity?: number;
   class?: string;
   style?: string;
 }
+
+const palette: [string, string][] = [
+  ['#7547d1', '#d147d1'],
+  ['#cad147', '#6ed147'],
+  ['#478fd1', '#5b47d1'],
+  ['#d14783', '#d16847'],
+];
 
 const defaultLines: ShimmerLine[] = [
   { top: '20%', color: '#7547d1', color2: '#d147d1', duration: '2.58s', delay: '2.82s' },
@@ -25,11 +33,29 @@ const defaultLines: ShimmerLine[] = [
 ];
 
 const {
-  lines = defaultLines,
+  lines,
+  count,
   opacity = 0.4,
   class: className = '',
   style = '',
 } = Astro.props;
+
+// Bande grille "vivante" façon x.ai : N stries aux cadences/délais désynchronisés
+// (déterministe — pas de Math.random, build reproductible). Mesuré : dur 1.8–2.96s, delay 0–5.8s.
+const generatedLines: ShimmerLine[] = count
+  ? Array.from({ length: count }, (_, i) => {
+      const pair = palette[i % palette.length];
+      return {
+        top: (((i + 0.5) / count) * 100).toFixed(1) + '%',
+        color: pair[0],
+        color2: pair[1],
+        duration: (1.8 + ((i * 29) % 12) / 10).toFixed(2) + 's',
+        delay: (((i * 47) % 58) / 10).toFixed(2) + 's',
+      };
+    })
+  : [];
+
+const renderedLines = lines ?? (count ? generatedLines : defaultLines);
 ---
 
 <div
@@ -37,7 +63,7 @@ const {
   aria-hidden="true"
   style={`opacity: ${opacity};${style}`}
 >
-  {lines.map((line) => (
+  {renderedLines.map((line) => (
     <div
       class="xo-grid-shimmer-line"
       style={[

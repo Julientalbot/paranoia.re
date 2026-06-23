@@ -2,44 +2,43 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AgentTraceDemo from '../components/living-artefacts/AgentTraceDemo.astro';
 import ChatBubbleDemo from '../components/living-artefacts/ChatBubbleDemo.astro';
-import CodeArtifact from '../components/living-artefacts/CodeArtifact.astro';
+import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
 import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
-import CodeArtifactScript from '../components/CodeArtifactScript.astro';
+import GridShimmer from '../components/living-artefacts/GridShimmer.astro';
+import ArtefactCard from '../components/living-artefacts/ArtefactCard.astro';
+import LivePulse from '../components/living-artefacts/LivePulse.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 
-const before =
-  'Peux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example. Dossier fournisseur K-47B. Inclure la clause 4.2.';
-const after =
-  'Peux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email]. Dossier fournisseur [Identifiant]. Inclure la clause 4.2.';
+const heroDetectSteps = [
+  { prompt: '❯', text: 'Analyser le prompt avant envoi.', dim: true },
+  { text: 'Scanning...', dim: true },
+  { prompt: '▸', text: 'detect personne → "Maya Hoarau"', accent: true, progress: 20 },
+  { prompt: '▸', text: 'detect email → maya.hoarau@atelier-kanope.example', accent: true, progress: 40 },
+  { prompt: '▸', text: 'detect org → "Atelier Kanopé"', accent: true, progress: 60 },
+  { prompt: '▸', text: 'detect id → "K-47B"', accent: true, progress: 80 },
+  { prompt: '▸', text: 'detect rôle → "direction ops"', accent: true, progress: 100 },
+  { prompt: '✓', text: '5 champs détectés. Masquage prêt.', accent: true },
+  { text: 'rule: mask before send', dim: true },
+  { text: 'state: review required', dim: true },
+];
 
-const reviewTabs = [
-  {
-    id: 'raw',
-    label: 'Brut',
-    code: before,
-  },
-  {
-    id: 'masked',
-    label: 'Masqué',
-    code: after,
-  },
-  {
-    id: 'control',
-    label: 'Contrôle',
-    code: `review_state: required
-detected_fields: personne, email, organisation, rôle, identifiant
-rule: mask before send
-limit: not a DLP replacement`,
-  },
+const transparencyRows = [
+  { tag: '90j', label: 'Conservation 90 jours maximum.' },
+  { tag: 'off', label: 'Prompts non stockés côté Paranoia.' },
+  { tag: 'rm', label: 'Suppression sur demande.' },
 ];
 ---
 
 <BaseLayout title="Paranoia — réduire l’exposition des prompts IA">
   <main id="main" class="xo-page xo-page--product xo-home">
-    <section class="xo-shell xo-hero xo-hero--split xo-home-hero" aria-labelledby="home-title">
-      <div>
+    <section class="xo-shell xo-home-hero xo-home-hero--stack" aria-labelledby="home-title">
+      <div class="xo-hero-lead">
         <p class="xo-kicker">Confidentialité des prompts IA · pilote privé</p>
-        <h1 id="home-title" class="xo-title xo-title--wide">Réduire l’exposition avant l’envoi.</h1>
+        <HeroHeadline
+          id="home-title"
+          class="xo-title--wide"
+          text="Réduire l’exposition avant l’envoi."
+        />
         <HeroShimmer />
         <p class="xo-subtitle">
           Paranoia détecte, masque et fait relire les contenus sensibles d’un prompt avant usage d’un assistant IA.
@@ -51,35 +50,60 @@ limit: not a DLP replacement`,
         </div>
       </div>
 
-      <CodeArtifact
-        title="prompt/review"
-        tabs={reviewTabs}
-        shimmer
-        class="paranoia-review-artifact xo-hero-artifact"
-        ariaLabel="Avant après prompt"
-      >
-        <div slot="before-tabs" class="paranoia-review-body">
-          <div class="paranoia-exposure">
-            <div>
-              <span>exposition</span>
-              <strong>5 champs sensibles détectés</strong>
+      <div class="xo-hero-tray" aria-label="Quatre artefacts de la revue de prompt Paranoia">
+        <ArtefactCard label="Détection" href="/securite" cta="Voir la sécurité →" ariaLabel="Détection des champs sensibles" event="security_click">
+          <AgentTraceDemo
+            title="paranoia/prompt-review"
+            progressLabel="5 champs"
+            steps={heroDetectSteps}
+          />
+        </ArtefactCard>
+
+        <ArtefactCard label="Avant / après" href="/confidentialite-prompts-ia" cta="Voir la confidentialité →" ariaLabel="Prompt avant et après masquage" event="privacy_click">
+          <ChatBubbleDemo
+            messages={[
+              { role: 'user', text: 'Peux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example. Dossier fournisseur K-47B. Inclure la clause 4.2.' },
+              { role: 'assistant', text: 'Peux-tu résumer le contrat [Organisation] ? Contact : [Prénom] [Nom], [Rôle], [Email]. Dossier fournisseur [Identifiant]. Inclure la clause 4.2.' },
+              { role: 'user', text: 'Quelle est la politique de conservation des prompts ?' },
+              { role: 'assistant', text: 'Quelle est la politique de conservation des [documents] ?' },
+            ]}
+          />
+        </ArtefactCard>
+
+        <ArtefactCard label="Transparence" href="/rapports-incidents" cta="Lire la transparence →" ariaLabel="Transparence des données" event="transparency_click">
+          <div class="xo-tile-stream">
+            <div class="xo-tile-stream__head">
+              <span>Données</span>
+              <LivePulse label="documenté" />
             </div>
-            <div class="paranoia-exposure-bar" aria-hidden="true"><i></i></div>
+            {transparencyRows.map((row) => (
+              <div class="xo-tile-stream__row">
+                <span>{row.tag}</span>
+                <strong>{row.label}</strong>
+              </div>
+            ))}
           </div>
-          <div class="paranoia-token-grid" role="list" aria-label="Types de données détectées">
-            <span role="listitem">personne</span>
-            <span role="listitem">email</span>
-            <span role="listitem">org</span>
-            <span role="listitem">rôle</span>
-            <span role="listitem">id</span>
+        </ArtefactCard>
+
+        <ArtefactCard label="Exposition" href="/securite" cta="Voir la sécurité →" ariaLabel="Champs sensibles détectés dans un prompt" event="security_click">
+          <div class="paranoia-review-body">
+            <div class="paranoia-exposure">
+              <div>
+                <span>exposition</span>
+                <strong>5 champs sensibles détectés</strong>
+              </div>
+              <div class="paranoia-exposure-bar" aria-hidden="true"><i></i></div>
+            </div>
+            <div class="paranoia-token-grid" role="list" aria-label="Types de données détectées">
+              <span role="listitem">personne</span>
+              <span role="listitem">email</span>
+              <span role="listitem">org</span>
+              <span role="listitem">rôle</span>
+              <span role="listitem">id</span>
+            </div>
           </div>
-        </div>
-        <div slot="after-panels" class="paranoia-policy-stack" role="list" aria-label="Contrôles avant envoi">
-          <div role="listitem"><span>règle</span><strong>mask before send</strong></div>
-          <div role="listitem"><span>état</span><strong>review required</strong></div>
-          <div role="listitem"><span>limite</span><strong>not a DLP replacement</strong></div>
-        </div>
-      </CodeArtifact>
+        </ArtefactCard>
+      </div>
     </section>
 
     <section id="concrete" class="xo-shell xo-section xo-compact-section" aria-labelledby="concrete-title">
@@ -131,8 +155,9 @@ limit: not a DLP replacement`,
       </div>
     </section>
 
-    <section id="proof" class="xo-shell xo-section" aria-labelledby="proof-title">
-      <div class="xo-proof-layout">
+    <section id="proof" class="xo-shell xo-section" aria-labelledby="proof-title" style="position: relative;">
+      <GridShimmer count={14} style="position: absolute; inset: 0; pointer-events: none;" />
+      <div class="xo-proof-layout" style="position: relative;">
         <div class="xo-proof-copy">
           <p class="xo-kicker">Preuve</p>
           <h2 id="proof-title" class="xo-title xo-title--section">Transparence documentée, pas promesse.</h2>
@@ -189,7 +214,5 @@ limit: not a DLP replacement`,
         </a>
       </div>
     </section>
-
-    <CodeArtifactScript />
   </main>
 </BaseLayout>

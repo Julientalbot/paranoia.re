@@ -10,24 +10,82 @@ interface Metric {
 
 interface Props {
   metrics: Metric[];
+  countUp?: boolean;
   class?: string;
 }
 
-const { metrics, class: className = '' } = Astro.props;
+const { metrics, countUp = false, class: className = '' } = Astro.props;
 ---
 
-<div class={`xo-metric-strip ${className}`}>
+<div class={`xo-metric-strip ${className}`} data-metric-strip={countUp ? '' : undefined}>
   {metrics.map((metric) => (
     metric.href ? (
       <a class="xo-metric" href={metric.href}>
-        <strong>{metric.value}</strong>
+        <strong data-metric-value={countUp ? metric.value : undefined}>{metric.value}</strong>
         <span>{metric.label}</span>
       </a>
     ) : (
       <div class="xo-metric">
-        <strong>{metric.value}</strong>
+        <strong data-metric-value={countUp ? metric.value : undefined}>{metric.value}</strong>
         <span>{metric.label}</span>
       </div>
     )
   ))}
 </div>
+
+{countUp && (
+  <script>
+    function initMetricCountUp() {
+      const strips = document.querySelectorAll<HTMLElement>('[data-metric-strip]');
+      strips.forEach((strip) => {
+        if (strip.dataset.initialized) return;
+        strip.dataset.initialized = 'true';
+
+        const values = strip.querySelectorAll<HTMLElement>('[data-metric-value]');
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced || values.length === 0) return;
+
+        // "400M+", "200K", "<200ms", "5+", "1" → (préfixe, nombre, suffixe)
+        function parse(raw: string) {
+          const m = raw.match(/^(\D*)([\d.,]+)(.*)$/);
+          if (!m) return null;
+          return { prefix: m[1], num: parseFloat(m[2].replace(/,/g, '')), suffix: m[3], raw };
+        }
+
+        function run(el: HTMLElement) {
+          const target = el.dataset.metricValue || el.textContent || '';
+          const p = parse(target);
+          if (!p) return;
+          const isInt = Number.isInteger(p.num);
+          const dur = 1100;
+          const start = performance.now();
+          function frame(now: number) {
+            const t = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - t, 3);
+            const cur = p!.num * eased;
+            const shown = isInt ? Math.round(cur).toLocaleString('fr-FR') : cur.toFixed(1);
+            el.textContent = p!.prefix + shown + p!.suffix;
+            if (t < 1) requestAnimationFrame(frame);
+            else el.textContent = p!.raw;
+          }
+          requestAnimationFrame(frame);
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                values.forEach((v) => run(v));
+                observer.disconnect();
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+        observer.observe(strip);
+      });
+    }
+    initMetricCountUp();
+    document.addEventListener('astro:after-swap', initMetricCountUp);
+  </script>
+)}
