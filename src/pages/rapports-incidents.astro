@@ -73,22 +73,29 @@ const reportItems = [
               <a class="xo-button" href={PARANOIA_CONTACT_HREF} data-event="support_mail_click">Contacter le support →</a>
             </div>
           </div>
-          <div class="xo-tile-stream" style="border: 1px solid var(--xo-line); border-radius: var(--xo-radius-artifact, 16px);">
-            <div class="xo-tile-stream__head">
-              <span>Rapports techniques</span>
-              <LivePulse label="périmètre étroit" variant="locked" />
-            </div>
-            {reportItems.map((item) => (
-              <div class="xo-tile-stream__row">
-                <span>{item.label}</span>
-                <strong>{item.title}</strong>
+          <a
+            class="xo-artifact-panel"
+            href="#report-details"
+            aria-label="Voir le détail des rapports techniques"
+            style="text-decoration: none; color: inherit;"
+          >
+            <div class="xo-tile-stream" style="border: 1px solid var(--xo-line); border-radius: var(--xo-radius-artifact, 16px);">
+              <div class="xo-tile-stream__head">
+                <span>Rapports techniques</span>
+                <LivePulse label="périmètre étroit" variant="locked" />
               </div>
-            ))}
-          </div>
+              {reportItems.map((item) => (
+                <div class="xo-tile-stream__row">
+                  <span>{item.label}</span>
+                  <strong>{item.title}</strong>
+                </div>
+              ))}
+            </div>
+          </a>
         </div>
-      <div class="xo-signal-list">
+      <div id="report-details" class="xo-signal-list">
         {reportItems.map((item) => (
-          <article class="xo-card-shimmer">
+          <article>
             <span>{item.label}</span>
             <strong>{item.title}</strong>
             <p>{item.body}</p>

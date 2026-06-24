@@ -75,13 +75,13 @@ const controls = [
             { prompt: '◆', text: 'Contenu des prompts: ni télémétrie ni log distant', accent: true, progress: 70 },
             { prompt: '▸', text: 'Suppression: immédiate après masquage', dim: true },
             { text: 'Audit: relecture avant envoi, prompts non stockés', accent: true, progress: 100 },
-            { prompt: '✓', text: 'Conforme: contenu des prompts privacy-bound.', accent: true },
+            { prompt: '✓', text: 'Périmètre documenté : contenu des prompts non journalisé côté Paranoia.', accent: true },
           ]}
         />
       </div>
       <div class="xo-signal-list">
         {controls.map((item) => (
-          <article class="xo-card-shimmer">
+          <article>
             <span>{item.label}</span>
             <strong>{item.title}</strong>
             <p>{item.body}</p>

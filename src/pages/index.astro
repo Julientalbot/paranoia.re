@@ -142,7 +142,13 @@ const transparencyRows = [
             À gauche, le prompt brut. À droite, la version relue. L’intention de travail reste intacte.
           </p>
         </div>
-        <div class="xo-artifact-panel xo-card-shimmer" style="padding: 0; overflow: hidden;">
+        <a
+          class="xo-artifact-panel xo-card-shimmer"
+          href="/confidentialite-prompts-ia"
+          data-event="privacy_click"
+          aria-label="Voir la confidentialité des prompts — avant et après masquage"
+          style="padding: 0; overflow: hidden; text-decoration: none; color: inherit;"
+        >
           <ChatBubbleDemo
             messages={[
               { role: 'user', text: 'Peux-tu résumer le contrat Atelier Kanopé ? Contact : Maya Hoarau, direction ops, maya.hoarau@atelier-kanope.example. Dossier fournisseur K-47B. Inclure la clause 4.2.' },
@@ -151,7 +157,7 @@ const transparencyRows = [
               { role: 'assistant', text: 'Quelle est la politique de conservation des [documents] ?' },
             ]}
           />
-        </div>
+        </a>
       </div>
     </section>
 
