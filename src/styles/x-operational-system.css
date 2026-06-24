@@ -302,9 +302,9 @@
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    background var(--xo-motion-fast),
+    transform var(--xo-motion-fast),
+    border-color var(--xo-motion-fast);
 }
 
 @media (min-width: 981px) {
@@ -434,9 +434,9 @@
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    background var(--xo-motion-fast),
+    transform var(--xo-motion-fast),
+    border-color var(--xo-motion-fast);
 }
 
 .xo-start-track {
@@ -1246,9 +1246,9 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .xo-mode-surface,
 .xo-page .xo-start-track,
 .xo-page .xo-card {
-  transition: background 500ms cubic-bezier(0.4, 0, 0.2, 1),
-              transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background var(--xo-motion-fast),
+              transform var(--xo-motion-fast),
+              border-color var(--xo-motion-fast);
 }
 
 .xo-hero {
@@ -1372,7 +1372,7 @@ a.xo-mode-surface:focus-visible::before,
 
 .xo-page .xo-title--section {
   max-width: 16ch;
-  font-size: clamp(2.75rem, 3.35vw, 3.25rem);
+  /* font-size hérité de --xo-h2 (clamp 30→48px) = x.ai mesuré 48px ; le clamp 3.35vw donnait 50.65px (overshoot). */
 }
 
 .xo-subtitle,
@@ -1396,7 +1396,7 @@ a.xo-mode-surface:focus-visible::before,
   color: var(--xo-text);
   font-family: var(--eco-font-body);
   font-size: var(--xo-nav-link-size);
-  font-weight: 550;
+  font-weight: 500;
   line-height: var(--xo-nav-link-line);
   text-decoration: none;
   transition:
@@ -1502,9 +1502,9 @@ a.xo-mode-surface:focus-visible::before,
   color: var(--xo-text);
   text-decoration: none;
   transition:
-    background 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    background var(--xo-motion-fast),
+    transform var(--xo-motion-fast),
+    border-color var(--xo-motion-fast);
 }
 
 .xo-card::before {
@@ -2005,14 +2005,9 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-signal-list > a {
-  cursor: pointer;
   transition:
     border-color var(--xo-motion-fast),
     background var(--xo-motion-fast);
-}
-
-.xo-signal-list > article {
-  cursor: default;
 }
 
 .xo-signal-list > a:hover,
@@ -2335,7 +2330,7 @@ a.xo-mode-surface:focus-visible::before,
   position: sticky;
   top: 0;
   z-index: var(--eco-z-header);
-  border-bottom: 1px solid var(--xo-line);
+  border-bottom: 0; /* x.ai mesuré : pas de filet sous le header (fond opaque suffit à la séparation au scroll) */
   background: var(--xo-bg);
 }
 
@@ -2363,7 +2358,7 @@ a.xo-mode-surface:focus-visible::before,
   padding: 0.5rem 0.75rem;
   color: var(--xo-text-soft);
   font-size: var(--xo-nav-link-size);
-  font-weight: 550;
+  font-weight: 500;
   line-height: var(--xo-nav-link-line);
   text-decoration: none;
   transition: color var(--xo-motion-fast);
@@ -2380,17 +2375,13 @@ a.xo-mode-surface:focus-visible::before,
 /* Liens de nav x.ai : sans-serif, 550, soft .5 — surclasse .xo-nav-links a (mono/400/muted) sans toucher .xo-link interne. */
 .site-nav-links .site-nav-link {
   font-family: var(--eco-font-body);
-  font-weight: 550;
+  font-weight: 500;
   color: var(--xo-text-soft);
 }
 
 .site-nav-links .site-nav-link:hover,
 .site-nav-links .site-nav-link[data-active="true"] {
   color: var(--xo-text);
-}
-
-.site-nav-cta-short {
-  display: none;
 }
 
 .lang-switch {
@@ -3726,7 +3717,7 @@ a.xo-mode-surface:focus-visible::before,
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       "brand theme"
-      "links cta";
+      "links links";
     align-items: center;
     column-gap: 0.75rem;
     row-gap: 0.45rem;
@@ -3748,21 +3739,7 @@ a.xo-mode-surface:focus-visible::before,
   }
 
   .site-header .site-nav-cta {
-    display: inline-flex;
-    grid-area: cta;
-    min-height: 2rem;
-    align-self: center;
-    padding: 0.35rem 0.65rem;
-    font-size: 0.78rem;
-    white-space: nowrap;
-  }
-
-  .site-nav-cta-full {
     display: none;
-  }
-
-  .site-nav-cta-short {
-    display: inline;
   }
 
   .site-header .xo-nav > .xo-nav-links {
@@ -4358,7 +4335,7 @@ a.xo-mode-surface:focus-visible::before,
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 0.7rem;
 }
 
@@ -4369,7 +4346,7 @@ a.xo-mode-surface:focus-visible::before,
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .xo-trace-demo-bar {
@@ -4805,7 +4782,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 @media (prefers-reduced-motion: no-preference) {
   .xo-hl[data-hl] .xo-hl-word,
   .xo-hl[data-hl] .xo-hl-rotate {
-    animation: xo-hl-reveal 0.6s var(--eco-ease-out) both;
+    animation: xo-hl-reveal 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
     animation-delay: calc(var(--i, 0) * 55ms);
   }
 }
@@ -4841,7 +4818,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */
 /* Edit this file in _design-system/extras/, not in the site repo. */
 
-@keyframes paranoiaExposurePulseDisabled {
+@keyframes paranoiaExposurePulse {
   0%, 100% { transform: scaleX(1);    opacity: 0.82; }
   50%      { transform: scaleX(1.03); opacity: 1; }
 }
@@ -4906,7 +4883,8 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   height: 100%;
   border-radius: inherit;
   background: var(--xo-accent);
-  animation: none;
+  transform-origin: left;
+  animation: paranoiaExposurePulse 4.8s var(--eco-ease-snap) forwards;
 }
 
 .paranoia-token-grid {
