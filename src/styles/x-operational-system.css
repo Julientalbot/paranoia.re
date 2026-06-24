@@ -4546,6 +4546,83 @@ a.xo-metric:focus-visible strong {
   border-radius: 16px 16px 16px 6px;
 }
 
+/* ── Grille « Latest news » à vignettes (clone x.ai home, mesuré 2026-06-25) ── */
+.xo-section-heading--news {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+.xo-news-all {
+  justify-self: end;
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 200ms var(--eco-ease-out);
+}
+.xo-news-all:hover,
+.xo-news-all:focus-visible { color: var(--xo-text); }
+.xo-news-all span { transition: transform 200ms var(--eco-ease-out); }
+.xo-news-all:hover span,
+.xo-news-all:focus-visible span { transform: translateX(3px); }
+
+.xo-news-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+}
+.xo-news-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--xo-text);
+  text-decoration: none;
+}
+.xo-news-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: 8px;
+  background: var(--xo-surface);
+  transition: border-color 220ms var(--eco-ease-out);
+}
+.xo-news-card:hover .xo-news-card__media,
+.xo-news-card:focus-visible .xo-news-card__media { border-color: var(--xo-line-strong); }
+.xo-news-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 320ms var(--eco-ease-out);
+}
+.xo-news-card:hover .xo-news-card__media img { transform: scale(1.02); }
+.xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; }
+.xo-news-card__date {
+  margin: 0.85rem 0 0;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.01em;
+}
+.xo-news-card__title {
+  margin: 0.3rem 0 0;
+  color: var(--xo-text);
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+@media (max-width: 960px) {
+  .xo-news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .xo-news-grid { grid-template-columns: 1fr; }
+}
+
 a.xo-artefact-card:hover,
 a.xo-artefact-card:focus-visible {
   border-color: var(--xo-line-strong);
