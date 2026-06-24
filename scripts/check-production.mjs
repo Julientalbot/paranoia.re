@@ -38,6 +38,11 @@ const request = async (path, init = {}) => {
   }
 };
 
+const includesSnippet = (body, snippet) => {
+  if (body.includes(snippet)) return true;
+  return body.toLocaleLowerCase('fr-FR').includes(snippet.toLocaleLowerCase('fr-FR'));
+};
+
 const runCheck = async (name, fn) => {
   const startedAt = Date.now();
   await fn();
@@ -50,8 +55,13 @@ const pageChecks = [
     mustInclude: ['mailto:contact@paranoia.re', 'Réduire l', 'id="concrete"'],
   },
   {
+    path: '/en',
+    mustInclude: ['psychiatric term', 'Request pilot access', 'mailto:contact@paranoia.re'],
+  },
+  {
     path: '/cas-usages',
-    mustInclude: ['Contrats', 'mailto:contact@paranoia.re'],
+    mustInclude: ['mailto:contact@paranoia.re'],
+    mustIncludeInsensitive: ['contrats'],
   },
   {
     path: '/confidentialite-prompts-ia',
@@ -83,9 +93,17 @@ for (const page of pageChecks) {
       fail(`GET ${page.path}`, 'expected HTML body', { body: response.body });
     }
 
-    for (const snippet of page.mustInclude) {
-      if (!response.body.includes(snippet)) {
+    for (const snippet of page.mustInclude || []) {
+      if (!includesSnippet(response.body, snippet)) {
         fail(`GET ${page.path}`, `missing expected snippet: ${snippet}`, {
+          body: response.body.slice(0, 500),
+        });
+      }
+    }
+
+    for (const snippet of page.mustIncludeInsensitive || []) {
+      if (!includesSnippet(response.body, snippet)) {
+        fail(`GET ${page.path}`, `missing expected snippet (case-insensitive): ${snippet}`, {
           body: response.body.slice(0, 500),
         });
       }
