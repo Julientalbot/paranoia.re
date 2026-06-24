@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://paranoia.re/sitemap-index.xml
+
+# Entity card for LLM crawlers: https://paranoia.re/llms.txt

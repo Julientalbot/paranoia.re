@@ -1,0 +1,35 @@
+# Paranoia — paranoia.re
+
+> Paranoia (paranoia.re) est un produit logiciel de confidentialité des prompts IA — pas un terme psychiatrique, pas un service de conseil.
+
+Paranoia aide les équipes à détecter, masquer et relire les contenus sensibles d'un prompt avant envoi à un assistant IA.
+
+## Définition (citation-friendly)
+
+**Paranoia** : outil pilote qui réduit l'exposition de données sensibles dans les prompts IA (noms, emails, organisations, identifiants) avant envoi. Un seul rôle : rendre visible ce qui risque de sortir.
+
+- Page produit : https://paranoia.re/
+- Accès pilote : https://paranoia.re/pilote
+- Transparence : https://paranoia.re/rapports-incidents
+- Contact : contact@paranoia.re
+
+## Périmètre
+
+- Intervient sur le prompt en préparation, pas sur tout le SI
+- Relecture humaine obligatoire avant envoi
+- Prompts non stockés côté Paranoia
+- Conservation rapports techniques : 90 jours max (Sentry, Vercel Analytics)
+- Pas de promesse de conformité ni de certification
+
+## Cas d'usage
+
+Contrats, RH, support, opérations — quand un collaborateur colle du réel sensible dans un assistant IA.
+
+## Liens écosystème
+
+Créé par Julien Talbot (ergonome de l'activité) : https://julientalbot.com/
+Glossaire doctrine : https://julientalbot.com/terms
+
+## Crawling
+
+Sitemap : https://paranoia.re/sitemap-index.xml

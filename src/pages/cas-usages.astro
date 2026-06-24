@@ -7,6 +7,37 @@ import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
 
 import GridShimmer from '../components/living-artefacts/GridShimmer.astro';
 
+const casesFaq = {
+  '@type': 'FAQPage',
+  '@id': 'https://paranoia.re/cas-usages#faq',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Quand utiliser Paranoia ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Quand un collaborateur copie des données sensibles (noms, emails, identifiants, dossiers) dans un prompt destiné à un assistant IA — contrats, RH, support, opérations.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Paranoia remplace-t-il une DLP ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. Paranoia intervient sur le prompt en préparation, avec relecture humaine. Ce n’est pas une DLP entreprise ni une certification de conformité.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Que se passe-t-il après le masquage ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'L’utilisateur relit la version masquée et décide avant envoi. L’intention de travail reste, les données directes sont remplacées par des libellés contrôlables.',
+      },
+    },
+  ],
+};
+
 const detectionSteps = [
   { prompt: '❯', text: 'Analyser prompt avant envoi.', dim: true },
   { text: 'Scanning...', dim: true },
@@ -24,6 +55,7 @@ const detectionSteps = [
   title="Cas d’usage prompts IA — Paranoia"
   description="Cas d’usage de Paranoia pour contrats, RH, support et opérations quand des données sensibles risquent d’être copiées dans un prompt."
   canonicalPath="/cas-usages"
+  structuredData={casesFaq}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-home-hero xo-home-hero--stack" aria-labelledby="cases-title">
