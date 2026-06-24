@@ -794,6 +794,76 @@ a.xo-mode-surface:focus-visible::before,
   line-height: 1.7;
 }
 
+/* ── Template page produit (clone x.ai/grok|cli) : feature-rows alternées + bande CTA ── */
+.xo-proof-layout--reverse {
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+}
+.xo-proof-layout--reverse .xo-proof-copy {
+  order: 2;
+}
+/* Checklist ✓ des feature-rows (façon x.ai « Skills / Plan / Chat ») */
+.xo-feature-checks {
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+.xo-feature-checks li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--xo-text-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.xo-feature-checks li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--xo-accent-ink);
+  font-weight: 600;
+}
+/* Bande CTA de clôture (clone « Building on Grok? » / « Bring Grok into your terminal ») */
+.xo-cta-band {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid var(--xo-line);
+  border-radius: var(--eco-radius-panel);
+  background: var(--xo-bg);
+  padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 4vw, 3rem);
+}
+.xo-cta-band__glow {
+  position: absolute;
+  left: 50%;
+  bottom: -14rem;
+  transform: translateX(-50%);
+  width: 36rem;
+  height: 36rem;
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--xo-accent) 12%, transparent) 0%, transparent 65%);
+}
+.xo-cta-band__inner {
+  position: relative;
+  max-width: 42rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.4rem;
+  justify-items: center;
+}
+.xo-cta-band .xo-actions {
+  justify-content: center;
+}
+@media (max-width: 980px) {
+  .xo-proof-layout--reverse {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  }
+  .xo-proof-layout--reverse .xo-proof-copy {
+    order: 0;
+  }
+}
+
 .xo-photo-artifact {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
