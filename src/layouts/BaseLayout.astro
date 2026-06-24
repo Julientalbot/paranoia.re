@@ -1,6 +1,7 @@
 ---
-import '@fontsource-variable/geist';
-import '@fontsource-variable/geist-mono';
+import '../styles/fonts.css';
+import geistLatin from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2';
+import geistMonoLatin from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
@@ -111,8 +112,8 @@ const jsonLd = {
       })();
     </script>
 
-    <!-- General Sans — self-hosted (woff2 variable, @font-face dans le kernel). -->
-
+    <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={geistMonoLatin} as="font" type="font/woff2" crossorigin />
 
     <title>{title}</title>
     <meta name="description" content={description} />
