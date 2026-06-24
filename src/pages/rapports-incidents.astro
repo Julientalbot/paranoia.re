@@ -32,12 +32,43 @@ const reportItems = [
     body: "Les rapports techniques sont conservés 90 jours maximum, puis supprimés. Suppression anticipée sur simple demande.",
   },
 ];
+
+const transparencyFaq = {
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Quels rapports techniques Paranoia peut-il envoyer ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Paranoia peut envoyer des rapports techniques liés aux erreurs, à la version, au navigateur, au système et à la stabilité du pilote.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Les rapports techniques contiennent-ils les prompts ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Les rapports automatiques concernent le fonctionnement technique, pas le contenu des prompts.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Combien de temps les rapports sont-ils conservés ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Les rapports techniques sont conservés 90 jours maximum, avec suppression anticipée possible sur demande.',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="Transparence prompts IA — Paranoia"
   description="Ce que Paranoia envoie, ce qu'il n'envoie pas, combien de temps les rapports techniques sont conservés et comment contacter le support."
   canonicalPath="/rapports-incidents"
+  structuredData={transparencyFaq}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-home-hero--stack" aria-labelledby="incidents-title">

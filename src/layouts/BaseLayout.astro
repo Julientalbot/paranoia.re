@@ -30,7 +30,7 @@ const DEFAULT_TWITTER_IMAGE = '/social/x-card.png';
 
 const {
   title,
-  description = "Paranoia (paranoia.re) est un produit de confidentialité des prompts IA — pas un terme psychiatrique. Réduit l'exposition de données sensibles avant envoi à un assistant.",
+  description = "Paranoia (paranoia.re) réduit l'exposition de données sensibles dans les prompts IA avant envoi à un assistant — pas un terme psychiatrique.",
   lang = 'fr',
   canonicalPath = Astro.url.pathname,
   image,
@@ -39,11 +39,13 @@ const {
   ogImageWidth = 1200,
   ogImageHeight,
   headerCtaHref = PARANOIA_CONTACT_HREF,
-  headerCtaLabel = 'Demander un accès pilote',
+  headerCtaLabel,
   noIndex = false,
   structuredData = [],
 } = Astro.props;
 
+const isEnglish = lang === 'en';
+const resolvedHeaderCtaLabel = headerCtaLabel ?? (isEnglish ? 'Request pilot access' : 'Demander un accès pilote');
 const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
 const resolvedOgImage = ogImage ?? image ?? DEFAULT_OG_IMAGE;
 const resolvedTwitterImage = twitterImage ?? image ?? DEFAULT_TWITTER_IMAGE;
@@ -51,6 +53,41 @@ const resolvedOgImageHeight = ogImageHeight ?? (resolvedOgImage === DEFAULT_OG_I
 const ogImageUrl = new URL(resolvedOgImage, 'https://paranoia.re').toString();
 const twitterImageUrl = new URL(resolvedTwitterImage, 'https://paranoia.re').toString();
 const structuredDataItems = Array.isArray(structuredData) ? structuredData : [structuredData];
+const normalizedPath = canonicalPath.replace(/\/$/, '') || '/';
+const languageAlternates = normalizedPath === '/' || normalizedPath === '/en'
+  ? [
+      { lang: 'fr', href: 'https://paranoia.re/' },
+      { lang: 'en', href: 'https://paranoia.re/en' },
+      { lang: 'x-default', href: 'https://paranoia.re/' },
+    ]
+  : [];
+
+const breadcrumbLabels: Record<string, string> = {
+  '/': 'Paranoia',
+  '/en': 'Paranoia English overview',
+  '/pilote': 'Accès pilote',
+  '/cas-usages': 'Cas d’usage',
+  '/confidentialite-prompts-ia': 'Confidentialité prompts IA',
+  '/securite': 'Sécurité',
+  '/rapports-incidents': 'Transparence',
+};
+
+const breadcrumbItems = normalizedPath === '/'
+  ? []
+  : [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Paranoia',
+        item: 'https://paranoia.re/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: breadcrumbLabels[normalizedPath] ?? title,
+        item: canonicalUrl,
+      },
+    ];
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -60,7 +97,7 @@ const jsonLd = {
       '@id': 'https://paranoia.re/#website',
       name: 'Paranoia',
       url: 'https://paranoia.re',
-      inLanguage: 'fr-FR',
+      inLanguage: ['fr-FR', 'en-US'],
       publisher: { '@id': 'https://paranoia.re/#org' },
     },
     {
@@ -72,7 +109,25 @@ const jsonLd = {
       url: 'https://paranoia.re',
       description:
         "Paranoia (paranoia.re) est un produit de confidentialité des prompts IA. Réduit l'exposition de données sensibles avant envoi — pas un terme psychiatrique.",
-      inLanguage: 'fr',
+      inLanguage: ['fr-FR', 'en-US'],
+      isAccessibleForFree: false,
+      featureList: [
+        'Détection de champs sensibles dans un prompt avant envoi',
+        'Masquage contrôlable de noms, emails, organisations et identifiants',
+        'Relecture humaine obligatoire avant usage dans un assistant IA',
+        'Documentation publique du périmètre et des rapports techniques',
+      ],
+      audience: {
+        '@type': 'BusinessAudience',
+        audienceType: 'Équipes manipulant des prompts IA en contexte sensible',
+      },
+      offers: {
+        '@type': 'Offer',
+        name: 'Accès pilote privé',
+        url: 'https://paranoia.re/pilote',
+        availability: 'https://schema.org/LimitedAvailability',
+      },
+      creator: { '@id': 'https://julientalbot.com/#julien-talbot' },
       publisher: { '@id': 'https://paranoia.re/#org' },
     },
     {
@@ -90,8 +145,21 @@ const jsonLd = {
       '@id': 'https://paranoia.re/#org',
       name: 'Paranoia',
       url: 'https://paranoia.re',
-      sameAs: ['https://julientalbot.com'],
+      founder: { '@id': 'https://julientalbot.com/#julien-talbot' },
+      sameAs: ['https://julientalbot.com/', 'https://julientalbot.com/terms'],
     },
+    {
+      '@type': 'Person',
+      '@id': 'https://julientalbot.com/#julien-talbot',
+      name: 'Julien Talbot',
+      url: 'https://julientalbot.com/',
+      jobTitle: "Ergonome de l'activité",
+    },
+    ...(breadcrumbItems.length ? [{
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: breadcrumbItems,
+    }] : []),
     ...structuredDataItems,
   ],
 };
@@ -117,6 +185,9 @@ const jsonLd = {
     ) : (
       <link rel="canonical" href={canonicalUrl} />
     )}
+    {languageAlternates.map((link) => (
+      <link rel="alternate" hreflang={link.lang} href={link.href} />
+    ))}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href="/favicon.png" />
@@ -140,29 +211,29 @@ const jsonLd = {
   <body class="xds-theme xo-page xo-page--product">
     <a class="xo-skip-link" href="#main">{lang === 'en' ? 'Skip to content' : 'Aller au contenu'}</a>
     <div class="app-shell">
-      <Header ctaHref={headerCtaHref} ctaLabel={headerCtaLabel} />
+      <Header ctaHref={headerCtaHref} ctaLabel={resolvedHeaderCtaLabel} lang={lang} />
       <slot />
       <footer class="xo-trust-footer product-footer">
         <div class="xo-shell xo-trust-grid">
           <div>
             <p class="xo-footer-brand">Paranoia</p>
-            <p>Produit pilote pour inspecter, masquer et relire les prompts IA sensibles avant envoi.</p>
+            <p>{isEnglish ? 'Pilot product to inspect, mask, and review sensitive AI prompts before sending.' : 'Produit pilote pour inspecter, masquer et relire les prompts IA sensibles avant envoi.'}</p>
           </div>
-          <nav aria-label="Produit">
-            <h3>Produit</h3>
-            <a href="/#concrete">Fonctionnement</a>
-            <a href="/pilote">Accès pilote</a>
-            <a href="/cas-usages">Cas d’usage</a>
-            <a href="/confidentialite-prompts-ia">Confidentialité prompts</a>
-            <a href="/securite">Sécurité</a>
+          <nav aria-label={isEnglish ? 'Product' : 'Produit'}>
+            <h3>{isEnglish ? 'Product' : 'Produit'}</h3>
+            <a href={isEnglish ? '/en#concrete' : '/#concrete'}>{isEnglish ? 'How it works' : 'Fonctionnement'}</a>
+            <a href="/pilote">{isEnglish ? 'Pilot access' : 'Accès pilote'}</a>
+            <a href="/cas-usages">{isEnglish ? 'Use cases' : 'Cas d’usage'}</a>
+            <a href="/confidentialite-prompts-ia">{isEnglish ? 'Prompt privacy' : 'Confidentialité prompts'}</a>
+            <a href="/securite">{isEnglish ? 'Security' : 'Sécurité'}</a>
           </nav>
-          <nav aria-label="Transparence">
-            <h3>Transparence</h3>
-            <a href="/rapports-incidents">Ce qui est envoyé</a>
-            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Support pilote</a>
+          <nav aria-label={isEnglish ? 'Transparency' : 'Transparence'}>
+            <h3>{isEnglish ? 'Transparency' : 'Transparence'}</h3>
+            <a href="/rapports-incidents">{isEnglish ? 'What is sent' : 'Ce qui est envoyé'}</a>
+            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">{isEnglish ? 'Pilot support' : 'Support pilote'}</a>
           </nav>
-          <nav aria-label="Liens">
-            <h3>Liens</h3>
+          <nav aria-label={isEnglish ? 'Links' : 'Liens'}>
+            <h3>{isEnglish ? 'Links' : 'Liens'}</h3>
             <a href="https://julientalbot.com/">Julien Talbot</a>
           </nav>
         </div>

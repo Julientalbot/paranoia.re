@@ -27,9 +27,39 @@ const transparencyRows = [
   { tag: 'off', label: 'Prompts non stockés côté Paranoia.' },
   { tag: 'rm', label: 'Suppression sur demande.' },
 ];
+
+const productFaq = {
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'À quoi sert Paranoia ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Paranoia aide à détecter, masquer et relire les contenus sensibles d’un prompt avant envoi à un assistant IA.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Paranoia remplace-t-il une validation humaine ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. La relecture humaine reste obligatoire avant l’envoi, surtout dans les contextes sensibles.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Paranoia stocke-t-il les prompts originaux ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Les prompts originaux ne sont pas stockés côté Paranoia. Les rapports techniques sont documentés séparément sur la page transparence.',
+      },
+    },
+  ],
+};
 ---
 
-<BaseLayout title="Paranoia — réduire l’exposition des prompts IA">
+<BaseLayout title="Paranoia — réduire l’exposition des prompts IA" structuredData={productFaq}>
   <main id="main" class="xo-page xo-page--product xo-home">
     <section class="xo-shell xo-home-hero xo-home-hero--stack" aria-labelledby="home-title">
       <div class="xo-hero-lead">
@@ -43,6 +73,11 @@ const transparencyRows = [
           Paranoia détecte, masque et fait relire les contenus sensibles d’un prompt avant usage d’un assistant IA.
           Un seul rôle : rendre visible ce qui risque de sortir.
         </p>
+        <ul class="paranoia-hero-limits" aria-label="Limites du pilote Paranoia">
+          <li>Avant l’envoi.</li>
+          <li>Validation humaine.</li>
+          <li>Prompts non stockés côté Paranoia.</li>
+        </ul>
         <div class="xo-actions">
           <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
           <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
@@ -108,7 +143,7 @@ const transparencyRows = [
     <section id="concrete" class="xo-shell xo-section xo-compact-section" aria-labelledby="concrete-title">
       <div class="xo-proof-layout">
         <div class="xo-proof-copy">
-          <p class="xo-kicker">Exemple réel</p>
+          <p class="xo-kicker">Cas-type réaliste</p>
           <h2 id="concrete-title" class="xo-title xo-title--section">Un contrat, cinq champs, une version relue.</h2>
           <p>
             Un prompt de synthèse de contrat contient un nom, un email, une organisation, un rôle et un identifiant.

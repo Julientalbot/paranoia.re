@@ -93,6 +93,38 @@ body.xds-theme.xo-page--product .paranoia-trust-artifact p {
   color: color-mix(in srgb, var(--xo-terminal-ink) 66%, transparent);
 }
 
+.paranoia-hero-limits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: var(--eco-space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paranoia-hero-limits li {
+  border: 1px solid var(--xo-line);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.paranoia-hero-limits li::before {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.45rem;
+  border-radius: 999px;
+  background: var(--xo-accent);
+  vertical-align: 0.05em;
+}
+
 /* ==========================================================================
    LIGHT MODE OVERRIDES
    The kernel defines light tokens but some components (consoles, path-artifacts)

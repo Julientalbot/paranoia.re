@@ -12,12 +12,43 @@ const exposureFlow = [
   ['04', 'Relecture', 'corriger ou retirer'],
   ['05', 'Envoi', 'décision humaine'],
 ];
+
+const privacyFaq = {
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Que fait Paranoia avant l’envoi d’un prompt ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Paranoia repère des champs sensibles, propose une version masquée et laisse la personne relire avant l’envoi.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Le masquage autorise-t-il toujours l’envoi ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. Ce qui ne doit pas sortir ne doit pas être envoyé, même masqué. La relecture décide.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Quels contenus doivent rester hors assistant IA ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Les secrets, contrats sensibles, données client critiques, tokens, clés et contenus non autorisés doivent rester hors assistant.',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="Confidentialité prompts IA — Paranoia"
   description="Comprendre comment Paranoia réduit l’exposition des prompts IA : détection, masquage, relecture humaine, limites et données à garder hors assistant."
   canonicalPath="/confidentialite-prompts-ia"
+  structuredData={privacyFaq}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-hero xo-hero--split" aria-labelledby="privacy-title">
@@ -44,10 +75,10 @@ const exposureFlow = [
             { prompt: '▸', text: 'Données personnelles: masquées avant envoi', dim: true },
             { prompt: '▸', text: 'Secrets: non transmis (blocage)', dim: true },
             { text: 'Frontières respectées', accent: true, progress: 50 },
-            { prompt: '◆', text: 'Aucune donnée client stockée', accent: true, progress: 75 },
+            { prompt: '◆', text: 'Prompts non stockés côté Paranoia', accent: true, progress: 75 },
             { prompt: '▸', text: 'Suppression: immédiate post-masquage', dim: true },
             { text: 'Confidentialité: local, éphémère, borné', accent: true, progress: 100 },
-            { prompt: '✓', text: 'Contrôles actifs. Pas de fuite.', accent: true },
+            { prompt: '✓', text: 'Contrôles appliqués. Relecture requise avant envoi.', accent: true },
           ]}
         />
       </a>
@@ -56,7 +87,7 @@ const exposureFlow = [
     <section class="xo-shell xo-section" aria-labelledby="concrete-title">
       <div class="xo-proof-layout">
         <div class="xo-proof-copy">
-          <p class="xo-kicker">Exemple réel</p>
+          <p class="xo-kicker">Cas-type réaliste</p>
           <h2 id="concrete-title" class="xo-title xo-title--section">Un prompt traverse cinq états.</h2>
           <p>
             Du texte brut à la décision humaine, chaque étape est nommée et inspectable.

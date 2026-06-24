@@ -4,31 +4,49 @@ import { PARANOIA_CONTACT_HREF } from '../lib/contact';
 interface Props {
   ctaHref?: string;
   ctaLabel?: string;
+  lang?: 'fr' | 'en';
 }
 
-const { ctaHref = '/pilote', ctaLabel = 'Demander un accès pilote' } = Astro.props;
+const { ctaHref = '/pilote', ctaLabel = 'Demander un accès pilote', lang = 'fr' } = Astro.props;
+const isEnglish = lang === 'en';
+
+const navLinks = isEnglish
+  ? [
+      { href: '/en#concrete', label: 'Product' },
+      { href: '/cas-usages', label: 'Use cases' },
+      { href: '/securite', label: 'Security' },
+      { href: '/rapports-incidents', label: 'Transparency' },
+    ]
+  : [
+      { href: '/#concrete', label: 'Produit' },
+      { href: '/cas-usages', label: 'Cas d’usage' },
+      { href: '/securite', label: 'Sécurité' },
+      { href: '/rapports-incidents', label: 'Transparence' },
+    ];
+
+const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
 ---
 
 <header class="site-header">
-  <nav class="xo-shell xo-nav" aria-label="Navigation principale">
-    <a class="xo-brand" href="/" aria-label="Paranoia accueil">
+  <nav class="xo-shell xo-nav" aria-label={isEnglish ? 'Main navigation' : 'Navigation principale'}>
+    <a class="xo-brand" href={isEnglish ? '/en' : '/'} aria-label={isEnglish ? 'Paranoia home' : 'Paranoia accueil'}>
       <span class="xo-brand-mark" aria-hidden="true">
         <img src="/logo-mark.svg" alt="" width="38" height="38" loading="eager" decoding="async" />
       </span>
       <span>Paranoia</span>
     </a>
     <div class="xo-nav-links">
-      <a href="/#concrete">Produit</a>
-      <a href="/cas-usages">Cas d’usage</a>
-      <a href="/securite">Sécurité</a>
-      <a href="/rapports-incidents">Transparence</a>
-      <button
-        class="xo-theme-toggle"
-        type="button"
-        data-theme-toggle
-        aria-label="Changer de thème"
-      ></button>
-      <a class="xo-button xo-button--primary site-nav-cta" href={ctaHref} data-event="nav_primary_cta_click">{ctaLabel}</a>
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     </div>
+    <button
+      class="xo-theme-toggle"
+      type="button"
+      data-theme-toggle
+      aria-label={isEnglish ? 'Change theme' : 'Changer de thème'}
+    ></button>
+    <a class="xo-button xo-button--primary site-nav-cta" href={ctaHref} aria-label={ctaLabel} data-event="nav_primary_cta_click">
+      <span class="site-nav-cta-full">{ctaLabel}</span>
+      <span class="site-nav-cta-short" aria-hidden="true">{shortCtaLabel}</span>
+    </a>
   </nav>
 </header>

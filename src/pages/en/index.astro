@@ -16,16 +16,6 @@ const scopeRows = [
   description="Paranoia (paranoia.re) is AI prompt privacy software — not a psychiatric term. Detect, mask, and review sensitive content before sending to an assistant."
   lang="en"
   canonicalPath="/en"
-  structuredData={{
-    '@type': 'WebPage',
-    '@id': 'https://paranoia.re/en#webpage',
-    name: 'Paranoia — English overview',
-    description:
-      'English overview of Paranoia: AI prompt privacy product that reduces sensitive data exposure before send.',
-    inLanguage: 'en',
-    isPartOf: { '@id': 'https://paranoia.re/#website' },
-    about: { '@id': 'https://paranoia.re/#software' },
-  }}
 >
   <main id="main" class="xo-page xo-page--product xo-home">
     <section class="xo-shell xo-home-hero xo-home-hero--stack" aria-labelledby="en-title">
@@ -43,7 +33,6 @@ const scopeRows = [
         <div class="xo-actions">
           <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Request pilot access</a>
           <a class="xo-button" href="/pilote" data-event="pilot_click">Pilot scope (FR)</a>
-          <a class="xo-button" href="/" data-event="fr_home_click">Site en français</a>
         </div>
       </div>
     </section>
@@ -68,6 +57,7 @@ const scopeRows = [
         <a href="/securite">security</a>,
         <a href="/rapports-incidents">transparency</a>.
         Created by <a href="https://julientalbot.com/en/">Julien Talbot</a>.
+        Main French page: <a href="/" hreflang="fr" data-event="fr_home_click">paranoia.re</a>.
       </p>
     </section>
   </main>

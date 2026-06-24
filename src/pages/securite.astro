@@ -29,12 +29,43 @@ const controls = [
     body: 'Une équipe pilote doit pouvoir demander une suppression anticipée d’un rapport technique ou signaler un problème.',
   },
 ];
+
+const securityFaq = {
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Paranoia est-il une solution DLP complète ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. Paranoia intervient sur le prompt en préparation avant l’envoi. Il ne prétend pas contrôler tout le système d’information.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Quel est le contrôle principal ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Le contrôle principal est la visibilité avant envoi : champs sensibles détectés, masquage contrôlable et validation humaine.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Le contenu des prompts est-il journalisé à distance ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Le contenu des prompts n’est pas journalisé côté Paranoia. Les rapports techniques documentés servent au diagnostic du pilote.',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="Sécurité des prompts IA — Paranoia"
   description="Principes de sécurité de Paranoia : périmètre limité, relecture obligatoire, absence de DLP magique, support pilote et suppression sur demande."
   canonicalPath="/securite"
+  structuredData={securityFaq}
 >
   <main id="main" class="xo-page xo-page--product">
     <section class="xo-shell xo-home-hero--stack" aria-labelledby="security-title">
@@ -45,6 +76,11 @@ const controls = [
           La sécurité de Paranoia repose d’abord sur son périmètre : rendre visible une exposition avant l’envoi,
           garder une décision humaine, et documenter les limites.
         </p>
+        <ul class="paranoia-hero-limits" aria-label="Limites de sécurité du pilote Paranoia">
+          <li>Avant l’envoi, pas partout.</li>
+          <li>La personne valide.</li>
+          <li>Prompts non stockés côté Paranoia.</li>
+        </ul>
         <div class="xo-actions">
           <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
           <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
@@ -69,7 +105,7 @@ const controls = [
             { prompt: '❯', text: 'Audit sécurité des prompts IA.', dim: true },
             { text: 'Vérification...', dim: true },
             { prompt: '▸', text: 'Stockage local: aucun prompt envoyé sans validation', dim: true },
-            { prompt: '▸', text: 'Chiffrement: AES-256 en transit', dim: true },
+            { prompt: '▸', text: 'Transport web: HTTPS/TLS', dim: true },
             { text: 'Valider les contrôles', accent: true, progress: 40 },
             { prompt: '◆', text: 'Contenu des prompts: ni télémétrie ni log distant', accent: true, progress: 70 },
             { prompt: '▸', text: 'Suppression: immédiate après masquage', dim: true },
@@ -91,7 +127,7 @@ const controls = [
         artifactTitle="sécurité · 3 contrôles"
         tabs={[
           { id: 'stockage', label: 'Stockage', content: 'Local uniquement\nAucun prompt envoyé sans validation\nSuppression immédiate post-masquage' },
-          { id: 'transit', label: 'Transit', content: 'Chiffrement AES-256\nContenu des prompts : pas de télémétrie\nPrompts non journalisés à distance\nPas de cookies tiers' },
+          { id: 'transit', label: 'Transit', content: 'Transport web via HTTPS/TLS\nContenu des prompts : pas de télémétrie\nPrompts non journalisés à distance\nPas de cookies tiers' },
           { id: 'acces', label: 'Accès', content: 'Contrôle utilisateur avant envoi\nPas de compte requis\nLe contenu d\'un prompt ne part pas sans validation\nPrompts non stockés côté Paranoia' },
         ]}
       />
