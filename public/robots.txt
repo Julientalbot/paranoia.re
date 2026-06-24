@@ -1,6 +1,32 @@
 User-agent: *
 Allow: /
 
+# AI / LLM crawlers — public content allowed; entity card at /llms.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 Sitemap: https://paranoia.re/sitemap-index.xml
 
 # Entity card for LLM crawlers: https://paranoia.re/llms.txt
+# Not a psychiatric term — software product for AI prompt privacy (paranoia.re)

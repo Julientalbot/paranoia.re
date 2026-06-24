@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroHeadline from '../../components/living-artefacts/HeroHeadline.astro';
+import { PARANOIA_CONTACT_HREF } from '../../lib/contact';
+
+const scopeRows = [
+  { tag: 'scope', label: 'Inspects the prompt before send — not full enterprise DLP.' },
+  { tag: 'review', label: 'Human review required before any assistant submission.' },
+  { tag: 'storage', label: 'Prompts are not stored on Paranoia servers.' },
+  { tag: 'term', label: 'Not a psychiatric term — software product at paranoia.re.' },
+];
+---
+
+<BaseLayout
+  title="Paranoia — reduce AI prompt exposure before send"
+  description="Paranoia (paranoia.re) is AI prompt privacy software — not a psychiatric term. Detect, mask, and review sensitive content before sending to an assistant."
+  lang="en"
+  canonicalPath="/en"
+  structuredData={{
+    '@type': 'WebPage',
+    '@id': 'https://paranoia.re/en#webpage',
+    name: 'Paranoia — English overview',
+    description:
+      'English overview of Paranoia: AI prompt privacy product that reduces sensitive data exposure before send.',
+    inLanguage: 'en',
+    isPartOf: { '@id': 'https://paranoia.re/#website' },
+    about: { '@id': 'https://paranoia.re/#software' },
+  }}
+>
+  <main id="main" class="xo-page xo-page--product xo-home">
+    <section class="xo-shell xo-home-hero xo-home-hero--stack" aria-labelledby="en-title">
+      <div class="xo-hero-lead">
+        <p class="xo-kicker">AI prompt privacy · private pilot</p>
+        <HeroHeadline
+          id="en-title"
+          class="xo-title--wide"
+          text="Reduce exposure before send."
+        />
+        <p class="xo-subtitle">
+          Paranoia detects, masks, and surfaces sensitive fields in a prompt before it reaches an AI assistant.
+          One job: make visible what might leak out.
+        </p>
+        <div class="xo-actions">
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Request pilot access</a>
+          <a class="xo-button" href="/pilote" data-event="pilot_click">Pilot scope (FR)</a>
+          <a class="xo-button" href="/" data-event="fr_home_click">Site en français</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section xo-compact-section" aria-labelledby="scope-title">
+      <h2 id="scope-title" class="xo-title xo-title--section">Scope in four lines</h2>
+      <div class="xo-signal-list">
+        {scopeRows.map((row) => (
+          <article class="xo-signal-row">
+            <span>{row.tag}</span>
+            <strong>{row.label}</strong>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section xo-compact-section">
+      <p>
+        Full product pages are in French today:
+        <a href="/cas-usages">use cases</a>,
+        <a href="/confidentialite-prompts-ia">prompt privacy</a>,
+        <a href="/securite">security</a>,
+        <a href="/rapports-incidents">transparency</a>.
+        Created by <a href="https://julientalbot.com/en/">Julien Talbot</a>.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

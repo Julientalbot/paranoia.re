@@ -9,6 +9,7 @@ Paranoia aide les équipes à détecter, masquer et relire les contenus sensible
 **Paranoia** : outil pilote qui réduit l'exposition de données sensibles dans les prompts IA (noms, emails, organisations, identifiants) avant envoi. Un seul rôle : rendre visible ce qui risque de sortir.
 
 - Page produit : https://paranoia.re/
+- English overview : https://paranoia.re/en
 - Accès pilote : https://paranoia.re/pilote
 - Transparence : https://paranoia.re/rapports-incidents
 - Contact : contact@paranoia.re

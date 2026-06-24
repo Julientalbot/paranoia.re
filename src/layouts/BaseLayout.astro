@@ -12,6 +12,7 @@ import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 interface Props {
   title: string;
   description?: string;
+  lang?: 'fr' | 'en';
   canonicalPath?: string;
   image?: string;
   ogImage?: string;
@@ -30,6 +31,7 @@ const DEFAULT_TWITTER_IMAGE = '/social/x-card.png';
 const {
   title,
   description = "Paranoia (paranoia.re) est un produit de confidentialité des prompts IA — pas un terme psychiatrique. Réduit l'exposition de données sensibles avant envoi à un assistant.",
+  lang = 'fr',
   canonicalPath = Astro.url.pathname,
   image,
   ogImage,
@@ -79,7 +81,7 @@ const jsonLd = {
       url: canonicalUrl,
       name: title,
       description,
-      inLanguage: 'fr-FR',
+      inLanguage: lang === 'en' ? 'en' : 'fr-FR',
       isPartOf: { '@id': 'https://paranoia.re/#website' },
       about: { '@id': 'https://paranoia.re/#software' },
     },
@@ -96,21 +98,12 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline>
-      (() => {
-        try {
-          const theme = window.localStorage.getItem('ecosystem-theme');
-          if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
-        } catch (_) {
-          /* Ignore storage restrictions. */
-        }
-      })();
-    </script>
+    <script is:inline src="/js/theme-init.js"></script>
 
     <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={geistMonoLatin} as="font" type="font/woff2" crossorigin />
@@ -136,7 +129,7 @@ const jsonLd = {
     <meta property="og:image:height" content={resolvedOgImageHeight} />
     <meta property="og:image:alt" content="Paranoia - Réduire l'exposition avant l'envoi" />
     <meta property="og:site_name" content="Paranoia" />
-    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'fr_FR'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -145,7 +138,7 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="xds-theme xo-page xo-page--product">
-    <a class="xo-skip-link" href="#main">Aller au contenu</a>
+    <a class="xo-skip-link" href="#main">{lang === 'en' ? 'Skip to content' : 'Aller au contenu'}</a>
     <div class="app-shell">
       <Header ctaHref={headerCtaHref} ctaLabel={headerCtaLabel} />
       <slot />
@@ -177,152 +170,6 @@ const jsonLd = {
     </div>
     <Analytics />
     <SpeedInsights />
-    <script is:inline>
-      const ecosystemRuntime = (() => {
-        const themeKey = 'ecosystem-theme';
-        const root = document.documentElement;
-        const lightQuery = window.matchMedia('(prefers-color-scheme: light)');
-
-        const storedTheme = () => {
-          try {
-            const value = window.localStorage.getItem(themeKey);
-            return value === 'light' || value === 'dark' ? value : null;
-          } catch (_) {
-            return null;
-          }
-        };
-
-        const currentTheme = () => root.dataset.theme || (lightQuery.matches ? 'light' : 'dark');
-
-        const syncThemeButtons = () => {
-          const theme = currentTheme();
-          document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
-            button.dataset.themeState = theme;
-            button.setAttribute(
-              'aria-label',
-              theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre',
-            );
-          });
-        };
-
-        const setTheme = (theme, persist = true) => {
-          root.dataset.theme = theme;
-          if (persist) {
-            try {
-              window.localStorage.setItem(themeKey, theme);
-            } catch (_) {
-              /* Ignore storage restrictions. */
-            }
-          }
-          syncThemeButtons();
-        };
-
-        const setCodePanel = (artifact, id) => {
-          artifact.querySelectorAll('[data-code-tab]').forEach((tab) => {
-            const isActive = tab.dataset.codeTab === id;
-            tab.classList.toggle('is-active', isActive);
-            tab.setAttribute('aria-selected', String(isActive));
-            tab.setAttribute('tabindex', isActive ? '0' : '-1');
-          });
-
-          artifact.querySelectorAll('[data-code-panel]').forEach((panel) => {
-            panel.hidden = panel.dataset.codePanel !== id;
-          });
-        };
-
-        const copyText = async (text) => {
-          if (navigator.clipboard?.writeText) {
-            await navigator.clipboard.writeText(text);
-            return;
-          }
-
-          const textarea = document.createElement('textarea');
-          textarea.value = text;
-          textarea.setAttribute('readonly', '');
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand('copy');
-          textarea.remove();
-        };
-
-        const copyArtifact = async (button) => {
-          const artifact = button.closest('[data-code-artifact]');
-          if (!artifact) return;
-          const panel = artifact.querySelector('[data-code-panel]:not([hidden])');
-          const text = panel?.textContent?.trim();
-          if (!text) return;
-
-          await copyText(text);
-          button.dataset.copyState = 'copied';
-          const label = button.querySelector('.xo-copy-label');
-          if (label) {
-            button.dataset.copyLabel ||= label.textContent?.trim() || 'Copier';
-            label.textContent = button.dataset.copyDone || 'Copié';
-          }
-          window.setTimeout(() => {
-            delete button.dataset.copyState;
-            if (label) label.textContent = button.dataset.copyLabel || 'Copier';
-          }, 1800);
-        };
-
-        document.querySelectorAll('[data-code-artifact]').forEach((artifact) => {
-          const active = artifact.querySelector('[data-code-tab][aria-selected="true"]')
-            || artifact.querySelector('[data-code-tab]');
-          if (active instanceof HTMLElement && active.dataset.codeTab) {
-            setCodePanel(artifact, active.dataset.codeTab);
-          }
-        });
-
-        const explicitTheme = storedTheme();
-        if (explicitTheme) setTheme(explicitTheme, false);
-        else syncThemeButtons();
-
-        lightQuery.addEventListener?.('change', () => {
-          if (!storedTheme()) syncThemeButtons();
-        });
-
-        return { currentTheme, setTheme, setCodePanel, copyArtifact };
-      })();
-
-      window.trackSiteEvent = (name, props = {}) => {
-        if (!name) return;
-        if (typeof window.va === 'function') window.va('event', name, props);
-      };
-
-      document.addEventListener('click', (event) => {
-        const themeToggle = event.target instanceof Element ? event.target.closest('[data-theme-toggle]') : null;
-        if (themeToggle) {
-          const nextTheme = ecosystemRuntime.currentTheme() === 'dark' ? 'light' : 'dark';
-          ecosystemRuntime.setTheme(nextTheme);
-          return;
-        }
-
-        const codeTab = event.target instanceof Element ? event.target.closest('[data-code-tab]') : null;
-        if (codeTab) {
-          const artifact = codeTab.closest('[data-code-artifact]');
-          if (artifact && codeTab.dataset.codeTab) ecosystemRuntime.setCodePanel(artifact, codeTab.dataset.codeTab);
-          return;
-        }
-
-        const copyButton = event.target instanceof Element ? event.target.closest('[data-copy-current]') : null;
-        if (copyButton) {
-          ecosystemRuntime.copyArtifact(copyButton);
-          return;
-        }
-
-        const target = event.target instanceof Element ? event.target.closest('[data-event]') : null;
-        if (!target) return;
-        window.trackSiteEvent(target.dataset.event, {
-          href: target.getAttribute('href') || undefined,
-          label: target.textContent?.trim() || undefined,
-        });
-      });
-
-      window.addEventListener('site:event', (event) => {
-        window.trackSiteEvent(event.detail?.name, event.detail?.props || {});
-      });
-    </script>
+    <script is:inline src="/js/ecosystem-runtime.js" defer></script>
   </body>
 </html>
