@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
 import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
-import HeroShimmer from '../components/living-artefacts/HeroShimmer.astro';
+
 import LivePulse from '../components/living-artefacts/LivePulse.astro';
 
 const reportItems = [
@@ -44,7 +44,6 @@ const reportItems = [
       <div class="xo-hero-lead">
         <p class="xo-kicker">Transparence</p>
         <HeroHeadline id="incidents-title" class="xo-title--wide" text="Ce qui est envoyé. Ce qui ne l’est pas." />
-        <HeroShimmer />
         <p class="xo-subtitle">
           Paranoia peut utiliser Sentry pour diagnostiquer les bugs et la stabilité du pilote.
           Les rapports automatiques concernent le fonctionnement technique, pas le contenu des prompts.

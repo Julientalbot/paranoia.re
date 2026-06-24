@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
+
+const scopeItems = [
+  {
+    label: 'Périmètre',
+    title: 'Avant l’envoi, sur le prompt.',
+    body: 'Détection, masquage et relecture des contenus sensibles avant usage d’un assistant IA. Pas de DLP entreprise, pas de promesse de conformité.',
+  },
+  {
+    label: 'Prérequis',
+    title: 'Un flux réel à tester.',
+    body: 'Une équipe qui copie déjà des données sensibles dans des prompts : contrats, RH, support, opérations. Un assistant IA déjà utilisé ou en cours d’adoption.',
+  },
+  {
+    label: 'Délai',
+    title: 'Premier échange sous 48 h ouvrées.',
+    body: 'Le pilote sert à vérifier si le périmètre répond au risque réel. Pas de dossier RFP, pas de grille de qualification obligatoire.',
+  },
+  {
+    label: 'Hors périmètre',
+    title: 'Ce que Paranoia ne fait pas.',
+    body: 'Pas de stockage long des prompts côté Paranoia. Pas de certification. Pas d’intégration SI complète en pilote. Pas de promesse magique de sécurité.',
+  },
+];
+---
+
+<BaseLayout
+  title="Accès pilote — Paranoia"
+  description="Demander un accès pilote Paranoia : périmètre, prérequis, délai et limites du produit avant le premier échange."
+  canonicalPath="/pilote"
+>
+  <main id="main" class="xo-page xo-page--product">
+    <section class="xo-shell xo-home-hero--stack" aria-labelledby="pilot-title">
+      <div class="xo-hero-lead">
+        <p class="xo-kicker">Pilote privé</p>
+        <HeroHeadline id="pilot-title" class="xo-title--wide" text="Vérifier Paranoia sur un flux réel." />
+        <p class="xo-subtitle">
+          Un écran pour comprendre le périmètre avant d’écrire. Trois lignes suffisent :
+          l’assistant utilisé, les contenus copiés, la limite à garder visible.
+        </p>
+        <div class="xo-actions">
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
+          <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section" aria-labelledby="scope-title">
+      <div class="xo-section-heading">
+        <div>
+          <p class="xo-kicker">Cadre</p>
+          <h2 id="scope-title" class="xo-title xo-title--section">Ce que le pilote couvre — et ce qu’il exclut.</h2>
+        </div>
+      </div>
+      <div class="xo-signal-list xo-signal-list--spaced">
+        {scopeItems.map((item) => (
+          <article>
+            <span>{item.label}</span>
+            <strong>{item.title}</strong>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="xo-shell xo-section" aria-labelledby="pilot-cta">
+      <div class="xo-start-paths">
+        <article class="xo-start-panel">
+          <div>
+            <p class="xo-label">Contact</p>
+            <h2 id="pilot-cta">Trois lignes, pas un dossier.</h2>
+          </div>
+          <p>
+            1. Situation ou cas.<br />
+            2. Décision à prendre.<br />
+            3. Contrainte, risque ou trace déjà visible.
+          </p>
+          <div class="xo-contact-actions">
+            <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
+            <a class="xo-button" href="/cas-usages" data-event="cases_click">Voir les cas d’usage</a>
+          </div>
+          <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_HREF}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
+        </article>
+        <a class="xo-path-card xo-card-shimmer" href="/securite" data-event="security_click">
+          <div class="xo-path-artifact" aria-hidden="true">
+            <div><span>01</span><strong>périmètre</strong></div>
+            <div><span>02</span><strong>relecture</strong></div>
+            <div class="is-output"><span>03</span><strong>limites</strong></div>
+          </div>
+          <div>
+            <p class="xo-label">Sécurité</p>
+            <h3>Un contrôle limité, documenté.</h3>
+            <p>Le périmètre, la relecture obligatoire et les limites du produit sont explicites.</p>
+          </div>
+          <span class="xo-card-arrow">Voir la sécurité →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

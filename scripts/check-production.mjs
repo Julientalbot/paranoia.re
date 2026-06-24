@@ -47,7 +47,7 @@ const runCheck = async (name, fn) => {
 const pageChecks = [
   {
     path: '/',
-    mustInclude: ['mailto:contact@paranoia.re', 'Réduire l’exposition', 'id="workflow"'],
+    mustInclude: ['mailto:contact@paranoia.re', 'Réduire l', 'id="concrete"'],
   },
   {
     path: '/cas-usages',
@@ -64,6 +64,10 @@ const pageChecks = [
   {
     path: '/rapports-incidents',
     mustInclude: ['transparence', 'Sentry'],
+  },
+  {
+    path: '/pilote',
+    mustInclude: ['Pilote privé', 'mailto:contact@paranoia.re', 'Trois lignes'],
   },
 ];
 

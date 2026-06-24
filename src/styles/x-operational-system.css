@@ -4818,7 +4818,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */
 /* Edit this file in _design-system/extras/, not in the site repo. */
 
-@keyframes paranoiaExposurePulse {
+@keyframes paranoiaExposurePulseDisabled {
   0%, 100% { transform: scaleX(1);    opacity: 0.82; }
   50%      { transform: scaleX(1.03); opacity: 1; }
 }
@@ -4883,8 +4883,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   height: 100%;
   border-radius: inherit;
   background: var(--xo-accent);
-  transform-origin: left;
-  animation: paranoiaExposurePulse 4.8s var(--eco-ease-snap) forwards;
+  animation: none;
 }
 
 .paranoia-token-grid {

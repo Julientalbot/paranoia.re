@@ -70,10 +70,6 @@ const messagesJson = JSON.stringify(messages);
 
         currentIndex++;
         if (currentIndex >= messages.length) {
-          setTimeout(() => {
-            currentIndex = 0;
-            update();
-          }, 3000);
           return;
         }
 

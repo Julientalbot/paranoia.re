@@ -118,13 +118,6 @@ function statusLabel(status: TraceStep['status']) {
 
       function showStep() {
         if (stepIndex >= steps.length) {
-          setTimeout(() => {
-            lines.forEach((l) => l.classList.remove('is-visible'));
-            if (bar) bar.style.width = '0%';
-            if (progressText) progressText.textContent = '0%';
-            stepIndex = 0;
-            setTimeout(showStep, 300);
-          }, 3000);
           return;
         }
 

@@ -6,7 +6,7 @@ interface Props {
   ctaLabel?: string;
 }
 
-const { ctaHref = PARANOIA_CONTACT_HREF, ctaLabel = 'Demander un accès pilote' } = Astro.props;
+const { ctaHref = '/pilote', ctaLabel = 'Demander un accès pilote' } = Astro.props;
 ---
 
 <header class="site-header">
@@ -28,7 +28,7 @@ const { ctaHref = PARANOIA_CONTACT_HREF, ctaLabel = 'Demander un accès pilote' 
         data-theme-toggle
         aria-label="Changer de thème"
       ></button>
-      <a href={ctaHref} data-event="nav_primary_cta_click">{ctaLabel}</a>
+      <a class="xo-button xo-button--primary site-nav-cta" href={ctaHref} data-event="nav_primary_cta_click">{ctaLabel}</a>
     </div>
   </nav>
 </header>
