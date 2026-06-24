@@ -72,10 +72,10 @@ const controls = [
             { prompt: '▸', text: 'Stockage local: aucun prompt envoyé sans validation', dim: true },
             { prompt: '▸', text: 'Chiffrement: AES-256 en transit', dim: true },
             { text: 'Valider les contrôles', accent: true, progress: 40 },
-            { prompt: '◆', text: 'Pas de télémétrie, pas de logs distants', accent: true, progress: 70 },
+            { prompt: '◆', text: 'Contenu des prompts: ni télémétrie ni log distant', accent: true, progress: 70 },
             { prompt: '▸', text: 'Suppression: immédiate après masquage', dim: true },
-            { text: 'Audit: contrôle local, pas de fuite', accent: true, progress: 100 },
-            { prompt: '✓', text: 'Conforme: local-first, privacy-bound.', accent: true },
+            { text: 'Audit: relecture avant envoi, prompts non stockés', accent: true, progress: 100 },
+            { prompt: '✓', text: 'Conforme: contenu des prompts privacy-bound.', accent: true },
           ]}
         />
       </div>
@@ -92,8 +92,8 @@ const controls = [
         artifactTitle="sécurité · 3 contrôles"
         tabs={[
           { id: 'stockage', label: 'Stockage', content: 'Local uniquement\nAucun prompt envoyé sans validation\nSuppression immédiate post-masquage' },
-          { id: 'transit', label: 'Transit', content: 'Chiffrement AES-256\nPas de télémétrie\nPas de logs distants\nPas de cookies tiers' },
-          { id: 'acces', label: 'Accès', content: 'Contrôle local utilisateur\nPas de compte requis\nPas d\'API distante\nDonnées jamais hors du poste' },
+          { id: 'transit', label: 'Transit', content: 'Chiffrement AES-256\nContenu des prompts : pas de télémétrie\nPrompts non journalisés à distance\nPas de cookies tiers' },
+          { id: 'acces', label: 'Accès', content: 'Contrôle utilisateur avant envoi\nPas de compte requis\nLe contenu d\'un prompt ne part pas sans validation\nPrompts non stockés côté Paranoia' },
         ]}
       />
     </section>
