@@ -337,7 +337,7 @@
 }
 
 .xo-path-card:hover {
-  background: var(--xo-surface-raised);
+  border-color: var(--xo-line-strong);
   transform: scale(1.02);
 }
 
@@ -1575,7 +1575,7 @@ a.xo-mode-surface:focus-visible::before,
   overflow: hidden;
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-panel);
-  background: var(--eco-color-black);
+  background: var(--xo-terminal);
   color: var(--eco-color-text);
   box-shadow: none;
 }
@@ -1600,7 +1600,7 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 .xo-console.xo-artifact-panel {
-  background: var(--eco-color-black);
+  background: var(--xo-terminal);
   color: var(--eco-color-text);
 }
 
@@ -2368,6 +2368,18 @@ a.xo-mode-surface:focus-visible::before,
   color: var(--xo-text);
 }
 
+/* Liens de nav x.ai : sans-serif, 550, soft .5 — surclasse .xo-nav-links a (mono/400/muted) sans toucher .xo-link interne. */
+.site-nav-links .site-nav-link {
+  font-family: var(--eco-font-body);
+  font-weight: 550;
+  color: var(--xo-text-soft);
+}
+
+.site-nav-links .site-nav-link:hover,
+.site-nav-links .site-nav-link[data-active="true"] {
+  color: var(--xo-text);
+}
+
 .lang-switch {
   display: inline-flex;
   align-items: center;
@@ -2639,7 +2651,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-page .service-console,
 .xo-page .terminal-trace,
 .xo-page .method-console {
-  background: var(--eco-color-black);
+  background: var(--xo-terminal);
   color: var(--eco-color-text);
 }
 
@@ -3052,7 +3064,7 @@ a.xo-mode-surface:focus-visible::before,
   align-items: center;
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-control);
-  background: var(--eco-color-black);
+  background: var(--xo-terminal);
   color: var(--eco-color-text-soft);
   padding: 0.9rem;
 }
@@ -3133,7 +3145,7 @@ a.xo-mode-surface:focus-visible::before,
   gap: 0.42rem;
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-control);
-  background: var(--eco-color-black);
+  background: var(--xo-terminal);
   padding: 1rem;
 }
 
@@ -3453,7 +3465,7 @@ a.xo-mode-surface:focus-visible::before,
   border: 1px solid var(--xo-line);
   border-radius: var(--eco-radius-panel);
   padding: 1rem;
-  background: var(--eco-color-black);
+  background: var(--xo-terminal);
   color: var(--eco-color-text);
 }
 

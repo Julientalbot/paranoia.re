@@ -18,18 +18,19 @@ interface Props {
   style?: string;
 }
 
+// Grille neutre (blanc/gris) comme x.ai — pas de spectre coloré. L'opacité du conteneur fait le reste.
 const palette: [string, string][] = [
-  ['#7547d1', '#d147d1'],
-  ['#cad147', '#6ed147'],
-  ['#478fd1', '#5b47d1'],
-  ['#d14783', '#d16847'],
+  ['rgba(255,255,255,0.55)', 'rgba(255,255,255,0.9)'],
+  ['rgba(255,255,255,0.45)', 'rgba(255,255,255,0.8)'],
+  ['rgba(255,255,255,0.6)', 'rgba(255,255,255,0.95)'],
+  ['rgba(255,255,255,0.5)', 'rgba(255,255,255,0.85)'],
 ];
 
 const defaultLines: ShimmerLine[] = [
-  { top: '20%', color: '#7547d1', color2: '#d147d1', duration: '2.58s', delay: '2.82s' },
-  { top: '35%', color: '#cad147', color2: '#6ed147', duration: '2.06s', delay: '3.85s' },
-  { top: '55%', color: '#478fd1', color2: '#5b47d1', duration: '2.21s', delay: '0.77s' },
-  { top: '70%', color: '#d14783', color2: '#d16847', duration: '1.86s', delay: '4.92s' },
+  { top: '20%', color: 'rgba(255,255,255,0.55)', color2: 'rgba(255,255,255,0.9)', duration: '2.58s', delay: '2.82s' },
+  { top: '35%', color: 'rgba(255,255,255,0.45)', color2: 'rgba(255,255,255,0.8)', duration: '2.06s', delay: '3.85s' },
+  { top: '55%', color: 'rgba(255,255,255,0.6)', color2: 'rgba(255,255,255,0.95)', duration: '2.21s', delay: '0.77s' },
+  { top: '70%', color: 'rgba(255,255,255,0.5)', color2: 'rgba(255,255,255,0.85)', duration: '1.86s', delay: '4.92s' },
 ];
 
 const {
