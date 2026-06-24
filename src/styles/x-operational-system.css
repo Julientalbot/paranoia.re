@@ -1339,6 +1339,13 @@ a.xo-mode-surface:focus-visible::before,
   text-transform: uppercase;
 }
 
+/* Variante chip-pilule (eyebrow type x.ai « New · »), bordure teintée lime — identité conservée. */
+.xo-kicker--chip {
+  border: 1px solid color-mix(in srgb, var(--xo-accent) 30%, var(--xo-line));
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem 0.3rem 0.7rem;
+}
+
 .xo-kicker::before,
 .xo-label::before {
   content: "";
@@ -4532,6 +4539,11 @@ a.xo-metric:focus-visible strong {
   color: var(--xo-text);
   text-decoration: none;
   transition: border-color 220ms var(--eco-ease-out);
+}
+
+/* Coin cranté signature (radius asymétrique mesuré x.ai), réservé au plateau hero. */
+.xo-hero-tray .xo-artefact-card {
+  border-radius: 16px 16px 16px 6px;
 }
 
 a.xo-artefact-card:hover,
