@@ -47,8 +47,9 @@
   padding-block: clamp(6rem, 9vw, 9rem) 4rem;
 }
 
-.xo-home .xo-compact-section {
-  padding-top: clamp(3rem, 7vw, 5.5rem);
+/* Sections resserrées sur les sous-pages : scopé .xo-page (0,2,0) pour battre .xo-section. */
+.xo-page .xo-compact-section {
+  padding-block-start: clamp(3rem, 7vw, 5.5rem);
 }
 
 .xo-hero-artifact {
@@ -1178,8 +1179,20 @@ a.xo-mode-surface:focus-visible::before,
 /* Cibles tactiles ≥44px sur pointeur grossier (tablette/laptop tactile) — sans grossir le desktop souris. */
 @media (pointer: coarse) {
   .xo-nav-links a,
-  .xo-link {
+  .xo-link,
+  .xo-button {
     min-height: 2.75rem;
+  }
+
+  .xo-brand,
+  .xo-theme-toggle,
+  .site-nav-link,
+  .lang-switch a,
+  .breadcrumb-list a,
+  .xo-trust-footer a {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    justify-content: center;
   }
 }
 
@@ -1357,7 +1370,7 @@ a.xo-mode-surface:focus-visible::before,
   max-width: 14ch;
 }
 
-.xo-title--section {
+.xo-page .xo-title--section {
   max-width: 16ch;
   font-size: clamp(2.75rem, 3.35vw, 3.25rem);
 }
@@ -3281,7 +3294,7 @@ a.xo-mode-surface:focus-visible::before,
   border-bottom: 1px solid var(--xo-line);
 }
 
-.xo-page .article-row h2 {
+.xo-page .article-row :is(h2, h3) {
   max-width: 24ch;
   margin: 0 0 var(--eco-space-2);
   font-size: 2rem;
@@ -3593,7 +3606,7 @@ a.xo-mode-surface:focus-visible::before,
     font-size: clamp(3.25rem, 7.2vw, 4rem);
   }
 
-  .xo-title--section {
+  .xo-page .xo-title--section {
     font-size: clamp(2.65rem, 5.8vw, 3.25rem);
   }
 
@@ -3793,7 +3806,7 @@ a.xo-mode-surface:focus-visible::before,
     overflow-wrap: anywhere;
   }
 
-  .xo-title--section {
+  .xo-page .xo-title--section {
     font-size: clamp(2rem, 8.5vw, 2.5rem);
   }
 
@@ -3953,7 +3966,7 @@ a.xo-mode-surface:focus-visible::before,
   }
 
   .xo-contact-block h2,
-  .xo-page .article-row h2 {
+  .xo-page .article-row :is(h2, h3) {
     font-size: 1.55rem;
   }
 
