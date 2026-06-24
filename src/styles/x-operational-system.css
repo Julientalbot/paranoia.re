@@ -1616,20 +1616,11 @@ a.xo-mode-surface:focus-visible::before,
   font-size: 0.72rem;
 }
 
+/* Points mac réservés aux terminaux ANIMÉS (.xo-trace-demo-dots, classe distincte).
+   Les panneaux-ledger statiques (xo-console-top) ne doivent pas imiter un terminal :
+   ils gardent leur barre-titre monospace, sans les pastilles. Homogénéité : pastilles ⟺ terminal animé. */
 .xo-console-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--eco-color-line-inverse);
-  animation: xo-console-dot-pulse 3.6s var(--eco-ease-snap) infinite;
-}
-
-.xo-console-dot:nth-child(2) { animation-delay: 0.4s; }
-.xo-console-dot:nth-child(3) { animation-delay: 0.8s; }
-
-@keyframes xo-console-dot-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%      { opacity: 1;    transform: scale(1.08); }
+  display: none;
 }
 
 /* State/severity tag in a console-top: dot + short label, pushed to the right.
