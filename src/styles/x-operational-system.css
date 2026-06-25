@@ -794,6 +794,10 @@ a.xo-mode-surface:focus-visible::before,
   line-height: 1.7;
 }
 
+/* Air entre le texte et les CTA (collés à 0 sinon). */
+.xo-hero-lead .xo-actions { margin-top: var(--eco-space-5); }
+.xo-proof-copy .xo-actions { margin-top: var(--eco-space-6); }
+
 /* ── Template page produit (clone x.ai/grok|cli) : feature-rows alternées + bande CTA ── */
 .xo-proof-layout--reverse {
   grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
@@ -4615,6 +4619,51 @@ a.xo-metric:focus-visible strong {
 .xo-hero-tray .xo-artefact-card {
   border-radius: 16px 16px 16px 6px;
 }
+
+/* ── Plateau hero asymétrique (clone x.ai home) — GLOBAL : les cartes sont rendues
+   par ArtefactCard, un <style> de page scopé ne les atteindrait pas. ── */
+.xo-hero-tray--anatomy {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 0.85fr);
+  grid-template-rows: clamp(12rem, 17vw, 15rem) clamp(12rem, 17vw, 15rem);
+  grid-template-areas:
+    "chat terminal terminal"
+    "chat scenes   writing";
+  align-items: stretch;
+}
+.xo-hero-tray--anatomy > script { display: none; }
+.xo-hero-tray--anatomy .xo-tray-chat { grid-area: chat; }
+.xo-hero-tray--anatomy .xo-tray-terminal { grid-area: terminal; }
+.xo-hero-tray--anatomy .xo-tray-scenes { grid-area: scenes; }
+.xo-hero-tray--anatomy .xo-tray-writing { grid-area: writing; }
+.xo-hero-tray--anatomy .xo-artefact-card { height: auto; }
+.xo-hero-tray--anatomy .xo-tray-chat .xo-artefact-card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.xo-hero-tray--anatomy .xo-tray-chat .xo-chat-demo { width: 100%; }
+@media (max-width: 880px) {
+  .xo-hero-tray--anatomy {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "terminal terminal"
+      "chat     chat"
+      "scenes   writing";
+  }
+  .xo-hero-tray--anatomy .xo-artefact-card { height: clamp(13rem, 40vw, 16rem); }
+}
+@media (max-width: 520px) {
+  .xo-hero-tray--anatomy {
+    grid-template-columns: 1fr;
+    grid-template-areas: "terminal" "chat" "scenes" "writing";
+  }
+}
+
+/* Feature 2-col (Méthode) : l'artefact (ModeTabs/AgentTrace = composant) remplit la colonne. GLOBAL. */
+.xo-feature-artifact { display: flex; min-height: 100%; }
+.xo-feature-artifact > * { flex: 1; }
 
 /* ── Grille « Latest news » à vignettes (clone x.ai home, mesuré 2026-06-25) ── */
 .xo-section-heading--news {
