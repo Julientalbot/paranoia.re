@@ -4620,22 +4620,17 @@ a.xo-metric:focus-visible strong {
   border-radius: 16px 16px 16px 6px;
 }
 
-/* ── Plateau hero asymétrique (clone x.ai home) — GLOBAL : les cartes sont rendues
-   par ArtefactCard, un <style> de page scopé ne les atteindrait pas. ── */
+/* ── Plateau hero : VRAIE grille 2×2, 4 tuiles de TAILLE ÉGALE — GLOBAL (cartes
+   rendues par ArtefactCard, un <style> de page scopé ne les atteindrait pas).
+   Chaque démo remplit sa tuile et la déborde est clippée — aucune ne dicte la hauteur.
+   Travail | Labs / Conférences | Écrits. ── */
 .xo-hero-tray--anatomy {
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 0.85fr);
-  grid-template-rows: clamp(12rem, 17vw, 15rem) clamp(12rem, 17vw, 15rem);
-  grid-template-areas:
-    "chat terminal terminal"
-    "chat scenes   writing";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: clamp(15rem, 22vw, 19rem);
   align-items: stretch;
 }
 .xo-hero-tray--anatomy > script { display: none; }
-.xo-hero-tray--anatomy .xo-tray-chat { grid-area: chat; }
-.xo-hero-tray--anatomy .xo-tray-terminal { grid-area: terminal; }
-.xo-hero-tray--anatomy .xo-tray-scenes { grid-area: scenes; }
-.xo-hero-tray--anatomy .xo-tray-writing { grid-area: writing; }
-.xo-hero-tray--anatomy .xo-artefact-card { height: auto; }
+.xo-hero-tray--anatomy .xo-artefact-card { height: 100%; min-height: 0; overflow: hidden; }
 .xo-hero-tray--anatomy .xo-tray-chat .xo-artefact-card__body {
   display: flex;
   flex-direction: column;
@@ -4643,22 +4638,8 @@ a.xo-metric:focus-visible strong {
   overflow: hidden;
 }
 .xo-hero-tray--anatomy .xo-tray-chat .xo-chat-demo { width: 100%; }
-@media (max-width: 880px) {
-  .xo-hero-tray--anatomy {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-      "terminal terminal"
-      "chat     chat"
-      "scenes   writing";
-  }
-  .xo-hero-tray--anatomy .xo-artefact-card { height: clamp(13rem, 40vw, 16rem); }
-}
-@media (max-width: 520px) {
-  .xo-hero-tray--anatomy {
-    grid-template-columns: 1fr;
-    grid-template-areas: "terminal" "chat" "scenes" "writing";
-  }
+@media (max-width: 560px) {
+  .xo-hero-tray--anatomy { grid-template-columns: 1fr; }
 }
 
 /* Feature 2-col (Méthode) : l'artefact (ModeTabs/AgentTrace = composant) remplit la colonne. GLOBAL. */
