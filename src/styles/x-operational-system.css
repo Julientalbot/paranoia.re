@@ -4642,6 +4642,34 @@ a.xo-metric:focus-visible strong {
   .xo-hero-tray--anatomy { grid-template-columns: 1fr; }
 }
 
+/* Comportements vivants des tuiles (clone x.ai : aucune tuile statique).
+   Scènes → Ken-Burns lent sur les photos ; Écrits → highlight séquentiel des lignes. */
+@media (prefers-reduced-motion: no-preference) {
+  .xo-hero-tray--anatomy .xo-tray-scenes img {
+    animation: xo-kenburns 20s ease-in-out infinite alternate;
+    transform-origin: center;
+    will-change: transform;
+  }
+  .xo-hero-tray--anatomy .xo-tray-scenes img:nth-of-type(2) { animation-delay: -5s; }
+  .xo-hero-tray--anatomy .xo-tray-scenes img:nth-of-type(3) { animation-delay: -10s; }
+  .xo-hero-tray--anatomy .xo-tray-scenes img:nth-of-type(4) { animation-delay: -15s; }
+
+  .xo-hero-tray--anatomy .xo-tray-writing .xo-tile-stream__row {
+    animation: xo-row-glow 6s ease-in-out infinite;
+  }
+  .xo-hero-tray--anatomy .xo-tray-writing .xo-tile-stream__row:nth-child(2) { animation-delay: 2s; }
+  .xo-hero-tray--anatomy .xo-tray-writing .xo-tile-stream__row:nth-child(3) { animation-delay: 4s; }
+}
+@keyframes xo-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
+@keyframes xo-row-glow {
+  0%, 100% { opacity: 0.78; }
+  12%, 24% { opacity: 1; }
+  40% { opacity: 0.78; }
+}
+
 /* Feature 2-col (Méthode) : l'artefact (ModeTabs/AgentTrace = composant) remplit la colonne. GLOBAL. */
 .xo-feature-artifact { display: flex; min-height: 100%; }
 .xo-feature-artifact > * { flex: 1; }
@@ -4700,8 +4728,12 @@ a.xo-metric:focus-visible strong {
   display: block;
   transition: transform 320ms var(--eco-ease-out);
 }
-.xo-news-card:hover .xo-news-card__media img { transform: scale(1.02); }
-.xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; }
+.xo-news-card:hover .xo-news-card__media img { transform: scale(1.04); }
+.xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; transition: transform 320ms var(--eco-ease-out); }
+/* hover x.ai : la carte se soulève + la vignette (dégradé inclus) zoome */
+.xo-news-card { transition: transform 220ms var(--eco-ease-out); }
+.xo-news-card:hover { transform: translateY(-3px); }
+.xo-news-card:hover .xo-news-card__fallback { transform: scale(1.04); }
 .xo-news-card__date {
   margin: 0.85rem 0 0;
   color: var(--xo-text-muted);
@@ -4969,8 +5001,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .xo-hl[data-hl] .xo-hl-word,
-  .xo-hl[data-hl] .xo-hl-rotate {
+  .xo-hl[data-hl] .xo-hl-word {
     animation: xo-hl-reveal 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
     animation-delay: calc(var(--i, 0) * 55ms);
   }
@@ -4981,6 +5012,33 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Dernier mot/phrase souligné d'un trait dégradé qui se dessine (clone x.ai "imagine"). */
+.xo-hl-underline {
+  position: relative;
+  white-space: nowrap;
+}
+.xo-hl-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0.1em;
+  bottom: 0.04em;
+  height: 0.085em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--xo-accent), color-mix(in srgb, var(--xo-accent) 45%, #ffffff));
+  transform-origin: left center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .xo-hl[data-hl] .xo-hl-underline::after {
+    animation: xo-hl-draw 0.85s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: calc((var(--i, 0) * 55ms) + 0.45s);
+  }
+}
+@keyframes xo-hl-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 .xo-hl-rotate {
   display: inline-grid;
   vertical-align: top;
@@ -4988,20 +5046,40 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 
 .xo-hl-rotate-word {
   grid-area: 1 / 1;
+  position: relative;
+  white-space: nowrap;
   opacity: 0;
-  transform: translateY(0.3em);
-  transition: opacity 0.5s var(--eco-ease-out), transform 0.5s var(--eco-ease-out);
+  visibility: hidden;
 }
-
 .xo-hl-rotate-word.is-active {
   opacity: 1;
-  transform: translateY(0);
+  visibility: visible;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .xo-hl-rotate-word {
-    transition: none !important;
+.xo-hl-letter { display: inline-block; }
+/* trait dégradé sous le mot rotatif actif (clone x.ai « imagine ») */
+.xo-hl-rotate-word.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.02em;
+  height: 0.085em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--xo-accent), color-mix(in srgb, var(--xo-accent) 45%, #ffffff));
+  transform-origin: left center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .xo-hl-rotate-word.is-active .xo-hl-letter {
+    animation: xo-hl-letter-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: calc(var(--j, 0) * 32ms);
   }
+  .xo-hl-rotate-word.is-active::after {
+    animation: xo-hl-draw 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.12s both;
+  }
+}
+@keyframes xo-hl-letter-in {
+  from { opacity: 0; transform: translateY(0.5em); }
+  to { opacity: 1; transform: translateY(0); }
 }
 /* @extras-start: managed by sync.sh */
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */
