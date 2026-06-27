@@ -27,7 +27,7 @@ const navLinks = isEnglish
 const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
 ---
 
-<header class="site-header">
+<header class="site-header site-header--menu">
   <nav class="xo-shell xo-nav" aria-label={isEnglish ? 'Main navigation' : 'Navigation principale'}>
     <a class="xo-brand" href={isEnglish ? '/en' : '/'} aria-label={isEnglish ? 'Paranoia home' : 'Paranoia accueil'}>
       <span class="xo-brand-mark" aria-hidden="true">
@@ -35,8 +35,9 @@ const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
       </span>
       <span>Paranoia</span>
     </a>
-    <div class="xo-nav-links">
+    <div class="xo-nav-links" id="site-nav-menu">
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      <a class="xo-button xo-button--primary site-nav-cta-drawer" href={ctaHref} data-event="nav_primary_cta_click">{ctaLabel}</a>
     </div>
     <button
       class="xo-theme-toggle"
@@ -44,9 +45,59 @@ const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
       data-theme-toggle
       aria-label={isEnglish ? 'Change theme' : 'Changer de thème'}
     ></button>
+    <button
+      class="site-nav-toggle"
+      type="button"
+      data-nav-toggle
+      aria-controls="site-nav-menu"
+      aria-expanded="false"
+      aria-label={isEnglish ? 'Open menu' : 'Ouvrir le menu'}
+    >
+      <span class="site-nav-toggle__bars" aria-hidden="true"></span>
+    </button>
     <a class="xo-button xo-button--primary site-nav-cta" href={ctaHref} aria-label={ctaLabel} data-event="nav_primary_cta_click">
       <span class="site-nav-cta-full">{ctaLabel}</span>
       <span class="site-nav-cta-short" aria-hidden="true">{shortCtaLabel}</span>
     </a>
   </nav>
 </header>
+
+<script>
+  // Menu mobile (hamburger). Panneau plein écran sous le header ; toggle accessible
+  // (aria-expanded), Échap ferme, clic sur un lien ferme, retour ≥641px ferme.
+  function initNavMenu() {
+    const header = document.querySelector<HTMLElement>('.site-header');
+    const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+    if (!header || !toggle || toggle.dataset.bound) return;
+    toggle.dataset.bound = '1';
+    const menu = document.getElementById('site-nav-menu');
+    const openLabel = toggle.getAttribute('aria-label') || 'Ouvrir le menu';
+    const closeLabel = openLabel.replace(/ouvrir/i, 'Fermer').replace(/open/i, 'Close');
+
+    const setOpen = (open: boolean) => {
+      header.toggleAttribute('data-nav-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+      document.documentElement.classList.toggle('nav-open', open);
+    };
+
+    toggle.addEventListener('click', () => setOpen(!header.hasAttribute('data-nav-open')));
+
+    menu?.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement)?.closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && header.hasAttribute('data-nav-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    window.matchMedia('(min-width: 641px)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+  initNavMenu();
+  document.addEventListener('astro:after-swap', initNavMenu);
+</script>
