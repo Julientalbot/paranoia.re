@@ -1,0 +1,111 @@
+---
+// Lecteur d'appel — clone x.ai/voice « Listen back » (barre de progression statique animée).
+interface Props {
+  title?: string;
+  quote?: string;
+  elapsed?: string;
+  total?: string;
+  progress?: number;
+  class?: string;
+}
+
+const {
+  title = 'book_appointment · 0:28',
+  quote = 'You’re all set for Thursday at 7.',
+  elapsed = '0:18',
+  total = '0:47',
+  progress = 38,
+  class: className = '',
+} = Astro.props;
+---
+
+<div class:list={['xo-call-playback', className]} data-call-playback data-progress={progress}>
+  <div class="xo-call-playback__head">
+    <span class="xo-call-playback__title">{title}</span>
+    <span class="xo-call-playback__time">{elapsed} / {total}</span>
+  </div>
+  <div class="xo-call-playback__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
+    <span class="xo-call-playback__fill" style={`width:${progress}%`}></span>
+  </div>
+  <p class="xo-call-playback__quote">"{quote}"</p>
+</div>
+
+<script>
+  function initCallPlayback() {
+    document.querySelectorAll<HTMLElement>('[data-call-playback]').forEach((el) => {
+      if (el.dataset.initialized) return;
+      el.dataset.initialized = 'true';
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const fill = el.querySelector<HTMLElement>('.xo-call-playback__fill');
+      const bar = el.querySelector<HTMLElement>('.xo-call-playback__bar');
+      if (!fill || !bar) return;
+
+      let p = Number(el.dataset.progress) || 38;
+      const tick = () => {
+        p = (p + 0.35) % 100;
+        fill.style.width = `${p}%`;
+        bar.setAttribute('aria-valuenow', String(Math.round(p)));
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+
+  initCallPlayback();
+  document.addEventListener('astro:after-swap', initCallPlayback);
+</script>
+
+<style>
+  .xo-call-playback {
+    display: grid;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--xo-line);
+    border-radius: 12px;
+    background: var(--xo-surface);
+  }
+
+  .xo-call-playback__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .xo-call-playback__title {
+    font-family: var(--eco-font-mono);
+    font-size: 0.72rem;
+    color: var(--xo-text-muted);
+  }
+
+  .xo-call-playback__time {
+    font-family: var(--eco-font-mono);
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--xo-text-muted);
+  }
+
+  .xo-call-playback__bar {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--xo-line);
+    overflow: hidden;
+  }
+
+  .xo-call-playback__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--xo-accent);
+    transition: width 80ms linear;
+  }
+
+  .xo-call-playback__quote {
+    margin: 0;
+    color: var(--xo-text-soft);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+</style>

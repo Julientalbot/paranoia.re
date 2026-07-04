@@ -1,0 +1,222 @@
+---
+// Bande de stats géants — clone x.ai home (3 col + GridShimmer) et Colossus hero (1 chiffre géant + filet).
+// variant="band" (défaut) : 400M+ / 150K / 1 · variant="hero" : « 200,000 » + légende + accent.
+// Usage: <StatsBand countUp stats={[{ value: '7', label: '…' }, ...]} />
+// Hero: <StatsBand variant="hero" countUp stats={[{ value: '200,000', label: 'GPUs deployed' }]} />
+import GridShimmer from './GridShimmer.astro';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  variant?: 'band' | 'hero';
+  countUp?: boolean;
+  shimmerCount?: number;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const { stats, variant = 'band', countUp = false, shimmerCount = 10, class: className = '', ariaLabel } = Astro.props;
+const isHero = variant === 'hero';
+const heroStat = stats[0];
+---
+
+<section class:list={['xo-stats-band', isHero && 'xo-stats-band--hero', className]} aria-label={ariaLabel}>
+  {!isHero && (
+    <GridShimmer
+      count={shimmerCount}
+      opacity={0.25}
+      class="xo-stats-band__grid"
+      style="position: absolute; inset: 0; pointer-events: none;"
+    />
+  )}
+  <div class="xo-stats-band__glow" aria-hidden="true"></div>
+
+  <div class="xo-shell xo-stats-band__shell">
+    {isHero && heroStat ? (
+      <dl class="xo-stats-band__hero" data-stats-band={countUp ? '' : undefined}>
+        <dt class="xo-stats-band__value" data-stat-value={countUp ? heroStat.value : undefined}>{heroStat.value}</dt>
+        <dd class="xo-stats-band__label">{heroStat.label}</dd>
+        <div class="xo-stats-band__accent" aria-hidden="true"></div>
+      </dl>
+    ) : (
+      <dl class="xo-stats-band__list" data-stats-band={countUp ? '' : undefined}>
+        {stats.map((stat) => (
+          <div class="xo-stats-band__item">
+            <dt class="xo-stats-band__value" data-stat-value={countUp ? stat.value : undefined}>{stat.value}</dt>
+            <dd class="xo-stats-band__label">{stat.label}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+  </div>
+</section>
+
+<style>
+  .xo-stats-band {
+    position: relative;
+    overflow: hidden;
+    background: var(--xo-bg);
+  }
+  @media (min-width: 640px) {
+    .xo-stats-band {
+      min-height: 27rem; /* mesuré x.ai @ 1512px */
+    }
+  }
+  .xo-stats-band--hero {
+    min-height: auto;
+  }
+  @media (min-width: 640px) {
+    .xo-stats-band--hero {
+      min-height: 20rem;
+    }
+  }
+  .xo-stats-band__grid {
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+  }
+  .xo-stats-band__glow {
+    position: absolute;
+    top: -10rem;
+    right: -10rem;
+    width: 31.25rem;
+    height: 31.25rem;
+    pointer-events: none;
+    background: transparent;
+    opacity: 0.2;
+  }
+  .xo-stats-band--hero .xo-stats-band__glow {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+    opacity: 0.14;
+  }
+  .xo-stats-band__shell {
+    position: relative;
+    padding-block: 5rem;
+  }
+  @media (min-width: 640px) {
+    .xo-stats-band__shell {
+      padding-block: 9rem; /* py-36 mesuré x.ai */
+    }
+  }
+  .xo-stats-band--hero .xo-stats-band__shell {
+    padding-block: clamp(4rem, 10vw, 7rem);
+  }
+  .xo-stats-band__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin: 0;
+  }
+  .xo-stats-band__hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+  .xo-stats-band__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .xo-stats-band__value {
+    margin: 0;
+    color: var(--xo-text);
+    font-family: var(--eco-font-display);
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 640px) {
+    .xo-stats-band__value {
+      font-size: 6rem;
+    }
+  }
+  .xo-stats-band--hero .xo-stats-band__value {
+    font-size: clamp(3.5rem, 12vw, 8.5rem);
+    letter-spacing: -0.03em;
+  }
+  .xo-stats-band__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 0;
+    max-width: none;
+    color: rgba(255, 255, 255, 0.64);
+    font-family: var(--eco-font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: center;
+  }
+  :global([data-theme='light']) .xo-stats-band__label {
+    color: rgba(10, 10, 10, 0.64);
+  }
+  .xo-stats-band--hero .xo-stats-band__label {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 36ch;
+  }
+  .xo-stats-band__accent {
+    width: 3.5rem;
+    height: 2px;
+    margin-top: 1.75rem;
+    border-radius: 999px;
+    background: var(--xo-accent);
+    opacity: 0.85;
+  }
+  @media (max-width: 640px) {
+    .xo-stats-band__list {
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 8vw, 3.5rem);
+    }
+  }
+</style>
+
+<script>
+  import { parseStatValue, isCountUpEligible, interpolateCountUp } from '../../lib/ecosystem-motion.mjs';
+
+  function initStatsBandCountUp() {
+    document.querySelectorAll('[data-stats-band]').forEach((el) => {
+      if (el.dataset.initialized) return;
+      el.dataset.initialized = 'true';
+      const values = el.querySelectorAll('[data-stat-value]');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || values.length === 0) return;
+
+      const run = (node) => {
+        const raw = node.dataset.statValue || node.textContent || '';
+        const p = parseStatValue(raw);
+        if (!isCountUpEligible(p)) return;
+        const start = performance.now();
+        const frame = (now) => {
+          const t = Math.min(1, (now - start) / 1000);
+          node.textContent = interpolateCountUp(p, t);
+          if (t < 1) requestAnimationFrame(frame);
+          else node.textContent = p.raw;
+        };
+        requestAnimationFrame(frame);
+      };
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { values.forEach(run); obs.disconnect(); }
+        });
+      }, { threshold: 0.4 });
+      obs.observe(el);
+    });
+  }
+  initStatsBandCountUp();
+  document.addEventListener('astro:after-swap', initStatsBandCountUp);
+</script>

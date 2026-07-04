@@ -1,0 +1,223 @@
+---
+// Liste dense — clone x.ai/news « All posts » (catalog) ou tuile hero (tray).
+// Catalog : titre h3 → date en bas (pas de 2 colonnes).
+// Usage : <NewsDenseList layout="catalog" items={[{ href, date, title }]} />
+
+interface Item {
+  date: string;
+  dateIso?: string;
+  title: string;
+  href?: string;
+  description?: string;
+}
+
+interface Props {
+  items: Item[];
+  heading?: string;
+  decorative?: boolean;
+  variant?: 'default' | 'tray';
+  layout?: 'grid' | 'catalog';
+  showDescription?: boolean;
+  animated?: boolean;
+  loop?: boolean;
+  class?: string;
+  max?: number;
+}
+
+const {
+  items,
+  heading,
+  decorative = false,
+  variant = 'default',
+  layout = 'grid',
+  showDescription = true,
+  animated: animatedProp,
+  loop = true,
+  class: className = '',
+  max = 8,
+} = Astro.props;
+
+const animated = animatedProp ?? variant === 'tray';
+const rows = variant === 'tray' ? items : items.slice(0, max);
+const itemsJson = JSON.stringify(rows);
+const isCatalog = layout === 'catalog';
+---
+
+{variant === 'tray' ? (
+  <div
+    class:list={['xo-news-dense-list', 'xo-news-dense-list--tray', 'xo-news-dense-list--stream', className]}
+    aria-hidden={decorative ? 'true' : undefined}
+    data-news-dense-list
+    data-news-dense-stream
+    data-news-dense-items={itemsJson}
+    data-news-dense-loop={loop ? '1' : '0'}
+    data-news-dense-animated={animated ? '1' : '0'}
+  >
+    <div class="xo-news-dense-list__body" data-news-dense-body>
+      {rows.map((item, i) => (
+        <div class="xo-news-dense-list__line" data-news-dense-line={i}>
+          <span class="xo-news-dense-list__date">{item.date}</span>
+          <strong class="xo-news-dense-list__title">{item.title}</strong>
+        </div>
+      ))}
+      <div class="xo-progressive-blur" aria-hidden="true"></div>
+    </div>
+  </div>
+) : (
+  <div
+    class:list={['xo-news-dense-list', isCatalog && 'xo-news-dense-list--catalog', className]}
+    data-news-dense-list
+  >
+    {heading && <p class="xo-news-dense-list__heading">{heading}</p>}
+    <ul class="xo-news-dense-list__rows">
+      {rows.map((item) => {
+        const content = isCatalog ? (
+          <>
+            <div class="xo-news-dense-list__main">
+              <h3 class="xo-news-dense-list__title">{item.title}</h3>
+              {showDescription && item.description && (
+                <p class="xo-news-dense-list__desc">{item.description}</p>
+              )}
+            </div>
+            {item.dateIso ? (
+              <time class="xo-news-dense-list__date" datetime={item.dateIso}>{item.date}</time>
+            ) : (
+              <span class="xo-news-dense-list__date">{item.date}</span>
+            )}
+          </>
+        ) : (
+          <>
+            <span class="xo-news-dense-list__date">{item.date}</span>
+            <span class="xo-news-dense-list__copy">
+              <strong class="xo-news-dense-list__title">{item.title}</strong>
+              {showDescription && item.description && (
+                <span class="xo-news-dense-list__desc">{item.description}</span>
+              )}
+            </span>
+          </>
+        );
+        return (
+          <li>
+            {decorative || !item.href ? (
+              <div class="xo-news-dense-list__row">{content}</div>
+            ) : (
+              <a class="xo-news-dense-list__row" href={item.href}>
+                {content}
+              </a>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+)}
+
+{variant === 'tray' && animated && (
+  <script>
+    function initNewsDenseStream() {
+      document.querySelectorAll<HTMLElement>('[data-news-dense-stream]').forEach((root) => {
+        if (root.dataset.newsDenseInit) return;
+        if (root.dataset.newsDenseAnimated !== '1') return;
+        root.dataset.newsDenseInit = '1';
+
+        let items: { date: string; title: string }[];
+        try {
+          items = JSON.parse(root.dataset.newsDenseItems || '[]');
+        } catch {
+          return;
+        }
+
+        const lines = root.querySelectorAll<HTMLElement>('[data-news-dense-line]');
+        const loopEnabled = root.dataset.newsDenseLoop !== '0';
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reduced) {
+          lines.forEach((line) => line.classList.add('is-visible'));
+          return;
+        }
+
+        let timer = 0;
+        let stepIndex = 0;
+        let running = false;
+
+        function clearTimer() {
+          if (timer) {
+            window.clearTimeout(timer);
+            timer = 0;
+          }
+        }
+
+        function reset() {
+          lines.forEach((line) => line.classList.remove('is-visible'));
+          stepIndex = 0;
+        }
+
+        function showStep() {
+          timer = 0;
+
+          if (stepIndex >= items.length) {
+            if (!loopEnabled) return;
+            timer = window.setTimeout(() => {
+              reset();
+              timer = window.setTimeout(showStep, 300);
+            }, 3000);
+            return;
+          }
+
+          const line = lines[stepIndex];
+          if (line) line.classList.add('is-visible');
+          stepIndex++;
+          timer = window.setTimeout(showStep, 520);
+        }
+
+        function play() {
+          if (running) return;
+          running = true;
+          clearTimer();
+          reset();
+          timer = window.setTimeout(showStep, 400);
+        }
+
+        function pause() {
+          running = false;
+          clearTimer();
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) play();
+              else pause();
+            });
+          },
+          { threshold: 0 },
+        );
+        observer.observe(root);
+      });
+    }
+
+    initNewsDenseStream();
+    document.addEventListener('astro:after-swap', initNewsDenseStream);
+  </script>
+)}
+
+<style>
+  .xo-news-dense-list--stream {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+  .xo-news-dense-list--stream .xo-news-dense-list__body {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .xo-news-dense-list--stream .xo-news-dense-list__line {
+    width: 100%;
+  }
+</style>

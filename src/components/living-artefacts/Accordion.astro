@@ -1,0 +1,52 @@
+---
+// Accordéon "plat" cloné de la page Security d'x.ai (section "Security practices") :
+// rangées pleine largeur séparées par des filets hairline ; chaque rangée = titre à
+// gauche + indicateur +/− à droite ; au clic, la rangée se déploie sous le titre.
+// 100% natif <details>/<summary> : accessible (clavier + lecteurs d'écran), zéro JS.
+// Le marqueur natif est masqué (cf. kernel) ; l'indicateur "+" pivote en "−" via [open].
+//
+// allowMultiple=true  (défaut) → chaque <details> est indépendant (plusieurs ouverts OK).
+// allowMultiple=false → attribut HTML `name` partagé → accordéon exclusif (un seul ouvert),
+//   natif et sans JS. Repli gracieux : navigateurs sans support de `name` => indépendant.
+//
+// Usage:
+//   <Accordion heading="Security practices" items={[
+//     { title: 'Product Security', body: '<p>Revue de code obligatoire…</p>' },
+//     { title: 'Data Security',    body: 'Le texte simple est aussi accepté.' },
+//   ]} />
+
+interface AccordionItem {
+  title: string;
+  body: string; // texte ou HTML simple
+}
+
+interface Props {
+  items: AccordionItem[];
+  heading?: string;
+  allowMultiple?: boolean;
+}
+
+const { items, heading, allowMultiple = true } = Astro.props;
+
+// Accordéon exclusif = attribut `name` partagé entre les <details> (natif, sans JS).
+const groupName = allowMultiple
+  ? undefined
+  : `xo-accordion-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<section class="xo-accordion">
+  {heading && <h2 class="xo-accordion__heading">{heading}</h2>}
+  <div class="xo-accordion__list">
+    {items.map((item) => (
+      <details class="xo-accordion__item" name={groupName}>
+        <summary class="xo-accordion__summary">
+          <span class="xo-accordion__title">{item.title}</span>
+          <span class="xo-accordion__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="xo-accordion__panel">
+          <div class="xo-accordion__body" set:html={item.body}></div>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,105 @@
+---
+// Bande de chiffres géants — clone mesuré de la stats band x.ai/home
+// (section `relative overflow-hidden` h432 : 3 colonnes, nombres ~96px,
+//  labels minuscules, fond grille animée + halo de coin). Mesuré 2026-06-25.
+// Diffère de MetricStrip (variante inline, cartes bordées, 3rem) : ici le bloc
+// est une bande pleine largeur sans cartes, centrée, chiffres display géants.
+// Usage:
+//   <StatBand stats={[{ value: '2020', label: 'consultant indépendant depuis' }]} />
+import GridShimmer from './GridShimmer.astro';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  class?: string;
+}
+
+const { stats, class: className = '' } = Astro.props;
+---
+
+<div class:list={['xo-statband', className]}>
+  <GridShimmer count={11} opacity={0.22} class="xo-statband__grid" style="position:absolute;inset:0;pointer-events:none;" />
+  <div class="xo-statband__glow" aria-hidden="true"></div>
+  <dl class="xo-statband__row">
+    {stats.map((stat) => (
+      <div class="xo-statband__cell">
+        <dt class="xo-statband__value">{stat.value}</dt>
+        <dd class="xo-statband__label">{stat.label}</dd>
+      </div>
+    ))}
+  </dl>
+</div>
+
+<style>
+  .xo-statband {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--xo-line);
+    border-radius: var(--eco-radius-panel);
+    background: var(--xo-bg, #0a0a0a);
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  /* Halo de coin façon x.ai (`-right-40 -top-40 size-[500px]`) — neutre, pas d'orange. */
+  .xo-statband__glow {
+    position: absolute;
+    inset: auto -10rem 0 auto;
+    top: -10rem;
+    width: 31.25rem;
+    height: 31.25rem;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--xo-accent) 14%, transparent),
+      transparent 62%
+    );
+    opacity: 0.5;
+  }
+
+  .xo-statband__row {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    text-align: center;
+  }
+
+  .xo-statband__cell {
+    display: grid;
+    gap: 1rem;
+    padding-inline: 1rem;
+  }
+
+  .xo-statband__value {
+    margin: 0;
+    color: var(--xo-text);
+    font-family: var(--eco-font-display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .xo-statband__label {
+    margin: 0;
+    color: var(--xo-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 720px) {
+    .xo-statband__row {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .xo-statband__glow {
+      width: 18rem;
+      height: 18rem;
+    }
+  }
+</style>

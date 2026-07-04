@@ -18,6 +18,10 @@ interface Props {
   steps?: TraceStep[];
   progressLabel?: string;
   pulse?: { label: string; variant?: 'live' | 'running' | 'locked' };
+  loop?: boolean;
+  variant?: 'default' | 'tile';
+  /** Tuile hero : contenu décoratif dans un lien parent (aria-hidden). */
+  decorative?: boolean;
   class?: string;
 }
 
@@ -40,10 +44,15 @@ const {
   ],
   progressLabel = '16.15%',
   pulse,
+  loop = true,
+  variant = 'default',
+  decorative = false,
   class: className = '',
 } = Astro.props;
 
 const stepJson = JSON.stringify(steps);
+const hasProgress = steps.some((step) => step.progress !== undefined);
+const initialProgressDisplay = hasProgress ? '0%' : progressLabel;
 
 function statusLabel(status: TraceStep['status']) {
   if (!status) return '';
@@ -53,22 +62,41 @@ function statusLabel(status: TraceStep['status']) {
 }
 ---
 
-<div class={`xo-trace-demo ${className}`} data-trace-demo data-steps={stepJson} data-progress-label={progressLabel}>
+<div
+  class:list={['xo-trace-demo', variant === 'tile' && 'xo-trace-demo--tile', className]}
+  aria-hidden={decorative ? 'true' : undefined}
+  data-trace-demo
+  data-steps={stepJson}
+  data-progress-label={progressLabel}
+  data-loop={loop ? '1' : '0'}
+>
   <div class="xo-trace-demo-header">
     <div class="xo-trace-demo-dots" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>
-    <div class="xo-trace-demo-title">{title}</div>
-    {pulse && (
-      <span class:list={['xo-live-pulse', pulse.variant && `is-${pulse.variant}`]}>
-        <span class="xo-live-pulse-dot" aria-hidden="true"></span>
-        {pulse.label}
-      </span>
+    {variant === 'tile' ? (
+      <div class="xo-trace-demo-topbar">
+        <div class="xo-trace-demo-title">{title}</div>
+        <div class="xo-trace-demo-progress">
+          <span class="xo-trace-demo-bar"><span class="xo-trace-demo-bar-fill" data-trace-bar></span></span>
+          <span data-trace-progress-text>{initialProgressDisplay}</span>
+        </div>
+      </div>
+    ) : (
+      <>
+        <div class="xo-trace-demo-title">{title}</div>
+        {pulse && (
+          <span class:list={['xo-live-pulse', pulse.variant && `is-${pulse.variant}`]}>
+            <span class="xo-live-pulse-dot" aria-hidden="true"></span>
+            {pulse.label}
+          </span>
+        )}
+        <div class="xo-trace-demo-progress">
+          <span class="xo-trace-demo-bar"><span class="xo-trace-demo-bar-fill" data-trace-bar></span></span>
+          <span data-trace-progress-text>{initialProgressDisplay}</span>
+        </div>
+      </>
     )}
-    <div class="xo-trace-demo-progress">
-      <span class="xo-trace-demo-bar"><span class="xo-trace-demo-bar-fill" data-trace-bar></span></span>
-      <span data-trace-progress-text>{progressLabel}</span>
-    </div>
   </div>
   <div class="xo-trace-demo-body" data-trace-body>
     {steps.map((step, i) => (
@@ -94,7 +122,32 @@ function statusLabel(status: TraceStep['status']) {
   </div>
 </div>
 
+<style>
+  /* Remplissage : le terminal occupe toute la hauteur du panneau qui l'étire
+     (ex. .xo-feature-artifact { flex: 1 }). Corps en colonne flex, zone des
+     lignes = flex: 1, lignes alignées en haut (aspect terminal) — pas de vide
+     béant centré ni de débordement qui casse la mise en page. Styles scopés :
+     ils renforcent le noyau sans toucher couleurs ni thème clair. */
+  .xo-trace-demo {
+    height: 100%;
+    min-height: 0;
+  }
+  /* tv-show vitrine (B) : hauteur clamp kernel, pas 100% du sticky 28rem. */
+  :global(.tv-show__sticky .tv-show__frame--terminal) > .xo-trace-demo {
+    height: var(--tv-show-artifact-h);
+  }
+  .xo-trace-demo-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+</style>
+
 <script>
+  import { traceStepDelay, traceEndAction, traceProgressLabel } from '../../lib/ecosystem-motion.mjs';
+
   function initTraceDemos() {
     const demos = document.querySelectorAll<HTMLElement>('[data-trace-demo]');
     demos.forEach((demo) => {
@@ -105,19 +158,57 @@ function statusLabel(status: TraceStep['status']) {
       const lines = demo.querySelectorAll<HTMLElement>('[data-trace-line]');
       const bar = demo.querySelector<HTMLElement>('[data-trace-bar]');
       const progressText = demo.querySelector<HTMLElement>('[data-trace-progress-text]');
+      const initialProgress = demo.dataset.progressLabel || '';
+      const loopEnabled = demo.dataset.loop !== '0';
+      const hasProgress = steps.some((step: { progress?: number }) => step.progress !== undefined);
 
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      // prefers-reduced-motion : tout révélé d'emblée, état final, AUCUNE boucle.
       if (reduced) {
         lines.forEach((l) => l.classList.add('is-visible'));
-        if (bar) bar.style.width = '100%';
+        if (hasProgress) {
+          let finalLabel = '0%';
+          for (let i = steps.length - 1; i >= 0; i--) {
+            const label = traceProgressLabel(steps[i]);
+            if (label) {
+              finalLabel = label;
+              break;
+            }
+          }
+          if (bar) bar.style.width = finalLabel;
+          if (progressText) progressText.textContent = finalLabel;
+        } else if (bar) {
+          bar.style.width = '100%';
+        }
         return;
       }
 
+      let timer = 0;       // setTimeout en attente (0 = aucun) — un seul cycle actif
       let stepIndex = 0;
+      let running = false; // un cycle de déroulé est-il en cours
+
+      function clearTimer() {
+        if (timer) { window.clearTimeout(timer); timer = 0; }
+      }
+
+      function reset() {
+        lines.forEach((l) => l.classList.remove('is-visible'));
+        if (bar) bar.style.width = '0%';
+        if (progressText) progressText.textContent = hasProgress ? '0%' : initialProgress;
+        stepIndex = 0;
+      }
 
       function showStep() {
-        if (stepIndex >= steps.length) {
+        timer = 0;
+
+        const end = traceEndAction(stepIndex, steps.length, loopEnabled);
+        if (end.type === 'hold') return;
+        if (end.type === 'loop') {
+          timer = window.setTimeout(() => {
+            reset();
+            timer = window.setTimeout(showStep, end.restartDelayMs);
+          }, end.holdMs);
           return;
         }
 
@@ -125,26 +216,41 @@ function statusLabel(status: TraceStep['status']) {
         const step = steps[stepIndex];
         if (line) line.classList.add('is-visible');
 
-        if (step.progress !== undefined && bar) {
-          bar.style.width = step.progress + '%';
-          if (progressText) progressText.textContent = step.progress + '%';
+        const label = traceProgressLabel(step);
+        if (label && bar) {
+          bar.style.width = label;
+          if (progressText) progressText.textContent = label;
         }
 
         stepIndex++;
-        const delay = step.kind === 'task' ? 650 : step.prompt === '◆' || step.prompt === '✓' ? 800 : 500;
-        window.setTimeout(showStep, delay);
+        timer = window.setTimeout(showStep, traceStepDelay(step));
       }
 
+      function play() {
+        if (running) return; // déjà en cours : pas de second cycle parallèle
+        running = true;
+        demo.classList.add('is-playing');
+        clearTimer();
+        reset();
+        timer = window.setTimeout(showStep, 400);
+      }
+
+      function pause() {
+        running = false;
+        demo.classList.remove('is-playing');
+        clearTimer();
+      }
+
+      // Boucle infinie tant que visible ; pause hors-écran (threshold 0 = toute
+      // visibilité lance, sortie totale met en pause, quelle que soit la hauteur).
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setTimeout(showStep, 400);
-              observer.disconnect();
-            }
+            if (entry.isIntersecting) play();
+            else pause();
           });
         },
-        { threshold: 0.3 }
+        { threshold: 0 }
       );
       observer.observe(demo);
     });

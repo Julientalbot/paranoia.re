@@ -9,10 +9,13 @@ interface ChatMessage {
 
 interface Props {
   messages?: ChatMessage[];
+  /** Tuile hero : contenu décoratif dans un lien parent (aria-hidden). */
+  decorative?: boolean;
   class?: string;
 }
 
 const {
+  decorative = false,
   messages = [
     { role: 'user', text: 'How do black holes form?' },
     { role: 'assistant', text: 'A massive star exhausts its fuel and gravity collapses the core into a singularity.' },
@@ -27,7 +30,7 @@ const {
 const messagesJson = JSON.stringify(messages);
 ---
 
-<div class={`xo-chat-demo ${className}`} data-chat-demo data-messages={messagesJson}>
+<div class:list={['xo-chat-demo', className]} aria-hidden={decorative ? 'true' : undefined} data-chat-demo data-messages={messagesJson}>
   {messages.map((msg, i) => (
     <div
       class={`xo-chat-bubble ${msg.role === 'assistant' ? 'is-assistant' : 'is-user'}`}
@@ -39,53 +42,78 @@ const messagesJson = JSON.stringify(messages);
 </div>
 
 <script>
+  import { CHAT_DEMO_TIMING } from '../../lib/ecosystem-motion.mjs';
+
+  const { STEP, HOLD, FADE, PAUSE } = CHAT_DEMO_TIMING;
+
   function initChatDemos() {
     const demos = document.querySelectorAll<HTMLElement>('[data-chat-demo]');
     demos.forEach((demo) => {
       if (demo.dataset.initialized) return;
       demo.dataset.initialized = 'true';
 
-      const messages = JSON.parse(demo.dataset.messages || '[]');
       const bubbles = demo.querySelectorAll<HTMLElement>('[data-chat-bubble]');
-      const maxVisible = 4;
 
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduced) {
-        bubbles.forEach((b, i) => {
-          if (i < maxVisible) b.classList.add('is-visible');
-        });
+        // Tout afficher d'emblée, aucune boucle.
+        bubbles.forEach((b) => b.classList.add('is-visible'));
         return;
       }
 
-      let currentIndex = 0;
+      // UN SEUL timer actif à la fois : chaque étape planifie exactement la suivante,
+      // et start()/stop() nettoient avant de (re)lancer → pas d'empilement de setTimeout.
+      let timer: ReturnType<typeof setTimeout> | null = null;
 
-      function update() {
-        bubbles.forEach((b) => b.classList.remove('is-visible'));
-
-        const start = Math.max(0, currentIndex - maxVisible + 1);
-        for (let i = start; i <= currentIndex && i < bubbles.length; i++) {
-          const bubble = bubbles[i];
-          setTimeout(() => bubble.classList.add('is-visible'), (i - start) * 200);
+      function clearTimer() {
+        if (timer !== null) {
+          clearTimeout(timer);
+          timer = null;
         }
-
-        currentIndex++;
-        if (currentIndex >= messages.length) {
-          return;
-        }
-
-        setTimeout(update, 1800);
       }
 
+      function hideAll() {
+        // Retire is-visible → fondu de sortie via la transition CSS existante.
+        bubbles.forEach((b) => b.classList.remove('is-visible'));
+      }
+
+      // Révélation progressive DANS L'ORDRE ; les bulles restent (le conteneur est ancré
+      // en bas et clippe le haut quand ça déborde → effet "conversation en cours").
+      function revealFrom(i: number) {
+        if (i >= bubbles.length) {
+          // Dernière bulle atteinte : maintien, puis sortie.
+          timer = setTimeout(exit, HOLD);
+          return;
+        }
+        bubbles[i].classList.add('is-visible');
+        timer = setTimeout(() => revealFrom(i + 1), STEP);
+      }
+
+      function exit() {
+        hideAll();
+        // Laisse le fondu se jouer + courte pause, puis rejoue depuis la première.
+        timer = setTimeout(() => revealFrom(0), FADE + PAUSE);
+      }
+
+      function start() {
+        clearTimer();
+        hideAll();
+        revealFrom(0);
+      }
+
+      function stop() {
+        clearTimer();
+      }
+
+      // Boucle TANT QUE visible ; pause hors écran, reprise (depuis le début) à l'entrée.
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setTimeout(update, 500);
-              observer.disconnect();
-            }
+            if (entry.isIntersecting) start();
+            else stop();
           });
         },
-        { threshold: 0.3 }
+        { threshold: 0.15 }
       );
       observer.observe(demo);
     });

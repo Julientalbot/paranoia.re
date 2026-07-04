@@ -1,0 +1,51 @@
+---
+import GridShimmer from './GridShimmer.astro';
+
+interface Props {
+  href: string;
+  date: string;
+  dateIso?: string;
+  title: string;
+  description?: string;
+  image?: string;
+  alt?: string;
+  seed?: number;
+  readLabel?: string;
+}
+
+const {
+  href,
+  date,
+  dateIso,
+  title,
+  description,
+  image,
+  alt = '',
+  seed = 0,
+  readLabel = 'Lire plus',
+} = Astro.props;
+
+
+---
+
+<a class="xo-news-featured" href={href}>
+  <div class="xo-news-featured__copy">
+    {dateIso ? (
+      <time class="xo-news-featured__date" datetime={dateIso}>{date}</time>
+    ) : (
+      <p class="xo-news-featured__date">{date}</p>
+    )}
+    <h2 class="xo-news-featured__title">{title}</h2>
+    {description && <p class="xo-news-featured__desc">{description}</p>}
+    <span class="xo-news-featured__cta">{readLabel} <span aria-hidden="true">→</span></span>
+  </div>
+  <div class="xo-news-featured__media">
+    {image ? (
+      <img src={image} alt={alt} loading="eager" decoding="async" width="960" height="540" />
+    ) : (
+      <div class="xo-news-featured__fallback" style="background: var(--xo-surface);">
+        <GridShimmer count={8} opacity={0.28} style="position:absolute; inset:0;" />
+      </div>
+    )}
+  </div>
+</a>

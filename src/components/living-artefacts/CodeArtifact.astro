@@ -1,6 +1,10 @@
 ---
-// Console code avec onglets + copie — mesuré sur x.ai/api 2026-06-23.
-// Usage: <CodeArtifact title="api/quickstart" tabs={tabs} />
+// Console code avec onglets + copie — mesuré sur x.ai home « One API » 2026-06-25.
+// layout="xai" : fenêtre + onglets dessous (clone home). layout="stacked" : legacy (onglets dans le corps).
+// Usage: <CodeArtifact layout="xai" tabs={tabs} glow />
+// API /api : <CodeArtifact tabs={tabs} glow="blue" /> · <CodeArtifact tabs={tabs} glow="orange" />
+
+import { codeArtifactGlowClass } from '../../lib/ecosystem-motion.mjs';
 
 interface CodeTab {
   id: string;
@@ -11,59 +15,158 @@ interface CodeTab {
 interface Props {
   title?: string;
   tabs: CodeTab[];
+  layout?: 'xai' | 'stacked';
+  highlight?: boolean | 'dossier';
   copyLabel?: string;
   copyDoneLabel?: string;
+  showCopy?: boolean;
   shimmer?: boolean;
+  /** `true` = accent glow (stacked) · neutre sur layout xai · `blue`/`orange` = clone /api */
+  glow?: boolean | 'blue' | 'orange';
   class?: string;
   ariaLabel?: string;
+  lang?: 'en' | 'fr';
 }
 
 const {
   title = 'api/quickstart',
   tabs,
-  copyLabel = 'Copier',
-  copyDoneLabel = 'Copié',
+  layout = 'stacked',
+  highlight = false,
+  showCopy = true,
   shimmer = false,
+  glow = false,
   class: className = '',
   ariaLabel,
+  lang: langProp,
 } = Astro.props;
+
+const lang = langProp ?? (Astro.url.pathname.startsWith('/en') ? 'en' : 'fr');
+const copyLabel = Astro.props.copyLabel ?? (lang === 'en' ? 'Copy' : 'Copier');
+const copyDoneLabel = Astro.props.copyDoneLabel ?? (lang === 'en' ? 'Copied' : 'Copié');
+const isXai = layout === 'xai';
+const useHighlight = highlight === 'dossier' || highlight === true;
+const glowClass = codeArtifactGlowClass(glow);
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function highlightDossier(code: string) {
+  let html = escapeHtml(code);
+  // Citations sur texte brut uniquement — avant les <span>, sinon class="xo-tok-*" est cassé.
+  html = html.replace(/« ([^»]+) »/g, '<span class="xo-tok-str">« $1 »</span>');
+  html = html.replace(/“([^”]+)”/g, '<span class="xo-tok-str">“$1”</span>');
+  html = html.replace(
+    /^(logistique ·.+|logistics ·.+|même fil —.+|même fil diagnostic|same thread —.+|J\+30 —.+|D\+30 —.+|constat :.+|sortie :.+|boucle :.+|principe :.+|gate :.+|finding:.+|validation :.+|validation:.+|verdict :.+|verdict:.+)$/gm,
+    '<span class="xo-tok-meta">$1</span>',
+  );
+  html = html.replace(/^(▸ .+)$/gm, '<span class="xo-tok-dim">$1</span>');
+  return html;
+}
+
+function renderCode(code: string) {
+  return useHighlight ? highlightDossier(code) : escapeHtml(code);
+}
+
+const tabsLabel = lang === 'en' ? 'tabs' : 'onglets';
+const tablistLabel = ariaLabel ? `${ariaLabel} — ${tabsLabel}` : lang === 'en' ? 'Tabs' : 'Onglets';
 ---
 
-<div
-  class:list={['xo-console', 'xo-code-artifact', shimmer && 'xo-card-shimmer', className]}
-  data-code-artifact
-  aria-label={ariaLabel}
->
-  <div class="xo-console-top">
-    <span class="xo-console-dot"></span>
-    <span class="xo-console-dot"></span>
-    <span class="xo-console-dot"></span>
-    <strong>{title}</strong>
-    <button class="xo-copy-button" type="button" data-copy-current data-copy-done={copyDoneLabel}>
-      <span class="xo-copy-label">{copyLabel}</span>
-    </button>
-  </div>
-  <div class="xo-console-body">
-    <slot name="before-tabs" />
-    <div class="xo-code-tabs" role="tablist" aria-label={ariaLabel ? `${ariaLabel} — langages` : 'Langages'}>
-      {tabs.map((tab, index) => (
-        <button
-          class="xo-code-tab"
-          type="button"
-          role="tab"
-          data-code-tab={tab.id}
-          aria-selected={index === 0 ? 'true' : 'false'}
-          tabindex={index === 0 ? '0' : '-1'}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
-    {tabs.map((tab, index) => (
-      <div class="xo-code-panel" data-code-panel={tab.id} hidden={index !== 0}>
-        <pre><code>{tab.code}</code></pre>
+{isXai ? (
+  <div
+    class:list={[
+      'xo-code-artifact',
+      'xo-code-artifact--xai',
+      shimmer && 'xo-card-shimmer',
+      glowClass,
+      className,
+    ]}
+    data-code-artifact
+    data-code-layout="xai"
+    aria-label={ariaLabel}
+  >
+    <div class="xo-code-artifact__shell">
+      <div class="xo-code-artifact__window">
+        <div class="xo-code-artifact__chrome">
+          <div class="xo-code-artifact__dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          {showCopy && (
+            <button class="xo-code-artifact__copy" type="button" data-copy-current data-copy-done={copyDoneLabel}>
+              <span class="xo-copy-label">{copyLabel}</span>
+            </button>
+          )}
+        </div>
+        <div class="xo-code-artifact__viewport">
+          {tabs.map((tab, index) => (
+            <div class="xo-code-artifact__panel" data-code-panel={tab.id} hidden={index !== 0}>
+              <pre><code set:html={renderCode(tab.code)} /></pre>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-    <slot name="after-panels" />
+      <div class="xo-code-artifact__tabs" role="tablist" aria-label={tablistLabel}>
+        {tabs.map((tab, index) => (
+          <button
+            class="xo-code-artifact__tab"
+            type="button"
+            role="tab"
+            data-code-tab={tab.id}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            tabindex={index === 0 ? '0' : '-1'}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </div>
   </div>
-</div>
+) : (
+  <div
+    class:list={['xo-console', 'xo-code-artifact', shimmer && 'xo-card-shimmer', glowClass, className]}
+    data-code-artifact
+    data-code-layout="stacked"
+    aria-label={ariaLabel}
+  >
+    <div class="xo-console-top">
+      <span class="xo-console-dot"></span>
+      <span class="xo-console-dot"></span>
+      <span class="xo-console-dot"></span>
+      <strong>{title}</strong>
+      {showCopy && (
+        <button class="xo-copy-button" type="button" data-copy-current data-copy-done={copyDoneLabel}>
+          <span class="xo-copy-label">{copyLabel}</span>
+        </button>
+      )}
+    </div>
+    <div class="xo-console-body">
+      <slot name="before-tabs" />
+      <div class="xo-code-tabs" role="tablist" aria-label={tablistLabel}>
+        {tabs.map((tab, index) => (
+          <button
+            class="xo-code-tab"
+            type="button"
+            role="tab"
+            data-code-tab={tab.id}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            tabindex={index === 0 ? '0' : '-1'}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      {tabs.map((tab, index) => (
+        <div class="xo-code-panel" data-code-panel={tab.id} hidden={index !== 0}>
+          <pre><code set:html={renderCode(tab.code)} /></pre>
+        </div>
+      ))}
+      <slot name="after-panels" />
+    </div>
+  </div>
+)}

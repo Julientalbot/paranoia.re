@@ -1,0 +1,90 @@
+---
+// Mosaïque Imagine — clone x.ai home (tuile hero).
+// 3 zones visibles : grande cellule gauche + 2 cellules droite.
+// Crossfade sur les 3 paires (6 photos distinctes) + Ken-Burns.
+import { imageAttrs as getImageAttrs } from '../../lib/images';
+
+const VARIANT_WIDTHS = [600, 900, 1200];
+const proofSrcset = (src: string, nativeWidth?: number) => {
+  if (!nativeWidth || !src.endsWith('.webp')) return undefined;
+  const base = src.replace(/\.webp$/, '');
+  const entries = VARIANT_WIDTHS.filter((w) => w < nativeWidth).map((w) => `${base}-${w}.webp ${w}w`);
+  entries.push(`${src} ${nativeWidth}w`);
+  return entries.join(', ');
+};
+
+interface MosaicImage {
+  src: string;
+  alt: string;
+  nativeWidth?: number;
+}
+
+interface Props {
+  images: MosaicImage[];
+  /** Vitrine sticky tv-show : hauteur clamp, mosaïque compacte. */
+  variant?: 'default' | 'tile';
+  class?: string;
+}
+
+const { images, variant = 'default', class: className = '' } = Astro.props;
+
+const MOSAIC_SLOTS = 6;
+const pool = images.length >= MOSAIC_SLOTS ? images.slice(0, MOSAIC_SLOTS) : images;
+const at = (i: number) => pool[i % pool.length];
+const slots =
+  pool.length >= MOSAIC_SLOTS
+    ? { heroA: at(0), heroB: at(1), sideA: at(2), sideB: at(3), footA: at(4), footB: at(5) }
+    : pool.length >= 4
+      ? { heroA: at(0), heroB: at(1), sideA: at(2), sideB: at(3), footA: at(0), footB: at(2) }
+      : pool.length >= 3
+        ? { heroA: at(0), heroB: at(1), sideA: at(2), sideB: at(0), footA: at(1), footB: at(2) }
+        : { heroA: at(0), heroB: at(1), sideA: at(0), sideB: at(1), footA: at(0), footB: at(1) };
+
+const imgAttrs = (slot: MosaicImage) => {
+  const native = getImageAttrs(slot.src) as { width?: number; height?: number };
+  const nativeWidth = slot.nativeWidth ?? native.width;
+  return {
+    src: slot.src,
+    srcset: proofSrcset(slot.src, nativeWidth),
+    sizes: '(max-width: 640px) 50vw, 150px',
+    alt: slot.alt,
+    width: native.width,
+    height: native.height,
+    loading: 'eager' as const,
+    decoding: 'async' as const,
+  };
+};
+---
+
+<div class:list={['xo-imagine-mosaic', variant === 'tile' && 'xo-imagine-mosaic--tile', className]} aria-hidden="true">
+  <figure class="xo-imagine-mosaic__cell xo-imagine-mosaic__cell--hero">
+    <div class="xo-imagine-mosaic__pair">
+      <div class="xo-imagine-mosaic__slide">
+        <img {...imgAttrs(slots.heroA)} />
+      </div>
+      <div class="xo-imagine-mosaic__slide">
+        <img {...imgAttrs(slots.heroB)} />
+      </div>
+    </div>
+  </figure>
+  <figure class="xo-imagine-mosaic__cell xo-imagine-mosaic__cell--side">
+    <div class="xo-imagine-mosaic__pair">
+      <div class="xo-imagine-mosaic__slide">
+        <img {...imgAttrs(slots.sideA)} />
+      </div>
+      <div class="xo-imagine-mosaic__slide">
+        <img {...imgAttrs(slots.sideB)} />
+      </div>
+    </div>
+  </figure>
+  <figure class="xo-imagine-mosaic__cell">
+    <div class="xo-imagine-mosaic__pair">
+      <div class="xo-imagine-mosaic__slide">
+        <img {...imgAttrs(slots.footA)} />
+      </div>
+      <div class="xo-imagine-mosaic__slide">
+        <img {...imgAttrs(slots.footB)} />
+      </div>
+    </div>
+  </figure>
+</div>

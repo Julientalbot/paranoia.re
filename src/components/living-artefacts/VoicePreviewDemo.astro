@@ -1,0 +1,119 @@
+---
+// Panneau preview live — clone x.ai/voice « Try it live » (statut, timer, waveform).
+import WaveformDemo from './WaveformDemo.astro';
+
+interface Props {
+  greeting?: string;
+  status?: 'preview' | 'live';
+  duration?: string;
+  bars?: number;
+  class?: string;
+}
+
+const {
+  greeting = 'Hi, you’ve reached Sunrise Dental! How can I help?',
+  status = 'preview',
+  duration = '0:04',
+  bars = 32,
+  class: className = '',
+} = Astro.props;
+
+const statusLabel = status === 'live' ? 'Live' : 'Preview';
+---
+
+<div class:list={['xo-voice-preview', className]} data-voice-preview>
+  <div class="xo-voice-preview__chrome">
+    <span class="xo-voice-preview__status" data-status={status}>{statusLabel}</span>
+    <span class="xo-voice-preview__timer" aria-label="Durée">{duration}</span>
+  </div>
+  <div class="xo-voice-preview__wave">
+    <WaveformDemo bars={bars} />
+  </div>
+  <p class="xo-voice-preview__greeting">{greeting}</p>
+</div>
+
+<style>
+  .xo-voice-preview {
+    display: grid;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--xo-line);
+    border-radius: var(--eco-radius-artifact, 16px);
+    background: var(--xo-surface);
+  }
+
+  .xo-voice-preview__chrome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .xo-voice-preview__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--eco-font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--xo-text-muted);
+  }
+
+  .xo-voice-preview__status::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--xo-text-muted);
+  }
+
+  .xo-voice-preview__status[data-status='live'] {
+    color: var(--xo-accent-ink);
+  }
+
+  .xo-voice-preview__status[data-status='live']::before {
+    background: var(--xo-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--xo-accent) 25%, transparent);
+    animation: xo-voice-preview-pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes xo-voice-preview-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
+  .xo-voice-preview__timer {
+    font-family: var(--eco-font-mono);
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--xo-text-muted);
+  }
+
+  .xo-voice-preview__wave {
+    min-height: 6.5rem;
+    border-radius: 12px;
+    background: var(--xo-bg);
+    overflow: hidden;
+  }
+
+  .xo-voice-preview__wave :global(.xo-waveform) {
+    min-height: 6.5rem;
+    padding: 1rem;
+  }
+
+  .xo-voice-preview__greeting {
+    margin: 0;
+    color: var(--xo-text-soft);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .xo-voice-preview__status[data-status='live']::before {
+      animation: none;
+    }
+  }
+</style>

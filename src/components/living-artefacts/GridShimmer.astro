@@ -42,12 +42,15 @@ const {
 } = Astro.props;
 
 // Bande grille "vivante" façon x.ai : N stries aux cadences/délais désynchronisés
-// (déterministe — pas de Math.random, build reproductible). Mesuré : dur 1.8–2.96s, delay 0–5.8s.
+// (déterministe — pas de Math.random, build reproductible). Mesuré : tops ~6%→94%,
+// dur 1.8–2.96s, delay 0–5.8s. À count=17 : reproduit la bande pleine largeur de x.ai.
 const generatedLines: ShimmerLine[] = count
   ? Array.from({ length: count }, (_, i) => {
       const pair = palette[i % palette.length];
+      // Tops répartis linéairement de 6% à 94% (count=1 → strie centrée, pas de /0).
+      const top = count > 1 ? 6 + (i / (count - 1)) * 88 : 50;
       return {
-        top: (((i + 0.5) / count) * 100).toFixed(1) + '%',
+        top: top.toFixed(1) + '%',
         color: pair[0],
         color2: pair[1],
         duration: (1.8 + ((i * 29) % 12) / 10).toFixed(2) + 's',

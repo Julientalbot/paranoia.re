@@ -1,0 +1,47 @@
+---
+// Carte "Latest news" clonée d'x.ai (capture home 2026-06-25) : vignette en haut
+// (image sociale de l'article OU dégradé/GridShimmer neutre en repli), puis date
+// en mono discret, puis titre. Le lien englobe toute la carte.
+// Vignette mesurée x.ai : radius 8px, border rgba(255,255,255,0.06), ratio ~16/9.
+// ⚠ Le slot vignette doit rester NON-INTERACTIF (la carte est un <a>).
+// Usage:
+//   <NewsCard href="/writing/x" date="22 juin 2026" dateIso="2026-06-22" title="..." image="/social/x.png" />
+//   <NewsCard href="/writing/y" date="Écrit" title="..." seed={2} />  // repli dégradé
+//   <NewsCard decorative date="…" title="…" />  // dans ArtefactCard (lien parent)
+
+import GridShimmer from './GridShimmer.astro';
+
+interface Props {
+  href?: string;
+  date: string;
+  dateIso?: string;
+  title: string;
+  image?: string;
+  alt?: string;
+  seed?: number;
+  /** Rendu <div> non-lien — pour slot ArtefactCard (le parent porte href). */
+  decorative?: boolean;
+}
+
+const { href, date, dateIso, title, image, alt = '', seed = 0, decorative = false } = Astro.props;
+const Tag = decorative ? 'div' : 'a';
+
+---
+
+<Tag class="xo-news-card" href={decorative ? undefined : href}>
+  <div class="xo-news-card__media">
+    {image ? (
+      <img src={image} alt={alt} loading="lazy" decoding="async" width="600" height="338" />
+    ) : (
+      <div class="xo-news-card__fallback" style="background: var(--xo-surface);">
+        <GridShimmer count={6} opacity={0.28} style="position:absolute; inset:0;" />
+      </div>
+    )}
+  </div>
+  {dateIso ? (
+    <time class="xo-news-card__date" datetime={dateIso}>{date}</time>
+  ) : (
+    <p class="xo-news-card__date">{date}</p>
+  )}
+  <h3 class="xo-news-card__title">{title}</h3>
+</Tag>

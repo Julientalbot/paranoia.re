@@ -1,0 +1,119 @@
+---
+// Transcripts vocaux — clone x.ai/voice (lignes assistant pleine largeur, rotation lente).
+// Usage: <VoiceTranscriptDemo lines={[{ text: '…' }, …]} />
+
+interface TranscriptLine {
+  text: string;
+  label?: string;
+}
+
+interface Props {
+  lines?: TranscriptLine[];
+  intervalMs?: number;
+  class?: string;
+}
+
+const {
+  lines = [
+    { text: 'Ok, it looks like your order is in transit — it should get there by Thursday.' },
+    { text: 'Looks like we have a table for 2 on the patio at 7:30 PM. Does that work?' },
+    { text: 'Sure, let me check the calendar real quick…' },
+  ],
+  intervalMs = 4200,
+  class: className = '',
+} = Astro.props;
+---
+
+<div class:list={['xo-voice-transcript', className]} data-voice-transcript data-interval={intervalMs}>
+  {lines.map((line, i) => (
+    <p class="xo-voice-transcript__line" data-voice-line={i} data-active={i === 0 ? 'true' : 'false'}>
+      {line.label && <span class="xo-voice-transcript__label">{line.label}</span>}
+      {line.text}
+    </p>
+  ))}
+</div>
+
+<script>
+  function initVoiceTranscript() {
+    document.querySelectorAll<HTMLElement>('[data-voice-transcript]').forEach((root) => {
+      if (root.dataset.initialized) return;
+      root.dataset.initialized = 'true';
+
+      const lines = [...root.querySelectorAll<HTMLElement>('[data-voice-line]')];
+      if (lines.length < 2) {
+        lines.forEach((l) => l.dataset.active = 'true');
+        return;
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        lines.forEach((l, i) => { l.dataset.active = i === 0 ? 'true' : 'false'; });
+        return;
+      }
+
+      let idx = 0;
+      const interval = Number(root.dataset.interval) || 4200;
+
+      const show = (next: number) => {
+        lines.forEach((l, i) => { l.dataset.active = i === next ? 'true' : 'false'; });
+        idx = next;
+      };
+
+      window.setInterval(() => show((idx + 1) % lines.length), interval);
+    });
+  }
+
+  initVoiceTranscript();
+  document.addEventListener('astro:after-swap', initVoiceTranscript);
+</script>
+
+<style>
+  .xo-voice-transcript {
+    display: grid;
+    gap: 0.65rem;
+    width: 100%;
+    min-height: 5.5rem;
+  }
+
+  .xo-voice-transcript__line {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--xo-line);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--xo-surface) 92%, var(--xo-bg));
+    color: var(--xo-text-soft);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 420ms var(--eco-ease-out, ease-out),
+      transform 420ms var(--eco-ease-out, ease-out);
+  }
+
+  .xo-voice-transcript__line[data-active='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    color: var(--xo-text);
+    border-color: color-mix(in srgb, var(--xo-accent) 28%, var(--xo-line));
+  }
+
+  .xo-voice-transcript__label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--eco-font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--xo-text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .xo-voice-transcript__line {
+      transition: none;
+      transform: none;
+    }
+    .xo-voice-transcript__line:not([data-active='true']) {
+      display: none;
+    }
+  }
+</style>

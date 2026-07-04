@@ -1,0 +1,60 @@
+---
+// CapabilityGrid — grille plate de capacités, clone x.ai (« And much more » sur
+// grok, « Everything you need to ship » sur cli). Style PLAT : chaque item est
+// coiffé d'un FILET hairline en haut (pas de carte/boîte, pas d'ombre), icône
+// fine mono (~18-20px) inline à gauche du titre, titre medium, description en
+// --xo-text-soft. Grille 3 col desktop → 2 tablette → 1 mobile.
+// L'icône accepte une string SVG (rendue via set:html dans un span aria-hidden)
+// OU un emoji ; repli automatique = petit tiret accent si aucune icône.
+// CSS-only, aucune ombre portée, aucun gradient décoratif, motion nulle.
+// Usage:
+//   <CapabilityGrid
+//     heading="Et bien plus encore"
+//     lead="Tout ce qu'il faut pour livrer."
+//     items={[{ icon: '<svg…>', title: 'Voix', desc: 'Conversation vocale…' }]}
+//   />
+
+interface CapabilityItem {
+  icon?: string;   // string SVG inline (stroke=currentColor) OU emoji
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  items: CapabilityItem[];
+  columns?: number;
+  heading?: string;
+  lead?: string;
+  class?: string;
+}
+
+const { items, columns = 3, heading, lead, class: className = '' } = Astro.props;
+
+// SVG si la string commence par un chevron ; sinon emoji/texte (ou rien → repli CSS).
+const isSvg = (s?: string) => typeof s === 'string' && s.trim().startsWith('<');
+---
+
+<section class:list={['xo-cap-grid', className]} style={`--xo-capgrid-cols: ${columns};`}>
+  {(heading || lead) && (
+    <header class="xo-cap-grid__head">
+      {heading && <h2 class="xo-cap-grid__heading">{heading}</h2>}
+      {lead && <p class="xo-cap-grid__lead">{lead}</p>}
+    </header>
+  )}
+
+  <ul class="xo-cap-grid__items">
+    {items.map((item) => (
+      <li class="xo-capability">
+        <div class="xo-capability__head">
+          {isSvg(item.icon) ? (
+            <span class="xo-capability__icon" aria-hidden="true" set:html={item.icon} />
+          ) : (
+            <span class="xo-capability__icon" aria-hidden="true">{item.icon}</span>
+          )}
+          <h3 class="xo-capability__title">{item.title}</h3>
+        </div>
+        <p class="xo-capability__desc">{item.desc}</p>
+      </li>
+    ))}
+  </ul>
+</section>

@@ -1,0 +1,102 @@
+---
+// Grille de presets CTA — clone x.ai/voice (Customer Support, Sales, Custom…).
+interface Preset {
+  label: string;
+  href: string;
+  description?: string;
+}
+
+interface Props {
+  presets: Preset[];
+  heading?: string;
+  class?: string;
+}
+
+const { presets, heading, class: className = '' } = Astro.props;
+---
+
+<section class:list={['xo-preset-grid', className]}>
+  {heading && <h3 class="xo-preset-grid__heading">{heading}</h3>}
+  <ul class="xo-preset-grid__list">
+    {presets.map((preset) => (
+      <li>
+        <a class="xo-preset-card" href={preset.href}>
+          <span class="xo-preset-card__label">{preset.label}</span>
+          {preset.description && <span class="xo-preset-card__desc">{preset.description}</span>}
+          <span class="xo-preset-card__arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .xo-preset-grid__heading {
+    margin: 0 0 1rem;
+    font-family: var(--eco-font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--xo-text);
+  }
+
+  .xo-preset-grid__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .xo-preset-card {
+    display: grid;
+    gap: 0.25rem;
+    min-height: 2.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--xo-line);
+    border-radius: 12px;
+    background: var(--xo-surface);
+    color: var(--xo-text);
+    text-decoration: none;
+    transition:
+      background 150ms var(--eco-ease-out, ease-out),
+      border-color 150ms var(--eco-ease-out, ease-out);
+  }
+
+  .xo-preset-card:hover,
+  .xo-preset-card:focus-visible {
+    border-color: color-mix(in srgb, var(--xo-accent) 40%, var(--xo-line));
+    background: color-mix(in srgb, var(--xo-accent) 6%, var(--xo-surface));
+  }
+
+  .xo-preset-card__label {
+    font-family: var(--eco-font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .xo-preset-card__desc {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--xo-text-muted);
+  }
+
+  .xo-preset-card__arrow {
+    justify-self: end;
+    margin-top: 0.15rem;
+    color: var(--xo-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .xo-preset-card:hover .xo-preset-card__arrow,
+  .xo-preset-card:focus-visible .xo-preset-card__arrow {
+    color: var(--xo-accent-ink);
+  }
+
+  @media (max-width: 560px) {
+    .xo-preset-grid__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

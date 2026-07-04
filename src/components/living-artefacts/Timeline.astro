@@ -1,0 +1,56 @@
+---
+// Frise chronologique — clone du bandeau x.ai "276 days from groundbreak" (page Colossus) :
+// une hairline horizontale avec des POINTS datés équirépartis, dates en mono discret,
+// libellés sobres, et un (ou plusieurs) JALON accentué (point lime + libellé display
+// emphasé + date en sous-texte, léger pulse d'état). Mobile (<=720px) : bascule en frise
+// VERTICALE (ligne à gauche, dot, date + libellé empilés) — aucun débordement à 390px.
+// Le markup utilise des classes .xo-timeline__* ; le CSS vit dans le kernel.
+// Alignement des dots assuré par subgrid (rangées label/dot/date partagées entre événements).
+// Usage :
+//   <Timeline
+//     caption="276 jours du premier coup de pelle à la pleine échelle"
+//     lead="Colossus — Memphis. Du terrain nu au plus grand cluster d'entraînement IA."
+//     events={[
+//       { date: 'Mai 2024', label: 'Premier coup de pelle' },
+//       { date: 'Juil. 2024', label: '100K GPU en ligne' },
+//       { date: 'Févr. 2025', label: 'Pleine échelle — 200K GPU', milestone: true },
+//     ]}
+//   />
+
+interface TimelineEvent {
+  date: string;
+  label?: string;
+  milestone?: boolean;
+}
+
+interface Props {
+  events: TimelineEvent[];
+  caption?: string;
+  lead?: string;
+  class?: string;
+}
+
+const { events, caption, lead, class: className = '' } = Astro.props;
+const hasHead = Boolean(caption || lead);
+---
+
+<figure class:list={['xo-timeline', className]}>
+  {hasHead && (
+    <figcaption class="xo-timeline__head">
+      {caption && <p class="xo-timeline__caption">{caption}</p>}
+      {lead && <p class="xo-timeline__lead">{lead}</p>}
+    </figcaption>
+  )}
+
+  <ol class="xo-timeline__track">
+    {events.map((event) => (
+      <li class:list={['xo-timeline__event', { 'is-milestone': event.milestone }]}>
+        {event.label && <span class="xo-timeline__label">{event.label}</span>}
+        <span class="xo-timeline__mid">
+          <span class="xo-timeline__dot" aria-hidden="true"></span>
+        </span>
+        <span class="xo-timeline__date">{event.date}</span>
+      </li>
+    ))}
+  </ol>
+</figure>

@@ -29,15 +29,12 @@ const {
 
 const Tag = href ? 'a' : 'div';
 const showFoot = Boolean(label || href);
-const accessibleLabel = ariaLabel && label && !ariaLabel.toLocaleLowerCase().includes(label.toLocaleLowerCase())
-  ? `${label} — ${ariaLabel}`
-  : ariaLabel;
 ---
 
 <Tag
   class:list={['xo-artefact-card', className]}
   href={href}
-  aria-label={accessibleLabel}
+  aria-label={ariaLabel}
   data-event={event}
 >
   <div class="xo-artefact-card__body"><slot /></div>

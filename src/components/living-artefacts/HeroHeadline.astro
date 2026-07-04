@@ -8,23 +8,32 @@
 interface Props {
   text: string;
   rotate?: string[];
+  underline?: string;
   id?: string;
   class?: string;
 }
 
-const { text, rotate, id, class: className = '' } = Astro.props;
+const { text, rotate, underline, id, class: className = '' } = Astro.props;
 const words = text.trim().split(/\s+/);
 const hasRotate = Array.isArray(rotate) && rotate.length > 0;
+const hasUnderline = typeof underline === 'string' && underline.length > 0;
 ---
 
 <h1 id={id} class:list={['xo-title', 'xo-hl', className]} data-hl>
   {words.map((w, i) => (
     <span class="xo-hl-word" style={`--i:${i}`}>{w}&nbsp;</span>
   ))}
+  {hasUnderline && (
+    <span class="xo-hl-word xo-hl-underline" style={`--i:${words.length}`}>{underline}</span>
+  )}
   {hasRotate && (
     <span class="xo-hl-rotate" style={`--i:${words.length}`} data-hl-rotate>
       {rotate!.map((w, i) => (
-        <span class:list={['xo-hl-rotate-word', i === 0 && 'is-active']}>{w}</span>
+        <span class:list={['xo-hl-rotate-word', i === 0 && 'is-active']}>
+          {[...w].map((ch, j) => (
+            <span class="xo-hl-letter" style={`--j:${j}`}>{ch === ' ' ? ' ' : ch}</span>
+          ))}
+        </span>
       ))}
     </span>
   )}
@@ -32,18 +41,18 @@ const hasRotate = Array.isArray(rotate) && rotate.length > 0;
 
 {hasRotate && (
   <script>
+    import { applyHlRotateTick } from '../../lib/ecosystem-motion.mjs';
+
     function initHlRotate() {
-      document.querySelectorAll<HTMLElement>('[data-hl-rotate]').forEach((el) => {
+      document.querySelectorAll('[data-hl-rotate]').forEach((el) => {
         if (el.dataset.hlInit) return;
         el.dataset.hlInit = '1';
-        const words = el.querySelectorAll<HTMLElement>('.xo-hl-rotate-word');
+        const words = [...el.querySelectorAll('.xo-hl-rotate-word')];
         if (words.length < 2) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         let i = 0;
         window.setInterval(() => {
-          words[i].classList.remove('is-active');
-          i = (i + 1) % words.length;
-          words[i].classList.add('is-active');
+          i = applyHlRotateTick(words, i);
         }, 2400);
       });
     }

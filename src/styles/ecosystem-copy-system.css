@@ -55,7 +55,7 @@
   --xo-ink: #ffffff;
   --xo-text-soft: rgba(255, 255, 255, 0.5);
   --xo-text-muted: rgba(255, 255, 255, 0.48); /* 0.45 tombait sous AA (4,47:1) sur les cartes ; 0.48 = 4,9:1 */
-  --xo-line-strong: #1f2228;
+  --xo-line-strong: rgba(255, 255, 255, 0.1);
   --xo-line: rgba(255, 255, 255, 0.06);
   --xo-surface: #1a1a1a;
   --xo-surface-raised: #151515;

@@ -1,0 +1,65 @@
+---
+// Rangée de plans tarifaires clonée d'x.ai (page Pricing, capture 2026-06-26) :
+// cartes côte à côte, chacune = nom du plan, prix géant + période mono muette,
+// blurb court, checklist de features (coche accent ✓ à gauche), CTA pleine
+// largeur ancré en bas. La carte `highlighted` reçoit une bordure + un fond accent
+// subtils et un CTA primaire plein (fond --xo-text, texte --xo-bg).
+// Mesuré x.ai : surface --xo-surface, filet 1px --xo-line, radius 16px, padding
+// généreux, AUCUNE ombre, AUCUN gradient décoratif. Hairline interne sous l'en-tête.
+// Les cartes ne sont PAS interactives — seul le CTA est un lien (cible ≥44px).
+// Usage:
+//   <PricingTiers tiers={[
+//     { name: 'Free', price: '$0', period: '/month', features: [...], cta: { label: 'Commencer', href: '/signup' } },
+//     { name: 'SuperGrok', price: '$30', period: '/month', highlighted: true, blurb: '…', features: [...], cta: { label: 'S’abonner', href: '/subscribe' } },
+//   ]} />
+
+interface Tier {
+  name: string;
+  price: string;
+  period?: string;
+  blurb?: string;
+  features: string[];
+  cta: { label: string; href: string; event?: string; format?: string };
+  highlighted?: boolean;
+}
+
+interface Props {
+  tiers: Tier[];
+  class?: string;
+}
+
+const { tiers, class: className = '' } = Astro.props;
+---
+
+<div class:list={['xo-pricing-tiers', className]}>
+  {tiers.map((tier) => (
+    <article class:list={['xo-pricing-card', tier.highlighted && 'xo-pricing-card--featured']}>
+      <header class="xo-pricing-card__head">
+        <h3 class="xo-pricing-card__name">{tier.name}</h3>
+        <p class="xo-pricing-card__price">
+          <span class="xo-pricing-card__amount">{tier.price}</span>
+          {tier.period && <span class="xo-pricing-card__period">{tier.period}</span>}
+        </p>
+        {tier.blurb && <p class="xo-pricing-card__blurb">{tier.blurb}</p>}
+      </header>
+
+      <ul class="xo-pricing-card__features">
+        {tier.features.map((feature) => (
+          <li class="xo-pricing-card__feature">
+            <svg class="xo-pricing-card__check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+              <path d="M13.5 4.5 6.5 11.5 2.5 7.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        class="xo-pricing-card__cta"
+        href={tier.cta.href}
+        data-event={tier.cta.event}
+        data-format={tier.cta.format}
+      >{tier.cta.label}</a>
+    </article>
+  ))}
+</div>

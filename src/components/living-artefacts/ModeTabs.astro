@@ -1,0 +1,194 @@
+---
+// Onglets de modes/surfaces — panel = carte pricing x.ai · console = terminal #151515 (dossier mono).
+interface ModeTab {
+  id: string;
+  label: string;
+  content: string;
+}
+
+interface Props {
+  tabs: ModeTab[];
+  artifactTitle?: string;
+  uid?: string;
+  variant?: 'panel' | 'console';
+  class?: string;
+  lang?: 'en' | 'fr';
+}
+
+const {
+  tabs,
+  artifactTitle,
+  uid: uidProp,
+  variant = 'panel',
+  class: className = '',
+  lang: langProp,
+} = Astro.props;
+
+const lang = langProp ?? (Astro.url.pathname.startsWith('/en') ? 'en' : 'fr');
+const tablistLabel = artifactTitle
+  ? `${artifactTitle} — ${lang === 'en' ? 'tabs' : 'onglets'}`
+  : lang === 'en' ? 'Tabs' : 'Onglets';
+
+// Préfixe unique par instance pour lier onglet ↔ panneau (aria-controls / aria-labelledby).
+const uid = (uidProp ?? artifactTitle ?? tabs.map((t) => t.id).join('-'))
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '');
+
+const isConsole = variant === 'console';
+---
+
+<div
+  class:list={[
+    'mode-tabs',
+    isConsole ? 'xo-mode-tabs--console' : ['xo-artifact-panel', 'xo-mode-tabs--panel'],
+    className,
+  ]}
+  data-mode-tabs
+  data-mode-variant={variant}
+>
+  <div class="mode-tabs-header">
+    {artifactTitle && <span class="mode-tabs-title">{artifactTitle}</span>}
+    <div class="mode-tabs-bar" role="tablist" aria-label={tablistLabel}>
+      {tabs.map((tab, index) => (
+        <button
+          class="mode-tab-pill"
+          type="button"
+          role="tab"
+          id={`tab-${uid}-${tab.id}`}
+          aria-controls={`panel-${uid}-${tab.id}`}
+          data-mode-tab={tab.id}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? '0' : '-1'}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="mode-tabs-content">
+    {tabs.map((tab, index) => (
+      <div
+        class="mode-tab-panel"
+        id={`panel-${uid}-${tab.id}`}
+        aria-labelledby={`tab-${uid}-${tab.id}`}
+        data-mode-panel={tab.id}
+        hidden={index !== 0}
+        role="tabpanel"
+        set:html={tab.content}
+      />
+    ))}
+    {isConsole && <div class="xo-progressive-blur" aria-hidden="true"></div>}
+  </div>
+</div>
+
+<script>
+  function getModeTabGroups(root: ParentNode): HTMLElement[] {
+    if (root instanceof HTMLElement && root.matches('[data-mode-tabs]')) {
+      return [root];
+    }
+    return Array.from(root.querySelectorAll<HTMLElement>('[data-mode-tabs]'));
+  }
+
+  function initModeTabs(root: ParentNode = document) {
+    getModeTabGroups(root).forEach((group) => {
+      if (group.dataset.modeTabsInit === '1') return;
+      group.dataset.modeTabsInit = '1';
+
+      const pills = group.querySelectorAll<HTMLButtonElement>('[data-mode-tab]');
+      const panels = group.querySelectorAll<HTMLElement>('[data-mode-panel]');
+
+      const activate = (id: string) => {
+        pills.forEach((pill) => {
+          const active = pill.dataset.modeTab === id;
+          pill.setAttribute('aria-selected', active ? 'true' : 'false');
+          pill.tabIndex = active ? 0 : -1;
+        });
+        panels.forEach((panel) => {
+          const active = panel.dataset.modePanel === id;
+          if (active) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      };
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const ids = Array.from(pills).map((p) => p.dataset.modeTab).filter(Boolean) as string[];
+      let cycle: ReturnType<typeof setInterval> | null = null;
+      let userTookOver = false;
+
+      const advance = () => {
+        const current = Array.from(pills).findIndex(
+          (p) => p.getAttribute('aria-selected') === 'true',
+        );
+        const next = ids[(current + 1) % ids.length];
+        if (next) activate(next);
+      };
+      const startCycle = () => {
+        if (cycle || userTookOver || reduced || ids.length < 2) return;
+        cycle = setInterval(advance, 3800);
+      };
+      const stopCycle = () => {
+        if (cycle) {
+          clearInterval(cycle);
+          cycle = null;
+        }
+      };
+
+      group.addEventListener('mouseenter', stopCycle);
+      group.addEventListener('focusin', stopCycle);
+      group.addEventListener('mouseleave', startCycle);
+
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          userTookOver = true;
+          stopCycle();
+          const id = pill.dataset.modeTab;
+          if (id) activate(id);
+        });
+      });
+
+      if (!reduced && ids.length >= 2) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startCycle();
+            } else {
+              stopCycle();
+            }
+          });
+        }, { threshold: 0.2 });
+        io.observe(group);
+      }
+
+      const bar = group.querySelector<HTMLElement>('[role="tablist"]');
+      if (bar) {
+        bar.addEventListener('keydown', (event) => {
+          const target = event.target as HTMLButtonElement;
+          if (!target.matches('[data-mode-tab]')) return;
+          const list = Array.from(pills);
+          const idx = list.indexOf(target);
+          let next: number | null = null;
+          if (event.key === 'ArrowRight') next = (idx + 1) % list.length;
+          if (event.key === 'ArrowLeft') next = (idx - 1 + list.length) % list.length;
+          if (next !== null) {
+            event.preventDefault();
+            const n = list[next];
+            n.focus();
+            const id = n.dataset.modeTab;
+            if (id) activate(id);
+          }
+        });
+      }
+    });
+  }
+
+  function boot() {
+    initModeTabs(document);
+  }
+
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('astro:after-swap', boot);
+</script>

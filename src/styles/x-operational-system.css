@@ -8,12 +8,23 @@
   --xo-bg: var(--xo-canvas);
   --xo-text: var(--xo-ink);
   --xo-accent-soft: color-mix(in srgb, var(--xo-accent) 13%, transparent);
+  --xo-button-ring: rgba(255, 255, 255, 0.15) 0 0 0 1px;
   min-width: 320px;
   overflow-x: clip;
   background: var(--xo-bg);
   color: var(--xo-text);
   font-family: var(--eco-font-body);
   text-rendering: geometricPrecision;
+}
+
+[data-theme="light"] .xo-page {
+  --xo-button-ring: rgba(0, 0, 0, 0.15) 0 0 0 1px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .xo-page {
+    --xo-button-ring: rgba(0, 0, 0, 0.15) 0 0 0 1px;
+  }
 }
 
 /* Canonical typography (60px/500, tracking -0.025em on h1). */
@@ -34,6 +45,14 @@
   line-height: var(--xo-h2-line);
   letter-spacing: -0.025em;
   font-weight: 400;
+}
+
+/* H2 contextual size — home 48px, subpages 36px (mesuré x.ai/cli/grok/security/api). */
+.xo-page:not(.xo-home) h2,
+.xo-page:not(.xo-home) .xo-title--section {
+  font-size: clamp(28px, 2.5vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.9px;
 }
 
 /* Two-tone heading: secondary clause in muted ink (subject white, complement dimmed). */
@@ -132,7 +151,7 @@
 
 .xo-person-proof__portrait strong {
   font-size: 0.95rem;
-  font-weight: 550;
+  font-weight: 500;
   line-height: 1.2;
 }
 
@@ -170,7 +189,7 @@
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
-  font-weight: 550;
+  font-weight: 500;
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -273,7 +292,7 @@
   margin-top: 0.3rem;
   color: var(--xo-accent-ink);
   font-size: 0.72rem;
-  font-weight: 550;
+  font-weight: 500;
 }
 
 .xo-path-grid {
@@ -303,7 +322,6 @@
   text-decoration: none;
   transition:
     background var(--xo-motion-fast),
-    transform var(--xo-motion-fast),
     border-color var(--xo-motion-fast);
 }
 
@@ -339,7 +357,6 @@
 
 .xo-path-card:hover {
   border-color: var(--xo-line-strong);
-  transform: scale(1.02);
 }
 
 .xo-path-card:active {
@@ -410,14 +427,12 @@
 }
 
 .xo-mode-surface-grid,
+/* Start x.ai mesuré (2026-07-02) : deux cartes séparées (#1a1a1a, radius 16, pad 40),
+   pas une grille soudée au filet 1px. CTA pill pleine largeur en pied de carte. */
 .xo-start-two-track {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid var(--xo-line);
-  border-radius: var(--eco-radius-panel);
-  background: var(--xo-line);
+  gap: 2rem;
 }
 
 .xo-mode-surface,
@@ -435,16 +450,18 @@
   text-decoration: none;
   transition:
     background var(--xo-motion-fast),
-    transform var(--xo-motion-fast),
     border-color var(--xo-motion-fast);
 }
 
+/* Carte start = div non cliquable (le CTA est le bouton) : pas de hover-scale ni
+   de filet accent — anti-pattern « carte qui a l'air cliquable mais ne l'est pas ». */
 .xo-start-track {
   min-height: 18rem;
+  padding: 2.5rem;
+  border: 0;
 }
 
-.xo-mode-surface::before,
-.xo-start-track::before {
+.xo-mode-surface::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
@@ -455,22 +472,17 @@
 }
 
 a.xo-mode-surface:hover,
-a.xo-mode-surface:focus-visible,
-.xo-start-track:hover,
-.xo-start-track:focus-visible {
+a.xo-mode-surface:focus-visible {
   background: var(--xo-surface-raised);
-  transform: scale(1.02);
+  border-color: var(--xo-line-strong);
 }
 
 a.xo-mode-surface:hover::before,
-a.xo-mode-surface:focus-visible::before,
-.xo-start-track:hover::before,
-.xo-start-track:focus-visible::before {
+a.xo-mode-surface:focus-visible::before {
   opacity: 0.82;
 }
 
-.xo-mode-surface:active,
-.xo-start-track:active {
+.xo-mode-surface:active {
   transform: translateY(1px) scale(0.998);
 }
 
@@ -486,10 +498,35 @@ a.xo-mode-surface:focus-visible::before,
   line-height: 1;
 }
 
+/* Titre de carte start x.ai mesuré : 24px / 500 / lh 32px */
 .xo-start-track h3 {
   max-width: 22ch;
-  font-size: clamp(1.55rem, 2.2vw, 2.05rem);
-  line-height: 1.08;
+  font-size: 1.5rem;
+  line-height: 1.3334;
+}
+
+.xo-start-track .xo-feature-checks li {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.xo-start-track__foot {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: var(--eco-space-5, 1.5rem);
+}
+
+.xo-start-track__cta {
+  width: 100%;
+  justify-content: center;
+}
+
+.xo-start-track__note {
+  margin: 0;
+  color: var(--xo-text-soft);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 .xo-mode-surface p,
@@ -600,8 +637,7 @@ a.xo-mode-surface:focus-visible::before,
   transition:
     border-color var(--xo-motion-fast),
     background var(--xo-motion-fast),
-    color var(--xo-motion-fast),
-    transform var(--xo-motion-fast);
+    color var(--xo-motion-fast);
 }
 
 .xo-theme-toggle {
@@ -660,7 +696,7 @@ a.xo-mode-surface:focus-visible::before,
 .xo-code-tab:hover,
 .xo-code-tab:focus-visible {
   color: var(--xo-terminal-ink);
-  transform: translateY(-1px);
+  border-color: var(--xo-terminal-border);
 }
 
 .xo-copy-button[data-copy-state="copied"] {
@@ -790,8 +826,63 @@ a.xo-mode-surface:focus-visible::before,
 .xo-proof-copy p:not(.xo-kicker) {
   max-width: 54ch;
   color: var(--xo-text-soft);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+
+/* Bloc développeur home (clone x.ai « One API ») : H2 48px sur la home uniquement. */
+.xo-home .xo-developer-section .xo-title--section {
+  font-size: var(--xo-h2);
+  line-height: var(--xo-h2-line);
+  letter-spacing: -0.025em;
+}
+
+.xo-home .xo-developer-section .xo-subtitle {
+  font-size: 1rem;
+  line-height: 1.625;
+}
+
+.xo-feature-2col .xo-proof-copy .xo-title--section {
+  margin-bottom: 1rem;
+}
+
+/* Home « Par où commencer » — deux pistes centrées + note secondaire + contact. */
+.xo-home .xo-start-two-track {
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+.xo-home-start-note {
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+  text-align: center;
+  color: var(--xo-text-soft);
+  font-size: 0.92rem;
+}
+
+.xo-home-start-note a {
+  color: var(--xo-text);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.xo-home-start-note a:hover { color: var(--xo-accent-ink); }
+
+.xo-home-start-contact {
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.xo-home-start-contact p {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--xo-text-soft);
+  line-height: 1.6;
 }
 
 /* Air entre le texte et les CTA (collés à 0 sinon). */
@@ -833,10 +924,17 @@ a.xo-mode-surface:focus-visible::before,
   position: relative;
   overflow: hidden;
   text-align: center;
-  border: 1px solid var(--xo-line);
-  border-radius: var(--eco-radius-panel);
-  background: var(--xo-bg);
+  border: 0;
+  border-radius: 16px;
+  background: var(--xo-surface);
   padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 4vw, 3rem);
+}
+/* Titre de band : x.ai « Building on Grok? » mesuré 2026-07-02 = 30px / 400
+   (pas le H2 36px de section). Les deux variantes battent la règle contextuelle
+   .xo-page:not(.xo-home) {h2, .xo-title--section} par spécificité + ordre. */
+.xo-page .xo-cta-band h2,
+.xo-page .xo-cta-band .xo-title--section {
+  font-size: 1.875rem;
 }
 .xo-cta-band__glow {
   position: absolute;
@@ -846,7 +944,7 @@ a.xo-mode-surface:focus-visible::before,
   width: 36rem;
   height: 36rem;
   pointer-events: none;
-  background: radial-gradient(circle, color-mix(in srgb, var(--xo-accent) 12%, transparent) 0%, transparent 65%);
+  background: transparent;
 }
 .xo-cta-band__inner {
   position: relative;
@@ -859,6 +957,281 @@ a.xo-mode-surface:focus-visible::before,
 .xo-cta-band .xo-actions {
   justify-content: center;
 }
+/* Variante grok : carte 2 colonnes (copie gauche · CTAs droite) */
+.xo-cta-band--split {
+  text-align: start;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.75rem, 4vw, 3rem);
+}
+.xo-cta-band--split .xo-cta-band__inner {
+  max-width: none;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: start;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+.xo-cta-band--split .xo-cta-band__copy {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 36rem;
+}
+.xo-cta-band--split .xo-cta-band__copy p {
+  margin: 0;
+  color: var(--xo-text-soft);
+  line-height: 1.6;
+}
+.xo-cta-band--split .xo-actions {
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
+@media (max-width: 760px) {
+  .xo-cta-band--split .xo-cta-band__inner {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+  .xo-cta-band--split .xo-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+/* ── Vitrine sticky-scroll (clone x.ai/grok) : panneaux copie gauche, visuel épinglé droite ── */
+.tv-section-head {
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+.tv-show__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+  align-items: stretch;
+}
+.tv-show__list { grid-column: 1; }
+.tv-show__panel {
+  min-height: clamp(26rem, 64vh, 38rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: opacity 320ms ease;
+}
+.tv-show__panel p {
+  max-width: 48ch;
+  color: var(--xo-text-soft);
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+.tv-show__panel.is-dim { opacity: 0.34; }
+/* Desktop : démos inline sr-only (arbre a11y) ; sticky .tv-show__visual = miroir visuel aria-hidden. */
+.tv-show__inline {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+.tv-show__visual { grid-column: 2; position: relative; }
+.tv-show__sticky {
+  position: sticky;
+  top: calc(50vh - 14rem);
+  height: 28rem;
+  /* Hauteur unique des artefacts vitrine (B) — diagnostic trace = IA code xai. */
+  --tv-show-artifact-h: clamp(15rem, 22vw, 21rem);
+}
+.tv-show__frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 360ms ease;
+}
+.tv-show__frame.is-active { opacity: 1; visibility: visible; }
+/* Pleine hauteur sticky : frames génériques (artefacts vitrine = clamp ci-dessous). */
+.tv-show__frame:not(.tv-show__frame--terminal):not(.tv-show__frame--code):not(.tv-show__frame--console):not(.tv-show__frame--chat):not(.tv-show__frame--scenes) > * {
+  height: 100%;
+}
+/* Vitrine sticky (B) : même hauteur totale diagnostic = IA = formation chat.
+   Spécificité > style scopé AgentTraceDemo (.xo-trace-demo[data-astro-cid]). */
+.tv-show__sticky .tv-show__frame--terminal > .xo-trace-demo.xo-trace-demo--tile,
+.tv-show__sticky .tv-show__frame--console > .xo-mode-tabs.xo-mode-tabs--console,
+.tv-show__sticky .tv-show__frame--code > .xo-code-artifact.xo-code-artifact--xai,
+.tv-show__sticky .tv-show__frame--chat > .xo-chat-demo,
+.tv-show__sticky .tv-show__frame--scenes > .xo-imagine-mosaic.xo-imagine-mosaic--tile {
+  height: var(--tv-show-artifact-h);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+.tv-show__sticky .tv-show__frame--scenes > .xo-imagine-mosaic.xo-imagine-mosaic--tile {
+  width: 100%;
+  min-height: 0;
+  border-radius: var(--eco-radius-panel, 12px);
+}
+/* Chat formation : bulles ancrées en bas dans le clamp (clone hero-tray).
+   Compact : 6 bulles max lisibles sans couper le début (333px + gaps). */
+.tv-show__sticky .tv-show__frame--chat > .xo-chat-demo {
+  justify-content: flex-end;
+  gap: 0.3rem;
+  padding: 0 1rem 0.75rem;
+  overflow: hidden;
+}
+.tv-show__frame--code > .xo-code-artifact--xai {
+  width: 100%;
+  max-width: none;
+}
+.tv-show__frame--code .xo-code-artifact__shell {
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+.tv-show__frame--code .xo-code-artifact__window {
+  min-height: 0;
+  height: 100%;
+}
+.tv-show__frame--code .xo-code-artifact__viewport {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+@media (max-width: 900px) {
+  .tv-show__grid { grid-template-columns: 1fr; }
+  .tv-show__list { grid-column: auto; }
+  .tv-show__visual { display: none; }
+  .tv-show__panel { min-height: 0; justify-content: flex-start; }
+  .tv-show__panel.is-dim { opacity: 1; }
+  .tv-show__inline {
+    position: static;
+    width: auto;
+    height: clamp(20rem, 62vw, 26rem);
+    margin: 1.5rem 0 0.5rem;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    white-space: normal;
+    clip: auto;
+    clip-path: none;
+  }
+  .tv-show__inline > .xo-code-artifact--xai .xo-code-artifact__shell {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+  .tv-show__inline > .xo-code-artifact--xai .xo-code-artifact__window {
+    min-height: 0;
+    height: 100%;
+  }
+  .tv-show__inline > * { height: 100%; }
+  .tv-show__inline > .xo-chat-demo {
+    justify-content: flex-end;
+    gap: 0.3rem;
+    padding: 0 1rem 0.75rem;
+    overflow: hidden;
+  }
+}
+
+/* Activation 3 étapes (clone x.ai « Get started ») */
+.tv-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3.2vw, 2.75rem);
+}
+.tv-step {
+  padding-top: 0.25rem;
+  text-align: center;
+}
+.tv-step__num {
+  font-family: var(--eco-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--xo-accent-ink, var(--xo-accent));
+}
+.tv-step h3 {
+  margin: 0.7rem 0 0.45rem;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  color: var(--xo-text);
+}
+.tv-step p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--xo-text-soft);
+}
+@media (max-width: 720px) {
+  .tv-steps { grid-template-columns: 1fr; gap: 1.75rem; }
+}
+/* Paire CTA sous les étapes (clone grok « Get started »). */
+.tv-steps-cta {
+  justify-content: center;
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
+
+/* Schéma animé du flux 3 étapes */
+.tv-flow {
+  --tv-gap: clamp(1.5rem, 3.2vw, 2.75rem);
+  --tv-half: calc((100% - 2 * var(--tv-gap)) / 6);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tv-gap);
+  height: 10px;
+  margin: 0 0 2.5rem;
+}
+.tv-flow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--tv-half);
+  right: var(--tv-half);
+  height: 1px;
+  margin-top: -0.5px;
+  background: var(--xo-line);
+}
+.tv-flow__node {
+  justify-self: center;
+  align-self: center;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--xo-bg);
+  border: 1.5px solid var(--xo-text-muted);
+  position: relative;
+  z-index: 1;
+}
+.tv-flow__pulse {
+  position: absolute;
+  top: 50%;
+  left: var(--tv-half);
+  width: 72px;
+  height: 1px;
+  margin-top: -0.5px;
+  background: linear-gradient(90deg, transparent, var(--xo-accent-ink, var(--xo-accent)), transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tv-flow__pulse { animation: tv-flow-run 3.6s linear infinite; }
+  .tv-flow__node { animation: tv-node-flash 3.6s linear infinite; }
+  /* Sous-pages au repos (x.ai/grok mesuré : 0 animation active) — pulse seulement visible */
+  .tv-flow:not(.xo-inview) .tv-flow__pulse,
+  .tv-flow:not(.xo-inview) .tv-flow__node { animation-play-state: paused; }
+  .tv-flow__node:nth-child(2) { animation-delay: 0.1s; }
+  .tv-flow__node:nth-child(3) { animation-delay: 1.8s; }
+  .tv-flow__node:nth-child(4) { animation-delay: 3.4s; }
+}
+@keyframes tv-flow-run {
+  from { left: var(--tv-half); }
+  to { left: calc(100% - var(--tv-half)); }
+}
+@keyframes tv-node-flash {
+  0%, 6%, 100% { border-color: var(--xo-text-muted); box-shadow: none; }
+  2% { border-color: var(--xo-accent-ink, var(--xo-accent)); box-shadow: 0 0 0 4px color-mix(in srgb, var(--xo-accent) 16%, transparent); }
+}
+@media (max-width: 720px) { .tv-flow { display: none; } }
+
 @media (max-width: 980px) {
   .xo-proof-layout--reverse {
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
@@ -1038,6 +1411,16 @@ a.xo-mode-surface:focus-visible::before,
     grid-template-columns: 1fr;
   }
 
+  /* Les artefacts (AgentTrace…) ont un min-content large : sans min-width:0 sur
+     les items de grille, la piste 1fr s'étire à cette largeur (~466px) et
+     déborde le viewport — copie + bouton du bloc Méthode coupés à droite en
+     mobile. On laisse les items rétrécir ; le contenu se reflow sur la largeur. */
+  .xo-proof-layout > *,
+  .xo-feature-2col > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   .xo-person-proof {
     width: min(100%, 42rem);
     justify-self: start;
@@ -1170,11 +1553,375 @@ a.xo-mode-surface:focus-visible::before,
   --xo-danger: var(--eco-color-magenta);
 }
 
-.xo-shell {
+/* ── Hub templates (A = grok/cli/voice · B = news) ── */
+.xo-hub-commercial__showcase,
+.xo-hub-commercial__extra,
+.xo-hub-commercial__recap,
+.xo-hub-commercial__activation,
+.xo-hub-commercial__cross-sell {
+  border-top: 1px solid var(--xo-line);
+}
+
+.xo-hub-commercial--thin .xo-hub-commercial__extra > .xo-section,
+.xo-hub-commercial--thin .xo-hub-commercial__recap > .xo-section {
+  padding-block: clamp(3.5rem, 6vw, 5rem);
+}
+
+.xo-hub-catalog__archive {
+  border-top: 1px solid var(--xo-line);
+}
+
+/* x.ai/news container — 1280 + 24px → 1232px contenu (comme home). */
+.xo-news-page .xo-shell {
+  max-width: 1280px;
+  padding-inline: 24px;
+}
+
+.xo-news-page .xo-news-spotlight {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3.5vw, 2.5rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 3rem);
+}
+
+/* Vedette x.ai/news : texte à gauche, image à droite. */
+.xo-news-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: stretch;
+  color: var(--xo-text);
+  text-decoration: none;
+  transition: color 200ms var(--eco-ease-out);
+}
+
+.xo-news-featured__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  min-width: 0;
+}
+
+.xo-news-featured:hover .xo-news-featured__title,
+.xo-news-featured:focus-visible .xo-news-featured__title {
+  color: var(--xo-text);
+}
+
+.xo-news-featured__media {
+  position: relative;
+  min-height: clamp(220px, 28vw, 320px);
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: 8px;
+  background: var(--xo-surface);
+  transition: border-color 220ms var(--eco-ease-out);
+}
+
+.xo-news-featured:hover .xo-news-featured__media,
+.xo-news-featured:focus-visible .xo-news-featured__media {
+  border-color: var(--xo-line-strong);
+}
+
+.xo-news-featured__media img {
   width: 100%;
-  max-width: var(--eco-container);
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.xo-news-featured__fallback {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.xo-news-featured__date {
+  margin: 0;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.01em;
+}
+
+/* Spécificité (0,3,0) : doit battre la règle contextuelle .xo-page:not(.xo-home) h2 (36px) */
+.xo-news-page .xo-news-featured .xo-news-featured__title {
+  margin: 0.65rem 0 0;
+  color: var(--xo-text);
+  /* x.ai/news featured : 48px/48px/-1.2px mesurés à 1512 (2026-07-02) — 3.2vw atteint le clamp */
+  font-size: clamp(1.75rem, 3.2vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  transition: color 200ms var(--eco-ease-out);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.xo-news-featured__desc {
+  margin: 0.85rem 0 0;
+  /* x.ai/news lede : 14px / 1.625 / alpha .45 mesurés à 1512 (2026-07-02) */
+  color: color-mix(in srgb, var(--xo-text) 45%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.625;
+  max-width: 36ch;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.xo-news-featured__cta {
+  display: inline-flex;
+  align-self: flex-start;
+  width: max-content;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: 999px;
+  background: var(--xo-text);
+  color: var(--xo-bg);
+  font-family: var(--eco-font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition: gap 200ms var(--eco-ease-out), opacity 200ms var(--eco-ease-out);
+}
+
+.xo-news-featured:hover .xo-news-featured__cta,
+.xo-news-featured:focus-visible .xo-news-featured__cta {
+  gap: 0.55rem;
+  opacity: 0.92;
+}
+
+.xo-news-grid--spotlight {
+  margin-top: 0;
+}
+
+.xo-news-page .xo-news-archive {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.xo-news-page .xo-news-archive__title {
+  margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+  font-family: var(--eco-font-display);
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: -0.75px;
+  color: var(--xo-text);
+}
+
+h3.xo-news-card__title {
+  margin: 0.3rem 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19.25px;
+  letter-spacing: -0.025em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .xo-news-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .xo-news-featured__media {
+    order: -1;
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+}
+
+/* Template B — article (clone x.ai/news/[slug]) */
+.xo-news-article {
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+.xo-news-article .xo-article-post {
+  width: 100%;
+  max-width: calc(45rem + var(--eco-page-x) + var(--eco-page-x));
   margin-inline: auto;
   padding-inline: var(--eco-page-x);
+}
+
+.xo-news-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 200ms var(--eco-ease-out);
+}
+
+.xo-news-back:hover,
+.xo-news-back:focus-visible {
+  color: var(--xo-text);
+}
+
+.xo-news-article .article-head {
+  max-width: none;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+/* Préfixe main : le body porte aussi .xo-page sans .xo-news-article, et la règle
+   générique :not(.xo-news-article) matchait via cet ancêtre à spécificité égale.
+   x.ai/news/[slug] mesuré 2026-07-02 : H1 48px / 400 / lh 1.0 / -1.2px. */
+main.xo-page.xo-news-article .article-head h1 {
+  max-width: none;
+  margin: 0.75rem 0 0;
+  font-family: var(--eco-font-display);
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.xo-news-article .article-lede {
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  color: var(--xo-text-muted);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+.xo-news-article .xo-article-divider {
+  max-width: none;
+  margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+  border: 0;
+  border-top: 1px solid var(--xo-line);
+}
+
+.xo-news-hero {
+  margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.xo-news-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--xo-line);
+  border-radius: 8px;
+}
+
+.xo-news-article .xo-article-prose > :is(p, ul, ol, blockquote, h2, h3, h4) {
+  max-width: none;
+  color: var(--xo-text);
+}
+
+.xo-news-article .xo-article-prose > p {
+  /* x.ai article prose mesurée 2026-07-02 : 16px / 28px / alpha .85 */
+  font-size: 1rem;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--xo-text) 85%, transparent);
+  margin: 0 0 1.25rem;
+}
+
+.xo-news-article .xo-article-prose > :is(ul, ol) {
+  margin: 0 0 1.25rem;
+  padding-left: 1.35rem;
+  line-height: 1.625;
+}
+
+.xo-news-article .xo-article-prose > h2 {
+  margin: 2.5rem 0 1rem;
+  font-family: var(--eco-font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 32px;
+}
+
+.xo-news-article .xo-article-prose > h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.5px;
+}
+
+.xo-news-article .xo-article-prose > blockquote {
+  margin: 0 0 1.25rem;
+  border-left: 2px solid var(--xo-line-strong);
+  padding-left: 1rem;
+  color: var(--xo-text-soft);
+}
+
+.xo-news-article .xo-article-prose > p.xo-news-aside {
+  margin-top: 2rem;
+  margin-bottom: 0;
+  color: var(--xo-text-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.xo-news-code {
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: 8px;
+  background: var(--xo-terminal);
+}
+
+.xo-news-code__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--xo-line);
+  background: var(--xo-surface);
+}
+
+.xo-news-code__lang {
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.xo-news-code__pre {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  background: var(--xo-terminal) !important;
+  color: var(--eco-color-text);
+  font-family: var(--eco-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  tab-size: 2;
+}
+
+.xo-news-code__pre code {
+  font-family: inherit;
+  background: transparent !important;
+}
+
+.xo-shell {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* Home = clone pixel d'x.ai : réaffirme la mesure 1280 + gouttière 24px,
+   même si le shell global évolue plus tard. */
+.xo-home.xo-page .xo-shell {
+  max-width: 1280px;
+  padding-inline: 24px;
 }
 
 .xo-section {
@@ -1213,7 +1960,7 @@ a.xo-mode-surface:focus-visible::before,
   place-items: center;
   overflow: hidden;
   border: 1px solid var(--xo-line-strong);
-  border-radius: 0.7rem;
+  border-radius: 8px;
   color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.82rem;
@@ -1481,18 +2228,21 @@ a.xo-mode-surface:focus-visible::before,
   line-height: var(--xo-nav-link-line);
   text-decoration: none;
   transition:
-    transform var(--xo-motion-fast),
     border-color var(--xo-motion-fast),
     background var(--xo-motion-fast),
     color var(--xo-motion-fast);
 }
 
+.xo-button:not(.xo-button--primary) {
+  box-shadow: var(--xo-button-ring);
+}
+
 .xo-button:hover {
-  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--xo-text) 8%, transparent);
 }
 
 .xo-button:active {
-  transform: translateY(0) scale(0.98);
+  background: color-mix(in srgb, var(--xo-text) 14%, transparent);
 }
 
 .xo-button:focus-visible,
@@ -1797,7 +2547,7 @@ a.xo-mode-surface:focus-visible::before,
   color: var(--xo-text);
   font-family: var(--eco-font-display);
   font-size: 1rem;
-  font-weight: 550;
+  font-weight: 500;
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
@@ -1977,6 +2727,31 @@ a.xo-mode-surface:focus-visible::before,
   font-family: var(--eco-font-mono);
   font-size: 0.76rem;
   line-height: 1.45;
+}
+
+/* Variante COMPACTE sous une copie de feature (clone du strip « 1M+ · <200ms · 5+ »
+   d'x.ai sous « One API ») : ligne simple, sans cellules bordées, valeurs moyennes —
+   PAS le panneau bordé par défaut (grille 4-col, cellules 8rem, valeurs 3rem). */
+.xo-metric-strip.xo-feature-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  margin-top: 2rem;
+}
+.xo-feature-metrics .xo-metric {
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+}
+.xo-feature-metrics .xo-metric strong {
+  font-size: 1.6rem;
+}
+.xo-feature-metrics .xo-metric span {
+  margin-top: 0.35rem;
 }
 
 .xo-evidence-metrics {
@@ -2184,8 +2959,9 @@ a.xo-mode-surface:focus-visible::before,
   grid-template-columns: minmax(0, 1.05fr) repeat(6, minmax(6rem, 0.5fr));
 }
 
-.xo-trust-footer h2,
-.xo-trust-footer h3 {
+.xo-trust-footer .xo-footer-mark,
+.xo-trust-footer .xo-footer-col-label {
+  display: block;
   margin: 0 0 var(--eco-space-3);
   color: var(--xo-text);
   font-family: var(--eco-font-mono);
@@ -2374,7 +3150,7 @@ a.xo-mode-surface:focus-visible::before,
   color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
-  font-weight: 550;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
@@ -2406,6 +3182,20 @@ a.xo-mode-surface:focus-visible::before,
   }
 }
 
+/* Bandeau pages hors nav principale (conférences, agents, labs). */
+.xo-wip-notice {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--xo-line);
+  background: color-mix(in srgb, var(--xo-bg) 94%, var(--xo-text) 6%);
+}
+.xo-wip-notice p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--xo-text-soft);
+  text-align: center;
+}
+
 /* Julien EOTS adapters */
 .site-header {
   position: sticky;
@@ -2425,9 +3215,83 @@ a.xo-mode-surface:focus-visible::before,
   white-space: nowrap;
 }
 
+/* Nav translucide flottante — clone x.ai (mesuré rgba(10,10,10,0.85), sans blur).
+   Navigation.astro ajoute .site-header--floating sur home + pages produit (/travail…).
+   Compensation hero scopée (.xo-home-hero | .xo-product-hero) pour ne pas toucher ergonomia/paranoia. */
+.site-header--floating {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  /* x.ai mesuré (2026-07-02) : transparent au top, sans border-bottom ; l'état scrollé est du JS */
+  background: transparent;
+  border-bottom-color: transparent;
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.site-header--floating.is-scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  background: color-mix(in srgb, var(--xo-bg) 85%, transparent);
+}
+/* Home : pb 0 (x.ai mesuré 2026-07-02, hero+tray pb 0 — l'espace vit dans la section suivante) */
+.site-header--floating ~ .xo-home .xo-home-hero {
+  padding-block: calc(var(--xo-nav-height) + clamp(3rem, 6vw, 5.5rem)) 0;
+}
+.site-header--floating ~ .xo-page--product .xo-product-hero {
+  padding-block: calc(var(--xo-nav-height) + clamp(3rem, 6vw, 5.5rem)) 4rem;
+}
+@media (max-width: 640px) {
+  .site-header--floating ~ .xo-home .xo-home-hero,
+  .site-header--floating ~ .xo-page--product .xo-product-hero {
+    padding-block: calc(var(--xo-nav-height) + 1.5rem) 2rem;
+  }
+}
+
 .site-nav-links {
   font-family: var(--eco-font-body);
 }
+
+/* ── Hamburger mobile (clone x.ai), opt-in via .site-header--menu sur le header.
+   Bouton masqué partout par défaut ; activé en ≤640 UNIQUEMENT pour les headers
+   .site-header--menu (julientalbot.com + paranoia.re). Les sites sans la classe
+   (ergonomia.re) gardent la nav 3-rangées. Styles de base ci-dessous ; bascule
+   responsive dans le bloc @media plus bas. */
+.site-nav-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--xo-line);
+  border-radius: 0.7rem;
+  color: var(--xo-text);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.site-nav-toggle__bars,
+.site-nav-toggle__bars::before,
+.site-nav-toggle__bars::after {
+  content: "";
+  display: block;
+  width: 1.15rem;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.25s var(--eco-ease-out), opacity 0.2s var(--eco-ease-out);
+}
+.site-nav-toggle__bars { position: relative; }
+.site-nav-toggle__bars::before { position: absolute; left: 0; top: -6px; }
+.site-nav-toggle__bars::after { position: absolute; left: 0; top: 6px; }
+.site-header[data-nav-open] .site-nav-toggle__bars { background: transparent; }
+.site-header[data-nav-open] .site-nav-toggle__bars::before { transform: translateY(6px) rotate(45deg); }
+.site-header[data-nav-open] .site-nav-toggle__bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+/* Spécificité (0,2,0) pour battre .xo-button (display:inline-flex) : le CTA tiroir
+   reste masqué hors menu mobile. */
+.site-header .site-nav-cta-drawer { display: none; }
+html.nav-open { overflow: hidden; }
 
 .site-nav-link {
   position: relative;
@@ -2599,14 +3463,12 @@ a.xo-mode-surface:focus-visible::before,
   font-weight: 500;
   text-decoration: none;
   transition:
-    transform var(--xo-motion-fast),
     border-color var(--xo-motion-fast),
     background var(--xo-motion-fast),
     color var(--xo-motion-fast);
 }
 
 .xo-page .btn:hover {
-  transform: translateY(-1px);
   border-color: var(--xo-text);
 }
 
@@ -2660,10 +3522,10 @@ a.xo-mode-surface:focus-visible::before,
   margin-bottom: var(--eco-space-8);
 }
 
-.xo-page .service-hero h1,
-.xo-page .article-head h1,
-.xo-page .contact-page-intro h1,
-.xo-page .about-hero h1 {
+.xo-page:not(.xo-news-article) .service-hero h1,
+.xo-page:not(.xo-news-article) .article-head h1,
+.xo-page:not(.xo-news-article) .contact-page-intro h1,
+.xo-page:not(.xo-news-article) .about-hero h1 {
   max-width: 12.8ch;
   margin: 0;
   color: var(--xo-text);
@@ -2751,14 +3613,11 @@ a.xo-mode-surface:focus-visible::before,
   color: inherit;
   padding: 0;
   text-decoration: none;
-  transition:
-    border-color var(--xo-motion-fast),
-    transform var(--xo-motion-fast);
+  transition: border-color var(--xo-motion-fast);
 }
 
 .xo-page .lab-proof-artifact:hover {
   border-color: color-mix(in srgb, var(--xo-accent) 42%, var(--xo-line-strong));
-  transform: translateY(-1px);
 }
 
 .xo-page .lab-proof-artifact:focus-visible {
@@ -3078,7 +3937,7 @@ a.xo-mode-surface:focus-visible::before,
   color: var(--xo-accent-ink);
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
-  font-weight: 550;
+  font-weight: 500;
   text-transform: uppercase;
 }
 
@@ -3733,10 +4592,10 @@ a.xo-mode-surface:focus-visible::before,
     justify-content: flex-start;
   }
 
-  .xo-page .service-hero h1,
-  .xo-page .article-head h1,
-  .xo-page .contact-page-intro h1,
-  .xo-page .about-hero h1 {
+  .xo-page:not(.xo-news-article) .service-hero h1,
+  .xo-page:not(.xo-news-article) .article-head h1,
+  .xo-page:not(.xo-news-article) .contact-page-intro h1,
+  .xo-page:not(.xo-news-article) .about-hero h1 {
     font-size: clamp(3.15rem, 7vw, 4rem);
   }
 
@@ -3830,6 +4689,68 @@ a.xo-mode-surface:focus-visible::before,
     flex-wrap: wrap;
     gap: 0.35rem;
     justify-content: flex-start;
+  }
+
+  /* ── Variante hamburger (.site-header--menu) : surcharge la nav 3-rangées par
+     une barre flex (marque | thème | hamburger) + menu plein écran déroulant.
+     Même spécificité (0,2,0) que les règles 3-rangées mais SOURCE PLUS BAS → gagne
+     pour les headers qui ont la classe ; ergonomia.re (sans la classe) garde la
+     nav 3-rangées par défaut. Cible .xo-nav-links (présent sur les 2 sites). ── */
+  .site-header--menu .xo-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .site-header--menu .xo-brand { margin-right: auto; }
+  .site-header--menu .xo-nav > .xo-theme-toggle { margin-left: 0; }
+  .site-header--menu .site-nav-toggle { display: inline-flex; }
+
+  .site-header--menu .xo-nav > .xo-nav-links {
+    position: fixed;
+    inset: var(--xo-nav-height) 0 0 0;
+    z-index: calc(var(--eco-z-header, 50) - 1);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.15rem;
+    max-width: none;
+    padding: 1.25rem 1.5rem calc(1.75rem + env(safe-area-inset-bottom));
+    background: var(--xo-bg);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.4rem);
+    transition: opacity 0.22s var(--eco-ease-out), transform 0.22s var(--eco-ease-out), visibility 0.22s;
+  }
+  .site-header--menu[data-nav-open] .xo-nav > .xo-nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .site-header--menu[data-nav-open] { background: var(--xo-bg); }
+
+  /* Liens empilés et larges. Cible les <a> directs hors bouton (marche pour les
+     .site-nav-link de julien comme les <a> nus de paranoia). */
+  .site-header--menu .xo-nav-links > a:not(.xo-button) {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.7rem 0.25rem;
+    font-size: 1.15rem;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0;
+    border-bottom: 1px solid var(--xo-line);
+  }
+  .site-header--menu .xo-nav-links .lang-switch {
+    margin-top: 1.1rem;
+    justify-content: center;
+  }
+  .site-header--menu .site-nav-cta-drawer {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 1.25rem;
+    justify-content: center;
+    color: var(--xo-bg);
   }
 
   .breadcrumb-list {
@@ -4056,10 +4977,10 @@ a.xo-mode-surface:focus-visible::before,
     padding-block: 4rem;
   }
 
-  .xo-page .service-hero h1,
-  .xo-page .article-head h1,
-  .xo-page .contact-page-intro h1,
-  .xo-page .about-hero h1 {
+  .xo-page:not(.xo-news-article) .service-hero h1,
+  .xo-page:not(.xo-news-article) .article-head h1,
+  .xo-page:not(.xo-news-article) .contact-page-intro h1,
+  .xo-page:not(.xo-news-article) .about-hero h1 {
     max-width: 100%;
     font-size: 2.9rem;
     overflow-wrap: anywhere;
@@ -4151,50 +5072,10 @@ a.xo-mode-surface:focus-visible::before,
    Living Artefacts — mesuré sur x.ai 2026-06-23
    ============================================ */
 
-/* 1. Card shimmer overlay — lumière qui balaie la carte au survol.
-     Usage: ajouter .xo-card-shimmer sur le parent + un enfant ::after. */
+/* 1. Card shimmer — classe conservée pour compat ; sweep hover retiré (Lot B). */
 .xo-card-shimmer {
   position: relative;
   overflow: hidden;
-}
-
-.xo-card-shimmer::after {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  transform: translateX(-100%);
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.06) 48%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.06) 52%,
-    transparent 60%,
-    transparent 100%
-  );
-  pointer-events: none;
-  opacity: 0;
-  transition: transform 700ms var(--eco-ease-out);
-}
-
-.xo-card-shimmer:hover::after,
-.xo-card-shimmer:focus-visible::after {
-  transform: translateX(100%);
-  opacity: 1;
-}
-
-[data-theme="light"] .xo-card-shimmer::after {
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(0, 0, 0, 0.04) 48%,
-    rgba(0, 0, 0, 0.08) 50%,
-    rgba(0, 0, 0, 0.04) 52%,
-    transparent 60%,
-    transparent 100%
-  );
 }
 
 /* 2. Grid shimmer — grille statique parcourue par des impulsions lumineuses.
@@ -4241,6 +5122,10 @@ a.xo-mode-surface:focus-visible::before,
   );
   opacity: 0.55;
   will-change: transform;
+}
+
+/* Ambient motion gated to home only — sub-pages at rest (mesuré x.ai/grok : 0 animations). */
+.xo-home .xo-grid-shimmer-line::after {
   animation: xo-grid-shimmer-move var(--xo-shimmer-duration, 2.2s) linear infinite;
   animation-delay: var(--xo-shimmer-delay, 0s);
 }
@@ -4251,8 +5136,7 @@ a.xo-mode-surface:focus-visible::before,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .xo-grid-shimmer-line::after,
-  .xo-card-shimmer::after {
+  .xo-grid-shimmer-line::after {
     animation: none !important;
     opacity: 0 !important;
     transform: none !important;
@@ -4294,29 +5178,10 @@ a.xo-mode-surface:focus-visible::before,
   -webkit-mask-image: linear-gradient(to bottom, transparent 50%, black 80%, black 100%);
 }
 
-/* 4. Hero shimmer — bande multicolore sous le H1 au load (une seule fois). */
+/* 4. Hero shimmer — sweep retiré (Lot B). */
 .xo-hero-shimmer {
-  height: 3px;
-  border-radius: 999px;
-  background-size: 400% 100%;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.25) 0%,
-    rgba(255, 255, 255, 0.25) 35%,
-    var(--xo-accent) 40%,
-    var(--xo-accent) 60%,
-    rgba(255, 255, 255, 0.25) 65%
-  );
-  animation: xo-hero-shimmer-sweep 3s linear 1;
-}
-
-@keyframes xo-hero-shimmer-sweep {
-  0% { background-position: 150% center; }
-  100% { background-position: -150% center; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .xo-hero-shimmer { animation: none !important; }
+  height: 0;
+  overflow: hidden;
 }
 
 /* 5. Chat bubble demo — bulles qui défilent en boucle (JS-driven via Astro component). */
@@ -4332,11 +5197,11 @@ a.xo-mode-surface:focus-visible::before,
   max-width: 82%;
   padding: 0.5rem 0.85rem;
   border-radius: 1rem 1rem 0.375rem;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 0.66rem;
   line-height: 1.5;
   opacity: 0;
@@ -4347,13 +5212,16 @@ a.xo-mode-surface:focus-visible::before,
 .xo-chat-bubble.is-assistant {
   align-self: flex-start;
   border-radius: 1rem 1rem 1rem 0.375rem;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .xo-chat-bubble.is-user {
   align-self: flex-end;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .xo-chat-bubble.is-visible {
@@ -4361,13 +5229,16 @@ a.xo-mode-surface:focus-visible::before,
   transform: translateY(0);
 }
 
-[data-theme="light"] .xo-chat-bubble {
+/* Même correctif que la console : la palette claire des bulles était gated sur
+   [data-theme="light"], jamais présent au chargement par défaut → bulles
+   blanc-sur-blanc illisibles. On dégate pour couvrir défaut + clair. */
+:root:not([data-theme="dark"]) .xo-chat-bubble {
   border-color: rgba(0, 0, 0, 0.08);
   background: rgba(0, 0, 0, 0.05);
   color: rgba(0, 0, 0, 0.85);
 }
 
-[data-theme="light"] .xo-chat-bubble.is-assistant {
+:root:not([data-theme="dark"]) .xo-chat-bubble.is-assistant {
   background: rgba(0, 0, 0, 0.08);
   border-color: rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
@@ -4520,6 +5391,284 @@ a.xo-mode-surface:focus-visible::before,
   color: rgba(255, 255, 255, 0.45);
 }
 
+/* Variante tuile hero (clone x.ai home Build) : chrome macOS + titre | % |, corps #151515. */
+.xo-trace-demo--tile {
+  background: #151515;
+  color: #d7d1c9;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.xo-trace-demo--tile .xo-trace-demo-header {
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Barre haute x.ai : [dots] projects/main ←gauche    [bar] 16.15% →droite */
+.xo-trace-demo--tile .xo-trace-demo-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.xo-trace-demo--tile .xo-trace-demo-topbar .xo-trace-demo-title {
+  flex: 0 1 auto;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.xo-trace-demo--tile .xo-trace-demo-topbar .xo-trace-demo-progress {
+  flex: 0 0 auto;
+  gap: 0.35rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.xo-trace-demo--tile .xo-trace-demo-topbar .xo-trace-demo-bar {
+  width: 3.25rem;
+  height: 0.45rem;
+}
+
+.xo-trace-demo--tile .xo-trace-demo-body {
+  padding: 0.15rem 1rem 0.35rem;
+}
+
+.xo-trace-demo--tile .xo-trace-demo-line .xo-trace-demo-accent {
+  color: rgb(243, 238, 231);
+}
+
+.xo-trace-demo--tile .xo-trace-demo-status.is-running {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.xo-trace-demo--tile .xo-trace-demo-status.is-done {
+  color: rgba(40, 200, 64, 0.85);
+}
+
+.xo-hero-tray--anatomy .xo-tray-terminal .xo-trace-demo--tile {
+  height: 100%;
+  border-radius: 0;
+}
+
+.xo-hero-tray--anatomy .xo-tray-terminal .xo-artefact-card__body {
+  background: #151515;
+}
+
+.xo-hero-tray--anatomy .xo-tray-labs .xo-trace-demo--tile {
+  height: 100%;
+  border-radius: 0;
+}
+
+.xo-hero-tray--anatomy .xo-tray-labs .xo-artefact-card__body {
+  background: #151515;
+}
+
+/* 6b. ModeTabs — panel (pricing /pricing) + console (#151515 dossier mono, clone trace). */
+[data-mode-tabs].mode-tabs {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.xo-mode-tabs--panel .mode-tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--xo-border, rgba(255, 255, 255, 0.06));
+}
+
+.xo-mode-tabs--panel .mode-tabs-title {
+  margin-right: auto;
+  font-family: var(--eco-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--xo-text-soft, rgba(255, 255, 255, 0.5));
+}
+
+.xo-mode-tabs--panel .mode-tabs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.xo-mode-tabs--panel .mode-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-family: var(--eco-font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.xo-mode-tabs--panel .mode-tab-pill:hover {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.xo-mode-tabs--panel .mode-tab-pill[aria-selected='true'] {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.xo-mode-tabs--panel .mode-tabs-content {
+  flex: 1;
+  min-height: 0;
+  padding: 1rem;
+}
+
+.xo-mode-tabs--panel .mode-tab-panel {
+  font-family: var(--eco-font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--xo-text-soft, rgba(255, 255, 255, 0.7));
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.xo-mode-tabs--panel .mode-tab-panel[hidden] {
+  display: none;
+}
+
+/* Console : terminal #151515 — titre path + pills header, corps mono 12px, flou bas. */
+.xo-mode-tabs--console {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: #151515;
+  color: #d7d1c9;
+  box-shadow: none;
+}
+
+.xo-mode-tabs--console .mode-tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.xo-mode-tabs--console .mode-tabs-title {
+  margin-right: auto;
+  font-family: var(--eco-font-mono);
+  font-size: 12px;
+  letter-spacing: normal;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.xo-mode-tabs--console .mode-tabs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.xo-mode-tabs--console .mode-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-family: var(--eco-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.xo-mode-tabs--console .mode-tab-pill:hover {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.xo-mode-tabs--console .mode-tab-pill[aria-selected='true'] {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.xo-mode-tabs--console .mode-tabs-content {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.15rem 1rem 0.35rem;
+}
+
+.xo-mode-tabs--console .mode-tab-panel {
+  font-family: var(--eco-font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d7d1c9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.xo-mode-tabs--console .mode-tab-panel[hidden] {
+  display: none;
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--console {
+  background: #151515;
+  color: #d7d1c9;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--console .mode-tabs-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tabs-header {
+  border-bottom-color: rgba(10, 10, 10, 0.06);
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tab-pill {
+  color: rgba(10, 10, 10, 0.5);
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tab-pill:hover {
+  color: rgba(10, 10, 10, 0.85);
+  background: rgba(10, 10, 10, 0.04);
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tab-pill[aria-selected='true'] {
+  background: rgba(10, 10, 10, 0.06);
+  color: rgba(10, 10, 10, 0.85);
+}
+
+:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tabs-title {
+  color: rgba(10, 10, 10, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mode-tab-pill {
+    transition: none !important;
+  }
+}
+
 /* 7. Metric strip — grands chiffres, labels discrets (x.ai/api developer). */
 .xo-metric-strip {
   display: grid;
@@ -4561,7 +5710,7 @@ a.xo-metric:focus-visible strong {
   gap: 0.35rem;
   font-family: var(--eco-font-mono);
   font-size: 0.7rem;
-  font-weight: 550;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -4583,6 +5732,16 @@ a.xo-metric:focus-visible strong {
 .xo-live-pulse.is-locked .xo-live-pulse-dot {
   background: var(--xo-text-muted);
   animation: none;
+}
+
+/* Motion = changement d'état : le pulse d'une démo trace ne clignote que pendant
+   qu'elle joue (is-playing, posé par AgentTraceDemo) ; hors démo, il ne court que
+   visible (observer global BaseLayout). Sous-pages au repos au chargement. */
+[data-trace-demo]:not(.is-playing) .xo-live-pulse-dot {
+  animation-play-state: paused;
+}
+.xo-live-pulse:not(.xo-inview) .xo-live-pulse-dot {
+  animation-play-state: paused;
 }
 
 @keyframes xo-live-pulse {
@@ -4612,7 +5771,9 @@ a.xo-metric:focus-visible strong {
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
-  transition: border-color 220ms var(--eco-ease-out);
+  transition:
+    border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Coin cranté signature (radius asymétrique mesuré x.ai), réservé au plateau hero. */
@@ -4623,14 +5784,18 @@ a.xo-metric:focus-visible strong {
 /* ── Plateau hero : VRAIE grille 2×2, 4 tuiles de TAILLE ÉGALE — GLOBAL (cartes
    rendues par ArtefactCard, un <style> de page scopé ne les atteindrait pas).
    Chaque démo remplit sa tuile et la déborde est clippée — aucune ne dicte la hauteur.
-   Travail | Labs / Conférences | Écrits. ── */
+   Accompagnement | Agents / Conférences | Écrits. ── */
 .xo-hero-tray--anatomy {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: clamp(15rem, 22vw, 19rem);
+  grid-auto-rows: clamp(15rem, 22vw, 21rem);
   align-items: stretch;
 }
 .xo-hero-tray--anatomy > script { display: none; }
-.xo-hero-tray--anatomy .xo-artefact-card { height: 100%; min-height: 0; overflow: hidden; }
+/* La cellule reçoit une HAUTEUR DÉFINIE = la hauteur de piste (même clamp que
+   grid-auto-rows). height:100% s'y résolvait en `auto` (parent indéfini) → hauteur
+   de contenu (256px) + vide résiduel qui gonflait le gap visuel à 38px. Hauteur
+   définie → la cellule remplit sa piste → gap réel 12px, comme x.ai. */
+.xo-hero-tray--anatomy .xo-artefact-card { height: clamp(15rem, 22vw, 21rem); min-height: 0; overflow: hidden; }
 .xo-hero-tray--anatomy .xo-tray-chat .xo-artefact-card__body {
   display: flex;
   flex-direction: column;
@@ -4638,36 +5803,53 @@ a.xo-metric:focus-visible strong {
   overflow: hidden;
 }
 .xo-hero-tray--anatomy .xo-tray-chat .xo-chat-demo { width: 100%; }
-@media (max-width: 560px) {
-  .xo-hero-tray--anatomy { grid-template-columns: 1fr; }
+@media (max-width: 640px) {
+  /* L'élément porte .xo-hero-tray ET --anatomy. La règle de base .xo-hero-tray
+     (0,1,0) définie plus bas dans le fichier surclasse .xo-hero-tray--anatomy à
+     spécificité égale et ré-imposait 2 colonnes même en mobile (plateau 169px
+     illisible). On double la classe (0,2,0) pour gagner, et on aligne la hauteur
+     des tuiles sur la rangée (clone x.ai : une carte produit pleine largeur par
+     rangée, contenu lisible). */
+  .xo-hero-tray.xo-hero-tray--anatomy {
+    grid-template-columns: 1fr;
+    grid-auto-rows: clamp(17rem, 58vw, 22rem);
+  }
+  .xo-hero-tray.xo-hero-tray--anatomy .xo-artefact-card {
+    height: clamp(17rem, 58vw, 22rem);
+  }
 }
 
-/* Comportements vivants des tuiles (clone x.ai : aucune tuile statique).
-   Scènes → Ken-Burns lent sur les photos ; Écrits → highlight séquentiel des lignes. */
+/* Comportements vivants Imagine (tuile hero + living-artefacts galerie/réutilisation).
+   Grammaire motion x.ai mesurée (2026-07-02) : une seule famille ambiante toujours active
+   (grid-shimmer). Le crossfade mosaïque est une rotation fonctionnelle de preuves : il ne
+   court que visible (.xo-inview, observer global BaseLayout). Ken-Burns supprimé — dérive
+   décorative sans analogue mesuré sur x.ai. Images de grille : statiques. */
 @media (prefers-reduced-motion: no-preference) {
-  .xo-hero-tray--anatomy .xo-tray-scenes img {
-    animation: xo-kenburns 20s ease-in-out infinite alternate;
-    transform-origin: center;
-    will-change: transform;
+  .xo-hero-tray--anatomy .xo-tray-scenes .xo-imagine-mosaic__slide:first-child,
+  .xo-imagine-mosaic__slide:first-child {
+    animation: xo-imagine-cross-a 9s ease-in-out infinite;
   }
-  .xo-hero-tray--anatomy .xo-tray-scenes img:nth-of-type(2) { animation-delay: -5s; }
-  .xo-hero-tray--anatomy .xo-tray-scenes img:nth-of-type(3) { animation-delay: -10s; }
-  .xo-hero-tray--anatomy .xo-tray-scenes img:nth-of-type(4) { animation-delay: -15s; }
-
-  .xo-hero-tray--anatomy .xo-tray-writing .xo-tile-stream__row {
-    animation: xo-row-glow 6s ease-in-out infinite;
+  .xo-hero-tray--anatomy .xo-tray-scenes .xo-imagine-mosaic__slide:last-child,
+  .xo-imagine-mosaic__slide:last-child {
+    animation: xo-imagine-cross-b 9s ease-in-out infinite;
   }
-  .xo-hero-tray--anatomy .xo-tray-writing .xo-tile-stream__row:nth-child(2) { animation-delay: 2s; }
-  .xo-hero-tray--anatomy .xo-tray-writing .xo-tile-stream__row:nth-child(3) { animation-delay: 4s; }
+  .xo-imagine-mosaic:not(.xo-inview) .xo-imagine-mosaic__slide {
+    animation-play-state: paused;
+  }
 }
-@keyframes xo-kenburns {
-  from { transform: scale(1); }
-  to { transform: scale(1.09); }
+/* Entrée x.ai des 4 tuiles : révélation unique échelonnée (450ms, courbe standard 0.4,0,0.2,1). */
+@media (prefers-reduced-motion: no-preference) {
+  .xo-hero-tray--anatomy .xo-artefact-card {
+    animation: xo-tile-in 450ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  .xo-hero-tray--anatomy .xo-artefact-card:nth-of-type(1) { animation-delay: 60ms; }
+  .xo-hero-tray--anatomy .xo-artefact-card:nth-of-type(2) { animation-delay: 140ms; }
+  .xo-hero-tray--anatomy .xo-artefact-card:nth-of-type(3) { animation-delay: 220ms; }
+  .xo-hero-tray--anatomy .xo-artefact-card:nth-of-type(4) { animation-delay: 300ms; }
 }
-@keyframes xo-row-glow {
-  0%, 100% { opacity: 0.78; }
-  12%, 24% { opacity: 1; }
-  40% { opacity: 0.78; }
+@keyframes xo-tile-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Feature 2-col (Méthode) : l'artefact (ModeTabs/AgentTrace = composant) remplit la colonne. GLOBAL. */
@@ -4675,6 +5857,21 @@ a.xo-metric:focus-visible strong {
 .xo-feature-artifact > * { flex: 1; }
 
 /* ── Grille « Latest news » à vignettes (clone x.ai home, mesuré 2026-06-25) ── */
+.xo-section-heading--center {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+}
+
+/* Titres de sections news/start sur la home : x.ai mesuré 2026-07-02 = 30px / 400,
+   une ligne (le cap 16ch de .xo-title--section forçait un wrap sans équivalent x.ai).
+   Seul le bloc developer garde le H2 48px. */
+.xo-home .xo-section:not(.xo-developer-section) .xo-title--section {
+  max-width: none;
+  font-size: 1.875rem;
+  font-weight: 400;
+}
+
 .xo-section-heading--news {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
@@ -4694,14 +5891,12 @@ a.xo-metric:focus-visible strong {
 }
 .xo-news-all:hover,
 .xo-news-all:focus-visible { color: var(--xo-text); }
-.xo-news-all span { transition: transform 200ms var(--eco-ease-out); }
-.xo-news-all:hover span,
-.xo-news-all:focus-visible span { transform: translateX(3px); }
 
 .xo-news-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 1.6vw, 1.5rem);
+  /* x.ai « Latest news » mesuré 2026-07-02 : gap 20px, carte 226px (média ~1.91:1) */
+  gap: 1.25rem;
 }
 .xo-news-card {
   display: flex;
@@ -4712,7 +5907,7 @@ a.xo-metric:focus-visible strong {
 }
 .xo-news-card__media {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 21 / 11;
   overflow: hidden;
   border: 1px solid var(--xo-line);
   border-radius: 8px;
@@ -4726,14 +5921,10 @@ a.xo-metric:focus-visible strong {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 320ms var(--eco-ease-out);
 }
-.xo-news-card:hover .xo-news-card__media img { transform: scale(1.04); }
-.xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; transition: transform 320ms var(--eco-ease-out); }
-/* hover x.ai : la carte se soulève + la vignette (dégradé inclus) zoome */
-.xo-news-card { transition: transform 220ms var(--eco-ease-out); }
-.xo-news-card:hover { transform: translateY(-3px); }
-.xo-news-card:hover .xo-news-card__fallback { transform: scale(1.04); }
+.xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; }
+.xo-news-card { transition: border-color 220ms var(--eco-ease-out); }
+.xo-news-card:hover { border-color: var(--xo-line-strong); }
 .xo-news-card__date {
   margin: 0.85rem 0 0;
   color: var(--xo-text-muted);
@@ -4744,9 +5935,10 @@ a.xo-metric:focus-visible strong {
 .xo-news-card__title {
   margin: 0.3rem 0 0;
   color: var(--xo-text);
-  font-size: 0.98rem;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 19.25px;
+  letter-spacing: -0.025em;
 }
 @media (max-width: 960px) {
   .xo-news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -4754,10 +5946,17 @@ a.xo-metric:focus-visible strong {
 @media (max-width: 560px) {
   .xo-news-grid { grid-template-columns: 1fr; }
 }
+/* En-tête news : le titre passe au-dessus du lien « Tous les écrits » en mobile
+   (la variante --news ré-affirmait 2 colonnes après le collapse 980px générique). */
+@media (max-width: 640px) {
+  .xo-section-heading--news { grid-template-columns: 1fr; gap: 0.6rem; }
+  .xo-section-heading--news .xo-news-all { justify-self: start; }
+}
 
 a.xo-artefact-card:hover,
 a.xo-artefact-card:focus-visible {
-  border-color: var(--xo-line-strong);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .xo-artefact-card__body {
@@ -4777,19 +5976,24 @@ a.xo-artefact-card:focus-visible {
 }
 
 .xo-artefact-card__label {
-  color: var(--xo-text);
-  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
   font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .xo-artefact-card__cta {
-  color: var(--xo-text-muted);
+  color: rgba(255, 255, 255, 0.5);
   font-family: var(--eco-font-mono);
   font-size: 0.76rem;
   white-space: nowrap;
-  transition: color 200ms var(--eco-ease-out);
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+a.xo-artefact-card:hover .xo-artefact-card__label,
+a.xo-artefact-card:focus-visible .xo-artefact-card__label,
 a.xo-artefact-card:hover .xo-artefact-card__cta,
 a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   color: var(--xo-text);
@@ -4799,54 +6003,111 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 .xo-hero-tray {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.2vw, 1rem);
+  gap: 0.75rem; /* 12px fixe — mesuré sur le plateau x.ai (était clamp → 15px à 1280) */
   width: 100%;
   min-width: 0;
 }
 
-.xo-hero-tray .xo-artefact-card {
+/* Tuiles SIMPLES (tray non-2×2, ex. /agents) : hauteur propre. Le plateau 2×2
+   (.xo-hero-tray--anatomy) est EXCLU ici — sinon ce 20vw (=256px à 1280) écrasait
+   la hauteur de cellule du plateau (qui doit valoir la piste 22vw=281px), créant
+   un vide résiduel qui gonflait le row-gap à 38px au lieu de 12. */
+.xo-hero-tray:not(.xo-hero-tray--anatomy) .xo-artefact-card {
   height: clamp(15rem, 20vw, 18rem);
 }
 
 @media (max-width: 880px) {
-  .xo-hero-tray {
+  .xo-hero-tray:not(.xo-hero-tray--anatomy) {
     grid-template-columns: 1fr;
   }
 }
 
-/* Le terminal reste sombre dans une tuile d'artefact, même en thème clair
-   (console = toujours sombre chez x.ai ; sinon texte clair sur fond clair).
-   Ré-asserte toute la palette sombre (le thème clair global la neutraliserait). */
-[data-theme="light"] .xo-artefact-card .xo-trace-demo,
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-header,
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-body {
+/* Console = toujours sombre (signature x.ai), QUEL QUE SOIT le thème — y compris
+   l'état par défaut SANS attribut data-theme. La home se charge en clair sans
+   data-theme="light", donc l'ancien gate [data-theme="light"] ne matchait jamais
+   au chargement → terminal crème « vide ». On dégate (:not([data-theme="dark"])
+   couvre défaut + clair ; le thème sombre garde sa palette native) et on couvre
+   les consoles en tuile (.xo-artefact-card, plateau hero) ET en artefact de
+   feature (.xo-feature-artifact, bloc Méthode), comme les blocs de code sombres
+   autonomes de x.ai. */
+:root:not([data-theme="dark"]) .xo-trace-demo,
+:root:not([data-theme="dark"]) .xo-trace-demo-header,
+:root:not([data-theme="dark"]) .xo-trace-demo-body {
   background: #151515;
   color: #d7d1c9;
   border-color: rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-title,
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-progress {
+:root:not([data-theme="dark"]) .xo-trace-demo-title,
+:root:not([data-theme="dark"]) .xo-trace-demo-progress {
   color: rgba(255, 255, 255, 0.6);
 }
 
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-dim,
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-prompt,
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-task-mode {
+:root:not([data-theme="dark"]) .xo-trace-demo-dim,
+:root:not([data-theme="dark"]) .xo-trace-demo-prompt,
+:root:not([data-theme="dark"]) .xo-trace-demo-task-mode {
   color: rgba(255, 255, 255, 0.4);
 }
 
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-accent {
+:root:not([data-theme="dark"]) .xo-trace-demo-accent {
   color: var(--xo-accent);
 }
 
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-bar {
+:root:not([data-theme="dark"]) .xo-trace-demo-bar {
   background: rgba(255, 255, 255, 0.1);
 }
 
-[data-theme="light"] .xo-artefact-card .xo-trace-demo-bar-fill {
+:root:not([data-theme="dark"]) .xo-trace-demo-bar-fill {
   background: rgba(255, 255, 255, 0.5);
 }
+
+/* CodeArtifact (.xo-console) : console toujours sombre, aussi en thème clair/défaut
+   et hors tuile. On redéfinit localement les tokens terminal → tout le sous-arbre
+   (.xo-console-*, onglets, code) devient sombre sans toucher la base. */
+:root:not([data-theme="dark"]) .xo-code-artifact {
+  --xo-terminal: #151515;
+  --xo-terminal-ink: #d7d1c9;
+  --xo-terminal-border: rgba(255, 255, 255, 0.08);
+  background: #151515 !important;
+  color: #d7d1c9;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+:root:not([data-theme="dark"]) .xo-code-artifact .xo-console-body,
+:root:not([data-theme="dark"]) .xo-code-artifact .xo-console-top,
+:root:not([data-theme="dark"]) .xo-code-artifact pre,
+:root:not([data-theme="dark"]) .xo-code-artifact code {
+  background: transparent !important;
+  color: #d7d1c9;
+}
+
+/* Hero page produit (clone x.ai/grok|cli) — copie centrée, sans plateau de tuiles. */
+.xo-product-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.25rem);
+  min-height: auto;
+  padding-block: clamp(4rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+.xo-product-hero .xo-hero-lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 54rem;
+}
+.xo-product-hero .xo-hero-lead .xo-subtitle { max-width: 46rem; }
+/* Césures propres sur les H1 produit statiques (« le / travail » cassait mi-clause) */
+.xo-product-hero h1 { text-wrap: balance; }
+.xo-product-hero .xo-actions { justify-content: center; }
+/* CTA hero produit x.ai mesuré 2026-07-02 (grok « Try Grok », voice « Try It Free ») :
+   pill 44px / 14px 500 / padding 12px 20px — plus grand que les pills nav (36px). */
+.xo-product-hero .xo-actions .xo-button {
+  height: 44px;
+  padding: 12px 20px;
+}
+.xo-product-hero .xo-person-line { max-width: none; text-align: center; }
 
 /* Hero "stack" : copie centrée (home = + plateau ; sous-pages = copie seule façon x.ai/grok). */
 .xo-home-hero--stack {
@@ -4857,6 +6118,14 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   min-height: auto;
   padding-block: clamp(4rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4rem);
   text-align: center;
+}
+
+/* Hero produit (pages sans plateau de tuiles) : se cale sur son contenu.
+   La hauteur 100dvh est un idiome HOME — la grille 2×2 la remplit. Ce sélecteur
+   (0,2,0 via :has) bat .xo-home .xo-home-hero et ne touche QUE les heros sans
+   .xo-hero-tray (donc travail/agents/labs/conférences, jamais la home). */
+.xo-home-hero--stack:not(:has(.xo-hero-tray)) {
+  min-height: auto;
 }
 
 .xo-home-hero--stack .xo-hero-lead {
@@ -4902,54 +6171,305 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   position: absolute;
   inset: auto 0 0;
   padding: 0.9rem 1.1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent);
+  background: rgba(0, 0, 0, 0.55);
   color: #fff;
   font-family: var(--eco-font-mono);
   font-size: 0.72rem;
 }
 
-/* Flux de texte non-interactif pour tuile d'artefact (derniers écrits, activité). */
-.xo-tile-stream {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
+/* Mosaïque Imagine — clone x.ai home : nav-1|nav-7 / nav-8 (grille 2 col ; crossfade paires gauche/bas). */
+.xo-imagine-mosaic {
+  display: grid;
+  grid-template-columns: 1.48fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  width: 100%;
   height: 100%;
-  padding: 1.1rem 1.2rem;
-  font-family: var(--eco-font-mono);
+  min-height: 10rem;
+  overflow: hidden;
+  background: var(--xo-line);
+}
+
+.xo-imagine-mosaic__cell {
+  position: relative;
+  display: grid;
+  margin: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--xo-surface);
+}
+
+.xo-imagine-mosaic__cell--hero {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.xo-imagine-mosaic__cell:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.xo-imagine-mosaic__cell:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.xo-imagine-mosaic__cell > img,
+.xo-imagine-mosaic__cell > .xo-imagine-mosaic__pair {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.xo-imagine-mosaic__pair {
+  position: relative;
   overflow: hidden;
 }
 
-.xo-tile-stream__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--xo-text-muted);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+.xo-imagine-mosaic__slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 
-.xo-tile-stream__row {
-  display: grid;
-  grid-template-columns: minmax(5.5rem, auto) 1fr;
-  gap: 0.75rem;
-  align-items: baseline;
-  padding-block: 0.4rem;
+.xo-imagine-mosaic__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.xo-imagine-mosaic__cell > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes xo-imagine-cross-a {
+  0%, 42%, 100% { opacity: 1; }
+  48%, 94% { opacity: 0; }
+}
+
+@keyframes xo-imagine-cross-b {
+  0%, 42%, 100% { opacity: 0; }
+  48%, 94% { opacity: 1; }
+}
+
+.xo-hero-tray--anatomy .xo-tray-scenes .xo-artefact-card__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--xo-surface);
+}
+
+.xo-hero-tray--anatomy .xo-tray-scenes .xo-imagine-mosaic {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Écrits : NewsDenseList stream (clone déroulé AgentTraceDemo tile). */
+.xo-hero-tray--anatomy .xo-tray-writing .xo-artefact-card__body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 0;
+  min-height: 0;
+}
+.xo-hero-tray--anatomy .xo-tray-writing .xo-news-dense-list--tray {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  border-radius: 0;
+}
+.xo-hero-tray--anatomy .xo-tray-writing .xo-news-dense-list__body {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  padding: 0.35rem 0.85rem 0;
+}
+.xo-hero-tray--anatomy .xo-tray-writing .xo-news-dense-list__line {
+  width: 100%;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: start;
+  min-height: 2rem;
+  padding: 0.3rem 0;
+}
+.xo-hero-tray--anatomy .xo-tray-writing .xo-news-dense-list__date {
+  font-size: 0.6rem;
+  line-height: 1.38;
+  padding-top: 0.06rem;
+}
+.xo-hero-tray--anatomy .xo-tray-writing .xo-news-dense-list__title {
+  text-align: left;
+  font-size: 0.74rem;
+  line-height: 1.36;
+  -webkit-line-clamp: 2;
+}
+/* Liste dense datée — clone x.ai/news « All posts ». */
+.xo-news-dense-list {
+  width: 100%;
+  min-width: 0;
+}
+.xo-news-dense-list__heading {
+  margin: 0 0 0.75rem;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.xo-news-dense-list__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   border-top: 1px solid var(--xo-line);
 }
+.xo-news-dense-list__row {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 0.34fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--xo-line);
+  color: var(--xo-text);
+  text-decoration: none;
+  transition:
+    border-color var(--xo-motion-fast),
+    background var(--xo-motion-fast);
+}
 
-.xo-tile-stream__row span {
-  color: var(--xo-accent-ink, var(--xo-accent));
-  font-size: 0.7rem;
+.xo-news-dense-list--catalog .xo-news-dense-list__row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  padding-block: 1.25rem;
+  padding-inline: 0.75rem;
+}
+
+.xo-news-dense-list--catalog .xo-news-dense-list__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.xo-news-dense-list--catalog .xo-news-dense-list__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+
+.xo-news-dense-list--catalog .xo-news-dense-list__desc {
+  margin: 0;
+  color: color-mix(in srgb, var(--xo-text) 40%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.xo-news-dense-list--catalog .xo-news-dense-list__date {
+  flex-shrink: 0;
+  margin: 0;
+  padding-top: 0.1rem;
   white-space: nowrap;
 }
 
-.xo-tile-stream__row strong {
+a.xo-news-dense-list__row:hover,
+a.xo-news-dense-list__row:focus-visible {
+  border-bottom-color: color-mix(in srgb, var(--xo-accent) 40%, var(--xo-line));
+  background: color-mix(in srgb, var(--xo-accent) 4%, transparent);
+}
+
+.xo-news-dense-list--catalog a.xo-news-dense-list__row:hover,
+.xo-news-dense-list--catalog a.xo-news-dense-list__row:focus-visible {
+  border-bottom-color: var(--xo-line-strong);
+  background: transparent;
+}
+.xo-news-dense-list__date {
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.xo-news-dense-list__copy {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.xo-news-dense-list__title {
   color: var(--xo-text);
-  font-family: var(--eco-font-display);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.xo-news-dense-list__desc {
+  color: var(--xo-text-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+/* Tuile stream — déroulé date + titre (grammaire AgentTraceDemo). */
+.xo-news-dense-list--stream .xo-news-dense-list__body {
+  position: relative;
+  overflow: hidden;
+  padding: 0.55rem 0.75rem 0.35rem;
+}
+.xo-news-dense-list--stream .xo-news-dense-list__line {
+  display: grid;
+  grid-template-columns: minmax(4.25rem, 5rem) minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: start;
+  min-height: 1.9rem;
+  padding: 0.28rem 0;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.3s var(--eco-ease-out),
+    transform 0.3s var(--eco-ease-out);
+}
+.xo-news-dense-list--stream .xo-news-dense-list__line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.xo-news-dense-list--stream .xo-news-dense-list__date {
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.58rem;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.xo-news-dense-list--stream .xo-news-dense-list__title {
+  margin: 0;
+  color: var(--xo-text);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.34;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-imagine-mosaic__slide:last-child {
+    opacity: 0;
+  }
+  .xo-imagine-mosaic img {
+    animation: none !important;
+  }
 }
 
 /* ============================================================
@@ -4970,11 +6490,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   width: 4px;
   min-height: 6%;
   border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    hsl(var(--hue, 270) 90% 72%),
-    hsl(calc(var(--hue, 270) + 18) 82% 58%)
-  );
+  background: var(--xo-accent);
   transform: scaleY(0.4);
   transform-origin: center;
   will-change: transform;
@@ -5025,7 +6541,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   bottom: 0.04em;
   height: 0.085em;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--xo-accent), color-mix(in srgb, var(--xo-accent) 45%, #ffffff));
+  background: var(--xo-accent);
   transform-origin: left center;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -5058,13 +6574,1138 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 .xo-hl-letter { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
   .xo-hl-rotate-word.is-active .xo-hl-letter {
-    animation: xo-hl-letter-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation: xo-hl-letter-in 90ms linear both;
     animation-delay: calc(var(--j, 0) * 32ms);
   }
 }
 @keyframes xo-hl-letter-in {
   from { opacity: 0; transform: translateY(0.5em); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================================================
+   Composants x.ai 2026-06-27 (Table/data+compare, CapabilityGrid,
+   PricingTiers, Timeline, Accordion) — générés puis intégrés.
+   ============================================================ */
+
+/* ── Table ── */
+/* ============================================================
+   Table primitive (x.ai) — modes 'data' & 'compare'
+   Source : x.ai/api (Models and pricing) + x.ai pricing (Compare features).
+   La table scrolle DANS .xo-table-scroll (overflow-x) ; aucun debordement
+   du document. En 'compare', la 1re colonne reste sticky.
+   ============================================================ */
+
+/* Conteneur de scroll partage : protege le document du debordement (390px ok). */
+.xo-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Utilitaire screen-reader-only (pas de classe equivalente dans le kernel). */
+.xo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+/* ---------- racines ---------- */
+.xo-data-table,
+.xo-compare-table {
+  color: var(--xo-text);
+}
+
+/* Caption (mode data + compare) — mono muted, posee en haut. */
+.xo-data-table__caption,
+.xo-compare-table__caption {
+  caption-side: top;
+  padding-bottom: var(--eco-space-4);
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.xo-data-table__note,
+.xo-compare-table__note {
+  margin: var(--eco-space-4) 0 0;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Mode 'data' — table plate
+   ============================================================ */
+.xo-data-table__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+/* En-tete : mono muted, souligne d'un filet fort. */
+.xo-data-table__th {
+  padding: 0 var(--eco-space-5) 0.7rem 0;
+  border-bottom: 1px solid var(--xo-line-strong);
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+.xo-data-table__th.is-right {
+  padding-right: 0;
+  text-align: right;
+}
+
+/* Lignes : filets hairline entre les rangees. */
+.xo-data-table__row > * {
+  padding: 0.95rem var(--eco-space-5) 0.95rem 0;
+  border-bottom: 1px solid var(--xo-line);
+  vertical-align: top;
+}
+.xo-data-table__row:last-child > * {
+  border-bottom: 0;
+}
+
+/* 1re colonne : emphase (nom de modele). */
+.xo-data-table__name {
+  color: var(--xo-text);
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+}
+.xo-data-table__name-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Badge "New" : pastille accent pleine + encre noire => lisible light ET dark. */
+.xo-data-table__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.42rem;
+  border-radius: var(--eco-radius-tight);
+  background: var(--xo-accent);
+  color: var(--eco-color-black);
+  font-family: var(--eco-font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* Cellules de donnees : mono, chiffres tabular. */
+.xo-data-table__cell {
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+.xo-data-table__cell.is-right {
+  padding-right: 0;
+  text-align: right;
+}
+
+/* ============================================================
+   Mode 'compare' — matrice
+   border-collapse: separate => sticky propre + filets controles.
+   ============================================================ */
+.xo-compare-table__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+}
+
+/* En-tete des plans. */
+.xo-compare-table__corner,
+.xo-compare-table__plan {
+  padding: 0 var(--eco-space-4) var(--eco-space-4);
+  border-bottom: 1px solid var(--xo-line-strong);
+  vertical-align: bottom;
+}
+.xo-compare-table__plan {
+  min-width: 8.5rem;
+  text-align: center;
+}
+.xo-compare-table__plan-name {
+  display: block;
+  color: var(--xo-text);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.xo-compare-table__cta {
+  margin-top: var(--eco-space-3);
+  min-height: 2.75rem; /* cible tactile >= 44px */
+  width: 100%;
+  font-size: 0.78rem;
+}
+
+/* Sous-rangee titre de categorie : mono muted, pleine largeur. */
+.xo-compare-table__group-label {
+  padding: var(--eco-space-5) var(--eco-space-4) 0.55rem 0;
+  background: var(--xo-bg);
+  text-align: left;
+}
+.xo-compare-table__group-text {
+  position: sticky;
+  left: 0;
+  display: inline-block;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Rangees de feature : label + une cellule par plan. */
+.xo-compare-table__feature-label,
+.xo-compare-table__cell {
+  padding: 0.85rem var(--eco-space-4);
+  border-bottom: 1px solid var(--xo-line);
+}
+.xo-compare-table__feature-label {
+  color: var(--xo-text);
+  font-weight: 400;
+  text-align: left;
+}
+.xo-compare-table__cell {
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.xo-compare-table__val {
+  color: var(--xo-text);
+}
+
+/* 1re colonne sticky (labels) : fond opaque + filet de separation. */
+.xo-compare-table__corner,
+.xo-compare-table__group-label,
+.xo-compare-table__feature-label {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--xo-bg);
+}
+.xo-compare-table__corner,
+.xo-compare-table__feature-label {
+  width: 14rem;
+  min-width: 12rem;
+  padding-left: 0;
+  padding-right: var(--eco-space-5);
+  border-right: 1px solid var(--xo-line-strong);
+}
+.xo-compare-table__corner {
+  z-index: 3;
+}
+.xo-compare-table__group-label {
+  padding-left: 0;
+}
+
+/* Marqueurs boolean : coche accent (theme-safe via --xo-accent-ink), tiret muted. */
+.xo-compare-table__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.xo-compare-table__mark--yes {
+  color: var(--xo-accent-ink);
+}
+.xo-compare-table__mark--yes svg {
+  display: block;
+}
+.xo-compare-table__mark--no {
+  color: var(--xo-text-muted);
+}
+
+/* Resserrement mobile : la sticky retrecit, le reste scrolle horizontalement. */
+@media (max-width: 560px) {
+  .xo-data-table__row > * {
+    padding-right: var(--eco-space-4);
+  }
+  .xo-compare-table__corner,
+  .xo-compare-table__feature-label {
+    width: 10.5rem;
+    min-width: 9.5rem;
+    padding-right: var(--eco-space-4);
+  }
+  .xo-compare-table__plan {
+    min-width: 7.5rem;
+  }
+}
+
+/* ── CapabilityGrid ── */
+/* ── CapabilityGrid ─────────────────────────────────────────────────────────
+   Grille plate de capacités (clone x.ai « And much more » / « Everything you
+   need to ship »). Chaque item est coiffé d'un filet hairline 1px ; icône fine
+   inline à gauche du titre, description en texte secondaire. 3 col → 2 → 1.
+   Tout en tokens (light + dark robustes), aucune ombre, motion nulle. */
+.xo-cap-grid {
+  --xo-capgrid-cols: 3;
+  display: block;
+}
+.xo-cap-grid__head {
+  max-width: 60ch;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.xo-cap-grid__heading {
+  margin: 0;
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: -0.9px;
+}
+.xo-cap-grid__lead {
+  max-width: 58ch;
+  margin: var(--eco-space-4) 0 0;
+  color: var(--xo-text-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.xo-cap-grid__items {
+  display: grid;
+  grid-template-columns: repeat(var(--xo-capgrid-cols, 3), minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  row-gap: clamp(2rem, 4vw, 2.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.xo-capability {
+  min-width: 0;
+  padding-top: var(--eco-space-5);
+  border-top: 1px solid var(--xo-line);
+}
+.xo-capability__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.xo-capability__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--xo-text-soft);
+  font-size: 1.05rem;   /* repli emoji */
+  line-height: 1;
+}
+.xo-capability__icon svg {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+/* Repli : petit tiret accent quand aucune icône n'est fournie (span vide). */
+.xo-capability__icon:empty::before {
+  content: "";
+  width: 0.7rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--xo-accent);
+  opacity: 0.7;
+}
+.xo-capability__title {
+  margin: 0;
+  min-width: 0;
+  color: var(--xo-text);
+  font-family: var(--eco-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.xo-capability__desc {
+  margin: 0.6rem 0 0;
+  color: var(--xo-text-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+@media (max-width: 960px) {
+  .xo-cap-grid__items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .xo-cap-grid__items { grid-template-columns: 1fr; }
+}
+
+/* ── PricingTiers ── */
+/* ─────────────────────────────────────────────────────────────────────────
+   PricingTiers — rangée de plans tarifaires (clone x.ai Pricing).
+   Rangée de cartes à largeur bornée et centrée (≈360px), 1 col mobile.
+   Grammaire x.ai : hairline 1px, mono pour chiffres/labels, pas d'ombre,
+   pas de gradient décoratif. Robuste light + dark via tokens.
+   ───────────────────────────────────────────────────────────────────────── */
+.xo-pricing-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 22rem));
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  width: 100%;
+  align-items: stretch;
+}
+
+.xo-pricing-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  border: 1px solid var(--xo-line);
+  border-radius: var(--xo-radius-artifact, 16px);
+  background: var(--xo-surface);
+  color: var(--xo-text);
+}
+
+/* Carte mise en avant : bordure + fond accent subtils (tint fonctionnel, pas un
+   gradient décoratif). Lime en thème JT, lisible en light comme en dark. */
+.xo-pricing-card--featured {
+  border-color: color-mix(in srgb, var(--xo-accent) 55%, var(--xo-line-strong));
+  background: color-mix(in srgb, var(--xo-accent) 7%, var(--xo-surface));
+}
+
+.xo-pricing-card__head {
+  display: flex;
+  flex-direction: column;
+}
+
+.xo-pricing-card__name {
+  margin: 0;
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.xo-pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: var(--eco-space-4) 0 0;
+}
+
+.xo-pricing-card__amount {
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: clamp(2.4rem, 2rem + 2vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.xo-pricing-card__period {
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+}
+
+.xo-pricing-card__blurb {
+  max-width: 32ch;
+  margin: var(--eco-space-3) 0 0;
+  color: var(--xo-text-soft);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* La checklist grandit pour pousser le CTA en bas → CTA aligné d'une carte à
+   l'autre quel que soit le nombre de features (grille en align-items: stretch). */
+.xo-pricing-card__features {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: var(--eco-space-5) 0 0;
+  padding: var(--eco-space-5) 0 0;
+  list-style: none;
+  border-top: 1px solid var(--xo-line);
+}
+
+.xo-pricing-card--featured .xo-pricing-card__features {
+  border-top-color: color-mix(in srgb, var(--xo-accent) 30%, var(--xo-line));
+}
+
+.xo-pricing-card__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--xo-text-soft);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.xo-pricing-card__check {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.12rem;
+  color: var(--xo-accent-ink);
+}
+
+.xo-pricing-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem; /* cible tactile ≥44px */
+  margin: var(--eco-space-5) 0 0;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--xo-line-strong);
+  border-radius: var(--eco-radius-control);
+  background: var(--xo-surface-raised);
+  color: var(--xo-text);
+  font-family: var(--eco-font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    border-color var(--eco-motion-fast) var(--eco-ease-out),
+    background var(--eco-motion-fast) var(--eco-ease-out),
+    color var(--eco-motion-fast) var(--eco-ease-out);
+}
+
+.xo-pricing-card__cta:hover {
+  border-color: color-mix(in srgb, var(--xo-text) 28%, var(--xo-line-strong));
+  background: color-mix(in srgb, var(--xo-text) 7%, var(--xo-surface-raised));
+}
+
+.xo-pricing-card__cta:focus-visible {
+  outline: 2px solid var(--xo-accent-ink);
+  outline-offset: 3px;
+}
+
+/* CTA primaire de la carte mise en avant : plein (fond texte, encre = fond),
+   survol accent — calqué sur .xo-button--primary du noyau. */
+.xo-pricing-card--featured .xo-pricing-card__cta {
+  border-color: transparent;
+  background: var(--xo-text);
+  color: var(--xo-bg);
+}
+
+.xo-pricing-card--featured .xo-pricing-card__cta:hover {
+  background: var(--xo-accent);
+  color: var(--eco-color-black);
+}
+
+@media (max-width: 560px) {
+  /* Empilement franc en mobile : une carte pleine largeur par rangée. */
+  .xo-pricing-tiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Timeline ── */
+/* ============================================================
+   Timeline — frise chronologique (clone bandeau x.ai "276 days from
+   groundbreak"). Hairline + points datés équirépartis ; jalon accentué
+   (point lime + libellé display + pulse d'état). Mobile <=720px : frise
+   verticale (ligne à gauche). Alignement des dots via subgrid (rangées
+   label / dot / date partagées entre tous les événements).
+   ============================================================ */
+.xo-timeline {
+  --xo-tl-dot: 9px;
+  --xo-tl-dot-milestone: 13px;
+  --xo-tl-gap: clamp(1.5rem, 6vw, 2.25rem); /* espacement vertical (mobile) */
+  margin: 0;
+}
+
+.xo-timeline__head {
+  max-width: 56ch;
+  margin: 0 0 clamp(2rem, 4vw, 3.25rem);
+}
+.xo-timeline__caption {
+  margin: 0;
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+.xo-timeline__lead {
+  margin: var(--eco-space-3) 0 0;
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-body);
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  line-height: 1.5;
+}
+
+/* ---- Piste horizontale (desktop) : N colonnes égales, 3 rangées partagées ---- */
+.xo-timeline__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto; /* label / dot / date */
+  align-items: center;
+  column-gap: var(--eco-space-4);
+  row-gap: var(--eco-space-3);
+  margin: 0;
+  padding: 0;
+  padding-block: clamp(0.5rem, 2vw, 1rem);
+  list-style: none;
+}
+
+.xo-timeline__event {
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid; /* hérite des 3 rangées → dots alignés */
+  min-width: 0;
+  text-align: center;
+}
+
+/* Placement explicite : un libellé absent ne doit pas décaler le dot */
+.xo-timeline__label { grid-row: 1; }
+.xo-timeline__mid   { grid-row: 2; }
+.xo-timeline__date  { grid-row: 3; }
+
+.xo-timeline__label {
+  align-self: end;
+  max-width: 20ch;
+  margin: 0 auto;
+  color: var(--xo-text-soft);
+  font-family: var(--eco-font-body);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+.xo-timeline__event.is-milestone .xo-timeline__label {
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* Rangée du point + hairline (continue, tracée par chaque cellule) */
+.xo-timeline__mid {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--xo-tl-dot-milestone);
+}
+.xo-timeline__mid::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+  background: var(--xo-line-strong);
+}
+/* Rogne les talons : la ligne court de l'extrémité gauche à l'extrémité droite */
+.xo-timeline__event:first-child .xo-timeline__mid::before { left: 50%; }
+.xo-timeline__event:last-child .xo-timeline__mid::before { right: 50%; }
+
+.xo-timeline__dot {
+  position: relative;
+  z-index: 1;
+  width: var(--xo-tl-dot);
+  height: var(--xo-tl-dot);
+  border-radius: 50%;
+  background: var(--xo-text-soft);
+  box-shadow: 0 0 0 3px var(--xo-bg); /* anneau plein (couleur fond) = respiration dot/ligne, pas une ombre portée */
+}
+.xo-timeline__event.is-milestone .xo-timeline__dot {
+  width: var(--xo-tl-dot-milestone);
+  height: var(--xo-tl-dot-milestone);
+  background: var(--xo-accent);
+}
+/* Pulse d'état du jalon (anneau qui s'étend ; le dot reste fixe → ligne stable) */
+.xo-timeline__event.is-milestone .xo-timeline__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--xo-accent);
+  opacity: 0.45;
+  animation: xo-timeline-pulse 2.4s var(--eco-ease-out) infinite;
+}
+@keyframes xo-timeline-pulse {
+  0%        { transform: scale(1);   opacity: 0.45; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+.xo-timeline__date {
+  align-self: start;
+  margin: 0 auto;
+  color: var(--xo-text-muted);
+  font-family: var(--eco-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.xo-timeline__event.is-milestone .xo-timeline__date {
+  color: var(--xo-accent-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-timeline__event.is-milestone .xo-timeline__dot::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ---- Frise verticale (mobile) : ligne à gauche, date + libellé empilés ---- */
+@media (max-width: 720px) {
+  .xo-timeline__track {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-rows: none;
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 0;
+    padding-block: 0;
+  }
+
+  .xo-timeline__event {
+    grid-row: auto;
+    grid-template-rows: auto auto;
+    grid-template-columns: var(--xo-tl-dot-milestone) 1fr;
+    column-gap: var(--eco-space-4);
+    row-gap: 0;
+    text-align: left;
+    padding-bottom: var(--xo-tl-gap);
+  }
+  .xo-timeline__event:last-child { padding-bottom: 0; }
+
+  .xo-timeline__mid {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    min-height: 0;
+  }
+  .xo-timeline__dot { margin-top: 0.3rem; }
+
+  .xo-timeline__mid::before {
+    top: 0.55rem; /* ≈ centre du dot sur la 1re ligne de texte */
+    bottom: calc(-1 * var(--xo-tl-gap));
+    left: 50%;
+    right: auto;
+    width: 1px;
+    height: auto;
+    transform: translateX(-50%);
+  }
+  /* annule le rognage horizontal hérité du desktop, gère le dernier point */
+  .xo-timeline__event:first-child .xo-timeline__mid::before { left: 50%; right: auto; }
+  .xo-timeline__event:last-child .xo-timeline__mid::before { display: none; }
+
+  .xo-timeline__date {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    text-align: left;
+    align-self: start;
+  }
+  .xo-timeline__label {
+    grid-column: 2;
+    grid-row: 2;
+    max-width: none;
+    margin: var(--eco-space-2) 0 0;
+    text-align: left;
+    align-self: start;
+  }
+}
+
+/* ── Accordion ── */
+/* ── Accordion — clone "Security practices" x.ai (plat, <details> natif) ─────── */
+/* Namespace dédié .xo-accordion (n'entre pas en conflit avec .xo-practice-*).   */
+.xo-accordion {
+  width: 100%;
+}
+.xo-accordion__heading {
+  margin: 0 0 clamp(1.25rem, 2.5vw, 2rem);
+  color: var(--xo-text);
+  font-family: var(--eco-font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.xo-accordion__list {
+  display: grid;
+  border-top: 1px solid var(--xo-line);
+}
+.xo-accordion__item {
+  border-bottom: 1px solid var(--xo-line);
+  color: var(--xo-text);
+}
+
+/* Rangée cliquable : titre + indicateur, marqueur natif masqué, cible ≥44px */
+.xo-accordion__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--eco-space-4);
+  min-height: 3.25rem;
+  padding-block: clamp(1rem, 1.8vw, 1.35rem);
+  list-style: none;
+  cursor: pointer;
+  color: inherit;
+  transition: background-color 200ms var(--eco-ease-out),
+              color 200ms var(--eco-ease-out);
+}
+.xo-accordion__summary::-webkit-details-marker { display: none; }
+
+.xo-accordion__title {
+  font-family: var(--eco-font-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Indicateur "+" → "−" : deux filets hairline ; la barre verticale pivote à l'ouverture */
+.xo-accordion__icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-left: var(--eco-space-3);
+  color: var(--xo-text-muted);
+  transition: color 200ms var(--eco-ease-out);
+}
+.xo-accordion__icon::before,
+.xo-accordion__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 240ms var(--eco-ease-out);
+}
+.xo-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.xo-accordion__item[open] .xo-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Hover / état ouvert : swap de couleur + voile discret (pas d'ombre, pas de transform) */
+.xo-accordion__summary:hover {
+  background: color-mix(in srgb, var(--xo-text) 4%, transparent);
+}
+.xo-accordion__summary:hover .xo-accordion__icon,
+.xo-accordion__item[open] .xo-accordion__icon {
+  color: var(--xo-accent-ink);
+}
+.xo-accordion__summary:focus-visible {
+  outline: 2px solid var(--xo-accent-ink);
+  outline-offset: -2px;
+  border-radius: var(--eco-radius-tight);
+}
+
+/* Contenu révélé (les <details> masquent le panneau quand fermé) */
+.xo-accordion__panel {
+  padding-bottom: clamp(1.1rem, 2vw, 1.6rem);
+}
+.xo-accordion__item[open] .xo-accordion__panel {
+  animation: xo-accordion-reveal 260ms var(--eco-ease-out);
+}
+.xo-accordion__body {
+  max-width: 72ch;
+  color: var(--xo-text-soft);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+.xo-accordion__body > :first-child { margin-top: 0; }
+.xo-accordion__body > :last-child { margin-bottom: 0; }
+.xo-accordion__body a { color: var(--xo-accent-ink); }
+
+@keyframes xo-accordion-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Motion off : on garde l'état, on retire l'animation */
+@media (prefers-reduced-motion: reduce) {
+  .xo-accordion__summary,
+  .xo-accordion__icon,
+  .xo-accordion__icon::before,
+  .xo-accordion__icon::after { transition: none; }
+  .xo-accordion__item[open] .xo-accordion__panel { animation: none; }
+}
+
+/* ── CodeArtifact : variante glow opt-in (clone bordure lumineuse x.ai/api) ──
+   Halo accent doux + bordure teintée. OFF par défaut (le design-system limite
+   les ombres) ; liée au token --xo-accent → s'adapte par site (lime/cyan/ocre). */
+.xo-code-artifact--glow {
+  border-color: color-mix(in srgb, var(--xo-accent) 32%, var(--xo-line));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--xo-accent) 20%, transparent),
+    0 10px 44px -14px color-mix(in srgb, var(--xo-accent) 30%, transparent);
+}
+
+/* Clone x.ai/api — bordures glow bleu + orange (stacked layout). */
+.xo-code-artifact--glow-blue.xo-console {
+  border-color: rgba(59, 130, 246, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.22),
+    0 10px 44px -14px rgba(59, 130, 246, 0.34);
+}
+.xo-code-artifact--glow-orange.xo-console {
+  border-color: rgba(255, 99, 8, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(255, 99, 8, 0.22),
+    0 10px 44px -14px rgba(255, 99, 8, 0.34);
+}
+
+/* ── CodeArtifact layout xai (clone home « One API » — mesuré 2026-06-25) ──
+   Fenêtre terminal (608×278 ref) + onglets pill dessous, pastilles mac, Copy ml-auto. */
+.xo-code-artifact--xai {
+  width: 100%;
+  max-width: 38rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #d7d1c9;
+}
+
+.xo-developer-block {
+  align-items: center;
+}
+
+.xo-developer-code {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__shell {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__window {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 17.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: #151515;
+  box-shadow: none;
+}
+
+/* Glow neutre sur layout xai (mesuré x.ai home : pas de halo accent). */
+.xo-code-artifact--xai.xo-code-artifact--glow .xo-code-artifact__window {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+.xo-code-artifact--xai.xo-code-artifact--glow-blue .xo-code-artifact__window {
+  border-color: rgba(59, 130, 246, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.22),
+    0 10px 44px -14px rgba(59, 130, 246, 0.34);
+}
+.xo-code-artifact--xai.xo-code-artifact--glow-orange .xo-code-artifact__window {
+  border-color: rgba(255, 99, 8, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(255, 99, 8, 0.22),
+    0 10px 44px -14px rgba(255, 99, 8, 0.34);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__chrome {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__dots span:nth-child(1) { background: #ff5f57; }
+.xo-code-artifact--xai .xo-code-artifact__dots span:nth-child(2) { background: #febc2e; }
+.xo-code-artifact--xai .xo-code-artifact__dots span:nth-child(3) { background: #28c840; }
+
+.xo-code-artifact--xai .xo-code-artifact__copy {
+  margin-left: auto;
+  display: inline-flex;
+  min-width: 4.75rem;
+  min-height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0;
+  margin-block: -0.25rem;
+  padding: 0.25rem 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.64);
+  cursor: pointer;
+  font-family: var(--eco-font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: color 180ms var(--eco-ease-out);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__copy:hover,
+.xo-code-artifact--xai .xo-code-artifact__copy:focus-visible {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__copy[data-copy-state="copied"] {
+  color: var(--xo-accent);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__panel[hidden] {
+  display: none;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__panel:not([hidden]) pre {
+  animation: xo-xai-code-in 450ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes xo-xai-code-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.xo-code-artifact--xai .xo-code-artifact__panel pre {
+  margin: 0;
+  min-height: 100%;
+  padding: 1rem 1.1rem 1.15rem;
+  overflow-x: auto;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__panel code {
+  display: block;
+  color: #d7d1c9;
+  font-family: var(--eco-font-mono);
+  font-size: 12px;
+  line-height: 19.5px;
+  white-space: pre-wrap;
+}
+
+.xo-code-artifact--xai .xo-tok-meta {
+  color: color-mix(in srgb, var(--xo-accent) 72%, #f3eee7);
+}
+
+.xo-code-artifact--xai .xo-tok-dim {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.xo-code-artifact--xai .xo-tok-str {
+  color: color-mix(in srgb, #98c379 88%, #f3eee7);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.xo-code-artifact--xai .xo-code-artifact__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.38rem 0.85rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.64);
+  cursor: pointer;
+  font-family: var(--eco-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition:
+    background 180ms var(--eco-ease-out),
+    color 180ms var(--eco-ease-out);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__tab[aria-selected="true"],
+.xo-code-artifact--xai .xo-code-artifact__tab.is-active {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.xo-code-artifact--xai .xo-code-artifact__tab:hover,
+.xo-code-artifact--xai .xo-code-artifact__tab:focus-visible {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+:root:not([data-theme="dark"]) .xo-code-artifact--xai .xo-code-artifact__window,
+:root:not([data-theme="dark"]) .xo-code-artifact--xai .xo-code-artifact__chrome,
+:root:not([data-theme="dark"]) .xo-code-artifact--xai .xo-code-artifact__panel pre,
+:root:not([data-theme="dark"]) .xo-code-artifact--xai .xo-code-artifact__panel code {
+  background: #151515;
+  color: #d7d1c9;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xo-code-artifact--xai .xo-code-artifact__panel:not([hidden]) pre {
+    animation: none;
+  }
 }
 /* @extras-start: managed by sync.sh */
 /* Site-specific overrides for .paranoia-* — extracted from x-operational-system.css. */

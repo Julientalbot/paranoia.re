@@ -1,0 +1,197 @@
+---
+// Table x.ai — primitive a deux modes.
+//  - mode 'data'    : table plate facon "Models and pricing" (pages /api : Models,
+//                     Imagine API, Voice API). En-tete mono muted souligne d'un filet,
+//                     1re colonne en emphase (nom + badge "New" optionnel), chiffres
+//                     en mono tabular, filets hairline entre les lignes.
+//  - mode 'compare' : matrice facon "Compare features across plans" (page pricing).
+//                     En-tete = noms de plans (+ CTA optionnel), chaque categorie =
+//                     une sous-rangee titre pleine largeur, chaque feature = un label
+//                     + une cellule par plan (true => coche accent, false => tiret
+//                     muted, string => valeur). 1re colonne sticky en scroll-x.
+// Source mesuree : x.ai/api + x.ai pricing. Grammaire : hairline 1px, mono pour
+// labels/chiffres, espacement genereux, AUCUNE ombre, AUCUN gradient decoratif.
+// La table scrolle DANS son conteneur (overflow-x) — jamais de debordement du document.
+//
+// Usage — mode data :
+//   <Table mode="data"
+//     columns={[{ label: 'Model' }, { label: 'Context window', align: 'right' }]}
+//     rows={[[{ value: 'grok-4.3', badge: 'New' }, '256K'], ['grok-build-0.1', '128K']]}
+//     note="Tous les tarifs sont par million de tokens." />
+//
+// Usage — mode compare :
+//   <Table mode="compare"
+//     columns={[{ name: 'Free' }, { name: 'SuperGrok', cta: { label: 'Choisir', href: '/x' } }]}
+//     groups={[{ label: 'Modeles', rows: [{ label: 'Grok 4', cells: [false, true] }] }]} />
+//
+// Note : en mode data, une cellule de la 1re colonne accepte la forme objet
+// { value, badge? } pour afficher le badge "New" ; partout ailleurs une string suffit.
+
+interface DataColumn {
+  label: string;
+  align?: 'left' | 'right';
+}
+type DataCell = string | { value: string; badge?: string };
+
+interface CompareCta {
+  label: string;
+  href: string;
+}
+interface CompareColumn {
+  name: string;
+  cta?: CompareCta;
+}
+interface CompareFeatureRow {
+  label: string;
+  cells: (boolean | string)[];
+}
+interface CompareGroup {
+  label: string;
+  rows: CompareFeatureRow[];
+}
+
+interface Props {
+  mode: 'data' | 'compare';
+  /** mode data: DataColumn[] ; mode compare: CompareColumn[] (colonnes de plans) */
+  columns?: DataColumn[] | CompareColumn[];
+  /** mode data uniquement */
+  rows?: DataCell[][];
+  /** mode compare uniquement */
+  groups?: CompareGroup[];
+  caption?: string;
+  note?: string;
+  class?: string;
+}
+
+const {
+  mode,
+  columns = [],
+  rows = [],
+  groups = [],
+  caption,
+  note,
+  class: className = '',
+} = Astro.props;
+
+const dataColumns = columns as DataColumn[];
+const compareColumns = columns as CompareColumn[];
+const normCell = (c: DataCell) =>
+  typeof c === 'string' ? { value: c, badge: undefined as string | undefined } : c;
+---
+
+{mode === 'data' ? (
+  <div class:list={['xo-data-table', className]}>
+    <div class="xo-table-scroll">
+      <table class="xo-data-table__table">
+        {caption && <caption class="xo-data-table__caption">{caption}</caption>}
+        <thead>
+          <tr>
+            {dataColumns.map((col) => (
+              <th scope="col" class:list={['xo-data-table__th', col.align === 'right' && 'is-right']}>
+                {col.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr class="xo-data-table__row">
+              {row.map((raw, i) => {
+                const cell = normCell(raw);
+                if (i === 0) {
+                  return (
+                    <th scope="row" class="xo-data-table__name">
+                      <span class="xo-data-table__name-inner">
+                        <span>{cell.value}</span>
+                        {cell.badge && <span class="xo-data-table__badge">{cell.badge}</span>}
+                      </span>
+                    </th>
+                  );
+                }
+                return (
+                  <td class:list={['xo-data-table__cell', dataColumns[i]?.align === 'right' && 'is-right']}>
+                    {cell.value}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {note && <p class="xo-data-table__note">{note}</p>}
+  </div>
+) : (
+  <div class:list={['xo-compare-table', className]}>
+    <div class="xo-table-scroll">
+      <table class="xo-compare-table__table">
+        {caption && <caption class="xo-compare-table__caption">{caption}</caption>}
+        <thead>
+          <tr>
+            <th scope="col" class="xo-compare-table__corner">
+              <span class="xo-sr-only">Fonctionnalite</span>
+            </th>
+            {compareColumns.map((col) => (
+              <th scope="col" class="xo-compare-table__plan">
+                <span class="xo-compare-table__plan-name">{col.name}</span>
+                {col.cta && (
+                  <a class="xo-button xo-button--primary xo-compare-table__cta" href={col.cta.href}>
+                    {col.cta.label}
+                  </a>
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {groups.map((group) => (
+            <Fragment>
+              <tr class="xo-compare-table__group">
+                <th
+                  scope="colgroup"
+                  colspan={compareColumns.length + 1}
+                  class="xo-compare-table__group-label"
+                >
+                  <span class="xo-compare-table__group-text">{group.label}</span>
+                </th>
+              </tr>
+              {group.rows.map((feature) => (
+                <tr class="xo-compare-table__feature">
+                  <th scope="row" class="xo-compare-table__feature-label">{feature.label}</th>
+                  {feature.cells.map((cell) => (
+                    <td class="xo-compare-table__cell">
+                      {typeof cell === 'boolean' ? (
+                        cell ? (
+                          <span class="xo-compare-table__mark xo-compare-table__mark--yes">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                              <path
+                                d="M3.5 8.4l3 3 5.8-6.4"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                            <span class="xo-sr-only">Inclus</span>
+                          </span>
+                        ) : (
+                          <span class="xo-compare-table__mark xo-compare-table__mark--no">
+                            <span aria-hidden="true">—</span>
+                            <span class="xo-sr-only">Non inclus</span>
+                          </span>
+                        )
+                      ) : (
+                        <span class="xo-compare-table__val">{cell}</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {note && <p class="xo-compare-table__note">{note}</p>}
+  </div>
+)}
