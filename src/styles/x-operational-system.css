@@ -863,7 +863,7 @@ a.xo-mode-surface:focus-visible::before {
   color: var(--xo-text);
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--xo-motion-fast);
 }
 
 .xo-home-start-note a:hover { color: var(--xo-accent-ink); }
@@ -1592,7 +1592,7 @@ a.xo-mode-surface:focus-visible::before {
   align-items: stretch;
   color: var(--xo-text);
   text-decoration: none;
-  transition: color 200ms var(--eco-ease-out);
+  transition: color var(--xo-motion-fast);
 }
 
 .xo-news-featured__copy {
@@ -1615,7 +1615,7 @@ a.xo-mode-surface:focus-visible::before {
   border: 1px solid var(--xo-line);
   border-radius: 8px;
   background: var(--xo-surface);
-  transition: border-color 220ms var(--eco-ease-out);
+  transition: border-color var(--xo-motion-fast);
 }
 
 .xo-news-featured:hover .xo-news-featured__media,
@@ -1653,7 +1653,7 @@ a.xo-mode-surface:focus-visible::before {
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.025em;
-  transition: color 200ms var(--eco-ease-out);
+  transition: color var(--xo-motion-fast);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -1762,7 +1762,7 @@ h3.xo-news-card__title {
   font-family: var(--eco-font-mono);
   font-size: 0.82rem;
   text-decoration: none;
-  transition: color 200ms var(--eco-ease-out);
+  transition: color var(--xo-motion-fast);
 }
 
 .xo-news-back:hover,
@@ -2058,9 +2058,9 @@ main.xo-page.xo-news-article .article-head h1 {
 .xo-page .xo-signal-row,
 .xo-page .xo-latest-row,
 .xo-page .xo-signal-list > :is(a, article) {
-  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1),
-              color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background var(--xo-motion-fast),
+              color var(--xo-motion-fast),
+              border-color var(--xo-motion-fast);
 }
 
 .xo-page .xo-path-card,
@@ -2595,6 +2595,12 @@ main.xo-page.xo-news-article .article-head h1 {
   margin-left: 0.25rem;
   color: var(--xo-accent);
   animation: xo-console-caret-blink 1.1s steps(2, end) infinite;
+  animation-play-state: paused;
+}
+
+.xo-console.xo-inview .xo-console-line[data-cursor]::after,
+.xo-console.xo-inview .xo-console-body > .xo-console-line:last-child::after {
+  animation-play-state: running;
 }
 
 @keyframes xo-console-caret-blink {
@@ -2670,6 +2676,11 @@ main.xo-page.xo-news-article .article-head h1 {
 @media (prefers-reduced-motion: no-preference) {
   .xo-console-live {
     animation: xo-console-live-pulse 2.5s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .xo-console.xo-inview .xo-console-live {
+    animation-play-state: running;
   }
 }
 
@@ -3226,11 +3237,14 @@ main.xo-page.xo-news-article .article-head h1 {
   /* x.ai mesuré (2026-07-02) : transparent au top, sans border-bottom ; l'état scrollé est du JS */
   background: transparent;
   border-bottom-color: transparent;
-  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color var(--xo-motion-fast);
 }
+/* x.ai scrollé : surface /95 + backdrop-blur-xl (mesuré 2026-07-02, surfaces grok) */
 .site-header--floating.is-scrolled {
-  background: rgba(10, 10, 10, 0.85);
-  background: color-mix(in srgb, var(--xo-bg) 85%, transparent);
+  background: rgba(10, 10, 10, 0.95);
+  background: color-mix(in srgb, var(--xo-bg) 95%, transparent);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
 }
 /* Home : pb 0 (x.ai mesuré 2026-07-02, hero+tray pb 0 — l'espace vit dans la section suivante) */
 .site-header--floating ~ .xo-home .xo-home-hero {
@@ -3752,14 +3766,14 @@ html.nav-open { overflow: hidden; }
 }
 
 .xo-page .labs-taste-hero {
-  --xo-bg: #000;
+  --xo-bg: #0a0a0a;
   --xo-text: #f7f7f7;
   --xo-text-soft: rgba(255, 255, 255, 0.66);
   --xo-text-muted: rgba(255, 255, 255, 0.48);
   --xo-line: rgba(255, 255, 255, 0.07);
   --xo-line-strong: rgba(255, 255, 255, 0.14);
-  --xo-surface: #080808;
-  --xo-surface-raised: #101010;
+  --xo-surface: #0a0a0a;
+  --xo-surface-raised: #1a1a1a;
   --xo-accent-ink: var(--xo-accent);
   position: relative;
   isolation: isolate;
@@ -3768,8 +3782,8 @@ html.nav-open { overflow: hidden; }
   grid-template-columns: minmax(0, 0.96fr) minmax(25rem, 0.86fr);
   gap: clamp(2rem, 6vw, 6.5rem);
   align-items: center;
-  background: #000;
-  box-shadow: 0 0 0 100vmax #000;
+  background: #0a0a0a;
+  box-shadow: 0 0 0 100vmax #0a0a0a;
   clip-path: inset(0 -100vmax);
   padding-block: clamp(5rem, 9vw, 7.5rem) clamp(3rem, 7vw, 5.5rem);
 }
@@ -4028,6 +4042,11 @@ html.nav-open { overflow: hidden; }
   height: 1.2rem;
   background: var(--xo-accent);
   animation: labsCaret 1.1s steps(2, end) infinite;
+  animation-play-state: paused;
+}
+
+.labs-taste-hero.xo-inview .labs-command-line i {
+  animation-play-state: running;
 }
 
 .xo-page .labs-status-stack > div {
@@ -4041,6 +4060,11 @@ html.nav-open { overflow: hidden; }
   border-radius: 50%;
   background: var(--xo-accent);
   animation: labsPulse 3.4s var(--eco-ease-snap) infinite;
+  animation-play-state: paused;
+}
+
+.labs-taste-hero.xo-inview .labs-status-stack span {
+  animation-play-state: running;
 }
 
 .xo-page .labs-data-stream {
@@ -4103,6 +4127,11 @@ html.nav-open { overflow: hidden; }
 .xo-page .labs-doc-view p:nth-child(2) {
   color: var(--xo-accent);
   animation: labsHighlight 4.8s var(--eco-ease-snap) infinite;
+  animation-play-state: paused;
+}
+
+.labs-taste-hero.xo-inview .labs-doc-view p:nth-child(2) {
+  animation-play-state: running;
 }
 
 .xo-page .labs-floating-toolbar {
@@ -5516,7 +5545,7 @@ html.nav-open { overflow: hidden; }
   font-family: var(--eco-font-mono);
   font-size: 0.75rem;
   font-weight: 500;
-  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background var(--xo-motion-fast), color var(--xo-motion-fast);
 }
 
 .xo-mode-tabs--panel .mode-tab-pill:hover {
@@ -5597,7 +5626,7 @@ html.nav-open { overflow: hidden; }
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
-  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background var(--xo-motion-fast), color var(--xo-motion-fast);
 }
 
 .xo-mode-tabs--console .mode-tab-pill:hover {
@@ -5771,9 +5800,7 @@ a.xo-metric:focus-visible strong {
   background: var(--xo-surface);
   color: var(--xo-text);
   text-decoration: none;
-  transition:
-    border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color var(--xo-motion-fast);
 }
 
 /* Coin cranté signature (radius asymétrique mesuré x.ai), réservé au plateau hero. */
@@ -5887,7 +5914,7 @@ a.xo-metric:focus-visible strong {
   font-size: 0.82rem;
   text-decoration: none;
   white-space: nowrap;
-  transition: color 200ms var(--eco-ease-out);
+  transition: color var(--xo-motion-fast);
 }
 .xo-news-all:hover,
 .xo-news-all:focus-visible { color: var(--xo-text); }
@@ -5912,7 +5939,7 @@ a.xo-metric:focus-visible strong {
   border: 1px solid var(--xo-line);
   border-radius: 8px;
   background: var(--xo-surface);
-  transition: border-color 220ms var(--eco-ease-out);
+  transition: border-color var(--xo-motion-fast);
 }
 .xo-news-card:hover .xo-news-card__media,
 .xo-news-card:focus-visible .xo-news-card__media { border-color: var(--xo-line-strong); }
@@ -5923,13 +5950,13 @@ a.xo-metric:focus-visible strong {
   display: block;
 }
 .xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; }
-.xo-news-card { transition: border-color 220ms var(--eco-ease-out); }
+.xo-news-card { transition: border-color var(--xo-motion-fast); }
 .xo-news-card:hover { border-color: var(--xo-line-strong); }
 .xo-news-card__date {
   margin: 0.85rem 0 0;
   color: var(--xo-text-muted);
   font-family: var(--eco-font-mono);
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   letter-spacing: 0.01em;
 }
 .xo-news-card__title {
@@ -5955,8 +5982,7 @@ a.xo-metric:focus-visible strong {
 
 a.xo-artefact-card:hover,
 a.xo-artefact-card:focus-visible {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .xo-artefact-card__body {
@@ -5981,7 +6007,7 @@ a.xo-artefact-card:focus-visible {
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.01em;
-  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color var(--xo-motion-fast);
 }
 
 .xo-artefact-card__cta {
@@ -5989,7 +6015,7 @@ a.xo-artefact-card:focus-visible {
   font-family: var(--eco-font-mono);
   font-size: 0.76rem;
   white-space: nowrap;
-  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color var(--xo-motion-fast);
 }
 
 a.xo-artefact-card:hover .xo-artefact-card__label,
@@ -6495,6 +6521,11 @@ a.xo-news-dense-list__row:focus-visible {
   transform-origin: center;
   will-change: transform;
   animation: xo-waveform-pulse 1s var(--eco-ease-snap, ease-in-out) infinite alternate;
+  animation-play-state: paused;
+}
+
+.xo-waveform.xo-inview .xo-waveform-bar {
+  animation-play-state: running;
 }
 
 @keyframes xo-waveform-pulse {
@@ -7252,7 +7283,13 @@ a.xo-news-dense-list__row:focus-visible {
   background: var(--xo-accent);
   opacity: 0.45;
   animation: xo-timeline-pulse 2.4s var(--eco-ease-out) infinite;
+  animation-play-state: paused;
 }
+
+.xo-timeline.xo-inview .xo-timeline__event.is-milestone .xo-timeline__dot::after {
+  animation-play-state: running;
+}
+
 @keyframes xo-timeline-pulse {
   0%        { transform: scale(1);   opacity: 0.45; }
   70%, 100% { transform: scale(2.6); opacity: 0; }
@@ -7377,8 +7414,8 @@ a.xo-news-dense-list__row:focus-visible {
   list-style: none;
   cursor: pointer;
   color: inherit;
-  transition: background-color 200ms var(--eco-ease-out),
-              color 200ms var(--eco-ease-out);
+  transition: background-color var(--xo-motion-fast),
+              color var(--xo-motion-fast);
 }
 .xo-accordion__summary::-webkit-details-marker { display: none; }
 
@@ -7398,7 +7435,7 @@ a.xo-news-dense-list__row:focus-visible {
   height: 0.9rem;
   margin-left: var(--eco-space-3);
   color: var(--xo-text-muted);
-  transition: color 200ms var(--eco-ease-out);
+  transition: color var(--xo-motion-fast);
 }
 .xo-accordion__icon::before,
 .xo-accordion__icon::after {
@@ -7468,24 +7505,15 @@ a.xo-news-dense-list__row:focus-visible {
    Halo accent doux + bordure teintée. OFF par défaut (le design-system limite
    les ombres) ; liée au token --xo-accent → s'adapte par site (lime/cyan/ocre). */
 .xo-code-artifact--glow {
-  border-color: color-mix(in srgb, var(--xo-accent) 32%, var(--xo-line));
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--xo-accent) 20%, transparent),
-    0 10px 44px -14px color-mix(in srgb, var(--xo-accent) 30%, transparent);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Clone x.ai/api — bordures glow bleu + orange (stacked layout). */
 .xo-code-artifact--glow-blue.xo-console {
-  border-color: rgba(59, 130, 246, 0.42);
-  box-shadow:
-    0 0 0 1px rgba(59, 130, 246, 0.22),
-    0 10px 44px -14px rgba(59, 130, 246, 0.34);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 .xo-code-artifact--glow-orange.xo-console {
-  border-color: rgba(255, 99, 8, 0.42);
-  box-shadow:
-    0 0 0 1px rgba(255, 99, 8, 0.22),
-    0 10px 44px -14px rgba(255, 99, 8, 0.34);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ── CodeArtifact layout xai (clone home « One API » — mesuré 2026-06-25) ──
@@ -7529,22 +7557,16 @@ a.xo-news-dense-list__row:focus-visible {
 
 /* Glow neutre sur layout xai (mesuré x.ai home : pas de halo accent). */
 .xo-code-artifact--xai.xo-code-artifact--glow .xo-code-artifact__window {
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
   box-shadow:
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 .xo-code-artifact--xai.xo-code-artifact--glow-blue .xo-code-artifact__window {
-  border-color: rgba(59, 130, 246, 0.42);
-  box-shadow:
-    0 0 0 1px rgba(59, 130, 246, 0.22),
-    0 10px 44px -14px rgba(59, 130, 246, 0.34);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 .xo-code-artifact--xai.xo-code-artifact--glow-orange .xo-code-artifact__window {
-  border-color: rgba(255, 99, 8, 0.42);
-  box-shadow:
-    0 0 0 1px rgba(255, 99, 8, 0.22),
-    0 10px 44px -14px rgba(255, 99, 8, 0.34);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .xo-code-artifact--xai .xo-code-artifact__chrome {
@@ -7591,7 +7613,7 @@ a.xo-news-dense-list__row:focus-visible {
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1;
-  transition: color 180ms var(--eco-ease-out);
+  transition: color var(--xo-motion-fast);
 }
 
 .xo-code-artifact--xai .xo-code-artifact__copy:hover,

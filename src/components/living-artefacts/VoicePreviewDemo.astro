@@ -78,6 +78,11 @@ const statusLabel = status === 'live' ? 'Live' : 'Preview';
     background: var(--xo-accent);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--xo-accent) 25%, transparent);
     animation: xo-voice-preview-pulse 1.8s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .xo-voice-preview.xo-inview .xo-voice-preview__status[data-status='live']::before {
+    animation-play-state: running;
   }
 
   @keyframes xo-voice-preview-pulse {
