@@ -2267,9 +2267,11 @@ main.xo-page.xo-news-article .article-head h1 {
   color: var(--xo-bg);
 }
 
+/* Monochrome (x.ai): primary is ink fill. Hover = soft dim, not accent hue.
+   Accent=#fff would make hover invisible on white primary. */
 .xo-button--primary:hover {
-  background: var(--xo-accent);
-  color: var(--eco-color-black);
+  background: color-mix(in srgb, var(--xo-text) 86%, var(--xo-bg));
+  color: var(--xo-bg);
 }
 
 .xo-button--danger {
@@ -3502,10 +3504,11 @@ html.nav-open { overflow: hidden; }
   color: var(--xo-bg);
 }
 
+/* Monochrome: dim ink fill on hover (accent=#fff would be white-on-white). */
 .xo-page .btn-primary:hover {
-  border-color: var(--xo-accent);
-  background: var(--xo-accent);
-  color: var(--eco-color-black);
+  border-color: color-mix(in srgb, var(--xo-text) 86%, var(--xo-bg));
+  background: color-mix(in srgb, var(--xo-text) 86%, var(--xo-bg));
+  color: var(--xo-bg);
 }
 
 .xo-page .btn-secondary {
@@ -7143,7 +7146,7 @@ a.xo-news-dense-list__row:focus-visible {
 }
 
 /* CTA primaire de la carte mise en avant : plein (fond texte, encre = fond),
-   survol accent — calqué sur .xo-button--primary du noyau. */
+   survol monochrome dim — calqué sur .xo-button--primary (pas accent blanc-sur-blanc). */
 .xo-pricing-card--featured .xo-pricing-card__cta {
   border-color: transparent;
   background: var(--xo-text);
@@ -7151,8 +7154,8 @@ a.xo-news-dense-list__row:focus-visible {
 }
 
 .xo-pricing-card--featured .xo-pricing-card__cta:hover {
-  background: var(--xo-accent);
-  color: var(--eco-color-black);
+  background: color-mix(in srgb, var(--xo-text) 86%, var(--xo-bg));
+  color: var(--xo-bg);
 }
 
 @media (max-width: 560px) {
