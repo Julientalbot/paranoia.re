@@ -55,7 +55,7 @@ const isCatalog = layout === 'catalog';
   >
     <div class="xo-news-dense-list__body" data-news-dense-body>
       {rows.map((item, i) => (
-        <div class="xo-news-dense-list__line" data-news-dense-line={i}>
+        <div class:list={['xo-news-dense-list__line', i < 4 && 'is-visible']} data-news-dense-line={i}>
           <span class="xo-news-dense-list__date">{item.date}</span>
           <strong class="xo-news-dense-list__title">{item.title}</strong>
         </div>

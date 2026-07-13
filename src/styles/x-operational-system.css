@@ -2166,11 +2166,12 @@ main.xo-page.xo-news-article .article-head h1 {
   text-transform: uppercase;
 }
 
-/* Variante chip-pilule (eyebrow type x.ai « New · »), bordure teintée lime — identité conservée. */
+/* Variante chip-pilule (eyebrow type x.ai « New · ») — monochrome, bordure alpha. */
 .xo-kicker--chip {
-  border: 1px solid color-mix(in srgb, var(--xo-accent) 30%, var(--xo-line));
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
   padding: 0.3rem 0.8rem 0.3rem 0.7rem;
+  background: color-mix(in srgb, var(--xo-text) 4%, transparent);
 }
 
 .xo-kicker::before,
@@ -6146,6 +6147,7 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
 
 /* Hero "stack" : copie centrée (home = + plateau ; sous-pages = copie seule façon x.ai/grok). */
 .xo-home-hero--stack {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6153,6 +6155,29 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   min-height: auto;
   padding-block: clamp(4rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4rem);
   text-align: center;
+  isolation: isolate;
+}
+
+/* Soft atmospheric glow — monochrome launch-card grammar (x.ai Grok 4.5 OG).
+   Hierarchy without brand hue: light blob behind lead, not a global accent. */
+.xo-home-hero--stack::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0% 10% 35% 10%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 48% at 50% 28%,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.025) 42%,
+    transparent 72%
+  );
+}
+
+/* Home hero CTAs: product-hero weight (44px) — decision signal on flat mono canvas. */
+.xo-home-hero--stack .xo-actions .xo-button {
+  min-height: 2.75rem;
+  padding: 0.75rem 1.25rem;
 }
 
 /* Hero produit (pages sans plateau de tuiles) : se cale sur son contenu.
