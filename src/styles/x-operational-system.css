@@ -1804,16 +1804,22 @@ main.xo-page.xo-news-article .article-head h1 {
   border-top: 1px solid var(--xo-line);
 }
 
+/* Hero image article = launch-card monochrome (OG x.ai style). */
 .xo-news-hero {
   margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+  overflow: hidden;
+  border: 1px solid var(--xo-line);
+  border-radius: 12px;
+  background: #0a0a0a;
 }
 
 .xo-news-hero img {
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid var(--xo-line);
-  border-radius: 8px;
+  border: 0;
+  border-radius: 0;
+  vertical-align: middle;
 }
 
 .xo-news-article .xo-article-prose > :is(p, ul, ol, blockquote, h2, h3, h4) {

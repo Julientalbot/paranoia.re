@@ -18,10 +18,9 @@
    Mesure autoritaire : .audit/xai-measured/2026-06-23-computed-styles.json */
 :root {
   --xo-terminal-ink: #d7d1c9;
+  /* Monochrome vitrine (JT) : accent = ink blanc. Paranoia patch signal en cyan. */
   --xo-accent: var(--eco-color-signal);
-  /* Accent pour du TEXTE sur canvas/surface : identique à l'accent en dark,
-     assombri en light (45% signal sur #0a0a0a → ≥ 4.5:1 sur blanc pour les
-     3 accents de site). Les fonds/bordures/console gardent --xo-accent. */
+  /* TEXTE accent : en dark = signal ; en light = ink sombre (contraste ≥ 4.5:1). */
   --xo-accent-ink: var(--xo-accent);
   --xo-danger: var(--eco-color-red);
 
@@ -75,7 +74,8 @@
   --xo-surface-raised: #f4f3f1;
   --xo-terminal: #151515;
   --xo-terminal-border: rgba(255, 255, 255, 0.08);
-  --xo-accent-ink: color-mix(in srgb, var(--eco-color-signal) 45%, #0a0a0a);
+  --xo-accent-ink: #0a0a0a;
+  --xo-accent: #0a0a0a;
 }
 
 @media (prefers-color-scheme: light) {
@@ -91,7 +91,8 @@
     --xo-surface-raised: #f4f3f1;
     --xo-terminal: #151515;
     --xo-terminal-border: rgba(255, 255, 255, 0.08);
-    --xo-accent-ink: color-mix(in srgb, var(--eco-color-signal) 45%, #0a0a0a);
+    --xo-accent-ink: #0a0a0a;
+    --xo-accent: #0a0a0a;
   }
 }
 

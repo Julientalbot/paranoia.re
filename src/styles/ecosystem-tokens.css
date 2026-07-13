@@ -5,19 +5,22 @@
   --eco-font-display: "Geist Variable", "Avenir Next", "Helvetica Neue", sans-serif;
   --eco-font-mono: "Geist Mono Variable", "SFMono-Regular", Consolas, monospace;
 
-  --eco-color-black: #050505;
+  /* Monochrome x.ai (goal 2026-07-13). Canvas/ink autoritaires = --xo-* mesurés.
+     --eco-color-signal est l’accent de site : blanc pour JT, patché par sync.sh
+     pour Paranoia (cyan produit). Pas de teinte saturée de marque sur la vitrine. */
+  --eco-color-black: #0a0a0a;
   --eco-color-graphite: #111111;
   --eco-color-charcoal: #181818;
   --eco-color-white: #ffffff;
-  --eco-color-canvas: #f6f6f3;
-  --eco-color-text: #f7f7f2;
-  --eco-color-text-soft: rgba(247, 247, 242, 0.72);
-  --eco-color-text-muted: rgba(247, 247, 242, 0.48);
+  --eco-color-canvas: #0a0a0a;
+  --eco-color-text: #ffffff;
+  --eco-color-text-soft: rgba(255, 255, 255, 0.5);
+  --eco-color-text-muted: rgba(255, 255, 255, 0.45);
   --eco-color-line-inverse: rgba(255, 255, 255, 0.14);
   --eco-color-line-inverse-soft: rgba(255, 255, 255, 0.08);
   --eco-color-signal: #9fe8ff; /* product cold */
+  /* Produit / sémantique uniquement — pas accents de vitrine JT */
   --eco-color-cold: #9fe8ff;
-  --eco-color-magenta: #de5aaa;
   --eco-color-green: #37d67a;
   --eco-color-red: #ff675f;
 
