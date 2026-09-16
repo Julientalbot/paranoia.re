@@ -1,13 +1,11 @@
 ---
-import { PARANOIA_CONTACT_HREF } from '../lib/contact';
-
 interface Props {
   ctaHref?: string;
   ctaLabel?: string;
   lang?: 'fr' | 'en';
 }
 
-const { ctaHref = '/pilote', ctaLabel = 'Demander un accès pilote', lang = 'fr' } = Astro.props;
+const { ctaHref = '/pilote#contact', ctaLabel = 'Demander un accès pilote', lang = 'fr' } = Astro.props;
 const isEnglish = lang === 'en';
 
 const navLinks = isEnglish

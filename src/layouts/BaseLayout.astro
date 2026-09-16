@@ -7,7 +7,7 @@ import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 import '../styles/x-operational-system.css';
 import Header from '../components/Header.astro';
-import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
+
 
 interface Props {
   title: string;
@@ -38,13 +38,14 @@ const {
   twitterImage,
   ogImageWidth = 1200,
   ogImageHeight,
-  headerCtaHref = PARANOIA_CONTACT_HREF,
+  headerCtaHref,
   headerCtaLabel,
   noIndex = false,
   structuredData = [],
 } = Astro.props;
 
 const isEnglish = lang === 'en';
+const resolvedHeaderCtaHref = headerCtaHref ?? (isEnglish ? '/en#contact' : '/pilote#contact');
 const resolvedHeaderCtaLabel = headerCtaLabel ?? (isEnglish ? 'Request pilot access' : 'Demander un accès pilote');
 const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
 const resolvedOgImage = ogImage ?? image ?? DEFAULT_OG_IMAGE;
@@ -211,7 +212,7 @@ const jsonLd = {
   <body class="xds-theme xo-page xo-page--product">
     <a class="xo-skip-link" href="#main">{lang === 'en' ? 'Skip to content' : 'Aller au contenu'}</a>
     <div class="app-shell">
-      <Header ctaHref={headerCtaHref} ctaLabel={resolvedHeaderCtaLabel} lang={lang} />
+      <Header ctaHref={resolvedHeaderCtaHref} ctaLabel={resolvedHeaderCtaLabel} lang={lang} />
       <slot />
       <footer class="xo-trust-footer product-footer">
         <div class="xo-shell xo-trust-grid">
@@ -230,7 +231,7 @@ const jsonLd = {
           <nav aria-label={isEnglish ? 'Transparency' : 'Transparence'}>
             <h3>{isEnglish ? 'Transparency' : 'Transparence'}</h3>
             <a href="/rapports-incidents">{isEnglish ? 'What is sent' : 'Ce qui est envoyé'}</a>
-            <a href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">{isEnglish ? 'Pilot support' : 'Support pilote'}</a>
+            <a href={resolvedHeaderCtaHref} data-event="contact_mail_click">{isEnglish ? 'Pilot support' : 'Support pilote'}</a>
           </nav>
           <nav aria-label={isEnglish ? 'Links' : 'Liens'}>
             <h3>{isEnglish ? 'Links' : 'Liens'}</h3>

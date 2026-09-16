@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
-import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
+import FormContact from '../components/FormContact.astro';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_MAILTO } from '../lib/contact';
 
 const scopeItems = [
   {
@@ -42,7 +43,7 @@ const scopeItems = [
           l’assistant utilisé, les contenus copiés, la limite à garder visible.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Demander un accès pilote</a>
+          <a class="xo-button xo-button--primary" href="#contact" data-event="primary_cta_click">Demander un accès pilote</a>
           <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
         </div>
       </div>
@@ -66,7 +67,7 @@ const scopeItems = [
       </div>
     </section>
 
-    <section class="xo-shell xo-section" aria-labelledby="pilot-cta">
+    <section id="contact" class="xo-shell xo-section" aria-labelledby="pilot-cta">
       <div class="xo-start-paths">
         <article class="xo-start-panel">
           <div>
@@ -74,15 +75,10 @@ const scopeItems = [
             <h2 id="pilot-cta">Trois lignes, pas un dossier.</h2>
           </div>
           <p>
-            1. Situation ou cas.<br />
-            2. Décision à prendre.<br />
-            3. Contrainte, risque ou trace déjà visible.
+            L’assistant utilisé, les contenus copiés, la limite à garder visible.
           </p>
-          <div class="xo-contact-actions">
-            <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
-            <a class="xo-button" href="/cas-usages" data-event="cases_click">Voir les cas d’usage</a>
-          </div>
-          <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_HREF}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
+          <FormContact lang="fr" />
+          <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_MAILTO}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
         </article>
         <a class="xo-path-card xo-card-shimmer" href="/securite" data-event="security_click">
           <div class="xo-path-artifact" aria-hidden="true">

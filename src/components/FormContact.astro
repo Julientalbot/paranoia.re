@@ -1,0 +1,334 @@
+---
+interface Props {
+  lang?: 'en' | 'fr';
+}
+
+const { lang = 'fr' } = Astro.props;
+const isFr = lang === 'fr';
+const pagePath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const copy = isFr
+  ? {
+      email: 'Email',
+      submit: 'Demander un accès pilote',
+      sending: 'Envoi…',
+      success: 'Bien reçu. Réponse sous 48 h ouvrées pour cadrer le pilote.',
+      error: 'Envoi impossible pour le moment.',
+      fallback: 'ou par email :',
+    }
+  : {
+      email: 'Email',
+      submit: 'Request pilot access',
+      sending: 'Sending…',
+      success: 'Received. Reply within 48 business hours to frame the pilot.',
+      error: 'Could not send right now.',
+      fallback: 'or by email:',
+    };
+
+const fields = isFr
+  ? {
+      champ1: { label: 'Assistant / flux (ChatGPT, Claude, Grok…)', type: 'text' as const },
+      champ2: {
+        label: 'Ce qui risque de partir dans le prompt (contrats, RH, support…)',
+        type: 'textarea' as const,
+      },
+      champ3: { label: 'Contrainte (politique, client, secteur)', type: 'text' as const },
+    }
+  : {
+      champ1: { label: 'Assistant / flow (ChatGPT, Claude, Grok…)', type: 'text' as const },
+      champ2: {
+        label: 'What might leak in the prompt (contracts, HR, support…)',
+        type: 'textarea' as const,
+      },
+      champ3: { label: 'Constraint (policy, client, sector)', type: 'text' as const },
+    };
+
+const formId = `form-contact-pilote-${lang}`;
+---
+
+<form
+  id={formId}
+  class="xo-form-contact"
+  data-variant="pilote"
+  data-page={pagePath}
+  data-msg-success={copy.success}
+  data-msg-error={copy.error}
+  data-msg-fallback={copy.fallback}
+  data-msg-required={isFr ? 'Merci de remplir tous les champs.' : 'Please fill every field.'}
+  novalidate
+>
+  <div class="xo-form-contact__fields">
+    {
+      (['champ1', 'champ2', 'champ3'] as const).map((key) => {
+        const field = fields[key];
+        const fieldId = `${formId}-${key}`;
+        return (
+          <div class="xo-form-contact__field">
+            <label class="xo-form-contact__label" for={fieldId}>
+              {field.label}
+            </label>
+            {field.type === 'textarea' ? (
+              <textarea
+                id={fieldId}
+                name={key}
+                class="xo-form-contact__input xo-form-contact__input--area"
+                rows={4}
+                required
+                maxlength={2000}
+                autocomplete="off"
+              />
+            ) : (
+              <input
+                id={fieldId}
+                name={key}
+                type="text"
+                class="xo-form-contact__input"
+                required
+                maxlength={2000}
+                autocomplete="off"
+              />
+            )}
+          </div>
+        );
+      })
+    }
+
+    <div class="xo-form-contact__field">
+      <label class="xo-form-contact__label" for={`${formId}-email`}>{copy.email}</label>
+      <input
+        id={`${formId}-email`}
+        name="email"
+        type="email"
+        class="xo-form-contact__input"
+        required
+        maxlength={254}
+        autocomplete="email"
+        inputmode="email"
+      />
+    </div>
+
+    <div class="xo-form-contact__hp" aria-hidden="true">
+      <label for={`${formId}-website`}>Website</label>
+      <input
+        id={`${formId}-website`}
+        name="website"
+        type="text"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+  </div>
+
+  <div class="xo-form-contact__actions">
+    <button
+      type="submit"
+      class="xo-button xo-button--primary"
+      data-event="form_submit_pilote"
+      data-label-default={copy.submit}
+      data-label-sending={copy.sending}
+    >
+      {copy.submit}
+    </button>
+  </div>
+
+  <div class="xo-form-contact__status" role="status" aria-live="polite" hidden></div>
+</form>
+
+<style>
+  .xo-form-contact {
+    width: 100%;
+    max-width: 28rem;
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .xo-form-contact__fields {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .xo-form-contact__field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .xo-form-contact__label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--xo-text-soft, rgba(255, 255, 255, 0.55));
+  }
+
+  .xo-form-contact__input {
+    width: 100%;
+    margin: 0;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--xo-text, #fff);
+    font: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    transition:
+      border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      background 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .xo-form-contact__input--area {
+    min-height: 6.5rem;
+    resize: vertical;
+  }
+
+  .xo-form-contact__input:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .xo-form-contact__input:focus {
+    outline: none;
+  }
+
+  .xo-form-contact__input:focus-visible {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+  }
+
+  .xo-form-contact__hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .xo-form-contact__actions {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .xo-form-contact__status {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .xo-form-contact__status[data-state='success'] {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .xo-form-contact__status[data-state='error'] {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .xo-form-contact.is-success .xo-form-contact__fields,
+  .xo-form-contact.is-success .xo-form-contact__actions {
+    display: none;
+  }
+</style>
+
+<script>
+  function initFormContact(form: HTMLFormElement) {
+    if (form.dataset.bound === '1') return;
+    form.dataset.bound = '1';
+
+    const status = form.querySelector<HTMLElement>('.xo-form-contact__status');
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!status || !submit) return;
+
+    const labelDefault = submit.dataset.labelDefault ?? 'Send';
+    const labelSending = submit.dataset.labelSending ?? 'Sending…';
+    const successMsg = form.dataset.msgSuccess ?? 'OK';
+    const errorMsg = form.dataset.msgError ?? 'Error';
+    const fallbackMsg = form.dataset.msgFallback ?? 'or by email:';
+    const requiredMsg = form.dataset.msgRequired ?? 'Required';
+    const fallbackEmail = 'contact@paranoia.re';
+
+    const showSuccess = (message: string) => {
+      status.hidden = false;
+      status.dataset.state = 'success';
+      status.textContent = message;
+    };
+
+    const showError = (message: string, withFallback = false) => {
+      status.hidden = false;
+      status.dataset.state = 'error';
+      status.replaceChildren();
+      status.append(document.createTextNode(message));
+      if (withFallback) {
+        status.append(document.createTextNode(` ${fallbackMsg} `));
+        const link = document.createElement('a');
+        link.className = 'xo-link';
+        link.href = `mailto:${fallbackEmail}`;
+        link.textContent = fallbackEmail;
+        status.append(link);
+      }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submit.disabled) return;
+
+      const emailInput = form.elements.namedItem('email') as HTMLInputElement | null;
+      const websiteInput = form.elements.namedItem('website') as HTMLInputElement | null;
+      const champ1 = form.elements.namedItem('champ1') as HTMLInputElement | null;
+      const champ2 = form.elements.namedItem('champ2') as HTMLInputElement | HTMLTextAreaElement | null;
+      const champ3 = form.elements.namedItem('champ3') as HTMLInputElement | null;
+
+      if (!emailInput || !champ1 || !champ2 || !champ3) return;
+
+      const payload = {
+        variant: form.dataset.variant ?? 'pilote',
+        email: emailInput.value.trim(),
+        fields: {
+          champ1: champ1.value.trim(),
+          champ2: champ2.value.trim(),
+          champ3: champ3.value.trim(),
+        },
+        page: form.dataset.page ?? window.location.pathname,
+        website: websiteInput?.value ?? '',
+      };
+
+      if (!payload.email || !payload.fields.champ1 || !payload.fields.champ2 || !payload.fields.champ3) {
+        showError(requiredMsg);
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = labelSending;
+      status.hidden = true;
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = (await res.json().catch(() => ({}))) as { ok?: boolean };
+
+        if (res.ok && data.ok) {
+          form.classList.add('is-success');
+          showSuccess(successMsg);
+          return;
+        }
+
+        showError(errorMsg, true);
+      } catch {
+        showError(errorMsg, true);
+      } finally {
+        if (!form.classList.contains('is-success')) {
+          submit.disabled = false;
+          submit.textContent = labelDefault;
+        }
+      }
+    });
+  }
+
+  function bindAll() {
+    document.querySelectorAll<HTMLFormElement>('form.xo-form-contact').forEach(initFormContact);
+  }
+
+  bindAll();
+  document.addEventListener('astro:page-load', bindAll);
+</script>

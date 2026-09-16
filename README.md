@@ -5,7 +5,7 @@ Site Astro autonome pour Paranoia, produit autour de la réduction d'exposition 
 ## Scripts
 
 ```bash
-npm install
+npm ci
 npm run dev
 npm run build
 npm run preview
@@ -22,22 +22,22 @@ npm run check:prod
 
 ## Contact
 
-Le premier contact passe par email direct :
+Canal primaire : formulaire sur `/pilote#contact` (et `/en#contact`) → `POST /api/contact` → Resend.
 
-```txt
-contact@paranoia.re
-```
+Secours : `mailto:contact@paranoia.re` (les webviews X/LinkedIn bloquent souvent le mailto).
 
-Le site ne maintient plus d'endpoint de lead, de waitlist ou de formulaire de qualification. La page indique simplement quoi envoyer : assistant utilisé, données copiées, politique ou contrainte sécurité à tenir.
+Trois lignes : assistant / flux, ce qui risque de partir dans le prompt, la contrainte.
 
 ## Monitoring production
 
 `npm run check:prod` controle la production sans creer de lead reel :
 
-- `GET /` doit retourner la page et exposer le mailto de contact ;
+- `GET /` et `GET /pilote` exposent le formulaire et le mailto de secours ;
 - `GET /rapports-incidents` doit retourner la page d'incidents.
 
-Le workflow GitHub Actions `Production Smoke Test` lance ce controle tous les jours a 8h UTC et peut etre lance manuellement.
+Le workflow GitHub Actions `Monitor production` lance ce contrôle chaque lundi
+à 7 h 30 UTC et peut être lancé manuellement. Il utilise uniquement `fetch` et
+n'installe pas les dépendances du site.
 
 ## Claims
 

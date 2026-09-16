@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroHeadline from '../../components/living-artefacts/HeroHeadline.astro';
-import { PARANOIA_CONTACT_HREF } from '../../lib/contact';
+import FormContact from '../../components/FormContact.astro';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF_EN, PARANOIA_CONTACT_MAILTO } from '../../lib/contact';
 
 const scopeRows = [
   { tag: 'scope', label: 'Inspects the prompt before send — not full enterprise DLP.' },
@@ -31,7 +32,7 @@ const scopeRows = [
           One job: make visible what might leak out.
         </p>
         <div class="xo-actions">
-          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="primary_cta_click">Request pilot access</a>
+          <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF_EN} data-event="primary_cta_click">Request pilot access</a>
           <a class="xo-button" href="/pilote" data-event="pilot_click">Pilot scope (FR)</a>
         </div>
       </div>
@@ -46,6 +47,20 @@ const scopeRows = [
             <strong>{row.label}</strong>
           </article>
         ))}
+      </div>
+    </section>
+
+    <section id="contact" class="xo-shell xo-section" aria-labelledby="en-contact-title">
+      <div class="xo-start-paths">
+        <article class="xo-start-panel">
+          <div>
+            <p class="xo-label">Private pilot</p>
+            <h2 id="en-contact-title">Three lines, not a brief.</h2>
+          </div>
+          <p>The assistant in use, what might leak in a prompt, the constraint to keep visible.</p>
+          <FormContact lang="en" />
+          <p class="pilot-hint">Direct email: <a href={PARANOIA_CONTACT_MAILTO}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
+        </article>
       </div>
     </section>
 

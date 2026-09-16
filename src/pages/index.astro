@@ -7,7 +7,8 @@ import HeroHeadline from '../components/living-artefacts/HeroHeadline.astro';
 import GridShimmer from '../components/living-artefacts/GridShimmer.astro';
 import ArtefactCard from '../components/living-artefacts/ArtefactCard.astro';
 import LivePulse from '../components/living-artefacts/LivePulse.astro';
-import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF } from '../lib/contact';
+import FormContact from '../components/FormContact.astro';
+import { PARANOIA_CONTACT_EMAIL, PARANOIA_CONTACT_HREF, PARANOIA_CONTACT_MAILTO } from '../lib/contact';
 
 const heroDetectSteps = [
   { prompt: '❯', text: 'Analyser le prompt avant envoi.', dim: true },
@@ -233,11 +234,8 @@ const productFaq = {
             Envoyez trois lignes, pas un dossier. Le premier échange sert seulement à vérifier
             si Paranoia répond au risque réel.
           </p>
-          <div class="xo-contact-actions">
-            <a class="xo-button xo-button--primary" href={PARANOIA_CONTACT_HREF} data-event="contact_mail_click">Demander un accès pilote</a>
-            <a class="xo-button" href="/rapports-incidents" data-event="transparency_click">Voir la transparence</a>
-          </div>
-          <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_HREF}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
+          <FormContact lang="fr" />
+          <p class="pilot-hint">Email direct : <a href={PARANOIA_CONTACT_MAILTO}>{PARANOIA_CONTACT_EMAIL}</a>.</p>
         </article>
         <a class="xo-path-card xo-card-shimmer" href="/cas-usages" data-event="cases_click">
           <div class="xo-path-artifact" aria-hidden="true">

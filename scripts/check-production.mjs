@@ -52,15 +52,15 @@ const runCheck = async (name, fn) => {
 const pageChecks = [
   {
     path: '/',
-    mustInclude: ['mailto:contact@paranoia.re', 'Réduire l', 'id="concrete"'],
+    mustInclude: ['mailto:contact@paranoia.re', 'Réduire l', 'id="concrete"', 'xo-form-contact', '/pilote#contact'],
   },
   {
     path: '/en',
-    mustInclude: ['psychiatric term', 'Request pilot access', 'mailto:contact@paranoia.re'],
+    mustInclude: ['psychiatric term', 'Request pilot access', 'mailto:contact@paranoia.re', 'xo-form-contact'],
   },
   {
     path: '/cas-usages',
-    mustInclude: ['mailto:contact@paranoia.re'],
+    mustInclude: ['/pilote#contact'],
     mustIncludeInsensitive: ['contrats'],
   },
   {
@@ -77,7 +77,7 @@ const pageChecks = [
   },
   {
     path: '/pilote',
-    mustInclude: ['Pilote privé', 'mailto:contact@paranoia.re', 'Trois lignes'],
+    mustInclude: ['Pilote privé', 'mailto:contact@paranoia.re', 'xo-form-contact', 'id="contact"'],
   },
 ];
 
@@ -154,6 +154,30 @@ await runCheck('GET /sitemap-index.xml returns sitemap index', async () => {
 
   if (typeof response.body !== 'string' || !response.body.includes('<sitemapindex')) {
     fail('GET /sitemap-index.xml', 'unexpected sitemap index body', { body: String(response.body).slice(0, 500) });
+  }
+});
+
+await runCheck('GET /api/contact is POST-only', async () => {
+  const response = await request('/api/contact');
+  if (response.status !== 405) {
+    fail('GET /api/contact', `expected 405, got ${response.status}`, { body: response.body });
+  }
+});
+
+await runCheck('POST /api/contact rejects invalid email without sending', async () => {
+  const response = await request('/api/contact', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      variant: 'pilote',
+      email: 'not-an-email',
+      fields: { champ1: 'a', champ2: 'b', champ3: 'c' },
+      website: '',
+    }),
+  });
+  const error = response.body && typeof response.body === 'object' ? response.body.error : null;
+  if (response.status !== 400 || error !== 'invalid_email') {
+    fail('POST /api/contact invalid email', `expected 400 invalid_email, got ${response.status} ${JSON.stringify(response.body).slice(0, 200)}`);
   }
 });
 
