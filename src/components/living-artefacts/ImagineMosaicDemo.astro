@@ -50,7 +50,7 @@ const imgAttrs = (slot: MosaicImage) => {
     alt: slot.alt,
     width: native.width,
     height: native.height,
-    loading: 'eager' as const,
+    loading: 'lazy' as const,
     decoding: 'async' as const,
   };
 };

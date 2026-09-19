@@ -11,9 +11,9 @@ const isEnglish = lang === 'en';
 const navLinks = isEnglish
   ? [
       { href: '/en#concrete', label: 'Product' },
-      { href: '/cas-usages', label: 'Use cases' },
-      { href: '/securite', label: 'Security' },
-      { href: '/rapports-incidents', label: 'Transparency' },
+      { href: '/cas-usages', label: 'Use cases (FR)' },
+      { href: '/securite', label: 'Security (FR)' },
+      { href: '/rapports-incidents', label: 'Transparency (FR)' },
     ]
   : [
       { href: '/#concrete', label: 'Produit' },
@@ -22,7 +22,7 @@ const navLinks = isEnglish
       { href: '/rapports-incidents', label: 'Transparence' },
     ];
 
-const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
+
 ---
 
 <header class="site-header site-header--menu">
@@ -55,14 +55,14 @@ const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
     </button>
     <a class="xo-button xo-button--primary site-nav-cta" href={ctaHref} aria-label={ctaLabel} data-event="nav_primary_cta_click">
       <span class="site-nav-cta-full">{ctaLabel}</span>
-      <span class="site-nav-cta-short" aria-hidden="true">{shortCtaLabel}</span>
+
     </a>
   </nav>
 </header>
 
 <script>
   // Menu mobile (hamburger). Panneau plein écran sous le header ; toggle accessible
-  // (aria-expanded), Échap ferme, clic sur un lien ferme, retour ≥641px ferme.
+  // (aria-expanded), Échap ferme, clic sur un lien ferme, retour ≥901px ferme.
   function initNavMenu() {
     const header = document.querySelector<HTMLElement>('.site-header');
     const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
@@ -77,6 +77,8 @@ const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
       document.documentElement.classList.toggle('nav-open', open);
+      document.querySelectorAll<HTMLElement>('main, footer').forEach(el => { el.inert = open; });
+      if (open) menu?.querySelector<HTMLElement>('a')?.focus();
     };
 
     toggle.addEventListener('click', () => setOpen(!header.hasAttribute('data-nav-open')));
@@ -86,13 +88,19 @@ const shortCtaLabel = isEnglish ? 'Pilot' : 'Pilote';
     });
 
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab' && header.hasAttribute('data-nav-open')) {
+        const items = [...Array.from(menu?.querySelectorAll<HTMLElement>('a[href]') || []), toggle];
+        const first = items[0];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); toggle.focus(); }
+        else if (!e.shiftKey && document.activeElement === toggle) { e.preventDefault(); first?.focus(); }
+      }
       if (e.key === 'Escape' && header.hasAttribute('data-nav-open')) {
         setOpen(false);
         toggle.focus();
       }
     });
 
-    window.matchMedia('(min-width: 641px)').addEventListener('change', (e) => {
+    window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
       if (e.matches) setOpen(false);
     });
   }

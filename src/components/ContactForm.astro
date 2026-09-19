@@ -1,0 +1,66 @@
+---
+interface Props {
+  variant: 'travail' | 'agents' | 'conferences' | 'labs' | 'pilote';
+  lang?: 'fr' | 'en';
+}
+const { variant, lang = 'fr' } = Astro.props;
+const fr = lang === 'fr';
+const email = variant === 'pilote' ? 'contact@paranoia.re' : 'contact@julientalbot.com';
+const id = `form-contact-${variant}-${lang}`;
+const labels = {
+  travail: fr ? ['Votre situation', 'Décision à prendre', 'Contrainte principale'] : ['Your situation', 'Decision to make', 'Main constraint'],
+  agents: fr ? ['Le travail que vous souhaitez confier', 'Prénom', 'Canal préféré pour la suite'] : ['The work you want to hand over', 'First name', 'Preferred contact channel'],
+  conferences: fr ? ['Votre événement', 'Date envisagée', 'Public attendu'] : ['Your event', 'Proposed date', 'Audience'],
+  labs: fr ? ['Le sujet que vous souhaitez explorer', 'Équipe ou organisation', 'Contrainte'] : ['The problem you want to explore', 'Team or organization', 'Constraint'],
+  pilote: fr ? ['Votre usage et le besoin à tester', 'Assistant ou outil utilisé', 'Contrainte'] : ['Your use case and what you want to test', 'Assistant or tool used', 'Constraint'],
+}[variant];
+const privacy = fr ? '/confidentialite' : variant === 'pilote' ? '/confidentialite' : '/en/confidentialite';
+---
+<form id={id} class="xo-form-contact" data-variant={variant} data-page={Astro.url.pathname.replace(/\/$/, '') || '/'} data-lang={lang} data-email={email} action="/api/contact" method="post" novalidate>
+  <div class="xo-form-contact__fields">
+    <div class="contact-field">
+      <label for={`${id}-message`}>{labels[0]}</label>
+      <textarea id={`${id}-message`} name="champ1" rows="4" required maxlength="2000" aria-describedby={`${id}-message-error ${id}-privacy`}></textarea>
+      <span id={`${id}-message-error`} class="contact-error" data-error-for="champ1" hidden></span>
+    </div>
+    <div class="contact-field">
+      <label for={`${id}-email`}>Email</label>
+      <input id={`${id}-email`} type="email" name="email" required maxlength="254" autocomplete="email" inputmode="email" aria-describedby={`${id}-email-error`} />
+      <span id={`${id}-email-error`} class="contact-error" data-error-for="email" hidden></span>
+    </div>
+    <details class="contact-details">
+      <summary>{fr ? 'Ajouter une précision (facultatif)' : 'Add details (optional)'}</summary>
+      {['champ2', 'champ3'].map((name, index) => <div class="contact-field">
+        <label for={`${id}-${name}`}>{labels[index + 1]} — {fr ? 'facultatif' : 'optional'}</label>
+        <input id={`${id}-${name}`} name={name} type="text" maxlength="2000" autocomplete={variant === 'agents' && name === 'champ2' ? 'given-name' : 'off'} />
+      </div>)}
+    </details>
+    <div class="contact-honeypot" aria-hidden="true">
+      <label for={`${id}-website`}>Website</label><input id={`${id}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+  </div>
+  <p class="contact-privacy" id={`${id}-privacy`}>
+    {fr ? 'Décrivez le besoin sans joindre de données sensibles. Votre message sert à répondre à votre demande.' : 'Describe the need without sharing sensitive data. Your message is used to respond to your request.'}
+    <a href={privacy}>{fr ? 'Confidentialité' : variant === 'pilote' ? 'Privacy information (FR)' : 'Privacy information'}</a>
+  </p>
+  <div class="xo-form-contact__actions"><button type="submit" disabled class="xo-button xo-button--primary">{fr ? 'Envoyer mon message' : 'Send my message'}</button></div>
+  <div class="xo-form-contact__status" role="status" aria-live="polite" tabindex="-1" hidden></div>
+  <p class="contact-fallback">{fr ? 'Vous pouvez aussi écrire à' : 'You can also email'} <a href={`mailto:${email}`}>{email}</a>.</p>
+  <noscript><p>{fr ? 'Le formulaire nécessite JavaScript. Utilisez l’adresse email ci-dessus.' : 'The form needs JavaScript. Please use the email address above.'}</p></noscript>
+</form>
+<style>
+  .xo-form-contact{width:100%;max-width:38rem;display:grid;gap:1.1rem;color:var(--contact-ink,#f5f5f5)}
+  .xo-form-contact__fields,.contact-field{display:grid;gap:.55rem}.xo-form-contact__fields{gap:1.2rem}
+  label,summary{font-size:1rem;line-height:1.5}summary{cursor:pointer;padding:.5rem 0}.contact-details[open]{display:grid;gap:1rem}.contact-details .contact-field{margin-top:1rem}
+  input,textarea{box-sizing:border-box;width:100%;border:1px solid var(--contact-border,#777);border-radius:6px;padding:.8rem;background:var(--contact-surface,#171717);color:inherit;font:inherit;font-size:1rem;line-height:1.5;scroll-margin:7rem}textarea{resize:vertical;min-height:8rem}
+  input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:4px}input[aria-invalid=true],textarea[aria-invalid=true]{border-width:2px}
+  .contact-honeypot{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+  .contact-error{font-size:.9rem;font-weight:600}.contact-privacy,.contact-fallback,.xo-form-contact__status{font-size:.9rem;line-height:1.6;margin:0;max-width:68ch}a{text-decoration:underline;text-underline-offset:.2em;overflow-wrap:anywhere}
+  .xo-form-contact.is-success .xo-form-contact__fields,.xo-form-contact.is-success .xo-form-contact__actions{display:none}
+  button:disabled{opacity:.65;cursor:wait}[hidden]{display:none!important}
+</style>
+<script>
+  import { bindContactForms } from '../lib/contact-form.mjs';
+  bindContactForms();
+  document.addEventListener('astro:page-load', bindContactForms);
+</script>

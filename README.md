@@ -7,7 +7,7 @@ Site Astro autonome pour Paranoia, produit autour de la réduction d'exposition 
 ```bash
 npm ci
 npm run dev
-npm run build
+npm run check
 npm run preview
 npm run check:prod
 ```
@@ -26,13 +26,13 @@ Canal primaire : formulaire sur `/pilote#contact` (et `/en#contact`) → `POST /
 
 Secours : `mailto:contact@paranoia.re` (les webviews X/LinkedIn bloquent souvent le mailto).
 
-Trois lignes : assistant / flux, ce qui risque de partir dans le prompt, la contrainte.
+Email et message obligatoires ; assistant et contrainte facultatifs. Aucun secret dans les exemples envoyés.
 
 ## Monitoring production
 
 `npm run check:prod` controle la production sans creer de lead reel :
 
-- `GET /` et `GET /pilote` exposent le formulaire et le mailto de secours ;
+- `GET /` explique le produit ; `GET /pilote` et `GET /en` exposent le formulaire et le mailto de secours ;
 - `GET /rapports-incidents` doit retourner la page d'incidents.
 
 Le workflow GitHub Actions `Monitor production` lance ce contrôle chaque lundi
@@ -41,4 +41,4 @@ n'installe pas les dépendances du site.
 
 ## Claims
 
-Ne pas revendiquer de certification publique, conformité garantie, absence de risque, traction chiffrée ou rareté artificielle sans preuve publiée. Les prompts originaux sont présentés comme non stockés côté Paranoia ; le support email et les incidents restent séparés.
+Ne pas revendiquer de certification publique, conformité garantie, absence de risque, traction chiffrée ou rareté artificielle sans preuve publiée. Le site distingue l’implémentation locale Chrome de la version effectivement distribuée en pilote. Ses flux, sa télémétrie et sa conservation doivent être vérifiés avant activation. Le contact du site est documenté séparément dans `/confidentialite`.

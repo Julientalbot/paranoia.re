@@ -61,7 +61,7 @@ function highlightDossier(code: string) {
   html = html.replace(/« ([^»]+) »/g, '<span class="xo-tok-str">« $1 »</span>');
   html = html.replace(/“([^”]+)”/g, '<span class="xo-tok-str">“$1”</span>');
   html = html.replace(
-    /^(logistique ·.+|logistics ·.+|même fil —.+|même fil diagnostic|same thread —.+|J\+30 —.+|D\+30 —.+|constat :.+|sortie :.+|boucle :.+|principe :.+|gate :.+|finding:.+|validation :.+|validation:.+|verdict :.+|verdict:.+)$/gm,
+    /^(logistique ·.+|logistics ·.+|même fil —.+|même fil diagnostic|same thread —.+|J\+30 —.+|D\+30 —.+|constat :.+|sortie :.+|boucle :.+|principe :.+|gate :.+|loop:.+|principle:.+|output:.+|gate:.+|finding:.+|validation :.+|validation:.+|verdict :.+|verdict:.+)$/gm,
     '<span class="xo-tok-meta">$1</span>',
   );
   html = html.replace(/^(▸ .+)$/gm, '<span class="xo-tok-dim">$1</span>');

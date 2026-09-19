@@ -19,7 +19,7 @@ interface Tier {
   period?: string;
   blurb?: string;
   features: string[];
-  cta: { label: string; href: string; event?: string; format?: string };
+  cta?: { label: string; href: string; event?: string; format?: string };
   highlighted?: boolean;
 }
 
@@ -54,12 +54,14 @@ const { tiers, class: className = '' } = Astro.props;
         ))}
       </ul>
 
-      <a
-        class="xo-pricing-card__cta"
-        href={tier.cta.href}
-        data-event={tier.cta.event}
-        data-format={tier.cta.format}
-      >{tier.cta.label}</a>
+      {tier.cta && (
+        <a
+          class="xo-pricing-card__cta"
+          href={tier.cta.href}
+          data-event={tier.cta.event}
+          data-format={tier.cta.format}
+        >{tier.cta.label}</a>
+      )}
     </article>
   ))}
 </div>

@@ -123,7 +123,7 @@
 
   window.trackSiteEvent = (name, props = {}) => {
     if (!name) return;
-    if (typeof window.va === 'function') window.va('event', name, props);
+    if (typeof window.va === 'function') window.va('event', { name, data: props });
   };
 
   document.addEventListener('click', (event) => {

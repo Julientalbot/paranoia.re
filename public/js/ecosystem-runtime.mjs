@@ -7,7 +7,8 @@ import {
   normalizeCopyText,
 } from './ecosystem-motion.mjs';
 
-const script = document.currentScript;
+// document.currentScript est null dans un module ES — détection par sélecteur.
+const script = document.querySelector('script[data-sw-cleanup]');
 const cleanupKey = 'julientalbot-sw-cleanup-v1';
 
 if (script?.dataset.swCleanup !== undefined) {
@@ -125,7 +126,8 @@ window.ecosystemRuntime = ecosystemRuntime;
 
 window.trackSiteEvent = (name, props = {}) => {
   if (!name) return;
-  if (typeof window.va === 'function') window.va('event', name, props);
+  // Signature @vercel/analytics : va('event', {name, data}) — pas (name, props).
+  if (typeof window.va === 'function') window.va('event', { name, data: props });
   if (typeof window.plausible === 'function') window.plausible(name, { props });
   if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, props);
 };

@@ -6,6 +6,7 @@ import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 import '../styles/x-operational-system.css';
+import '../styles/useful-site.css';
 import Header from '../components/Header.astro';
 
 
@@ -30,7 +31,7 @@ const DEFAULT_TWITTER_IMAGE = '/social/x-card.png';
 
 const {
   title,
-  description = "Paranoia (paranoia.re) réduit l'exposition de données sensibles dans les prompts IA avant envoi à un assistant — pas un terme psychiatrique.",
+  description = "Paranoia (paranoia.re) réduit l'exposition de données sensibles dans les prompts IA avant envoi à un assistant.",
   lang = 'fr',
   canonicalPath = Astro.url.pathname,
   image,
@@ -47,7 +48,7 @@ const {
 const isEnglish = lang === 'en';
 const resolvedHeaderCtaHref = headerCtaHref ?? (isEnglish ? '/en#contact' : '/pilote#contact');
 const resolvedHeaderCtaLabel = headerCtaLabel ?? (isEnglish ? 'Request pilot access' : 'Demander un accès pilote');
-const canonicalUrl = new URL(canonicalPath, 'https://paranoia.re').toString();
+const canonicalUrl = new URL(canonicalPath.replace(/\/$/, '') || '/', 'https://paranoia.re').toString();
 const resolvedOgImage = ogImage ?? image ?? DEFAULT_OG_IMAGE;
 const resolvedTwitterImage = twitterImage ?? image ?? DEFAULT_TWITTER_IMAGE;
 const resolvedOgImageHeight = ogImageHeight ?? (resolvedOgImage === DEFAULT_OG_IMAGE ? 627 : 630);
@@ -106,12 +107,11 @@ const jsonLd = {
       '@id': 'https://paranoia.re/#software',
       name: 'Paranoia',
       applicationCategory: 'SecurityApplication',
-      operatingSystem: 'Web',
+      operatingSystem: 'Chrome (implémentation locale ; périmètre pilote à vérifier)',
       url: 'https://paranoia.re',
       description:
-        "Paranoia (paranoia.re) est un produit de confidentialité des prompts IA. Réduit l'exposition de données sensibles avant envoi — pas un terme psychiatrique.",
+        "Paranoia (paranoia.re) est un produit de confidentialité des prompts IA. Réduit l'exposition de données sensibles avant envoi.",
       inLanguage: ['fr-FR', 'en-US'],
-      isAccessibleForFree: false,
       featureList: [
         'Détection de champs sensibles dans un prompt avant envoi',
         'Masquage contrôlable de noms, emails, organisations et identifiants',
@@ -126,7 +126,6 @@ const jsonLd = {
         '@type': 'Offer',
         name: 'Accès pilote privé',
         url: 'https://paranoia.re/pilote',
-        availability: 'https://schema.org/LimitedAvailability',
       },
       creator: { '@id': 'https://julientalbot.com/#julien-talbot' },
       publisher: { '@id': 'https://paranoia.re/#org' },
@@ -145,6 +144,7 @@ const jsonLd = {
       '@type': 'Organization',
       '@id': 'https://paranoia.re/#org',
       name: 'Paranoia',
+      legalName: 'ERGONOMIA',
       url: 'https://paranoia.re',
       founder: { '@id': 'https://julientalbot.com/#julien-talbot' },
       sameAs: ['https://julientalbot.com/', 'https://julientalbot.com/terms'],
@@ -223,18 +223,21 @@ const jsonLd = {
           <nav aria-label={isEnglish ? 'Product' : 'Produit'}>
             <h3>{isEnglish ? 'Product' : 'Produit'}</h3>
             <a href={isEnglish ? '/en#concrete' : '/#concrete'}>{isEnglish ? 'How it works' : 'Fonctionnement'}</a>
-            <a href="/pilote">{isEnglish ? 'Pilot access' : 'Accès pilote'}</a>
-            <a href="/cas-usages">{isEnglish ? 'Use cases' : 'Cas d’usage'}</a>
-            <a href="/confidentialite-prompts-ia">{isEnglish ? 'Prompt privacy' : 'Confidentialité prompts'}</a>
-            <a href="/securite">{isEnglish ? 'Security' : 'Sécurité'}</a>
+            <a href="/pilote">{isEnglish ? 'Pilot access (FR)' : 'Accès pilote'}</a>
+            <a href="/cas-usages">{isEnglish ? 'Use cases (FR)' : 'Cas d’usage'}</a>
+            <a href="/confidentialite-prompts-ia">{isEnglish ? 'Prompt privacy (FR)' : 'Confidentialité prompts'}</a>
+            <a href="/securite">{isEnglish ? 'Security (FR)' : 'Sécurité'}</a>
           </nav>
           <nav aria-label={isEnglish ? 'Transparency' : 'Transparence'}>
             <h3>{isEnglish ? 'Transparency' : 'Transparence'}</h3>
-            <a href="/rapports-incidents">{isEnglish ? 'What is sent' : 'Ce qui est envoyé'}</a>
+            <a href="/rapports-incidents">{isEnglish ? 'Data and reports (FR)' : 'Données et signalements'}</a>
             <a href={resolvedHeaderCtaHref} data-event="contact_mail_click">{isEnglish ? 'Pilot support' : 'Support pilote'}</a>
           </nav>
           <nav aria-label={isEnglish ? 'Links' : 'Liens'}>
             <h3>{isEnglish ? 'Links' : 'Liens'}</h3>
+            <a href="/mentions-legales">{isEnglish ? "Legal notice (FR)" : "Mentions légales"}</a>
+            <a href="/confidentialite">{isEnglish ? "Privacy policy (FR)" : "Confidentialité"}</a>
+            <a href={isEnglish ? "/" : "/en"} lang={isEnglish ? "fr" : "en"}>{isEnglish ? "Français" : "English"}</a>
             <a href="https://julientalbot.com/">Julien Talbot</a>
           </nav>
         </div>

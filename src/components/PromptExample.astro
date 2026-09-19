@@ -1,0 +1,9 @@
+---
+interface Props { lang?: 'fr' | 'en'; }
+const fr = Astro.props.lang !== 'en';
+---
+<div class="use-split">
+  <article class="use-example"><h3>{fr?'Avant masquage':'Before masking'}</h3><p>{fr?'Résume cet échange avec Maya Hoarau (maya@exemple.invalid) au sujet du dossier K-47B.':'Summarize this exchange with Maya Hoarau (maya@example.invalid) about file K-47B.'}</p></article>
+  <article class="use-example"><h3>{fr?'Version à relire':'Version to review'}</h3><p>{fr?'Résume cet échange avec [Personne] ([Email]) au sujet du dossier [Identifiant].':'Summarize this exchange with [Person] ([Email]) about file [Identifier].'}</p></article>
+</div>
+<p class="use-label" style="margin-top:1rem">{fr?'Exemple illustratif, avec des données fictives. Ce masquage n’est pas une garantie de détection : un contexte ou une information peuvent rester identifiants.':'Illustrative example using fictional data. This is not a detection guarantee: context or other information can still identify someone.'}</p>

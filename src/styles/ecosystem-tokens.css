@@ -15,7 +15,7 @@
   --eco-color-canvas: #0a0a0a;
   --eco-color-text: #ffffff;
   --eco-color-text-soft: rgba(255, 255, 255, 0.5);
-  --eco-color-text-muted: rgba(255, 255, 255, 0.45);
+  --eco-color-text-muted: rgba(255, 255, 255, 0.5); /* AA 4.98:1 sur #0a0a0a */
   --eco-color-line-inverse: rgba(255, 255, 255, 0.14);
   --eco-color-line-inverse-soft: rgba(255, 255, 255, 0.08);
   --eco-color-signal: #9fe8ff; /* product cold */
@@ -44,8 +44,9 @@
   --eco-z-header: 50;
   --eco-motion-fast: 150ms;
   --eco-motion-standard: 220ms;
-  --eco-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --eco-ease-snap: cubic-bezier(0.2, 0, 0, 1);
+  /* Unifié 2026-07-15 sur la courbe UI mesurée x.ai (une seule courbe chez x.ai). */
+  --eco-ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --eco-ease-snap: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 768px) {

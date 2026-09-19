@@ -1013,6 +1013,13 @@ a.xo-mode-surface:focus-visible::before {
   justify-content: center;
   transition: opacity 320ms ease;
 }
+/* Hiérarchie x.ai/grok : titres de panneaux un cran SOUS les têtes de section
+   (h3 30px/36px/-0.75px mesurés 2026-07-13) — sections 36px > panneaux 30px. */
+.tv-show__panel .xo-title--section {
+  font-size: 1.875rem;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
 .tv-show__panel p {
   max-width: 48ch;
   color: var(--xo-text-soft);
@@ -1132,10 +1139,10 @@ a.xo-mode-surface:focus-visible::before {
   }
 }
 
-/* Activation 3 étapes (clone x.ai « Get started ») */
+/* Activation N étapes (clone x.ai « Get started ») — --steps: N (défaut 3) */
 .tv-steps {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--steps, 3), minmax(0, 1fr));
   gap: clamp(1.5rem, 3.2vw, 2.75rem);
 }
 .tv-step {
@@ -1171,13 +1178,14 @@ a.xo-mode-surface:focus-visible::before {
   margin-top: clamp(2rem, 4vw, 2.75rem);
 }
 
-/* Schéma animé du flux 3 étapes */
+/* Schéma animé du flux N étapes — demi-colonne = ((100%-(N-1)*gap)/N)/2 */
 .tv-flow {
   --tv-gap: clamp(1.5rem, 3.2vw, 2.75rem);
-  --tv-half: calc((100% - 2 * var(--tv-gap)) / 6);
+  --tv-cols: var(--steps, 3);
+  --tv-half: calc((100% - (var(--tv-cols) - 1) * var(--tv-gap)) / var(--tv-cols) / 2);
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--steps, 3), minmax(0, 1fr));
   gap: var(--tv-gap);
   height: 10px;
   margin: 0 0 2.5rem;
@@ -1792,9 +1800,9 @@ main.xo-page.xo-news-article .article-head h1 {
 .xo-news-article .article-lede {
   max-width: 62ch;
   margin: 1rem 0 0;
-  color: var(--xo-text-muted);
-  font-size: 1.06rem;
-  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85); /* prose lede x.ai 2026-07-13 : 16/28/.85 */
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
 .xo-news-article .xo-article-divider {
@@ -3248,19 +3256,19 @@ main.xo-page.xo-news-article .article-head h1 {
   border-bottom-color: transparent;
   transition: background-color var(--xo-motion-fast);
 }
-/* x.ai scrollé : surface /95 + backdrop-blur-xl (mesuré 2026-07-02, surfaces grok) */
+/* x.ai scrollé : surface /85, sans blur (mesuré 2026-07-13, surfaces home/news/grok) */
 .site-header--floating.is-scrolled {
-  background: rgba(10, 10, 10, 0.95);
-  background: color-mix(in srgb, var(--xo-bg) 95%, transparent);
-  -webkit-backdrop-filter: blur(24px);
-  backdrop-filter: blur(24px);
+  background: rgba(10, 10, 10, 0.85);
+  background: color-mix(in srgb, var(--xo-bg) 85%, transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 /* Home : pb 0 (x.ai mesuré 2026-07-02, hero+tray pb 0 — l'espace vit dans la section suivante) */
 .site-header--floating ~ .xo-home .xo-home-hero {
   padding-block: calc(var(--xo-nav-height) + clamp(3rem, 6vw, 5.5rem)) 0;
 }
 .site-header--floating ~ .xo-page--product .xo-product-hero {
-  padding-block: calc(var(--xo-nav-height) + clamp(3rem, 6vw, 5.5rem)) 4rem;
+  padding-block: calc(var(--xo-nav-height) + clamp(3rem, 6vw, 5.5rem)) 3rem;
 }
 @media (max-width: 640px) {
   .site-header--floating ~ .xo-home .xo-home-hero,
@@ -5234,10 +5242,10 @@ html.nav-open { overflow: hidden; }
 
 .xo-chat-bubble {
   max-width: 82%;
-  padding: 0.5rem 0.85rem;
+  padding: 0.5rem 0.875rem; /* py-2 px-3.5 mesuré x.ai 2026-07-13 */
   border-radius: 1rem 1rem 0.375rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: rgba(255, 255, 255, 0.88);
@@ -5251,7 +5259,7 @@ html.nav-open { overflow: hidden; }
 .xo-chat-bubble.is-assistant {
   align-self: flex-start;
   border-radius: 1rem 1rem 1rem 0.375rem;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.72);
 }
@@ -5949,10 +5957,15 @@ a.xo-metric:focus-visible strong {
   border: 1px solid var(--xo-line);
   border-radius: 8px;
   background: var(--xo-surface);
-  transition: border-color var(--xo-motion-fast);
+  transition:
+    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .xo-news-card:hover .xo-news-card__media,
-.xo-news-card:focus-visible .xo-news-card__media { border-color: var(--xo-line-strong); }
+.xo-news-card:focus-visible .xo-news-card__media {
+  border-color: var(--xo-line-strong);
+  background-color: color-mix(in srgb, var(--xo-surface) 96%, white);
+}
 .xo-news-card__media img {
   width: 100%;
   height: 100%;
@@ -5960,7 +5973,11 @@ a.xo-metric:focus-visible strong {
   display: block;
 }
 .xo-news-card__fallback { position: absolute; inset: 0; overflow: hidden; }
-.xo-news-card { transition: border-color var(--xo-motion-fast); }
+.xo-news-card {
+  transition:
+    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 .xo-news-card:hover { border-color: var(--xo-line-strong); }
 .xo-news-card__date {
   margin: 0.85rem 0 0;
@@ -6586,6 +6603,10 @@ a.xo-news-dense-list__row:focus-visible {
     animation: xo-hl-reveal 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
     animation-delay: calc(var(--i, 0) * 55ms);
   }
+}
+/* Pages produit : zéro animation d'entrée (x.ai/grok mesuré 2026-07-13, animationCount 0). */
+.xo-page--product .xo-hl[data-hl] .xo-hl-word {
+  animation: none;
 }
 
 @keyframes xo-hl-reveal {
@@ -7671,6 +7692,9 @@ a.xo-news-dense-list__row:focus-visible {
 
 .xo-code-artifact--xai .xo-code-artifact__panel:not([hidden]) pre {
   animation: xo-xai-code-in 450ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.xo-page--product .xo-code-artifact--xai .xo-code-artifact__panel:not([hidden]) pre {
+  animation: none;
 }
 
 @keyframes xo-xai-code-in {

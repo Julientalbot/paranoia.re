@@ -1,15 +1,8 @@
-# Skin paranoia.re
+# Présentation du site
 
-**Rôle** : produit autonome de confidentialité / réduction d'exposition des prompts IA.
-**CTA primaire** : demander un accès pilote.
-**Peau** : theme-responsive product console (canvas profond, surfaces graphite, ligne fine).
-**Accent** : `#9fe8ff` — cold cyan. Console produit, trust, état technique.
-**Classe body** : `xo-page xo-page--product`.
+Contrat du 20 septembre 2026.
 
-**Claims autorisés** : aide à réduire l'exposition, traitement local quand c'est vrai, absence de stockage des prompts originaux côté Paranoia quand c'est vrai, pilote privé.
-**Claims interdits** : certification non obtenue, conformité automatique, sécurité totale, rareté artificielle, chiffres non sourcés.
+Produit de confidentialité, pilote accompagné. Thèmes clair, sombre et système avec contraste lisible. Un avant/après principal à 16 px minimum, périmètre et limites. La version proposée et ses compatibilités sont vérifiées avant activation ; ne jamais inventer des garanties.
 
-**Artefact hero principal** : `paranoia-review-artifact` — prompt before/after avec champs détectés et version masquée.
-**Figures de contenu** : privilégier les diagrammes HTML/CSS (`paranoia-exposure-map`, ledgers, traces) aux bitmaps générés quand les libellés de sécurité doivent rester exacts, inspectables et maintenables.
-
-Le reste de la doctrine et de la grammaire est dans `/ecosystem/DESIGN_SYSTEM.md`.
+Titres stables alignés à gauche, corps 18 px, lecture 68 caractères environ.
+Contrat commun : `../DESIGN_SYSTEM.md`. La ressemblance avec x.ai n’est plus un test.

@@ -11,15 +11,18 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check:prod": "node scripts/check-production.mjs"
+    "check:prod": "node scripts/check-production.mjs",
+    "test:contact": "node --test scripts/contact.test.mjs",
+    "check": "npm run build && npm run test:contact && npm run verify:routes",
+    "verify:routes": "node scripts/verify-routes.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/geist": "^5.2.9",
     "@fontsource-variable/geist-mono": "^5.2.8",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "^6.3.3"
+    "astro": "^7.3.3"
   },
   "devDependencies": {
     "@types/node": "^25.9.1"

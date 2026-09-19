@@ -22,6 +22,7 @@ const getLastmod = (pathname) => {
 };
 
 export default defineConfig({
+  compressHTML: true,
   site: 'https://paranoia.re',
   integrations: [
     sitemap({
