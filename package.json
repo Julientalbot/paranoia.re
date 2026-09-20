@@ -14,7 +14,8 @@
     "check:prod": "node scripts/check-production.mjs",
     "test:contact": "node --test scripts/contact.test.mjs",
     "check": "npm run build && npm run test:contact && npm run verify:routes",
-    "verify:routes": "node scripts/verify-routes.mjs"
+    "verify:routes": "node scripts/verify-routes.mjs",
+    "verify:xai": "node scripts/verify-xai-current.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -25,6 +26,7 @@
     "astro": "^7.3.3"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1"
+    "@types/node": "^25.9.1",
+    "playwright": "^1.61.1"
   }
 }

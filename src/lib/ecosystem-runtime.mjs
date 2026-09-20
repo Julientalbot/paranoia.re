@@ -37,28 +37,23 @@ const ecosystemRuntime = (() => {
   const themeKey = 'ecosystem-theme';
   const root = document.documentElement;
 
-  const currentTheme = () => (root.dataset.theme === 'light' ? 'light' : 'dark');
-
+  const media = matchMedia('(prefers-color-scheme: dark)');
+  let preference = 'system';
+  try { preference = localStorage.getItem(themeKey) || 'system'; } catch {}
+  const currentTheme = () => root.dataset.theme || (media.matches ? 'dark' : 'light');
   const syncThemeButtons = () => {
-    const theme = currentTheme();
-    document.querySelectorAll('.xo-theme-toggle').forEach((button) => {
-      button.dataset.themeState = theme;
-      button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-    });
+    document.querySelectorAll('[data-theme-select]').forEach(select => { select.value = preference; });
   };
-
   const setTheme = (theme, persist = true) => {
-    const next = theme === 'light' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    if (persist) {
-      try {
-        window.localStorage.setItem(themeKey, next);
-      } catch (_) {
-        /* Ignore storage restrictions. */
-      }
-    }
+    preference = ['light','dark'].includes(theme) ? theme : 'system';
+    root.dataset.themePreference = preference;
+    root.dataset.theme = preference === 'system' ? (media.matches ? 'dark' : 'light') : preference;
+    if(persist) try { localStorage.setItem(themeKey,preference); } catch {}
     syncThemeButtons();
   };
+  media.addEventListener('change', () => { if(preference === 'system') setTheme('system',false); });
+  document.addEventListener('change', event => { if(event.target.matches?.('[data-theme-select]')) setTheme(event.target.value); });
+  setTheme(preference,false);
 
   const setCodePanel = (artifact, id) => {
     applyCodeTabState(artifact, id);

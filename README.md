@@ -42,3 +42,7 @@ n'installe pas les dépendances du site.
 ## Claims
 
 Ne pas revendiquer de certification publique, conformité garantie, absence de risque, traction chiffrée ou rareté artificielle sans preuve publiée. Le site distingue l’implémentation locale Chrome de la version effectivement distribuée en pilote. Ses flux, sa télémétrie et sa conservation doivent être vérifiés avant activation. Le contact du site est documenté séparément dans `/confidentialite`.
+
+## Référence visuelle
+
+Direction x.ai figée le 20 septembre 2026, thèmes système/clair/sombre. `npm run verify:xai` compare les styles calculés à `scripts/reference/xai-2026-09-20.json` sans réseau externe. Installer Chromium avec `npx playwright install chromium` pour exécuter ce contrôle localement.

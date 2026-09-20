@@ -1,7 +1,22 @@
 ---
 interface Props { text: string; id?: string; class?: string; rotate?: string[]; underline?: string; }
 const { text, id, class: className = '', rotate, underline } = Astro.props;
-// Stable text for all visitors, including crawlers and assistive technology.
-const heading = [text, rotate?.[0] || underline].filter(Boolean).join(' ');
+const words=rotate?.length?rotate:underline?[underline]:[];
+const heading=[text,words[0]].filter(Boolean).join(' ');
+const fr=!Astro.url.pathname.startsWith('/en');
 ---
-<h1 id={id} class:list={['xo-title', className]}>{heading}</h1>
+<h1 id={id} class:list={['xo-title', className]} aria-label={heading}>{text}{words.length>0&&<> <span class="xai-rotator" data-hero-rotate data-words={JSON.stringify(words)} aria-hidden="true">{words[0]}</span></>}</h1>
+{words.length>1&&<button class="xai-motion-control" type="button" data-hero-pause aria-label={fr?'Mettre le titre en pause':'Pause heading animation'}>{fr?'Pause':'Pause'}</button>}
+<script>
+ document.querySelectorAll<HTMLElement>('[data-hero-rotate]').forEach(el=>{
+  if(el.dataset.bound)return;el.dataset.bound='true';
+  const words=JSON.parse(el.dataset.words||'[]');if(words.length<2)return;
+  const button=el.closest('h1')?.nextElementSibling as HTMLButtonElement;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  let index=0,timer:ReturnType<typeof setInterval>|undefined,visible=false,paused=false;
+  const update=()=>{clearInterval(timer);if(visible&&!paused&&!reduced.matches)timer=setInterval(()=>{index=(index+1)%words.length;el.textContent=words[index];el.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:250});},3000);button.hidden=reduced.matches;};
+  button?.addEventListener('click',()=>{paused=!paused;button.textContent=paused?(document.documentElement.lang==='fr'?'Reprendre':'Resume'):'Pause';button.setAttribute('aria-label',button.textContent+' — '+(document.documentElement.lang==='fr'?'titre':'heading'));update();});
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;update();}).observe(el);
+  reduced.addEventListener('change',()=>{if(reduced.matches)el.textContent=words[0];update();});
+ });
+</script>

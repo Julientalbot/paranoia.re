@@ -6114,23 +6114,11 @@ a.xo-artefact-card:focus-visible .xo-artefact-card__cta {
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* CodeArtifact (.xo-console) : console toujours sombre, aussi en thème clair/défaut
-   et hors tuile. On redéfinit localement les tokens terminal → tout le sous-arbre
-   (.xo-console-*, onglets, code) devient sombre sans toucher la base. */
-:root:not([data-theme="dark"]) .xo-code-artifact {
-  --xo-terminal: #151515;
-  --xo-terminal-ink: #d7d1c9;
-  --xo-terminal-border: rgba(255, 255, 255, 0.08);
-  background: #151515 !important;
-  color: #d7d1c9;
-  border-color: rgba(255, 255, 255, 0.08);
-}
-:root:not([data-theme="dark"]) .xo-code-artifact .xo-console-body,
-:root:not([data-theme="dark"]) .xo-code-artifact .xo-console-top,
-:root:not([data-theme="dark"]) .xo-code-artifact pre,
-:root:not([data-theme="dark"]) .xo-code-artifact code {
-  background: transparent !important;
-  color: #d7d1c9;
+/* Consoles inherit the active semantic theme. */
+.xo-code-artifact {
+  --xo-terminal: var(--use-surface);
+  --xo-terminal-ink: var(--use-ink);
+  --xo-terminal-border: var(--use-line);
 }
 
 /* Hero page produit (clone x.ai/grok|cli) — copie centrée, sans plateau de tuiles. */

@@ -1,0 +1,2303 @@
+{
+  "captured": "2026-09-20",
+  "fontSubstitute": "Geist Variable replaces proprietary xVf",
+  "measurements": [
+    {
+      "body": {
+        "box": {
+          "height": 6780.75,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 84,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 84,
+            "width": 358,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 118.78125,
+            "width": 358,
+            "x": 16,
+            "y": 162
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "36px",
+            "fontWeight": "450",
+            "gap": "normal",
+            "letterSpacing": "-0.36px",
+            "lineHeight": "39.6px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Frontier AI models for everything you analyzeanalyze."
+        }
+      ],
+      "url": "https://x.ai/",
+      "width": 390
+    },
+    {
+      "body": {
+        "box": {
+          "height": 4944.921875,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 80,
+            "width": 768,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 96,
+            "width": 736,
+            "x": 16,
+            "y": 194
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "48px",
+            "fontWeight": "450",
+            "gap": "normal",
+            "letterSpacing": "-0.48px",
+            "lineHeight": "48px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Frontier AI models for everything you analyzeanalyze."
+        }
+      ],
+      "url": "https://x.ai/",
+      "width": 768
+    },
+    {
+      "body": {
+        "box": {
+          "height": 3763.3984375,
+          "width": 1440,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 64,
+            "width": 1440,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 64,
+            "width": 1232,
+            "x": 104,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 120,
+            "width": 768,
+            "x": 336,
+            "y": 218
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "60px",
+            "fontWeight": "450",
+            "gap": "normal",
+            "letterSpacing": "-0.6px",
+            "lineHeight": "60px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Frontier AI models for everything you shipship."
+        }
+      ],
+      "url": "https://x.ai/",
+      "width": 1440
+    },
+    {
+      "body": {
+        "box": {
+          "height": 7820.4375,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 84,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 84,
+            "width": 358,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 79.1875,
+            "width": 358,
+            "x": 16,
+            "y": 164
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "36px",
+            "fontWeight": "450",
+            "gap": "normal",
+            "letterSpacing": "-0.36px",
+            "lineHeight": "39.6px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "AI that is usefulfor everyone."
+        }
+      ],
+      "url": "https://x.ai/grok",
+      "width": 390
+    },
+    {
+      "body": {
+        "box": {
+          "height": 6731.375,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 80,
+            "width": 768,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 96,
+            "width": 736,
+            "x": 16,
+            "y": 196
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "48px",
+            "fontWeight": "450",
+            "gap": "normal",
+            "letterSpacing": "-0.48px",
+            "lineHeight": "48px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "AI that is usefulfor everyone."
+        }
+      ],
+      "url": "https://x.ai/grok",
+      "width": 768
+    },
+    {
+      "body": {
+        "box": {
+          "height": 4821.125,
+          "width": 1440,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 64,
+            "width": 1440,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 64,
+            "width": 1232,
+            "x": 104,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 120,
+            "width": 768,
+            "x": 336,
+            "y": 228
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "60px",
+            "fontWeight": "450",
+            "gap": "normal",
+            "letterSpacing": "-0.6px",
+            "lineHeight": "60px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "AI that is usefulfor everyone."
+        }
+      ],
+      "url": "https://x.ai/grok",
+      "width": 1440
+    },
+    {
+      "body": {
+        "box": {
+          "height": 10890.671875,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 84,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesDownload"
+        },
+        {
+          "box": {
+            "height": 84,
+            "width": 358,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesDownload"
+        },
+        {
+          "box": {
+            "height": 42.296875,
+            "width": 272.8984375,
+            "x": 58.546875,
+            "y": 180
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "36px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.36px",
+            "lineHeight": "37.8px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Meet   Grok Bot"
+        }
+      ],
+      "url": "https://x.ai/bot",
+      "width": 390
+    },
+    {
+      "body": {
+        "box": {
+          "height": 9740.625,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 80,
+            "width": 768,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesDownload"
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesDownload"
+        },
+        {
+          "box": {
+            "height": 55,
+            "width": 359.296875,
+            "x": 204.3515625,
+            "y": 204
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "48px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.48px",
+            "lineHeight": "48px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Meet   Grok Bot"
+        }
+      ],
+      "url": "https://x.ai/bot",
+      "width": 768
+    },
+    {
+      "body": {
+        "box": {
+          "height": 8879.375,
+          "width": 1440,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 64,
+            "width": 1440,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesDownload"
+        },
+        {
+          "box": {
+            "height": 64,
+            "width": 1232,
+            "x": 104,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesDownload"
+        },
+        {
+          "box": {
+            "height": 68.5,
+            "width": 449.1015625,
+            "x": 495.4453125,
+            "y": 204
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "60px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.6px",
+            "lineHeight": "60px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Meet   Grok Bot"
+        },
+        {
+          "box": {
+            "height": 44,
+            "width": 696,
+            "x": 512,
+            "y": 487
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px 0px 0.5px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "system-ui, -apple-system, \"system-ui\", \"Segoe UI\", \"Helvetica Neue\", Arial, sans-serif",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "8px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "8px",
+            "paddingRight": "8px",
+            "paddingTop": "0px",
+            "textAlign": "left"
+          },
+          "tag": "HEADER",
+          "text": "New agent\uea7a"
+        }
+      ],
+      "url": "https://x.ai/bot",
+      "width": 1440
+    },
+    {
+      "body": {
+        "box": {
+          "height": 10859.078125,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 84,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 84,
+            "width": 358,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 118.78125,
+            "width": 358,
+            "x": 16,
+            "y": 164
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "36px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.36px",
+            "lineHeight": "39.6px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Voice agents that deliver real outcomes"
+        }
+      ],
+      "url": "https://x.ai/voice",
+      "width": 390
+    },
+    {
+      "body": {
+        "box": {
+          "height": 9889.625,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 80,
+            "width": 768,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 96,
+            "width": 736,
+            "x": 16,
+            "y": 196
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "48px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.48px",
+            "lineHeight": "48px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Voice agents that deliver real outcomes"
+        }
+      ],
+      "url": "https://x.ai/voice",
+      "width": 768
+    },
+    {
+      "body": {
+        "box": {
+          "height": 5967.625,
+          "width": 1440,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 64,
+            "width": 1440,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 64,
+            "width": 1232,
+            "x": 104,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 120,
+            "width": 768,
+            "x": 336,
+            "y": 228
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "60px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.6px",
+            "lineHeight": "60px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "center"
+          },
+          "tag": "H1",
+          "text": "Voice agents that deliver real outcomes"
+        }
+      ],
+      "url": "https://x.ai/voice",
+      "width": 1440
+    },
+    {
+      "body": {
+        "box": {
+          "height": 12636.1875,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 84,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 84,
+            "width": 358,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 71.59375,
+            "width": 358,
+            "x": 16,
+            "y": 128
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "H1",
+          "text": "SpaceXAI API Build with Grok."
+        },
+        {
+          "box": {
+            "height": 46,
+            "width": 390,
+            "x": 0,
+            "y": 559.34375
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "On this pageAPI keysModels & pricingFree PlaygroundWhat you can b"
+        }
+      ],
+      "url": "https://x.ai/api",
+      "width": 390
+    },
+    {
+      "body": {
+        "box": {
+          "height": 10318.421875,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 80,
+            "width": 768,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 160
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "H1",
+          "text": "SpaceXAI API Build with Grok."
+        },
+        {
+          "box": {
+            "height": 46,
+            "width": 768,
+            "x": 0,
+            "y": 602.5
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "On this pageAPI keysModels & pricingFree PlaygroundWhat you can b"
+        }
+      ],
+      "url": "https://x.ai/api",
+      "width": 768
+    },
+    {
+      "body": {
+        "box": {
+          "height": 8141.1484375,
+          "width": 1440,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 64,
+            "width": 1440,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 64,
+            "width": 1232,
+            "x": 104,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 92,
+            "width": 576,
+            "x": 104,
+            "y": 192
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "H1",
+          "text": "SpaceXAI API Build with Grok."
+        },
+        {
+          "box": {
+            "height": 46,
+            "width": 1440,
+            "x": 0,
+            "y": 757
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "On this pageAPI keysModels & pricingFree PlaygroundWhat you can b"
+        }
+      ],
+      "url": "https://x.ai/api",
+      "width": 1440
+    },
+    {
+      "body": {
+        "box": {
+          "height": 12296.4921875,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 84,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 84,
+            "width": 358,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 66,
+            "width": 358,
+            "x": 16,
+            "y": 376.8984375
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "30px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.3px",
+            "lineHeight": "33px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "H1",
+          "text": "Introducing Grok Voice Transcribe 2.0"
+        }
+      ],
+      "url": "https://x.ai/news",
+      "width": 390
+    },
+    {
+      "body": {
+        "box": {
+          "height": 9529.15625,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 80,
+            "width": 768,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 80,
+            "width": 736,
+            "x": 16,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 40,
+            "width": 736,
+            "x": 16,
+            "y": 607.34375
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "36px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.36px",
+            "lineHeight": "40px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "H1",
+          "text": "Introducing Grok Voice Transcribe 2.0"
+        }
+      ],
+      "url": "https://x.ai/news",
+      "width": 768
+    },
+    {
+      "body": {
+        "box": {
+          "height": 8430.4375,
+          "width": 1440,
+          "x": 0,
+          "y": 0
+        },
+        "style": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "0px",
+          "borderWidth": "0px",
+          "color": "rgb(10, 10, 10)",
+          "fontFamily": "xVf, \"xVf Fallback\"",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "gap": "normal",
+          "letterSpacing": "normal",
+          "lineHeight": "24px",
+          "maxWidth": "none",
+          "paddingBottom": "0px",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "paddingTop": "0px",
+          "textAlign": "start"
+        },
+        "tag": "BODY",
+        "text": "<iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MSD4"
+      },
+      "elements": [
+        {
+          "box": {
+            "height": 64,
+            "width": 1440,
+            "x": 0,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "normal",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "HEADER",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 64,
+            "width": 1232,
+            "x": 104,
+            "y": 0
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "gap": "16px",
+            "letterSpacing": "normal",
+            "lineHeight": "24px",
+            "maxWidth": "none",
+            "paddingBottom": "16px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "16px",
+            "textAlign": "start"
+          },
+          "tag": "NAV",
+          "text": "ProductsSolutionsDeveloperCompanyPricingNewsContact SalesTry for "
+        },
+        {
+          "box": {
+            "height": 96,
+            "width": 467.1953125,
+            "x": 104,
+            "y": 235.1796875
+          },
+          "style": {
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "borderWidth": "0px",
+            "color": "rgb(10, 10, 10)",
+            "fontFamily": "xVf, \"xVf Fallback\"",
+            "fontSize": "48px",
+            "fontWeight": "500",
+            "gap": "normal",
+            "letterSpacing": "-0.48px",
+            "lineHeight": "48px",
+            "maxWidth": "none",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "paddingRight": "0px",
+            "paddingTop": "0px",
+            "textAlign": "start"
+          },
+          "tag": "H1",
+          "text": "Introducing Grok Voice Transcribe 2.0"
+        }
+      ],
+      "url": "https://x.ai/news",
+      "width": 1440
+    }
+  ],
+  "apiHeadline": [
+    {
+      "fontSize": "36px",
+      "fontWeight": "450",
+      "letterSpacing": "-0.36px",
+      "lineHeight": "39.6px",
+      "width": 390,
+      "y": 160
+    },
+    {
+      "fontSize": "48px",
+      "fontWeight": "450",
+      "letterSpacing": "-0.48px",
+      "lineHeight": "48px",
+      "width": 768,
+      "y": 192
+    },
+    {
+      "fontSize": "60px",
+      "fontWeight": "450",
+      "letterSpacing": "-0.6px",
+      "lineHeight": "60px",
+      "width": 1440,
+      "y": 224
+    }
+  ],
+  "articleHeadline": [
+    {
+      "fontSize": "30px",
+      "fontWeight": "500",
+      "letterSpacing": "-0.3px",
+      "lineHeight": "36px",
+      "width": 390,
+      "y": 204
+    },
+    {
+      "fontSize": "36px",
+      "fontWeight": "500",
+      "letterSpacing": "-0.36px",
+      "lineHeight": "40px",
+      "width": 768,
+      "y": 228
+    },
+    {
+      "fontSize": "48px",
+      "fontWeight": "500",
+      "letterSpacing": "-0.48px",
+      "lineHeight": "48px",
+      "width": 1440,
+      "y": 228
+    }
+  ],
+  "buttonMetrics": {
+    "fontSize": "14px",
+    "lineHeight": "20px",
+    "borderRadius": "9999px",
+    "paddingTop": "12px",
+    "paddingLeft": "20px",
+    "borderWidth": "0px"
+  },
+  "scope": "Stable title, navigation and button metrics. Full raw DOM measurements and screenshots archived in .audit/xai-2026-09-20/."
+}

@@ -1,0 +1,26 @@
+---
+interface Props { title:string; request:string; steps:string[]; result:string; lang?:'fr'|'en'; decorative?:boolean; }
+const {title,request,steps,result,lang='fr',decorative=false}=Astro.props;
+const fr=lang==='fr';
+---
+<div class:list={['xai-work-demo',decorative&&'xai-work-demo--tile']} data-work-demo data-decorative={decorative} aria-hidden={decorative?'true':undefined}>
+ <div class="xai-demo-top"><span class="xai-demo-dots" aria-hidden="true">● ● ●</span><span>{title}</span><span class="xai-demo-state">{fr?'Exemple':'Example'}</span></div>
+ <div class="xai-demo-body"><p class="xai-demo-request">{request}</p><ol class="xai-demo-steps">{steps.map(step=><li data-demo-step><span aria-hidden="true">✓</span>{step}</li>)}</ol><div class="xai-demo-result" data-demo-step><span class="xai-demo-result-label">{fr?'À valider':'For your review'}</span><p>{result}</p></div></div>
+ {!decorative&&<div class="xai-demo-controls"><span>{fr?'Exemple illustratif':'Illustrative example'}</span><button type="button" data-demo-pause>Pause</button><button type="button" data-demo-replay>{fr?'Rejouer':'Replay'}</button></div>}
+</div>
+<script>
+ document.querySelectorAll<HTMLElement>('[data-work-demo]').forEach(demo=>{
+  if(demo.dataset.bound)return;demo.dataset.bound='true';
+  const items=[...demo.querySelectorAll<HTMLElement>('[data-demo-step]')];
+  const pause=demo.querySelector<HTMLButtonElement>('[data-demo-pause]');const replay=demo.querySelector<HTMLButtonElement>('[data-demo-replay]');
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');let visible=false,paused=false,index=0,timer:ReturnType<typeof setTimeout>|undefined;
+  const render=()=>items.forEach((item,i)=>item.classList.toggle('is-pending',i>=index&&!reduced.matches));
+  const tick=()=>{clearTimeout(timer);if(!visible||paused||reduced.matches||index>=items.length)return;timer=setTimeout(()=>{index++;render();tick();},750);};
+  const reset=()=>{index=0;paused=false;if(pause)pause.textContent='Pause';render();tick();};
+  pause?.addEventListener('click',()=>{paused=!paused;pause.textContent=paused?(document.documentElement.lang==='fr'?'Reprendre':'Resume'):'Pause';tick();});
+  replay?.addEventListener('click',reset);
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;tick();},{threshold:.15}).observe(demo);
+  const preference=()=>{if(reduced.matches){clearTimeout(timer);index=items.length;}if(pause)pause.hidden=reduced.matches;if(replay)replay.hidden=reduced.matches;render();tick();};
+  reduced.addEventListener('change',preference);preference();
+ });
+</script>

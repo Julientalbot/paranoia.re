@@ -120,6 +120,8 @@ function statusLabel(status: TraceStep['status']) {
     ))}
     <div class="xo-progressive-blur"></div>
   </div>
+  {!decorative&&<div class="xai-demo-controls"><button type="button" data-motion-pause>Pause</button><button type="button" data-motion-replay>{Astro.url.pathname.startsWith('/en')?'Replay':'Rejouer'}</button></div>}
+
 </div>
 
 <style>
@@ -162,10 +164,14 @@ function statusLabel(status: TraceStep['status']) {
       const loopEnabled = demo.dataset.loop !== '0';
       const hasProgress = steps.some((step: { progress?: number }) => step.progress !== undefined);
 
+      let userPaused=false, onScreen=false;
+      const pauseButton=demo.querySelector<HTMLButtonElement>('[data-motion-pause]');
+      const replayButton=demo.querySelector<HTMLButtonElement>('[data-motion-replay]');
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // prefers-reduced-motion : tout révélé d'emblée, état final, AUCUNE boucle.
       if (reduced) {
+        if(pauseButton)pauseButton.hidden=true; if(replayButton)replayButton.hidden=true;
         lines.forEach((l) => l.classList.add('is-visible'));
         if (hasProgress) {
           let finalLabel = '0%';
@@ -227,7 +233,7 @@ function statusLabel(status: TraceStep['status']) {
       }
 
       function play() {
-        if (running) return; // déjà en cours : pas de second cycle parallèle
+        if (userPaused || !onScreen || running) return; // déjà en cours : pas de second cycle parallèle
         running = true;
         demo.classList.add('is-playing');
         clearTimer();
@@ -246,12 +252,16 @@ function statusLabel(status: TraceStep['status']) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
+            onScreen=entry.isIntersecting;
             if (entry.isIntersecting) play();
             else pause();
           });
         },
         { threshold: 0 }
       );
+      pauseButton?.addEventListener('click',()=>{userPaused=!userPaused;pauseButton.textContent=userPaused?(document.documentElement.lang==='fr'?'Reprendre':'Resume'):'Pause';if(userPaused)pause();else play();});
+      replayButton?.addEventListener('click',()=>{userPaused=false;if(pauseButton)pauseButton.textContent='Pause';pause();play();});
+      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches){userPaused=true;pause();lines.forEach(l=>l.classList.add('is-visible'));}if(pauseButton)pauseButton.hidden=e.matches;if(replayButton)replayButton.hidden=e.matches;});
       observer.observe(demo);
     });
   }

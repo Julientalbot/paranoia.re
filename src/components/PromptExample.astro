@@ -1,9 +1,22 @@
 ---
-interface Props { lang?: 'fr' | 'en'; }
-const fr = Astro.props.lang !== 'en';
+interface Props {lang?:'fr'|'en';}
+const {lang='fr'}=Astro.props;const fr=lang==='fr';
+const tabs=fr?['Détecter','Masquer','Relire']:['Detect','Mask','Review'];
 ---
-<div class="use-split">
-  <article class="use-example"><h3>{fr?'Avant masquage':'Before masking'}</h3><p>{fr?'Résume cet échange avec Maya Hoarau (maya@exemple.invalid) au sujet du dossier K-47B.':'Summarize this exchange with Maya Hoarau (maya@example.invalid) about file K-47B.'}</p></article>
-  <article class="use-example"><h3>{fr?'Version à relire':'Version to review'}</h3><p>{fr?'Résume cet échange avec [Personne] ([Email]) au sujet du dossier [Identifiant].':'Summarize this exchange with [Person] ([Email]) about file [Identifier].'}</p></article>
+<div class="xai-prompt-demo" data-prompt-demo>
+ <div class="xai-demo-top"><span class="xai-demo-dots" aria-hidden="true">● ● ●</span><span>Paranoia</span><span class="xai-demo-state">{fr?'Exemple fictif':'Fictional example'}</span></div>
+ <div role="tablist" aria-label={fr?'Étapes du masquage':'Masking steps'} class="xai-prompt-tabs">{tabs.map((tab,i)=><button type="button" role="tab" id={`prompt-tab-${i}`} aria-controls={`prompt-panel-${i}`} aria-selected={i===0?'true':'false'} tabindex={i===0?0:-1} data-prompt-tab={i}>{tab}</button>)}</div>
+ <div class="xai-prompt-panels">
+  <div role="tabpanel" id="prompt-panel-0" aria-labelledby="prompt-tab-0" tabindex="0"><p>{fr?'Texte à inspecter':'Text to inspect'}</p><div class="xai-prompt-text">{fr?'Résume cet échange avec':'Summarize this exchange with'} <mark>Maya Hoarau</mark> (<mark>maya@exemple.invalid</mark>) {fr?'au sujet du dossier':'about file'} <mark>K-47B</mark>.</div><div class="xai-detections"><span>{fr?'Personne':'Person'}</span><span>Email</span><span>{fr?'Identifiant':'Identifier'}</span></div></div>
+  <div role="tabpanel" id="prompt-panel-1" aria-labelledby="prompt-tab-1" tabindex="0" hidden><p>{fr?'Version masquée':'Masked version'}</p><div class="xai-prompt-text">{fr?'Résume cet échange avec':'Summarize this exchange with'} <mark>[{fr?'Personne':'Person'}]</mark> (<mark>[Email]</mark>) {fr?'au sujet du dossier':'about file'} <mark>[{fr?'Identifiant':'Identifier'}]</mark>.</div><div class="xai-detections"><span>{fr?'Substitutions visibles':'Visible substitutions'}</span></div></div>
+  <div role="tabpanel" id="prompt-panel-2" aria-labelledby="prompt-tab-2" tabindex="0" hidden><p>{fr?'Votre contrôle avant l’envoi':'Your check before sending'}</p><div class="xai-prompt-text">{fr?'Résume cet échange avec [Personne] ([Email]) au sujet du dossier [Identifiant].':'Summarize this exchange with [Person] ([Email]) about file [Identifier].'}</div><ul class="xai-checks"><li>{fr?'Relire les substitutions':'Review the substitutions'}</li><li>{fr?'Chercher les informations restées identifiantes':'Look for information that still identifies someone'}</li><li>{fr?'Décider si le texte peut être transmis':'Decide whether the text can be shared'}</li></ul></div>
+ </div>
+ <div class="xai-demo-controls"><span>{fr?'Démonstration locale. Aucun texte envoyé.':'Local demonstration. No text is sent.'}</span></div>
 </div>
-<p class="use-label" style="margin-top:1rem">{fr?'Exemple illustratif, avec des données fictives. Ce masquage n’est pas une garantie de détection : un contexte ou une information peuvent rester identifiants.':'Illustrative example using fictional data. This is not a detection guarantee: context or other information can still identify someone.'}</p>
+<script>
+ document.querySelectorAll<HTMLElement>('[data-prompt-demo]').forEach(demo=>{
+  const tabs=[...demo.querySelectorAll<HTMLButtonElement>('[data-prompt-tab]')];const panels=[...demo.querySelectorAll<HTMLElement>('[role=tabpanel]')];
+  const select=(i:number,focus=false)=>{tabs.forEach((tab,j)=>{tab.setAttribute('aria-selected',String(i===j));tab.tabIndex=i===j?0:-1;panels[j].hidden=i!==j;});if(focus)tabs[i].focus();};
+  tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>select(i));tab.addEventListener('keydown',event=>{const next=event.key==='ArrowRight'?(i+1)%tabs.length:event.key==='ArrowLeft'?(i+tabs.length-1)%tabs.length:event.key==='Home'?0:event.key==='End'?tabs.length-1:null;if(next!==null){event.preventDefault();select(next,true);}});});
+ });
+</script>

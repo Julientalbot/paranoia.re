@@ -39,6 +39,8 @@ const messagesJson = JSON.stringify(messages);
       {msg.text}
     </div>
   ))}
+  {!decorative&&<div class="xai-demo-controls"><button type="button" data-motion-pause>Pause</button><button type="button" data-motion-replay>{Astro.url.pathname.startsWith('/en')?'Replay':'Rejouer'}</button></div>}
+
 </div>
 
 <script>
@@ -54,8 +56,12 @@ const messagesJson = JSON.stringify(messages);
 
       const bubbles = demo.querySelectorAll<HTMLElement>('[data-chat-bubble]');
 
+      let userPaused=false,onScreen=false;
+      const pauseButton=demo.querySelector<HTMLButtonElement>('[data-motion-pause]');
+      const replayButton=demo.querySelector<HTMLButtonElement>('[data-motion-replay]');
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduced) {
+        if(pauseButton)pauseButton.hidden=true;if(replayButton)replayButton.hidden=true;
         // Tout afficher d'emblée, aucune boucle.
         bubbles.forEach((b) => b.classList.add('is-visible'));
         return;
@@ -96,6 +102,7 @@ const messagesJson = JSON.stringify(messages);
       }
 
       function start() {
+        if(userPaused||!onScreen)return;
         clearTimer();
         hideAll();
         revealFrom(0);
@@ -109,12 +116,16 @@ const messagesJson = JSON.stringify(messages);
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
+            onScreen=entry.isIntersecting;
             if (entry.isIntersecting) start();
             else stop();
           });
         },
         { threshold: 0.15 }
       );
+      pauseButton?.addEventListener('click',()=>{userPaused=!userPaused;pauseButton.textContent=userPaused?(document.documentElement.lang==='fr'?'Reprendre':'Resume'):'Pause';if(userPaused)stop();else start();});
+      replayButton?.addEventListener('click',()=>{userPaused=false;if(pauseButton)pauseButton.textContent='Pause';start();});
+      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches){userPaused=true;stop();bubbles.forEach(b=>b.classList.add('is-visible'));}if(pauseButton)pauseButton.hidden=e.matches;if(replayButton)replayButton.hidden=e.matches;});
       observer.observe(demo);
     });
   }

@@ -172,7 +172,7 @@ const jsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline src="/js/theme-init.js"></script>
+    <script is:inline>(() => { let theme='system'; try { theme=localStorage.getItem('ecosystem-theme')||'system'; } catch {} if(!['light','dark'].includes(theme))theme='system'; document.documentElement.dataset.themePreference=theme; document.documentElement.dataset.theme=theme==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):theme; })();</script>
 
     <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={geistMonoLatin} as="font" type="font/woff2" crossorigin />
@@ -245,6 +245,6 @@ const jsonLd = {
     </div>
     <Analytics />
     <SpeedInsights />
-    <script is:inline src="/js/ecosystem-runtime.js" defer></script>
+    <script type="module" src="/js/ecosystem-runtime.mjs" defer></script>
   </body>
 </html>
