@@ -1086,7 +1086,7 @@
             "textAlign": "left"
           },
           "tag": "HEADER",
-          "text": "New agent\uea7a"
+          "text": "New agent"
         }
       ],
       "url": "https://x.ai/bot",
@@ -2299,5 +2299,35 @@
     "paddingLeft": "20px",
     "borderWidth": "0px"
   },
-  "scope": "Stable title, navigation and button metrics. Full raw DOM measurements and screenshots archived in .audit/xai-2026-09-20/."
+  "scope": "Stable title, navigation and button metrics. Full raw DOM measurements and screenshots archived in .audit/xai-2026-09-20/.",
+  "offerTray": {
+    "source": "https://x.ai/",
+    "captured": "2026-09-20",
+    "layout": "3 + 2, one column below 640px",
+    "widths": {
+      "390": {
+        "container": 358,
+        "top": 358,
+        "bottom": 358,
+        "height": 220
+      },
+      "768": {
+        "container": 736,
+        "top": 237.333333,
+        "bottom": 362,
+        "height": 280
+      },
+      "1440": {
+        "container": 1232,
+        "top": 402.666667,
+        "bottom": 610,
+        "height": 280
+      }
+    },
+    "gap": 12,
+    "radius": 16,
+    "hoverScale": 1.02,
+    "hoverDurationMs": 500,
+    "ctaDurationMs": 300
+  }
 }

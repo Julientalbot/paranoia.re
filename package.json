@@ -13,9 +13,10 @@
     "astro": "astro",
     "check:prod": "node scripts/check-production.mjs",
     "test:contact": "node --test scripts/contact.test.mjs",
-    "check": "npm run build && npm run test:contact && npm run verify:routes",
+    "check": "npm run build && npm run test:contact && npm run test:playback && npm run verify:routes",
     "verify:routes": "node scripts/verify-routes.mjs",
-    "verify:xai": "node scripts/verify-xai-current.mjs"
+    "verify:xai": "node scripts/verify-xai-current.mjs",
+    "test:playback": "node --test src/lib/playback.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

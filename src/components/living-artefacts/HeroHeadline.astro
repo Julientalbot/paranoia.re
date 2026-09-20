@@ -1,22 +1,107 @@
 ---
-interface Props { text: string; id?: string; class?: string; rotate?: string[]; underline?: string; }
-const { text, id, class: className = '', rotate, underline } = Astro.props;
-const words=rotate?.length?rotate:underline?[underline]:[];
-const heading=[text,words[0]].filter(Boolean).join(' ');
-const fr=!Astro.url.pathname.startsWith('/en');
+interface Props {
+  text: string;
+  id?: string;
+  class?: string;
+  rotate?: string[];
+  underline?: string;
+}
+const { text, id, class: className = "", rotate, underline } = Astro.props;
+const words = rotate?.length ? rotate : underline ? [underline] : [];
+const heading = [text, words[0]].filter(Boolean).join(" ");
+const fr = !Astro.url.pathname.startsWith("/en");
 ---
-<h1 id={id} class:list={['xo-title', className]} aria-label={heading}>{text}{words.length>0&&<> <span class="xai-rotator" data-hero-rotate data-words={JSON.stringify(words)} aria-hidden="true">{words[0]}</span></>}</h1>
-{words.length>1&&<button class="xai-motion-control" type="button" data-hero-pause aria-label={fr?'Mettre le titre en pause':'Pause heading animation'}>{fr?'Pause':'Pause'}</button>}
+
+<div class="headline-group" data-headline>
+  <h1 id={id} class:list={["xo-title", className]} aria-label={heading}>
+    {text}
+    {words.length > 0 && (
+      <span
+        class="headline-words"
+        data-hero-rotate
+        data-words={JSON.stringify(words)}
+        aria-hidden="true"
+      >
+        {words.map((word, index) => (
+          <span class:list={["headline-word", index === 0 && "is-current"]}>
+            {word}
+          </span>
+        ))}
+      </span>
+    )}
+  </h1>
+  {words.length > 1 && (
+    <button
+      class="motion-toggle headline-toggle"
+      type="button"
+      data-playback-toggle
+      data-hero-pause
+      aria-label={fr ? "Mettre le titre en pause" : "Pause heading animation"}
+    >
+      Ⅱ
+    </button>
+  )}
+</div>
 <script>
- document.querySelectorAll<HTMLElement>('[data-hero-rotate]').forEach(el=>{
-  if(el.dataset.bound)return;el.dataset.bound='true';
-  const words=JSON.parse(el.dataset.words||'[]');if(words.length<2)return;
-  const button=el.closest('h1')?.nextElementSibling as HTMLButtonElement;
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-  let index=0,timer:ReturnType<typeof setInterval>|undefined,visible=false,paused=false;
-  const update=()=>{clearInterval(timer);if(visible&&!paused&&!reduced.matches)timer=setInterval(()=>{index=(index+1)%words.length;el.textContent=words[index];el.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:250});},3000);button.hidden=reduced.matches;};
-  button?.addEventListener('click',()=>{paused=!paused;button.textContent=paused?(document.documentElement.lang==='fr'?'Reprendre':'Resume'):'Pause';button.setAttribute('aria-label',button.textContent+' — '+(document.documentElement.lang==='fr'?'titre':'heading'));update();});
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;update();}).observe(el);
-  reduced.addEventListener('change',()=>{if(reduced.matches)el.textContent=words[0];update();});
- });
+  import { createPlayback } from "../../lib/playback.mjs";
+  document.querySelectorAll<HTMLElement>("[data-headline]").forEach((root) => {
+    if (root.dataset.bound) return;
+    root.dataset.bound = "true";
+    const words = [...root.querySelectorAll<HTMLElement>(".headline-word")];
+    if (words.length < 2) return;
+    createPlayback(root, {
+      frames: words.length,
+      interval: 3000,
+      loop: true,
+      render(frame, reduced) {
+        words.forEach((word, index) =>
+          word.classList.toggle("is-current", index === (reduced ? 0 : frame)),
+        );
+      },
+    });
+  });
 </script>
+<style>
+  .headline-group {
+    position: relative;
+  }
+  .headline-words {
+    display: grid;
+    min-height: 1.1em;
+  }
+  .headline-word {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 250ms,
+      transform 250ms;
+    text-decoration: underline;
+    text-decoration-color: var(--xai-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+  }
+  .headline-word.is-current {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .headline-toggle {
+    position: absolute;
+    right: -44px;
+    bottom: 0;
+  }
+  @media (max-width: 900px) {
+    .headline-toggle {
+      right: 0;
+      bottom: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .headline-word {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>

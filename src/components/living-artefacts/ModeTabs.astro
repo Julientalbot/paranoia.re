@@ -10,38 +10,42 @@ interface Props {
   tabs: ModeTab[];
   artifactTitle?: string;
   uid?: string;
-  variant?: 'panel' | 'console';
+  variant?: "panel" | "console";
   class?: string;
-  lang?: 'en' | 'fr';
+  lang?: "en" | "fr";
 }
 
 const {
   tabs,
   artifactTitle,
   uid: uidProp,
-  variant = 'panel',
-  class: className = '',
+  variant = "panel",
+  class: className = "",
   lang: langProp,
 } = Astro.props;
 
-const lang = langProp ?? (Astro.url.pathname.startsWith('/en') ? 'en' : 'fr');
+const lang = langProp ?? (Astro.url.pathname.startsWith("/en") ? "en" : "fr");
 const tablistLabel = artifactTitle
-  ? `${artifactTitle} — ${lang === 'en' ? 'tabs' : 'onglets'}`
-  : lang === 'en' ? 'Tabs' : 'Onglets';
+  ? `${artifactTitle} — ${lang === "en" ? "tabs" : "onglets"}`
+  : lang === "en"
+    ? "Tabs"
+    : "Onglets";
 
 // Préfixe unique par instance pour lier onglet ↔ panneau (aria-controls / aria-labelledby).
-const uid = (uidProp ?? artifactTitle ?? tabs.map((t) => t.id).join('-'))
+const uid = (uidProp ?? artifactTitle ?? tabs.map((t) => t.id).join("-"))
   .toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-|-$/g, '');
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-|-$/g, "");
 
-const isConsole = variant === 'console';
+const isConsole = variant === "console";
 ---
 
 <div
   class:list={[
-    'mode-tabs',
-    isConsole ? 'xo-mode-tabs--console' : ['xo-artifact-panel', 'xo-mode-tabs--panel'],
+    "mode-tabs",
+    isConsole
+      ? "xo-mode-tabs--console"
+      : ["xo-artifact-panel", "xo-mode-tabs--panel"],
     className,
   ]}
   data-mode-tabs
@@ -58,8 +62,8 @@ const isConsole = variant === 'console';
           id={`tab-${uid}-${tab.id}`}
           aria-controls={`panel-${uid}-${tab.id}`}
           data-mode-tab={tab.id}
-          aria-selected={index === 0 ? 'true' : 'false'}
-          tabindex={index === 0 ? '0' : '-1'}
+          aria-selected={index === 0 ? "true" : "false"}
+          tabindex={index === 0 ? "0" : "-1"}
         >
           {tab.label}
         </button>
@@ -73,7 +77,9 @@ const isConsole = variant === 'console';
         id={`panel-${uid}-${tab.id}`}
         aria-labelledby={`tab-${uid}-${tab.id}`}
         data-mode-panel={tab.id}
-        hidden={index !== 0}
+        aria-hidden={index !== 0 ? "true" : "false"}
+        inert={index !== 0}
+        tabindex={index === 0 ? 0 : -1}
         role="tabpanel"
         set:html={tab.content}
       />
@@ -84,95 +90,54 @@ const isConsole = variant === 'console';
 
 <script>
   function getModeTabGroups(root: ParentNode): HTMLElement[] {
-    if (root instanceof HTMLElement && root.matches('[data-mode-tabs]')) {
+    if (root instanceof HTMLElement && root.matches("[data-mode-tabs]")) {
       return [root];
     }
-    return Array.from(root.querySelectorAll<HTMLElement>('[data-mode-tabs]'));
+    return Array.from(root.querySelectorAll<HTMLElement>("[data-mode-tabs]"));
   }
 
   function initModeTabs(root: ParentNode = document) {
     getModeTabGroups(root).forEach((group) => {
-      if (group.dataset.modeTabsInit === '1') return;
-      group.dataset.modeTabsInit = '1';
+      if (group.dataset.modeTabsInit === "1") return;
+      group.dataset.modeTabsInit = "1";
 
-      const pills = group.querySelectorAll<HTMLButtonElement>('[data-mode-tab]');
-      const panels = group.querySelectorAll<HTMLElement>('[data-mode-panel]');
+      const pills =
+        group.querySelectorAll<HTMLButtonElement>("[data-mode-tab]");
+      const panels = group.querySelectorAll<HTMLElement>("[data-mode-panel]");
 
       const activate = (id: string) => {
         pills.forEach((pill) => {
           const active = pill.dataset.modeTab === id;
-          pill.setAttribute('aria-selected', active ? 'true' : 'false');
+          pill.setAttribute("aria-selected", active ? "true" : "false");
           pill.tabIndex = active ? 0 : -1;
         });
         panels.forEach((panel) => {
           const active = panel.dataset.modePanel === id;
-          if (active) {
-            panel.removeAttribute('hidden');
-          } else {
-            panel.setAttribute('hidden', '');
-          }
+          panel.setAttribute("aria-hidden", String(!active));
+          panel.inert = !active;
+          panel.tabIndex = active ? 0 : -1;
         });
       };
 
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const ids = Array.from(pills).map((p) => p.dataset.modeTab).filter(Boolean) as string[];
-      let cycle: ReturnType<typeof setInterval> | null = null;
-      let userTookOver = false;
-
-      const advance = () => {
-        const current = Array.from(pills).findIndex(
-          (p) => p.getAttribute('aria-selected') === 'true',
-        );
-        const next = ids[(current + 1) % ids.length];
-        if (next) activate(next);
-      };
-      const startCycle = () => {
-        if (cycle || userTookOver || reduced || ids.length < 2) return;
-        cycle = setInterval(advance, 3800);
-      };
-      const stopCycle = () => {
-        if (cycle) {
-          clearInterval(cycle);
-          cycle = null;
-        }
-      };
-
-      group.addEventListener('mouseenter', stopCycle);
-      group.addEventListener('focusin', stopCycle);
-      group.addEventListener('mouseleave', startCycle);
-
-      pills.forEach((pill) => {
-        pill.addEventListener('click', () => {
-          userTookOver = true;
-          stopCycle();
-          const id = pill.dataset.modeTab;
-          if (id) activate(id);
-        });
-      });
-
-      if (!reduced && ids.length >= 2) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              startCycle();
-            } else {
-              stopCycle();
-            }
-          });
-        }, { threshold: 0.2 });
-        io.observe(group);
-      }
+      pills.forEach((pill) =>
+        pill.addEventListener("click", () => {
+          if (pill.dataset.modeTab) activate(pill.dataset.modeTab);
+        }),
+      );
 
       const bar = group.querySelector<HTMLElement>('[role="tablist"]');
       if (bar) {
-        bar.addEventListener('keydown', (event) => {
+        bar.addEventListener("keydown", (event) => {
           const target = event.target as HTMLButtonElement;
-          if (!target.matches('[data-mode-tab]')) return;
+          if (!target.matches("[data-mode-tab]")) return;
           const list = Array.from(pills);
           const idx = list.indexOf(target);
           let next: number | null = null;
-          if (event.key === 'ArrowRight') next = (idx + 1) % list.length;
-          if (event.key === 'ArrowLeft') next = (idx - 1 + list.length) % list.length;
+          if (event.key === "ArrowRight") next = (idx + 1) % list.length;
+          if (event.key === "ArrowLeft")
+            next = (idx - 1 + list.length) % list.length;
+          if (event.key === "Home") next = 0;
+          if (event.key === "End") next = list.length - 1;
           if (next !== null) {
             event.preventDefault();
             const n = list[next];
@@ -189,6 +154,68 @@ const isConsole = variant === 'console';
     initModeTabs(document);
   }
 
-  document.addEventListener('DOMContentLoaded', boot);
-  document.addEventListener('astro:after-swap', boot);
+  boot();
+  document.addEventListener("astro:after-swap", boot);
 </script>
+
+<style>
+  .mode-tabs {
+    border: 1px solid var(--use-line);
+    border-radius: 16px;
+    background: var(--use-surface);
+    color: var(--use-ink);
+    overflow: hidden;
+  }
+  .mode-tabs-header {
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--use-line);
+  }
+  .mode-tabs-title {
+    font: 12px/18px var(--eco-font-mono);
+    color: var(--use-muted);
+  }
+  .mode-tabs-bar {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .mode-tab-pill {
+    font: 14px/20px var(--eco-font-sans);
+    color: var(--use-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+  .mode-tab-pill[aria-selected="true"] {
+    background: var(--use-bg);
+    color: var(--use-ink);
+  }
+  .mode-tabs-content {
+    display: grid;
+    padding: 24px;
+  }
+  .mode-tab-panel {
+    grid-area: 1/1;
+    min-width: 0;
+    font: 16px/1.6 var(--eco-font-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .mode-tab-panel[aria-hidden="true"] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  @media (max-width: 639px) {
+    .mode-tabs-content {
+      padding: 20px;
+    }
+  }
+</style>

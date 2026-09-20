@@ -1,0 +1,386 @@
+---
+interface Props {
+  kind:
+    | "observation"
+    | "comparison"
+    | "exercise"
+    | "email"
+    | "briefing"
+    | "tracker";
+  lang?: "fr" | "en";
+}
+const { kind, lang = "fr" } = Astro.props;
+const fr = lang === "fr";
+const examples = {
+  observation: {
+    title: fr ? "Note d’observation" : "Observation note",
+    source: fr
+      ? "Une commande arrive par email. L’équipe la saisit dans le suivi, puis dans l’outil de facturation."
+      : "An order arrives by email. The team enters it in the tracker, then in the invoicing tool.",
+    rows: fr
+      ? [
+          ["Situation", "La référence et les quantités sont recopiées."],
+          ["Contrainte", "Les deux outils utilisent des champs différents."],
+          [
+            "Piste à éprouver",
+            "Préparer un transfert et conserver le contrôle des quantités.",
+          ],
+        ]
+      : [
+          ["Situation", "The reference and quantities are entered twice."],
+          ["Constraint", "The two tools use different fields."],
+          ["Change to test", "Prepare a transfer and keep the quantity check."],
+        ],
+    decision: fr
+      ? "À discuter avec l’équipe : la ressaisie évite-t-elle aussi une erreur ?"
+      : "Discuss with the team: does entering it again also prevent an error?",
+  },
+  comparison: {
+    title: fr
+      ? "Une synthèse, confrontée à sa source"
+      : "A summary checked against its source",
+    source: fr
+      ? "Message source : « Le fournisseur vise vendredi. Il doit encore confirmer la disponibilité. »"
+      : "Source message: “The supplier is aiming for Friday. Availability still needs to be confirmed.”",
+    rows: fr
+      ? [
+          ["Synthèse proposée", "La livraison est confirmée pour vendredi."],
+          ["Écart repéré", "Une date visée est devenue une confirmation."],
+          [
+            "Version corrigée",
+            "Livraison envisagée vendredi, sous réserve de confirmation.",
+          ],
+        ]
+      : [
+          ["Proposed summary", "Delivery is confirmed for Friday."],
+          ["Discrepancy", "A target date has become a confirmation."],
+          [
+            "Corrected version",
+            "Delivery is planned for Friday, subject to confirmation.",
+          ],
+        ],
+    decision: fr
+      ? "Critère d’essai : la synthèse conserve-t-elle les incertitudes de la source ?"
+      : "Trial criterion: does the summary preserve uncertainty from the source?",
+  },
+  exercise: {
+    title: fr ? "Exercice de vérification" : "Verification exercise",
+    source: fr
+      ? "Réponse à examiner : « Le dossier est complet, vous pouvez l’envoyer. »"
+      : "Response to check: “The file is complete. You can send it.”",
+    rows: fr
+      ? [
+          [
+            "Pièces disponibles",
+            "Le formulaire et le justificatif sont présents.",
+          ],
+          ["Information manquante", "La signature n’a pas été vérifiée."],
+          [
+            "Réponse attendue",
+            "Vérifier la signature avant de conclure et d’envoyer.",
+          ],
+        ]
+      : [
+          [
+            "Available documents",
+            "The form and supporting document are present.",
+          ],
+          ["Missing information", "The signature has not been checked."],
+          [
+            "Expected response",
+            "Check the signature before concluding and sending.",
+          ],
+        ],
+    decision: fr
+      ? "À pratiquer : distinguer ce qui est vérifié, supposé et encore inconnu."
+      : "Practice separating what is verified, assumed and still unknown.",
+  },
+  email: {
+    title: fr ? "Relance fournisseur" : "Supplier follow-up",
+    source: fr
+      ? "Demande : préparer une relance à Maya pour confirmer la livraison prévue jeudi."
+      : "Request: prepare a follow-up to Maya to confirm the delivery planned for Thursday.",
+    rows: fr
+      ? [
+          ["Objet", "Confirmation de livraison — dossier K-47B"],
+          [
+            "Brouillon",
+            "Bonjour Maya, pouvez-vous confirmer la livraison prévue jeudi pour le dossier K-47B ? Si cette date a changé, merci de nous indiquer le nouveau créneau. Bonne journée.",
+          ],
+        ]
+      : [
+          ["Subject", "Delivery confirmation — file K-47B"],
+          [
+            "Draft",
+            "Hi Maya, can you confirm the delivery planned for Thursday for file K-47B? If the date has changed, please let us know the new delivery window. Thank you.",
+          ],
+        ],
+    decision: fr
+      ? "À valider : destinataire, dossier et date. Aucun message envoyé."
+      : "Check the recipient, file and date. No message has been sent.",
+  },
+  briefing: {
+    title: fr ? "Note de rendez-vous" : "Meeting brief",
+    source: fr
+      ? "Demande : préparer le prochain échange sur le dossier K-47B à partir des documents autorisés."
+      : "Request: prepare the next meeting about file K-47B from authorized documents.",
+    rows: fr
+      ? [
+          ["Décision précédente", "Attendre la confirmation du fournisseur."],
+          ["Point ouvert", "Le créneau de livraison reste à confirmer."],
+          [
+            "Question à poser",
+            "Quel délai pouvons-nous annoncer à notre client ?",
+          ],
+        ]
+      : [
+          ["Previous decision", "Wait for the supplier’s confirmation."],
+          ["Open point", "The delivery window still needs confirmation."],
+          ["Question to ask", "What delivery time can we give our customer?"],
+        ],
+    decision: fr
+      ? "À relire : vérifier les sources et ajouter les informations reçues depuis."
+      : "Review the sources and add any information received since.",
+  },
+  tracker: {
+    title: fr ? "Point de suivi" : "Progress summary",
+    source: fr
+      ? "Demande : faire apparaître les prochaines actions dans les dossiers autorisés."
+      : "Request: show the next actions for the authorized files.",
+    rows: fr
+      ? [
+          ["K-47B · En attente", "Livraison à confirmer → relire la relance."],
+          [
+            "M-12 · À vérifier",
+            "Signature non contrôlée → examiner le document.",
+          ],
+          [
+            "R-08 · Information manquante",
+            "Aucune échéance documentée → demander la date.",
+          ],
+        ]
+      : [
+          ["K-47B · Waiting", "Delivery unconfirmed → review the follow-up."],
+          ["M-12 · To check", "Signature unchecked → inspect the document."],
+          [
+            "R-08 · Missing information",
+            "No documented deadline → ask for the date.",
+          ],
+        ],
+    decision: fr
+      ? "Vous confirmez les priorités. Aucune échéance n’est inventée."
+      : "You confirm the priorities. No deadline is invented.",
+  },
+};
+const example = examples[kind];
+---
+
+<div
+  class:list={["evidence-demo", `evidence-demo--${kind}`]}
+  data-evidence-demo
+>
+  <div class="evidence-demo__bar">
+    <span class="evidence-demo__dots" aria-hidden="true">
+      ● ● ●
+    </span>
+    <span>{example.title}</span>
+  </div>
+  <div class="evidence-demo__source" data-evidence-step>
+    <span>{fr ? "Situation" : "Situation"}</span>
+    <p>{example.source}</p>
+  </div>
+  {kind === "tracker" ? (
+    <div class="evidence-demo__output" data-evidence-step>
+      <table class="evidence-tracker">
+        <caption class="sr-only">
+          {fr ? "Dossiers fictifs à vérifier" : "Fictional files to review"}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">{fr ? "Dossier / état" : "File / status"}</th>
+            <th scope="col">{fr ? "Prochaine action" : "Next action"}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {example.rows.map(([label, value]) => (
+            <tr>
+              <th scope="row">{label}</th>
+              <td>{value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <>
+      <dl class="evidence-demo__output" data-evidence-step>
+        {example.rows.map(([label, value]) => (
+          <div>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </>
+  )}
+  <div class="evidence-demo__decision" data-evidence-step>
+    <span aria-hidden="true">↳</span>
+    <p>{example.decision}</p>
+  </div>
+  <div class="evidence-demo__controls">
+    <span>{fr ? "Exemple fictif" : "Fictional example"}</span>
+    <button
+      class="motion-toggle"
+      type="button"
+      data-playback-toggle
+      aria-label={fr ? "Mettre l’animation en pause" : "Pause animation"}
+    >
+      Ⅱ
+    </button>
+    <button type="button" data-playback-replay>
+      {fr ? "Rejouer" : "Replay"}
+    </button>
+  </div>
+</div>
+<script>
+  import { createPlayback } from "../../lib/playback.mjs";
+  document
+    .querySelectorAll<HTMLElement>("[data-evidence-demo]")
+    .forEach((root) => {
+      if (root.dataset.bound) return;
+      root.dataset.bound = "true";
+      const steps = [
+        ...root.querySelectorAll<HTMLElement>("[data-evidence-step]"),
+      ];
+      createPlayback(root, {
+        frames: steps.length,
+        interval: 1600,
+        render(frame, reduced) {
+          steps.forEach((step, index) =>
+            step.classList.toggle("is-current", !reduced && index === frame),
+          );
+        },
+      });
+    });
+</script>
+<style>
+  .evidence-demo {
+    background: var(--use-surface);
+    border: 1px solid var(--use-line);
+    border-radius: 16px;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .evidence-demo__bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 16px 24px;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--use-muted);
+    border-bottom: 1px solid var(--use-line);
+  }
+  .evidence-demo__dots {
+    font-size: 7px;
+    letter-spacing: 2px;
+  }
+  .evidence-demo__source,
+  .evidence-demo__output,
+  .evidence-demo__decision {
+    padding: 24px;
+    margin: 0;
+    transition: background-color 350ms;
+  }
+  .evidence-demo__source > span {
+    display: block;
+    font-size: 12px;
+    color: var(--use-muted);
+    margin-bottom: 8px;
+  }
+  .evidence-demo p {
+    margin: 0;
+  }
+  .evidence-demo__output {
+    background: var(--use-bg);
+    border-block: 1px solid var(--use-line);
+  }
+  .evidence-demo__output > div + div {
+    margin-top: 20px;
+  }
+  .evidence-tracker {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  .evidence-tracker th,
+  .evidence-tracker td {
+    text-align: left;
+    vertical-align: top;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--use-line);
+    overflow-wrap: anywhere;
+  }
+  .evidence-tracker th {
+    width: 40%;
+    font-weight: 500;
+    padding-right: 16px;
+  }
+  .evidence-tracker thead th {
+    color: var(--use-muted);
+    font-size: 12px;
+  }
+  .evidence-tracker tr:last-child > * {
+    border-bottom: 0;
+  }
+  .evidence-demo dt {
+    color: var(--use-muted);
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 6px;
+  }
+  .evidence-demo dd {
+    margin: 0;
+  }
+  .evidence-demo__decision {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+  }
+  .evidence-demo .is-current {
+    background-color: var(--xai-secondary);
+  }
+  .evidence-demo__controls {
+    padding: 8px 16px 8px 24px;
+    border-top: 1px solid var(--use-line);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--use-muted);
+  }
+  .evidence-demo__controls > span {
+    margin-right: auto;
+  }
+  .evidence-demo__controls > button:not(.motion-toggle) {
+    min-height: 44px;
+    color: inherit;
+    background: none;
+    border: 0;
+    font: inherit;
+    cursor: pointer;
+  }
+  @media (max-width: 639px) {
+    .evidence-demo__source,
+    .evidence-demo__output,
+    .evidence-demo__decision {
+      padding: 20px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .evidence-demo [data-evidence-step] {
+      transition: none;
+    }
+  }
+</style>

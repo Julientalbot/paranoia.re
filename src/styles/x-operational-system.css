@@ -1065,7 +1065,6 @@ a.xo-mode-surface:focus-visible::before {
 /* Vitrine sticky (B) : même hauteur totale diagnostic = IA = formation chat.
    Spécificité > style scopé AgentTraceDemo (.xo-trace-demo[data-astro-cid]). */
 .tv-show__sticky .tv-show__frame--terminal > .xo-trace-demo.xo-trace-demo--tile,
-.tv-show__sticky .tv-show__frame--console > .xo-mode-tabs.xo-mode-tabs--console,
 .tv-show__sticky .tv-show__frame--code > .xo-code-artifact.xo-code-artifact--xai,
 .tv-show__sticky .tv-show__frame--chat > .xo-chat-demo,
 .tv-show__sticky .tv-show__frame--scenes > .xo-imagine-mosaic.xo-imagine-mosaic--tile {
@@ -5516,204 +5515,10 @@ html.nav-open { overflow: hidden; }
 }
 
 /* 6b. ModeTabs — panel (pricing /pricing) + console (#151515 dossier mono, clone trace). */
-[data-mode-tabs].mode-tabs {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-.xo-mode-tabs--panel .mode-tabs-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 0.9rem;
-  border-bottom: 1px solid var(--xo-border, rgba(255, 255, 255, 0.06));
-}
-
-.xo-mode-tabs--panel .mode-tabs-title {
-  margin-right: auto;
-  font-family: var(--eco-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--xo-text-soft, rgba(255, 255, 255, 0.5));
-}
-
-.xo-mode-tabs--panel .mode-tabs-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.xo-mode-tabs--panel .mode-tab-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  min-height: 2.75rem;
-  border: 0;
-  border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  font-family: var(--eco-font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  transition: background var(--xo-motion-fast), color var(--xo-motion-fast);
-}
-
-.xo-mode-tabs--panel .mode-tab-pill:hover {
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.xo-mode-tabs--panel .mode-tab-pill[aria-selected='true'] {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.xo-mode-tabs--panel .mode-tabs-content {
-  flex: 1;
-  min-height: 0;
-  padding: 1rem;
-}
-
-.xo-mode-tabs--panel .mode-tab-panel {
-  font-family: var(--eco-font-mono);
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--xo-text-soft, rgba(255, 255, 255, 0.7));
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.xo-mode-tabs--panel .mode-tab-panel[hidden] {
-  display: none;
-}
 
 /* Console : terminal #151515 — titre path + pills header, corps mono 12px, flou bas. */
-.xo-mode-tabs--console {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  background: #151515;
-  color: #d7d1c9;
-  box-shadow: none;
-}
-
-.xo-mode-tabs--console .mode-tabs-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.xo-mode-tabs--console .mode-tabs-title {
-  margin-right: auto;
-  font-family: var(--eco-font-mono);
-  font-size: 12px;
-  letter-spacing: normal;
-  text-transform: none;
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.xo-mode-tabs--console .mode-tabs-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.xo-mode-tabs--console .mode-tab-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.75rem;
-  border: 0;
-  border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  font-family: var(--eco-font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.5;
-  transition: background var(--xo-motion-fast), color var(--xo-motion-fast);
-}
-
-.xo-mode-tabs--console .mode-tab-pill:hover {
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.xo-mode-tabs--console .mode-tab-pill[aria-selected='true'] {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.xo-mode-tabs--console .mode-tabs-content {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  padding: 0.15rem 1rem 0.35rem;
-}
-
-.xo-mode-tabs--console .mode-tab-panel {
-  font-family: var(--eco-font-mono);
-  font-size: 12px;
-  line-height: 1.5;
-  color: #d7d1c9;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.xo-mode-tabs--console .mode-tab-panel[hidden] {
-  display: none;
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--console {
-  background: #151515;
-  color: #d7d1c9;
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--console .mode-tabs-header {
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tabs-header {
-  border-bottom-color: rgba(10, 10, 10, 0.06);
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tab-pill {
-  color: rgba(10, 10, 10, 0.5);
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tab-pill:hover {
-  color: rgba(10, 10, 10, 0.85);
-  background: rgba(10, 10, 10, 0.04);
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tab-pill[aria-selected='true'] {
-  background: rgba(10, 10, 10, 0.06);
-  color: rgba(10, 10, 10, 0.85);
-}
-
-:root:not([data-theme="dark"]) .xo-mode-tabs--panel .mode-tabs-title {
-  color: rgba(10, 10, 10, 0.5);
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .mode-tab-pill {
-    transition: none !important;
-  }
 }
 
 /* 7. Metric strip — grands chiffres, labels discrets (x.ai/api developer). */
@@ -5827,7 +5632,7 @@ a.xo-metric:focus-visible strong {
 }
 
 /* ── Plateau hero : VRAIE grille 2×2, 4 tuiles de TAILLE ÉGALE — GLOBAL (cartes
-   rendues par ArtefactCard, un <style> de page scopé ne les atteindrait pas).
+   rendues par ArtefactCard, un \3c style> de page scopé ne les atteindrait pas).
    Chaque démo remplit sa tuile et la déborde est clippée — aucune ne dicte la hauteur.
    Accompagnement | Agents / Conférences | Écrits. ── */
 .xo-hero-tray--anatomy {

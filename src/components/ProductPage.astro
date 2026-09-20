@@ -1,20 +1,234 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PromptExample from './PromptExample.astro';
-import FormContact from './FormContact.astro';
-import HeroHeadline from './living-artefacts/HeroHeadline.astro';
-import CapabilityGrid from './living-artefacts/CapabilityGrid.astro';
-interface Props {lang:'fr'|'en';}
-const {lang}=Astro.props;const fr=lang==='fr';
-const limits=fr?[{title:'Des détections à vérifier',desc:'Une donnée peut être manquée. Un passage utile peut être masqué.'},{title:'Un contexte qui compte',desc:'Même sans nom, une situation peut rester identifiable.'},{title:'Des usages à cadrer',desc:'La version, les pages compatibles et les flux sont vérifiés avant activation.'}]:[{title:'Detections to check',desc:'Data can be missed. Useful text can be masked.'},{title:'Context still matters',desc:'Even without a name, a situation may remain identifiable.'},{title:'A scope to agree',desc:'Version, supported pages and data flows are checked before activation.'}];
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PromptExample from "./PromptExample.astro";
+import FormContact from "./FormContact.astro";
+import HeroHeadline from "./living-artefacts/HeroHeadline.astro";
+import CapabilityGrid from "./living-artefacts/CapabilityGrid.astro";
+interface Props {
+  lang: "fr" | "en";
+}
+const { lang } = Astro.props;
+const fr = lang === "fr";
+const limits = fr
+  ? [
+      {
+        title: "Des détections à vérifier",
+        desc: "Une donnée peut être manquée. Un passage utile peut être masqué.",
+      },
+      {
+        title: "Un contexte qui compte",
+        desc: "Même sans nom, une situation peut rester identifiable.",
+      },
+      {
+        title: "Des usages à cadrer",
+        desc: "La version, les pages compatibles et les flux sont vérifiés avant activation.",
+      },
+    ]
+  : [
+      {
+        title: "Detections to check",
+        desc: "Data can be missed. Useful text can be masked.",
+      },
+      {
+        title: "Context still matters",
+        desc: "Even without a name, a situation may remain identifiable.",
+      },
+      {
+        title: "A scope to agree",
+        desc: "Version, supported pages and data flows are checked before activation.",
+      },
+    ];
 ---
-<BaseLayout lang={lang} title={fr?'Paranoia — repérez, masquez, relisez':'Paranoia — detect, mask, review'} description={fr?'Repérez et masquez des données sensibles avant l’envoi à une IA. Explorez un exemple, les limites et le pilote accompagné de Paranoia.':'Identify and mask sensitive data before sending to AI. Explore an example, limitations and Paranoia’s guided pilot.'}>
-<main id="main" class="xai-page useful">
- <div class="xai-shell"><section class="xai-hero"><p class="xai-eyebrow">Paranoia · {fr?'Pilote accompagné':'Guided pilot'}</p><HeroHeadline text={fr?'Repérez. Masquez. Relisez.':'Detect. Mask. Review.'}/><p class="xai-lead">{fr?'Voyez les données sensibles avant qu’elles partent vers une IA. Gardez la décision d’envoyer.':'See sensitive data before it leaves for AI. Keep the decision to send.'}</p><div class="xai-actions"><a class="xo-button xo-button--primary" href={fr?'/pilote#contact':'#contact'}>{fr?'Demander un pilote':'Request a pilot'} <span aria-hidden="true">›</span></a><a class="xo-button" href="#concrete">{fr?'Voir la démonstration':'See the demonstration'}</a></div></section></div>
- <section class="xai-section" id="concrete"><div class="xai-shell xai-split"><div><h2>{fr?'Un texte. Trois contrôles.':'One text. Three checks.'}</h2><p>{fr?'Inspectez les détections, regardez les substitutions et relisez la version obtenue.':'Inspect detections, examine substitutions and review the result.'}</p><ul class="xai-checks"><li>{fr?'Détecter les éléments sensibles':'Detect sensitive elements'}</li><li>{fr?'Masquer ce qui doit l’être':'Mask what needs masking'}</li><li>{fr?'Relire avant de transmettre':'Review before sharing'}</li></ul><p class="xai-muted">{fr?'Exemple illustratif avec des données fictives. Il ne mesure pas la précision du produit.':'Illustrative example using fictional data. It does not measure product accuracy.'}</p></div><PromptExample lang={lang}/></div></section>
- <section class="xai-section"><div class="xai-shell xai-split"><div><p class="xai-eyebrow">{fr?'Fonctionnement':'How it works'}</p><h2>{fr?'Un contrôle avant l’envoi.':'A check before sending.'}</h2><p>{fr?'L’implémentation actuelle est une extension Chrome qui analyse le texte localement, dans les champs de saisie. Elle associe des règles de détection à un modèle local.':'The current implementation is a Chrome extension that analyzes text locally in input fields. It combines detection rules with a local model.'}</p><p class="xai-muted">{fr?'Le pilote porte sur une version et un usage convenus ensemble. Aucune compatibilité n’est présumée avant vérification.':'The pilot covers a version and use case agreed together. Compatibility is checked before activation.'}</p></div><div class="xai-product-flow"><div><span>01</span><h3>{fr?'Votre texte':'Your text'}</h3><p>{fr?'Dans un champ pris en charge par la version testée.':'In a field supported by the tested version.'}</p></div><div><span>02</span><h3>{fr?'Le contrôle local':'The local check'}</h3><p>{fr?'Détections et substitutions à inspecter.':'Detections and substitutions to inspect.'}</p></div><div><span>03</span><h3>{fr?'Votre décision':'Your decision'}</h3><p>{fr?'Une relecture complète avant toute transmission.':'A complete review before sharing.'}</p></div></div></div></section>
- <section class="xai-section"><div class="xai-shell"><CapabilityGrid heading={fr?'Gardez les limites en vue.':'Keep the limitations in view.'} items={limits}/><p class="xai-muted">{fr?'Paranoia ne remplace ni l’autorisation de transmettre les données, ni une politique interne, ni la relecture humaine. Le modèle local nécessite des ressources sur votre machine.':'Paranoia does not replace permission to share data, internal policies or human review. The local model requires resources on your device.'}</p><a class="xo-button" href="/securite">{fr?'Lire les contrôles et les limites':'Read controls and limitations (FR)'}</a></div></section>
- <section class="xai-section"><div class="xai-shell"><h2>{fr?'Commencez sur un usage précis.':'Start with a specific use case.'}</h2><ol class="xai-steps"><li><span class="xai-step-number">01</span><h3>{fr?'Décrivez le besoin':'Describe the need'}</h3><p>{fr?'Un usage et un exemple fictif suffisent pour commencer.':'A use case and a fictional example are enough to start.'}</p></li><li><span class="xai-step-number">02</span><h3>{fr?'Vérifiez le périmètre':'Check the scope'}</h3><p>{fr?'Version, installation, flux et éventuels coûts sont convenus avant activation.':'Version, installation, data flows and any costs are agreed before activation.'}</p></li><li><span class="xai-step-number">03</span><h3>{fr?'Testez accompagné':'Test with support'}</h3><p>{fr?'Examinez les détections, les erreurs et les limites sur votre usage.':'Examine detections, errors and limitations for your use case.'}</p></li></ol></div></section>
- <section class="xai-section" id="contact"><div class="xai-shell xai-split xai-contact"><div><h2>{fr?'Demandez un pilote.':'Request a pilot.'}</h2><p>{fr?'Décrivez le besoin sans transmettre de secrets ni de documents confidentiels.':'Describe the need without sending secrets or confidential documents.'}</p><p><a href="/confidentialite">{fr?'Traitement des données du site et du contact':'Website and contact privacy (FR)'}</a></p></div><FormContact lang={lang}/></div></section>
-</main>
+
+<BaseLayout
+  lang={lang}
+  title={
+    fr
+      ? "Paranoia — repérez, masquez, relisez"
+      : "Paranoia — detect, mask, review"
+  }
+  description={
+    fr
+      ? "Repérez et masquez des données sensibles avant l’envoi à une IA. Explorez un exemple, les limites et le pilote accompagné de Paranoia."
+      : "Identify and mask sensitive data before sending to AI. Explore an example, limitations and Paranoia’s guided pilot."
+  }
+>
+  <main id="main" class="xai-page useful">
+    <div class="xai-shell">
+      <section class="xai-hero">
+        <p class="xai-eyebrow">
+          Paranoia · {fr ? "Pilote accompagné" : "Guided pilot"}
+        </p>
+        <HeroHeadline
+          text={fr ? "Repérez. Masquez. Relisez." : "Detect. Mask. Review."}
+        />
+        <p class="xai-lead">
+          {fr
+            ? "Repérez les noms, adresses et références présents dans un texte. Examinez les substitutions avant de décider ce que vous transmettez à une IA."
+            : "Spot names, addresses and references in a text. Inspect the substitutions before deciding what to share with AI."}
+        </p>
+        <div class="xai-actions">
+          <a
+            class="xo-button xo-button--primary"
+            href={fr ? "/pilote#contact" : "#contact"}
+          >
+            {fr ? "Demander un pilote" : "Request a pilot"}{" "}
+            <span aria-hidden="true">›</span>
+          </a>
+          <a class="xo-button" href="#concrete">
+            {fr ? "Voir la démonstration" : "See the demonstration"}
+          </a>
+        </div>
+      </section>
+    </div>
+    <section class="xai-section" id="concrete">
+      <div class="xai-shell xai-split">
+        <div>
+          <h2>
+            {fr ? "Un texte. Trois contrôles." : "One text. Three checks."}
+          </h2>
+          <p>
+            {fr
+              ? "Passez du texte d’origine à la version masquée. Les éléments surlignés montrent exactement ce qui change ; la dernière étape rappelle ce qui reste à vérifier."
+              : "Compare the original text with the masked version. Highlights show exactly what changes; the last step identifies what still needs checking."}
+          </p>
+          <p class="xai-muted">
+            {fr
+              ? "Exemple illustratif avec des données fictives. Il ne mesure pas la précision du produit."
+              : "Illustrative example using fictional data. It does not measure product accuracy."}
+          </p>
+        </div>
+        <PromptExample lang={lang} />
+      </div>
+    </section>
+    <section class="xai-section">
+      <div class="xai-shell xai-split">
+        <div>
+          <p class="xai-eyebrow">{fr ? "Le pilote" : "The pilot"}</p>
+          <h2>
+            {fr
+              ? "Ce qui s’installe. Ce qui se vérifie."
+              : "What runs locally. What needs checking."}
+          </h2>
+          <p>
+            {fr
+              ? "Le code actuel décrit une extension Chrome qui analyse le texte localement dans les champs de saisie, avec des règles de détection et un modèle local."
+              : "The current code describes a Chrome extension that analyzes text locally in input fields, using detection rules and a local model."}
+          </p>
+          <p class="xai-muted">
+            {fr
+              ? "Le pilote porte sur une version et un usage convenus ensemble. Aucune compatibilité n’est présumée avant vérification."
+              : "The pilot covers a version and use case agreed together. Compatibility is checked before activation."}
+          </p>
+        </div>
+        <div class="xai-product-flow">
+          <div>
+            <span>01</span>
+            <h3>{fr ? "Version testée" : "Tested version"}</h3>
+            <p>
+              {fr
+                ? "Identifier la version de l’extension et ses prérequis."
+                : "Identify the extension version and its requirements."}
+            </p>
+          </div>
+          <div>
+            <span>02</span>
+            <h3>{fr ? "Pages et champs" : "Pages and fields"}</h3>
+            <p>
+              {fr
+                ? "Vérifier le comportement dans votre environnement."
+                : "Check behavior in your environment."}
+            </p>
+          </div>
+          <div>
+            <span>03</span>
+            <h3>{fr ? "Données et flux" : "Data and flows"}</h3>
+            <p>
+              {fr
+                ? "Documenter le stockage, la télémétrie et les limites de la version distribuée."
+                : "Document storage, telemetry and limitations for the distributed version."}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="xai-section">
+      <div class="xai-shell">
+        <CapabilityGrid
+          heading={
+            fr ? "Gardez les limites en vue." : "Keep the limitations in view."
+          }
+          items={limits}
+        />
+        <p class="xai-muted">
+          {fr
+            ? "Paranoia ne remplace ni l’autorisation de transmettre les données, ni une politique interne, ni la relecture humaine. Le modèle local nécessite des ressources sur votre machine."
+            : "Paranoia does not replace permission to share data, internal policies or human review. The local model requires resources on your device."}
+        </p>
+        <a class="xo-button" href="/securite">
+          {fr
+            ? "Lire les contrôles et les limites"
+            : "Read controls and limitations (FR)"}
+        </a>
+      </div>
+    </section>
+    <section class="xai-section">
+      <div class="xai-shell">
+        <h2>
+          {fr
+            ? "Commencez sur un usage précis."
+            : "Start with a specific use case."}
+        </h2>
+        <ol class="xai-steps">
+          <li>
+            <span class="xai-step-number">01</span>
+            <h3>{fr ? "Décrivez le besoin" : "Describe the need"}</h3>
+            <p>
+              {fr
+                ? "Un usage et un exemple fictif suffisent pour commencer."
+                : "A use case and a fictional example are enough to start."}
+            </p>
+          </li>
+          <li>
+            <span class="xai-step-number">02</span>
+            <h3>{fr ? "Vérifiez le périmètre" : "Check the scope"}</h3>
+            <p>
+              {fr
+                ? "Version, installation, flux et éventuels coûts sont convenus avant activation."
+                : "Version, installation, data flows and any costs are agreed before activation."}
+            </p>
+          </li>
+          <li>
+            <span class="xai-step-number">03</span>
+            <h3>{fr ? "Testez accompagné" : "Test with support"}</h3>
+            <p>
+              {fr
+                ? "Examinez les détections, les erreurs et les limites sur votre usage."
+                : "Examine detections, errors and limitations for your use case."}
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="xai-section" id="contact">
+      <div class="xai-shell xai-split xai-contact">
+        <div>
+          <h2>{fr ? "Demandez un pilote." : "Request a pilot."}</h2>
+          <p>
+            {fr
+              ? "Décrivez le besoin sans transmettre de secrets ni de documents confidentiels."
+              : "Describe the need without sending secrets or confidential documents."}
+          </p>
+          <p>
+            <a href="/confidentialite">
+              {fr
+                ? "Traitement des données du site et du contact"
+                : "Website and contact privacy (FR)"}
+            </a>
+          </p>
+        </div>
+        <FormContact lang={lang} />
+      </div>
+    </section>
+  </main>
 </BaseLayout>
