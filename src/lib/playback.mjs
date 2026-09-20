@@ -1,4 +1,4 @@
-/** One lifecycle for visible, user-controlled demonstrations. */
+/** One lifecycle for visible demonstrations. */
 export function canPlay({ visible, pageVisible, paused, reduced, complete }) {
   return visible && pageVisible && !paused && !reduced && !complete;
 }
@@ -13,8 +13,6 @@ export function createPlayback(
   let paused = false;
   let complete = false;
   let timer;
-  const controls = element.querySelectorAll("[data-playback-toggle]");
-  const fr = document.documentElement.lang === "fr";
 
   function update() {
     clearTimeout(timer);
@@ -35,24 +33,6 @@ export function createPlayback(
             ? "playing"
             : "suspended";
     element.dataset.motionFrame = String(frame);
-    controls.forEach((button) => {
-      button.hidden = reduced.matches;
-      button.setAttribute("aria-pressed", String(paused));
-      button.setAttribute(
-        "aria-label",
-        paused
-          ? fr
-            ? "Reprendre l’animation"
-            : "Resume animation"
-          : fr
-            ? "Mettre l’animation en pause"
-            : "Pause animation",
-      );
-      button.textContent = paused ? "▶" : "Ⅱ";
-    });
-    element.querySelectorAll("[data-playback-replay]").forEach((button) => {
-      button.hidden = reduced.matches;
-    });
     render(reduced.matches ? frames - 1 : frame, reduced.matches);
     if (playing)
       timer = setTimeout(() => {
@@ -73,13 +53,6 @@ export function createPlayback(
     paused = false;
     update();
   };
-  controls.forEach((button) =>
-    button.addEventListener("click", () => pause(!paused)),
-  );
-  element
-    .querySelectorAll("[data-playback-replay]")
-    .forEach((button) => button.addEventListener("click", replay));
-  element.addEventListener("playback:pause", (event) => pause(event.detail));
   const observer = new IntersectionObserver(
     (entries) => {
       visible = entries[0].isIntersecting;

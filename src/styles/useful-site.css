@@ -1308,22 +1308,3 @@ html {
   color: var(--use-ink);
   background: var(--xai-secondary)
 }
-
-.motion-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--use-line);
-  border-radius: 50%;
-  background: var(--use-bg);
-  color: var(--use-ink);
-  font: 14px var(--eco-font-body);
-  cursor: pointer
-}
-
-.motion-toggle:hover {
-  background: var(--xai-secondary)
-}

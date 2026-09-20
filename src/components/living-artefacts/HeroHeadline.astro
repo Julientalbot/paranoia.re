@@ -9,7 +9,6 @@ interface Props {
 const { text, id, class: className = "", rotate, underline } = Astro.props;
 const words = rotate?.length ? rotate : underline ? [underline] : [];
 const heading = [text, words[0]].filter(Boolean).join(" ");
-const fr = !Astro.url.pathname.startsWith("/en");
 ---
 
 <div class="headline-group" data-headline>
@@ -30,17 +29,6 @@ const fr = !Astro.url.pathname.startsWith("/en");
       </span>
     )}
   </h1>
-  {words.length > 1 && (
-    <button
-      class="motion-toggle headline-toggle"
-      type="button"
-      data-playback-toggle
-      data-hero-pause
-      aria-label={fr ? "Mettre le titre en pause" : "Pause heading animation"}
-    >
-      Ⅱ
-    </button>
-  )}
 </div>
 <script>
   import { createPlayback } from "../../lib/playback.mjs";
@@ -86,22 +74,5 @@ const fr = !Astro.url.pathname.startsWith("/en");
     visibility: visible;
     opacity: 1;
     transform: none;
-  }
-  .headline-toggle {
-    position: absolute;
-    right: -44px;
-    bottom: 0;
-  }
-  @media (max-width: 900px) {
-    .headline-toggle {
-      right: 0;
-      bottom: 0;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .headline-word {
-      transition: none;
-      transform: none;
-    }
   }
 </style>

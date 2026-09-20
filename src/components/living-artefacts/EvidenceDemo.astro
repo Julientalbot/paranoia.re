@@ -227,19 +227,8 @@ const example = examples[kind];
     <span aria-hidden="true">↳</span>
     <p>{example.decision}</p>
   </div>
-  <div class="evidence-demo__controls">
+  <div class="evidence-demo__caption">
     <span>{fr ? "Exemple fictif" : "Fictional example"}</span>
-    <button
-      class="motion-toggle"
-      type="button"
-      data-playback-toggle
-      aria-label={fr ? "Mettre l’animation en pause" : "Pause animation"}
-    >
-      Ⅱ
-    </button>
-    <button type="button" data-playback-replay>
-      {fr ? "Rejouer" : "Replay"}
-    </button>
   </div>
 </div>
 <script>
@@ -351,7 +340,7 @@ const example = examples[kind];
   .evidence-demo .is-current {
     background-color: var(--xai-secondary);
   }
-  .evidence-demo__controls {
+  .evidence-demo__caption {
     padding: 8px 16px 8px 24px;
     border-top: 1px solid var(--use-line);
     display: flex;
@@ -360,16 +349,8 @@ const example = examples[kind];
     font-size: 12px;
     color: var(--use-muted);
   }
-  .evidence-demo__controls > span {
+  .evidence-demo__caption > span {
     margin-right: auto;
-  }
-  .evidence-demo__controls > button:not(.motion-toggle) {
-    min-height: 44px;
-    color: inherit;
-    background: none;
-    border: 0;
-    font: inherit;
-    cursor: pointer;
   }
   @media (max-width: 639px) {
     .evidence-demo__source,
