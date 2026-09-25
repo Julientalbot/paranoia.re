@@ -34,26 +34,15 @@ if (script?.dataset.swCleanup !== undefined) {
 const isEnglish = () => (document.documentElement.lang || '').toLowerCase().startsWith('en');
 
 const ecosystemRuntime = (() => {
-  const themeKey = 'ecosystem-theme';
   const root = document.documentElement;
-
   const media = matchMedia('(prefers-color-scheme: dark)');
-  let preference = 'system';
-  try { preference = localStorage.getItem(themeKey) || 'system'; } catch {}
-  const currentTheme = () => root.dataset.theme || (media.matches ? 'dark' : 'light');
-  const syncThemeButtons = () => {
-    document.querySelectorAll('[data-theme-select]').forEach(select => { select.value = preference; });
+  const currentTheme = () => media.matches ? 'dark' : 'light';
+  const syncSystemTheme = () => {
+    root.dataset.themePreference = 'system';
+    root.dataset.theme = currentTheme();
   };
-  const setTheme = (theme, persist = true) => {
-    preference = ['light','dark'].includes(theme) ? theme : 'system';
-    root.dataset.themePreference = preference;
-    root.dataset.theme = preference === 'system' ? (media.matches ? 'dark' : 'light') : preference;
-    if(persist) try { localStorage.setItem(themeKey,preference); } catch {}
-    syncThemeButtons();
-  };
-  media.addEventListener('change', () => { if(preference === 'system') setTheme('system',false); });
-  document.addEventListener('change', event => { if(event.target.matches?.('[data-theme-select]')) setTheme(event.target.value); });
-  setTheme(preference,false);
+  media.addEventListener('change', syncSystemTheme);
+  syncSystemTheme();
 
   const setCodePanel = (artifact, id) => {
     applyCodeTabState(artifact, id);
@@ -106,15 +95,7 @@ const ecosystemRuntime = (() => {
     }
   });
 
-  syncThemeButtons();
-
-  document.querySelectorAll('.xo-theme-toggle').forEach((button) => {
-    button.addEventListener('click', () => {
-      setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
-    });
-  });
-
-  return { currentTheme, setTheme, setCodePanel, copyArtifact };
+  return { currentTheme, setCodePanel, copyArtifact };
 })();
 
 window.ecosystemRuntime = ecosystemRuntime;

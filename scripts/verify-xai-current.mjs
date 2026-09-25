@@ -33,9 +33,12 @@ page.off('response',resourceListener);if(resourceErrors.length)failures.push({la
 for(const img of await page.locator('main img').all()){if(await img.isVisible()){await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}}await page.evaluate(()=>scrollTo(0,0));
 await mkdir(resolve(root,'.audit/xai-current'),{recursive:true});await page.screenshot({path:resolve(root,`.audit/xai-current/${path.replaceAll('/','-')||'home'}-${width}.png`),fullPage:true});
 }
-// Manual override persists, then system changes remain live.
-await page.locator('[data-theme-select]').selectOption('dark');await page.reload();if(await page.locator('html').getAttribute('data-theme')!=='dark')failures.push({theme:'manual persistence'});
-await page.locator('[data-theme-select]').selectOption('system');await page.emulateMedia({colorScheme:'dark'});await page.waitForFunction(()=>document.documentElement.dataset.theme==='dark');if(await page.locator('html').getAttribute('data-theme')!=='dark')failures.push({theme:'system dark'});await page.emulateMedia({colorScheme:'light'});await page.waitForFunction(()=>document.documentElement.dataset.theme==='light');if(await page.locator('html').getAttribute('data-theme')!=='light')failures.push({theme:'system light'});
+// System changes remain live; a previously stored manual preference is ignored.
+if(await page.locator('[data-theme-select],.xo-theme-toggle').count())failures.push({theme:'unexpected theme control'});
+await page.evaluate(()=>localStorage.setItem('ecosystem-theme','dark'));
+await page.reload();if(await page.locator('html').getAttribute('data-theme')!=='light')failures.push({theme:'legacy preference overrides system'});
+await page.emulateMedia({colorScheme:'dark'});await page.waitForFunction(()=>document.documentElement.dataset.theme==='dark');
+await page.emulateMedia({colorScheme:'light'});await page.waitForFunction(()=>document.documentElement.dataset.theme==='light');
 await context.close();}
 }finally{await browser.close();await new Promise(r=>server.close(r));}
 await writeFile(resolve(root,'.audit/xai-current/results.json'),JSON.stringify({reference:reference.captured,records,failures},null,2));console.log(JSON.stringify({pages:records.length,failures},null,2));if(failures.length)process.exitCode=1;

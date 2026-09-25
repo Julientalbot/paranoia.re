@@ -448,16 +448,6 @@ summary:focus-visible {
   color: var(--use-muted)
 }
 
-.xai-theme-select select {
-  background: var(--use-surface);
-  color: var(--use-ink);
-  border: 1px solid var(--use-line);
-  border-radius: 999px;
-  min-height: 40px;
-  font: 12px var(--eco-font-body);
-  padding: 6px 8px;
-  max-width: 92px
-}
 
 .site-header .xo-brand {
   text-decoration: none
@@ -735,9 +725,6 @@ summary:focus-visible {
   justify-content: space-between
 }
 
-.xai-theme-select select {
-  max-width: 84px
-}
 }
 
 @media(prefers-reduced-motion:reduce) {
